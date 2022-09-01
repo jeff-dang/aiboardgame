@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 
+\usepackage[round]{natbib}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,
     linkcolor=blue,
@@ -30,6 +31,10 @@
 % Show an item is done by   \item[\done] Frame the problem
 % Show an item will not be fixed by   \item[\wontfix] profit
 
+This checklist is specific to the Smith et al template \citep{SmithAndLai2005,
+SmithEtAl2007} for documenting requirements for scientific software, but many of
+the points can be abstracted and applied to other templates.
+
 \begin{itemize}
 
 \item Follows writing checklist (full checklist provided in a separate document)
@@ -57,21 +62,21 @@
   \item No statement is repeated at the same level of abstraction (for instance
     the scope should be more abstract than the assumptions, the goal statements
     should be more abstract than the requirements, etc.)
-    \item Someone that meets the characteristics of the intended reader could
+  \item Someone that meets the characteristics of the intended reader could
     learn what they need to know
   \item Someone that meets the characteristics of the intended reader could
     verify all of the statement made in the SRS.  That is, they do not have to
     trust the SRS authors on any information.
-    \item Terminology, definitions, symbols, TMs and DDs can be given without
+  \item Terminology, definitions, symbols, TMs and DDs can be given without
       derivation, except possibly for a source (citation), but all GDs and IMs
       should be derived/justified.  At least check a representative sample for
       this criteria.
-    \item SRS is unambiguous.  At least check a representative sample.
-    \item SRS is consistent.  At least check a representative sample.
-    \item SRS is validatable.  At least check a representative sample.
-    \item SRS is abstract.  At least check a representative sample.
-    \item SRS is traceable.  At least check a representative sample.
-    \item Literal symbols (like numbers) do not appear, instead being
+  \item SRS is unambiguous.  At least check a representative sample.
+  \item SRS is consistent.  At least check a representative sample.
+  \item SRS is validatable.  At least check a representative sample.
+  \item SRS is abstract.  At least check a representative sample.
+  \item SRS is traceable.  At least check a representative sample.
+  \item Literal symbols (like numbers) do not appear, instead being
       represented by SYMBOLIC\_CONSTANTS (constants are given in a table in the
       Appendix)
 \end{todolist}
@@ -180,5 +185,8 @@
   \end{todolist}
 
 \end{itemize}
+
+\bibliographystyle {plainnat}
+\bibliography{../../refs/References}
 
 \end{document}

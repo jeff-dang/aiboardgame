@@ -35,25 +35,30 @@
 % Show an item is done by   \item[\done] Frame the problem
 % Show an item will not be fixed by   \item[\wontfix] profit
 
+The following checklist should be applied to the documents that you write.
+
 \begin{itemize}
   
 \item \LaTeX{} points
   \begin{todolist}
   \item Only tex file (and possibly pdf files, or image files) are under version
-    control (\texttt{aux} files etc. are not under version control)
+    control (\texttt{aux} files etc. are not under version control) (\texttt{.gitignore} can help with this)
     \item Opening and closing ``quotes'' are used (\verb|``quotes''|)
-  \item Periods that do not end sentences are followed by only one space:
-    \verb|``I like Dr.\ Smith.''|, or for no linebreaks: \verb|``I like Dr.~Smith.''|
-  \item Long names in math mode use either mathit or text, or equivalent: $coeff$
-    (\verb|$coeff$|) versus $\mathit{coeff}$ (\verb|$\mathit{coeff}$|) versus
-    $\text{coeff}$ (\verb|$\text{coeff}$|).
+  \item Periods that do not end sentences are followed by only one space
+    (\LaTeX{} inserts two by default): \verb|``I like Dr.\ Smith.''|, or for no
+    linebreaks: \verb|``I like Dr.~Smith.''|
+  \item Long names in math mode use either mathit or text, or equivalent:
+    $coeff$ (\verb|$coeff$|) versus $\mathit{coeff}$ (\verb|$\mathit{coeff}$|)
+    versus $\text{coeff}$ (\verb|$\text{coeff}$|).  (By default \LaTeX{}
+    incorrectly thinks each letter is a separate variable and spaces
+    accordingly.)
   \item The \texttt{Comments.tex} file is provided for ease of adding comments
   to a LaTeX file.
   \item Text lines should be 80 characters wide.  That is, the text has a hard-wrap at
     80 characters.  This is done to facilitate meaingful diffs between different
     commits.  (Some ideas on how to do this are given below.)
-  \item Template comments (plt) do not show in the pdf version, either by
-    removing them, or by turning them off.
+  \item Template comments (plt) should not be shown in the pdf version, either
+    by removing them, or by turning them off.
   \item References and labels are used so that maintenance is feasible
   \item Cross-references between documents are used as appropriate
   \item BibTeX is used for generating bibliographic references
@@ -74,8 +79,7 @@
   \item Parentheses (brackets) occur in pairs, one opening and one closing
   \item All sentences begin with a capital letter.
   \item Document is spell checked!
-  \item Grammar has been checked (review, ask someone else to review (at least a few
-    sections)).
+  \item Grammar has been checked (review, assign a team member an issue to review the grammar for each section).
   \item That and which are used correctly
     (\url{http://www.kentlaw.edu/academics/lrw/grinker/LwtaThat_Versus_Which.htm})
   \item Symbols used outside of a formula should be formatted the same way as
@@ -88,6 +92,8 @@
   \item All hyperlinks work
   \item Every figure has a caption
   \item Every table has a heading
+  \item Every figure is referred to by the text at some point
+  \item Every table is referred to be the text at some point
   \item All acronyms are expanded on their first usage, using capitals to
     show the source of each letter in the acronym.  Defining the acronym only in
     a table at the beginning of the document is not enough.
@@ -155,6 +161,9 @@ and current students:
   {Advice from Emily Horsman} on git commits
 \end{itemize}
 
-There are many other \href{https://gitlab.cas.mcmaster.ca/SEforSC/se4sc/-/wikis/Advice-and-Checklists-for-Repos-(source-of-recommended-artifacts)}{checklists} available for scientific computing (research) software.
+There are many other
+\href{https://gitlab.cas.mcmaster.ca/SEforSC/se4sc/-/wikis/Advice-and-Checklists-for-Repos-(including-a-list-of-recommended-artifacts)}{checklists}
+available for scientific computing (research) software.  Google can help find
+even more checklists.
 
 \end{document}
