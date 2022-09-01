@@ -1,4 +1,5 @@
 # Makefile
+# TODO: Missing artifacts should be added to this file
 .PHONY:	SRS
 
 all:	SRS MG MIS PS VnVP VnVR
