@@ -13,6 +13,9 @@ so that cross-referencing is possible between documents.>
 comments into the generated pdf.  Comments can be set to false so that they do
 not appear.>
 
+<None of the files are complete templates.  You will need to add extra
+information.  They are just intended to be a starting point.>
+
 # Documentation folders
 
 The folders and files for this folder are as follows:

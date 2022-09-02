@@ -78,6 +78,52 @@
 
 \usepackage{fullpage}
 
+\newcommand{\deftheory}[9][Not Applicable]
+{
+\newpage
+\noindent \rule{\textwidth}{0.5mm}
+
+\paragraph{RefName: } \textbf{#2} \phantomsection 
+\label{#2}
+
+\paragraph{Label:} #3
+
+\noindent \rule{\textwidth}{0.5mm}
+
+\paragraph{Equation:}
+
+#4
+
+\paragraph{Description:}
+
+#5
+
+\paragraph{Notes:}
+
+#6
+
+\paragraph{Source:}
+
+#7
+
+\paragraph{Ref.\ By:}
+
+#8
+
+\paragraph{Preconditions for \hyperref[#2]{#2}:}
+\label{#2_precond}
+
+#9
+
+\paragraph{Derivation for \hyperref[#2]{#2}:}
+\label{#2_deriv}
+
+#1
+
+\noindent \rule{\textwidth}{0.5mm}
+
+}
+
 \begin{document}
 
 \title{Software Requirements Specification for \progname: subtitle describing software} 
@@ -292,12 +338,12 @@ expect in the Introduction section.}
 \plt{This section summarizes the purpose of the SRS document.  It does not focus
   on the problem itself.  The problem is described in the ``Problem
   Description'' section (Section~\ref{Sec_pd}).  The purpose is for the document
-  in the context of the project itself, not in the context of the CAS 741
-  course.  Although the ``purpose'' of the document is to get a grade in 741,
-  you should not mention this.  Instead, ``fake it'' as if this is a real
-  project.  The purpose section will be similar between projects.  The purpose
-  of the document is the purpose of the SRS, including communication, planning
-  for the design stage, etc.}
+  in the context of the project itself, not in the context of this course.
+  Although the ``purpose'' of the document is to get a grade, you should not
+  mention this.  Instead, ``fake it'' as if this is a real project.  The purpose
+  section will be similar between projects.  The purpose of the document is the
+  purpose of the SRS, including communication, planning for the design stage,
+  etc.}
 
 \subsection{Scope of Requirements} 
 
@@ -418,12 +464,11 @@ characteristics and lists the system constraints.  \plt{This text can likely be
 \subsection{System Constraints}
 
 \plt{System constraints differ from other type of requirements because they
-  limit the developers’ options in the system design and they identify how the
+  limit the developers' options in the system design and they identify how the
   eventual system must fit into the world. This is the only place in the SRS
   where design decisions can be specified.  That is, the quality requirement for
   abstraction is relaxed here.  However, system constraints should only be
-  included if they are truly required. In the context of CAS 741, you often will
-  may not have any system constraints.}
+  included if they are truly required.}
 
 \section{Specific System Description}
 
@@ -610,36 +655,45 @@ on.  \plt{Modify the examples below for your problem, and add additional models
 ~\newline
 
 \noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
-  \hline
-  Label&\bf Conservation of thermal energy\\
-  \hline
-  Equation&  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$\\
-  \hline
-  Description & 
-                The above equation gives the conservation of energy for transient heat transfer in a material
-                of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
-                (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
-                $g$ is the volumetric heat generation
-                (\si{\watt\per\cubic\metre}), $T$ is the temperature
-                (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
-                the gradient operator.  For this equation to apply, other forms
-                of energy, such as mechanical energy, are assumed to be negligible in the
-                system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.\\
-  \hline
-  Source &
-           \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}\\
-  % The above web link should be replaced with a proper citation to a publication
-  \hline
-  Ref.\ By & \dref{ROCT}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
+\deftheory
+% #2 refname of theory
+{T:COE}
+% #3 label
+{Conservation of thermal energy}
+% #4 equation
+{
+  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$
+}
+% #5 description
+{
+  The above equation gives the conservation of energy for transient heat transfer in a material
+  of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
+  (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
+  $g$ is the volumetric heat generation
+  (\si{\watt\per\cubic\metre}), $T$ is the temperature
+  (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
+  the gradient operator.  For this equation to apply, other forms
+  of energy, such as mechanical energy, are assumed to be negligible in the
+  system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.
+}
+% #6 Notes
+{
+None.
+}
+% #7 Source
+{
+  \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}
+}
+% #8 Referenced by
+{
+  \dref{ROCT}
+}
+% #9 Preconditions
+{
+None
+}
+% #1 derivation - not applicable by default
+{}
 
 \plt{``Ref.\ By'' is used repeatedly with the different types of information.
   This stands for Referenced By.  It means that the models, definitions and
@@ -1197,11 +1251,11 @@ instance models, requirements, and data constraints on each other.
 
 \plt{This section is optional.  It is used to explain the plan for developing
   the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course like CAS
-  741, this is where you can indicate which requirements will be implemented as
-  part of the course, and which will be ``faked'' as future work.  This section
-  can be organized as a prioritized list of requirements, or it could should the
-requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
+  the requirements will be implemented.  In the context of a course  this is
+  where you can indicate which requirements will be implemented as part of the
+  course, and which will be ``faked'' as future work.  This section can be
+  organized as a prioritized list of requirements, or it could should the
+  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
 
 \section{Values of Auxiliary Constants}
 
