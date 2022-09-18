@@ -49,12 +49,15 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Proof of Concept Demonstration Plan}
 
-The main risk 
+For a proof of concept demonstartion, two parts of the system must be functional to a basic level.
+The first being the Simulation of the board game, it will not require all actions and rules to be implemented, only
+the core mechanics of the game. This core system should be implemented so all actions a player can make during their turn
+are available to be called, as if a real player is controlling them. This will allow a second system to make choices during 
+a player's turn. This leads into the second part of a basic AI/ML Player that can control the first system. This basic player should
+be able to make intelligent choices based on the game state and past game states. 
 
-
-What is the main risk, or risks, for the success of your project?  What will you
-demonstrate during your proof of concept demonstration to convince yourself that
-you will be able to overcome this risk?
+If these two systems can be implemented, the project will have a great chance of success as the architecture of the system will
+be able to support improvements to the AI/ML Player as well as implementing the rest of the game mechanics.
 
 \section{Technology}
 
@@ -62,20 +65,26 @@ you will be able to overcome this risk?
 \item Python will be used to develop the simulation engine and be used for simulation the AI players. 
 The choice of this langauge is due to Python's Machine Learning/Artificial Intelligence libraries and the support for
  Object Oriented Programming.
+\item Object Oriented Programming will be used as the design methodology as to allow multiple developer to work seamlessly 
+on the same project and for extensibility to other possible board games. 
 \item To ensure common programming standards, developers will use pylint to maintain the same coding style across files. 
 VSCode and prettier will be used for automatic formatting and linting.
 \item Pytest will be used for integration and unit testing.
 \item Coverage.py will be used for code coverage as it integrates easily with pytest.
-\item There are no immediate plans for Continous Integration/Continous Deployment 
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Libraries you will likely be using?
-\item Tools you will likely be using?
+\item There are no immediate plans for Continous Integration/Continous Deployment as the project will be used for testing by the 
+Stakeholders, which does not need to be hosted on any cloud environment.
+\item timeit Python library will be used for measuring performance and time of individual modules.
+\item ML/AI Libararies to be used will be PyTorch, Tensor Flow, NumPy and Pandas.
+\item The main tools used will be VSCode and any available Python extensions.
 \end{itemize}
 
 \section{Coding Standard}
+The programming paradigm that will be used in this project is Object Oriented Programming or OOP.This will allow to developers to structure code
+for re-use and extensibility. This abstract way of programing will allow for the system to be integrate into different board games. Another standard that
+will be used is PascalCase for Class naming and camelCase for method and variable naming. PEP8 will also be used to enforce readable code and good python practices.
 
 \section{Project Scheduling}
+
 
 \wss{How will the project be scheduled?}
 
