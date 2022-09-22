@@ -21,7 +21,7 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 Sept $18^{th}$ & Michael Ilao & Tech Stack, POC, Coding Standard\\
-Date2 & Name(s) & Description of changes\\
+Sept $22^{nd}$ & Hargun Bedi & Team Meeting Plan, Team Communication Plan, Workflow Plan\\
 ... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -34,18 +34,41 @@ Date2 & Name(s) & Description of changes\\
 \wss{Put your  blurb here.}
 
 \section{Team Meeting Plan}
+The team has decided to have weekly meetings on Fridays, from 11:30am to 12:30pm on our Microsoft Teams group. Additionally, the team can have ad-hoc meetings if the team unanimously deems it necessary. 
+\\The team has also scheduled weekly checkpoint meetings with our supervisor, Dr. Sebastien Mosser, on Tuesdays, from 5:00pm – 6:00pm. 
+\subsection{Meeting Rules}
+\begin{itemize}
+    \item Team leader will chair the meeting.
+    \item All team members will give an update on their assigned tasks.
+    \item All agenda items will be discussed sequentially.
+    \item All team members will have an opportunity to ask questions and voice any concerns they have.
+    \item If a new task is being assigned to any member, the team should decide the appropriate timeline unanimously. 
+    \item If a member requests a revision to the meeting time, agenda, or deadline, they must provide a 48-hour notice and the changes will be agreed upon unanimously.
+    \item At the end of each meeting, an agenda will be made for the next meeting. 
+
+\end{itemize}
 
 \section{Team Communication Plan}
-
+The team’s communication will be done virtually, primarily on our Microsoft Team’s group chat. Any questions, concerns, requests to change deadlines, or general discussions will be done on the Team’s group chat. If necessary, we will also be meeting in-person, at the team’s decided location prior to the meeting. 
+Additionally, all emails sent to our supervisors, professor, or TA’s must have all team members CC’d on it.
 \section{Team Member Roles}
 
 \section{Workflow Plan}
+Teammates are required to use the private GitHub repository named, AIBoardGame. 
+In order to facilitate simultaneous development of modules, we will be using the “feature-branch” workflow. First, each team member will pull the latest changes from the “main” branch into their local repository. 
+Next, changes will be made by creating a new “feature” branch. It is expected that feature branches will be given descriptive names, like ai-implementation or issue-31. The idea is to give a clear purpose to each branch. 
+Once the changes are made, unit testing will be performed on the feature branch to ensure the code is working as intended. 
+When the feature branch is merged with the main branch, 1 or 2 other team members may do integration testing to verify the if the merge did not cause any other issues. 
 
-\begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classificaiton, etc.?
-\end{itemize}
+\subsection{Issue Tracking}
+All issues will be under 3 categories – Major, Minor, Bug. 
+\\Major issues will be when the main branch is not able to run or if the code keeps crashing on a specific action.
+\\Minor issues will be when there are issues identified with the UI, inadequate error handling, uncaught errors in unit/integration testing, etc.
+\\Bug issues will be when there are unintended results due to logical errors, inputs not being handled properly, outputs not being generated properly, etc.
+\\Bugs and issues will be required to be fixed in a separate branch with an appropriate issue name. All Issues will be reported to the team either in the team meeting or in the team group chat. 
+
+\subsection{Tags}
+Tags will be used to mark milestones in the development of the project. Major milestones will be incrementing the major version number (v2.0 to v3.0). Minor milestones will be incrementing the minor version number (v2.1 to v2.2). The team will decide on an ad-hoc basis on what will be considered a major/minor milestone as the project is in its development stage.
 
 \section{Proof of Concept Demonstration Plan}
 
