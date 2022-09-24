@@ -22,7 +22,7 @@
 \midrule
 Sept $18^{th}$ & Michael Ilao & Tech Stack, POC, Coding Standard\\
 Sept $22^{nd}$ & Hargun Bedi & Team Meeting Plan, Team Communication Plan, Workflow Plan\\
-... & ... & ...\\
+Sept $24^{th}$ & Michael Ilao & Project Schedule and Member Roles\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -31,8 +31,7 @@ Sept $22^{nd}$ & Hargun Bedi & Team Meeting Plan, Team Communication Plan, Workf
 
 \maketitle
 
-\wss{Put your  blurb here.}
-
+This document will outline the development and documentation plan for An AI-based Approach to Designing Board Games project.
 \section{Team Meeting Plan}
 The team has decided to have weekly meetings on Fridays, from 11:30am to 12:30pm on our Microsoft Teams group. Additionally, the team can have ad-hoc meetings if the team unanimously deems it necessary. 
 \\The team has also scheduled weekly checkpoint meetings with our supervisor, Dr. Sebastien Mosser, on Tuesdays, from 5:00pm – 6:00pm. 
@@ -45,20 +44,22 @@ The team has decided to have weekly meetings on Fridays, from 11:30am to 12:30pm
     \item If a new task is being assigned to any member, the team should decide the appropriate timeline unanimously. 
     \item If a member requests a revision to the meeting time, agenda, or deadline, they must provide a 48-hour notice and the changes will be agreed upon unanimously.
     \item At the end of each meeting, an agenda will be made for the next meeting. 
-
 \end{itemize}
 
 \section{Team Communication Plan}
 The team’s communication will be done virtually, primarily on our Microsoft Team’s group chat. Any questions, concerns, requests to change deadlines, or general discussions will be done on the Team’s group chat. If necessary, we will also be meeting in-person, at the team’s decided location prior to the meeting. 
 Additionally, all emails sent to our supervisors, professor, or TA’s must have all team members CC’d on it.
 \section{Team Member Roles}
+As the architecture will require two main parts of development, our developers effort will be focused so they can understand their specific system on a deeper level.
+The two roles will be AI Game Agent Developer, who will work on the Artificial Intelligence (AI) Game Agent. The Simulation Structure, developers will focus on the architecture of the game engine and how it connects to the AI Game Agent
 \begin{itemize}
-	\item Jonah: AI Game Agent
-	\item Jeffery: AI Game Agent
-	\item Hargun: Simulation Agent
-	\item Michael: Simulation Structure
-	\item Tianzheng: Simulation Structure 
+	\item Jonah: AI Game Agent -\ Developer
+	\item Jeffery: AI Game Agent -\ Developer
+	\item Hargun: Simulation Agent -\ Developer
+	\item Michael: Simulation Structure -\ Developer
+	\item Tianzheng: Simulation Structure -\ Developer
 \end{itemize}
+All the developers will be required to understand the system at a high-level on both parts. They will also be required to work on documentation, testing, requirements and attend and be active in all meetings with the Stakeholders.
 \section{Workflow Plan}
 Teammates are required to use the private GitHub repository named, AIBoardGame. 
 In order to facilitate simultaneous development of modules, we will be using the “feature-branch” workflow. First, each team member will pull the latest changes from the “main” branch into their local repository. 
@@ -78,16 +79,13 @@ Tags will be used to mark milestones in the development of the project. Major mi
 
 \section{Proof of Concept Demonstration Plan}
 
-For a proof of concept demonstartion, two parts of the system must be functional to a basic level.
-The first being the Simulation of the board game, it will not require all actions and rules to be implemented, only
-the core mechanics of the game. This core system should be implemented so all actions a player can make during their turn
-are available to be called, as if a real player is controlling them. This will allow a second system to make choices during 
-a player's turn. This leads into the second part of a basic AI/ML Player that can control the first system. This basic player should
-be able to make intelligent choices based on the game state and past game states. 
+For a proof of concept demonstartion, the base architecture must be working and implemented properly. This means that the simulation and AI Game Agent are fully
+module and can be swapped with different AI Agents or even a different simulation engine. The simulation engine to be implemnted will be a simple game of tic-tac-toe.
+If the integration of AI Game Agents can play on the simulation of tic-tac-toe, the project has a great chance of success as we will know the architecture is able to support
+more complex game agents and a more complex simulation engine. These two systems will be developed in parrallel to maximize our time constraints.
+The major risk of this project is how to create a modular architecture and able to integrate a simulation engine that can be played by real players as well as AI players. Testing this will not be difficult for the POC as the game chosen Tic-Tac-Toe is a simple game and we can test the success of our AI's quickly as many simulations can be ran quickly.
 
-If these two systems can be implemented, the project will have a great chance of success as the architecture of the system will
-be able to support improvements to the AI/ML Player as well as implementing the rest of the game mechanics.
-
+In our demonstartion we will be able to show that are architecture is modular enough to support different kinds of AI Game Agents and that they are seamlessly able to integrate into the simulation (By swapping different AI Game Agents in/out).
 \section{Technology}
 
 \begin{itemize}
@@ -95,10 +93,10 @@ be able to support improvements to the AI/ML Player as well as implementing the 
 The choice of this langauge is due to Python's Machine Learning/Artificial Intelligence libraries and the support for
  Object Oriented Programming.
 \item Object Oriented Programming will be used as the design methodology as to allow multiple developer to work seamlessly 
-on the same project and for extensibility to other possible board games. 
+on the same project and for extensibility to other possible board games/simulations. 
 \item To ensure common programming standards, developers will use pylint to maintain the same coding style across files. 
 VSCode and prettier will be used for automatic formatting and linting.
-\item Pytest will be used for integration and unit testing.
+\item Pytest will be used for integration and unit testing for the Simulation Engine. For testing the AI Game engine, developers will need to build custom test to verify they are working to an acceptable degree.
 \item Coverage.py will be used for code coverage as it integrates easily with pytest.
 \item There are no immediate plans for Continous Integration/Continous Deployment as the project will be used for testing by the 
 Stakeholders, which does not need to be hosted on any cloud environment.
@@ -113,6 +111,14 @@ for re-use and extensibility. This abstract way of programing will allow for the
 will be used is PascalCase for Class naming and camelCase for method and variable naming. PEP8 will also be used to enforce readable code and good python practices.
 
 \section{Project Scheduling}
-The project will be scheduled using GitHub Project board and issue tracking for tasks for each group member
+The project schedule will require developers to work on documentation and planning in parrallel with the code. This will benefit developers as they will be able to adjust their 
+methdologies and documentation faster, than if it was done sequentially.
 
+The project will be managed with GitHub Projects by assigning tasks to team members.
+
+The Major Milestons are the Requirements Doc Rev 0, POC Demo, Rev 0 Demo and Final Demo. These tasks will be broken down and split up by different sections that each team member can individually contribute to.
+Documentation will be assigned to team members based on what their dev-role is, AI Game Agent Developers will work on documentation related to this part of development and
+Simulation Developers will work on documentation relating to that. This will mean team members may be working on the same section together. At a high level all team members must still understand each part of the project and system.
+
+Communication between the team will be a major factor to fully utilize each team members time. As there are multiple people working on the same part, they must work collaboratively to ensure there is no code or documentation overlap. 
 \end{document}
