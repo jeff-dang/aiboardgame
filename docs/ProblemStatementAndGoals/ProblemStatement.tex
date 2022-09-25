@@ -50,62 +50,48 @@ Use abstraction so that you can avoid details.}
 \wss{Hardware and software}
 
 \section{Goals}
-\subsection{Automation}
+\subsection{Simulation and Learning}
 \begin{itemize}
-\item Explanation: The product shall automate artificial players to play thousand of games and efficiently detect the loopholes in the game.
-
-\item Importance: This goal ensures high-quality results as each task is performed identically without human error. 
+\item Explanation: Implement artificial intelligent players into the system to play thousands of games efficiently to detect patterns and winning strategies.
+\item Importance: This is the main focus of the project to test and simulate a board game for quality assurance and balancing before release.
 \end{itemize}
 
-\subsection{Customization}
+\subsection{Efficiency}
 \begin{itemize}
-\item Explanation: The product should provide sufficient options for the users to design their level of input by preference and achieve the business needs. 
-\item Importance: This goal attempt to provide more control for users and improve the user experience. 
+\item Explanation: Keep the run time of the simulation and AI game players below a threshold where the system can be easily run on the developer's computers.
+\item Importance: This goal will allow all developers to run the simulation on their machines, to get the best data from the system and not have to rent out computing space which would increase costs.
 \end{itemize}
 
-\subsection{Interactive UI}
+\subsection{Complex Problem Solving}
 \begin{itemize}
-\item Explanation: The user interface of the product should have sufficient elements that users can easy to access, understand and perform the expected tasks from the users. Besides, the UI shall be responsive that dynamically fit different sizes of screens. 
-\item Importance: This goal provides good impressions for users and encourages them to use our software product continuously. 
+\item Explanation: The system must use AI game players to analyze complex decision paths. Each different AI should have a different decision-making process.
+\item Importance: This goal will make sure the output of the system is of quality to the game designers since games will be played intelligently and with different strategies.
 \end{itemize}
 
-\subsection{Short Time Execution}
+\subsection*{Quality Data}
 \begin{itemize}
-\item Explanation: The execution time of the product should not be longer than the reasonable maximum value. If the input game state value is invalid, it will terminate the program shortly and report an invalid input error.
-\item Importance: This goal tends to improve time efficiency. 
-\end{itemize}
-
-\subsection{Analytic and Solving Complex problem}
-\begin{itemize}
-\item Explanation: The product shall effectively analyze diverse complex problems of the game and provide a detailed analytic output. 
-\item Importance: This goal improves the software quality and solves difficult tasks for customers.
+  \item Explanation: The system must track and save decisions, game states and patterns throughout the simulations, as well as compare simulations against each other to find winning strategies. The output should be easily readable for non-technical users to understand.
+  \item Importance: This goal will make sure the game designers can use the system to balance their game.
 \end{itemize}
 
 
 \section{Stretch Goals}
-\subsection{Ease of use}
-\begin{itemize}
-\item Explanation: The installation process of this product should remain in a minimal time. After installing the program, the end users should understand the manipulation and use the products functionality easily. 
-\item Importance: This goal helps users save time and reduce the number of requests for technical support.
-\end{itemize}
-
-\subsection{Portability}
-\begin{itemize}
-\item Explanation: The product can be installed and removed from different operating systems and it shall not damage the game and users' devices.
-\item Importance: This goal helps users use the software across different environments. 
-\end{itemize}
-
 \subsection{Reusability}
 \begin{itemize}
-\item Explanation: The users should be able to reuse this software product on multiple games.
-\item Importance: This goal improves the quality of the software which reduces additional cost and time on redeveloping a similar software for different games.
+\item Explanation: The system should be highly modular, where different AI Game agents can be swapped in and out to provide different outcomes. The game engineer should also be able
+to be swapped in and out. The architecture should allow for a simple game like tic-tac-toe and a complex game like An Age Contrived to fit seamlessly into the system.
+\item Importance: This goal improves the quality of the code and should be a side-effect of the architecture. This would make the system more useful as it can test more board games than it was initially designed for.
 \end{itemize}
 
-\subsection{Security}
+\subsection{User Interface}
 \begin{itemize}
-\item Explanation: The product must protect the privacy of the game data and users' confidential information. 
-\item Importance: This goal reduces the risk of data breaches and attacks in the system which tends to prevent unauthorized access to confidential information. 
+\item Explanation: The system should have a live user interface where a user can view a game in real-time, to see what actions the AI game players are making.
+\item Importance: This goal will make the system easier to use and allow non-technical users to verify it is functional.
 \end{itemize}
 
-
+\subsection{Availability}
+\begin{itemize}
+  \item Explanation: The system should be deployed on a server, where the it can run for a longer period of time to gather data.
+  \item Importance: This goal will allow us to collect more data which can help further analysis of game balancing.
+\end{itemize}
 \end{document}
