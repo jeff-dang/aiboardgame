@@ -2,6 +2,12 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{supertabular}
+\usepackage{indentfirst}
+
+\pagestyle {plain}
+\pagenumbering {arabic}
 
 \title{Problem Statement and Goals\\\progname}
 
@@ -14,38 +20,98 @@
 
 \begin{document}
 
-\maketitle
-
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
 \begin{tabularx}{\textwidth}{llX}
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Sept 24 & Michael Ilao & Revised Goals\\
+Sept $23^{rd}$ & Jonah Ada and Tianzheng Mai & Version 1\\
+Sept $24^{th}$ & Michael Ilao & Revised Goals\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+\newpage
+
+\maketitle
+
+
+
 \section{Problem Statement}
 
-\wss{You should check your problem statement with the
-\href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
-{problem statement checklist}.}
-\wss{You can change the section headings, as long as you include the required information.}
+
+%\wss{You should check your problem statement with the
+%\href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
+%{problem statement checklist}.}
+%\wss{You can change the section headings, as long as you include the required information.}
 
 \subsection{Problem}
+\indent Designing a board game is a complicated process.
+Balancing a board game is even more complex. And, contrarily to software games
+that can support hot patches, ``patching'' a board game after it was printed to
+fix a mistake is at best expensive and at worst impossible.
+Software patches to the game mechanics and deploying a new release removing the problems can solve the issues for a virtual game but this would have been totally impossible in a
+non-virtual environment.
+
+
+In this project, we have partnered with Bellows Intent, a studio developing a
+board game named ``An Age Contrived''
+(\url{https://boardgamegeek.com/boardgame/357890/age-contrived}). The game is
+part of the ``engine building'' category, like Scythe
+(\url{https://boardgamegeek.com/boardgame/169786/scythe}). 
+
+The objective of the project is to use Bellows Intent's game to facilitate the development of an open-source engine that can support running thousands of simulations for their game, helping identify
+pitfalls in the game mechanics (e.g., a strategy that always win), as well as
+balancing the scoring system. 
+
+
+We will first focus on Bellows Intent's game to validate that it is
+possible to support the design of a game with AI-based techniques. Then we will
+assess the reusability of the design gaming framework by applying it to another
+game (e.g., Scythe).
 
 \subsection{Inputs and Outputs}
 
-\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
-Use abstraction so that you can avoid details.}
+%\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
+%Use abstraction so that you can avoid details.}
+Inputs will consist of different variables which the player can manipulate during the game.
+
+Output will consist of the effect of the user input on the overall game state.\\ 
+The main purpose is to determine the user input's effect on the game state and find loopholes in the game rule to fix them before publishing the game to public.
 
 \subsection{Stakeholders}
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{p{5cm}p{5cm}p{1.5cm}}
+\toprule
+Bellows Intent & Publisher of The Game "An Age Contrived" & Primary\\
+\midrule
+Chris Matthew & Principal Author of "An Age Contrived" and The Game Designer & Primary\\
+\midrule
+Dr. Sebastien Mosser & Supervisor & Secondary\\
+\midrule
+Dr Vladimir Reinharz & Supervisor & Secondary\\
+\midrule
+Group \# 6 & Developers & Tertiary\\
+\midrule
+Players & & Tertiary\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent 
+
 
 \subsection{Environment}
 
-\wss{Hardware and software}
+%\wss{Hardware and software}
+\textbf{Hardware}: Simulation and AI will run on Alliance Canada's (\url{https://alliancecan.ca/en}) computer cluster Canada Compute  to test millions of different possibilities in a reasonable time frame.
+
+\textbf{Software}: will consist of object-oriented modelling to support the representation
+of the board game (game engine), command module and player agents modules which will integrate state-of-the-art libraries (such as
+\url{https://www.gymlibrary.ml/}, \url{https://pettingzoo.farama.org/}, \url{https://github.com/davidADSP/SIMPLE}) to code artificial intelligent agents able to play thousands of
+games.
 
 \section{Goals}
 \subsection{Simulation and Learning}
