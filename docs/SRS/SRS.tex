@@ -16,7 +16,7 @@
 \usepackage{caption}
 \usepackage{pdflscape}
 \usepackage{afterpage}
-
+\usepackage{tikz}
 \usepackage[round]{natbib}
 
 %\usepackage{refcheck}
@@ -30,8 +30,8 @@
     urlcolor=cyan           % color of external links
 }
 
-\input{../Comments}
-\input{../Common}
+%\input{../Comments}
+%\input{../Common}
 
 % For easy change of table widths
 \newcommand{\colZwidth}{1.0\textwidth}
@@ -72,9 +72,14 @@
 \newcounter{nfrnum} %NFR Number
 \newcommand{\rthenfrnum}{NFR\thenfrnum}
 \newcommand{\nfrref}[1]{NFR\ref{#1}}
+\newcounter{lcfrnum} %Likelihood of change functional requirement number
+\newcommand{\thelcfrnum}{LC\thelcfrnum}
+\newcommand{\lcfrref}[1]{LC\ref{#1}}
 \newcounter{lcnum} %Likely change number
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
+\newcounter{ucnum} %Unlikely change number
+
 
 \usepackage{fullpage}
 
@@ -125,371 +130,84 @@
 }
 
 \begin{document}
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+Oct $1^{th}$ & All & Initial division of labour\\
+Oct $3^{rd}$ & All & Rough draft complete\\
+Oct $5^{th}$ & All & Revision and proof-reading \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\newpage
 
-\title{Software Requirements Specification for \progname: subtitle describing software} 
-\author{Author Name(s)}
+\title{Software Requirements Specification for SE 4G06 \\ An AI-based Approach to Designing Board Games} 
+\author{Team \#6, Board Gamers
+\\ Ilao Michael, ilaom
+\\ Bedi Hargun, bedih
+\\ Dang Jeffrey, dangj12
+\\ Ada Jonah, karaatan
+\\ Mai Tianzheng, mait6}
 \date{\today}
 	
 \maketitle
 
 ~\newpage
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \tableofcontents
 
 ~\newpage
 
-\section*{Revision History}
-
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
-
-~\newpage
-
-\section{Reference Material}
-
-This section records information for easy reference.
-
-\subsection{Table of Units}
-
-Throughout this document SI (Syst\`{e}me International d'Unit\'{e}s) is employed
-as the unit system.  In addition to the basic units, several derived units are
-used as described below.  For each unit, the symbol is given followed by a
-description of the unit and the SI name.
-~\newline
-
-\renewcommand{\arraystretch}{1.2}
-%\begin{table}[ht]
-  \noindent \begin{tabular}{l l l} 
-    \toprule		
-    \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
-    \midrule 
-    \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
-    \si{\second} & time & second\\
-    \si{\celsius} & temperature & centigrade\\
-    \si{\joule} & energy & joule\\
-    \si{\watt} & power & watt (W = \si{\joule\per\second})\\
-    \bottomrule
-  \end{tabular}
-  %	\caption{Provide a caption}
-%\end{table}
-
-\plt{Only include the units that your SRS actually uses.}
-
-\plt{Derived units, like newtons, pascal, etc, should show their derivation
-    (the units they are derived from) if their constituent units are in the
-    table of units (that is, if the units they are derived from are used in the
-    document).  For instance, the derivation of pascals as
-    $\si{\pascal}=\si{\newton\per\square\meter}$ is shown if newtons and m are
-    both in the table.  The derivations of newtons would not be shown if kg and
-    s are not both in the table.}
-
-\plt{The symbol for units named after people use capital letters, but the name
-  of the unit itself uses lower case.  For instance, pascals use the symbol Pa,
-  watts use the symbol W, teslas use the symbol T, newtons use the symbol N,
-  etc.  The one exception to this is degree Celsius.  Details on writing metric
-  units can be found on the 
-  \href{https://www.nist.gov/pml/weights-and-measures/writing-metric-units}
-  {NIST} web-page.}
-
-\subsection{Table of Symbols}
-
-The table that follows summarizes the symbols used in this document along with
-their units.  The choice of symbols was made to be consistent with the heat
-transfer literature and with existing documentation for solar water heating
-systems.  The symbols are listed in alphabetical order.
-
-\renewcommand{\arraystretch}{1.2}
-%\noindent \begin{tabularx}{1.0\textwidth}{l l X}
-\noindent \begin{longtable*}{l l p{12cm}} \toprule
-\textbf{symbol} & \textbf{unit} & \textbf{description}\\
-\midrule 
-$A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area
-\\
-$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & surface area over 
-which heat is transferred in
-\\ 
-\bottomrule
-\end{longtable*}
-\plt{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
-
-\subsection{Abbreviations and Acronyms}
-
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  A & Assumption\\
-  DD & Data Definition\\
-  GD & General Definition\\
-  GS & Goal Statement\\
-  IM & Instance Model\\
-  LC & Likely Change\\
-  PS & Physical System Description\\
-  R & Requirement\\
-  SRS & Software Requirements Specification\\
-  \progname{} & \plt{put an expanded version of your program name here (as appropriate)}\\
-  T & Theoretical Model\\
-  \bottomrule
-\end{tabular}\\
-
-\plt{Add any other abbreviations or acronyms that you add}
-
-\subsection{Mathematical Notation}
-
-\plt{This section is optional, but should be included for projects that make use
-  of notation to convey mathematical information.  For instance, if typographic
-  conventions (like bold face font) are used to distinguish matrices, this
-  should be stated here.  If symbols are used to show mathematical operations,
-  these should be summarized here.  In some cases the easiest way to summarize
-  the notation is to point to a text or other source that explains the
-  notation.}
-
-\plt{This section was added to the template because some students use very
-  domain specific notation.  This notation will not be readily understandable to
-  people outside of your domain.  It should be explained.}
-
-\newpage
-
-\pagenumbering{arabic}
-
-\plt{This SRS template is based on \citet{SmithAndLai2005, SmithEtAl2007}.  It
-  will get you started.  You should not modify the section headings, without
-  first discussing the change with the course instructor.  Modification means
-  you are not following the template, which loses some of the advantage of a
-  template, especially standardization.  Although the bits shown below do not
-  include type information, you may need to add this information for your
-  problem.  If you are unsure, please can ask the instructor.}
-
-\plt{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
-
-\plt{This template document assumes that a single program is being documented.
-  If you are documenting a family of models, you should start with a commonality
-  analysis.  A separate template is provided for this.  For program
-  families you should look at \cite{Smith2006, SmithMcCutchanAndCarette2017}.
-  Single family member programs are often programs based on a single physical
-  model.  General purpose tools are usually documented as a family.  Families of
-  physical models also come up.}
-
-\plt{The SRS is not generally written, or read, sequentially.  The SRS is a
-  reference document.  It is generally read in an ad hoc order, as the need
-  arises.  For writing an SRS, and for reading one for the first time, the
-  suggested order of sections is:
-\begin{itemize}
-\item Goal Statement
-\item Instance Models
-\item Requirements
-\item Introduction
-\item Specific System Description
-\end{itemize}
-}
-
-\plt{Guiding principles for the SRS document:
-\begin{itemize}
-\item Do not repeat the same information at the same abstraction level.  If
-  information is repeated, the repetition should be at a different abstraction
-  level.  For instance, there will be overlap between the scope section and the
-  assumptions, but the scope section will not go into as much detail as the
-  assumptions section.
-\end{itemize}
-}
-
-\plt{The template description comments should be disabled before submitting this
-  document for grading.}
-
-\plt{You can borrow any wording from the text given in the template.  It is part
-  of the template, and not considered an instance of academic integrity.  Of
-  course, you need to cite the source of the template.}
-
-\plt{When the documentation is done, it should be possible to trace back to the
-  source of every piece of information.  Some information will come from
-  external sources, like terminology.  Other information will be derived, like
-  General Definitions.}
-
-\plt{An SRS document should have the following qualities: unambiguous,
-  consistent, complete, validatable, abstract and traceable.}
-
-\plt{The overall goal of the SRS is that someone that meets the Characteristics
-  of the Intended Reader (Section~\ref{sec_IntendedReader}) can learn,
-  understand and verify the captured domain knowledge.  They should not have to
-  trust the authors of the SRS on any statements.  They should be able to
-  independently verify/derive every statement made.}
-
 \section{Introduction}
-
-\plt{The introduction section is written to introduce the problem.  It starts
-  general and focuses on the problem domain. The general advice is to start with
-a paragraph or two that describes the problem, followed by a ``roadmap''
-paragraph.  A roadmap orients the reader by telling them what sub-sections to
-expect in the Introduction section.}
-
 \subsection{Purpose of Document}
 
-\plt{This section summarizes the purpose of the SRS document.  It does not focus
-  on the problem itself.  The problem is described in the ``Problem
-  Description'' section (Section~\ref{Sec_pd}).  The purpose is for the document
-  in the context of the project itself, not in the context of this course.
-  Although the ``purpose'' of the document is to get a grade, you should not
-  mention this.  Instead, ``fake it'' as if this is a real project.  The purpose
-  section will be similar between projects.  The purpose of the document is the
-  purpose of the SRS, including communication, planning for the design stage,
-  etc.}
+The purpose of this document is to define the needed features and intended behaviors of using an AI-based approach to designing board games. Both the users and software developers use this document as an agreement to involve important information such as system specification, goals of implementation, project constraints, functional and non-functional requirements. This document help software developers understand what the game users need, minimize the cost of time and money, split work into multiple smaller pieces, and get project development started on the right path.
 
 \subsection{Scope of Requirements} 
 
-\plt{Modelling the real world requires simplification.  The full complexity of
-  the actual physics, chemistry, biology is too much for existing models, and
-  for existing computational solution techniques.  Rather than say what is in
-  the scope, it is usually easier to say what is not.  You can think of it as
-  the scope is initially everything, and then it is constrained to create the
-  actual scope.  For instance, the problem can be restricted to 2 dimensions, or
-  it can ignore the effect of temperature (or pressure) on the material
-  properties, etc.}  
+The scope of our project is to create an AI-based, game simulation engine that can help identify pitfalls in a game’s mechanics and imbalances in the game’s scoring system. Our intended users are game developers who wish to use our application to develop a robust game. The AI engine, Game Engine, and the simulator will work together to create output for a decision tree visualization tool that will help the game developers identify various paths of decisions that led to specific end states. 
+\\We have initially limited our scope to only have our application work with 2 games - Tic-Tac-Toe, and Bellow Intent’s Age Contrived game. As a secondary goal, we will work towards having our application be an open-source framework such that it is possible for any game developer to use our system.
 
-\plt{The scope section is related to the assumptions section
-  (Section~\ref{sec_assumpt}).  However, the scope and the assumptions are not
-  at the same level of abstraction.  The scope is at a high level.  The focus is
-  on the ``big picture'' assumptions.  The assumptions section lists, and
-  describes, all of the assumptions.}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
+The intended readers of this document are Dr. Spencer Smith, Christopher Schankula (TA), Dr. Sebastien Mosser, and Dr. Vladimir Reinharz. This document is thus intended for an audience that has at minimum a high-level technical understanding of game development, artificial intelligence, game simulation, and interfacing between low-coupled systems. As a result, the reader is expected to know the basic terminologies either through their own research or from an undergraduate level course in all of the fields specified. This document will also be used by the developers of this project (members of Group 6), therefore, it is also intended as a guide for all future documents and milestones during the development of this project.
+\newpage
+\subsection{Stakeholders}
+\begin{table}[h!]
+\caption{Stakeholders} \label{Stakeholders}
+\begin{tabularx}{\textwidth}{p{5cm}p{5cm}p{1.5cm}}
+\toprule
+Bellows Intent & Publisher of The Game "An Age Contrived" & Primary\\
+\midrule
+Chris Matthew & Principal Author of "An Age Contrived" and The Game Designer & Primary\\
+\midrule
+Dr. Sebastien Mosser & Supervisor & Secondary\\
+\midrule
+Dr Vladimir Reinharz & Supervisor & Secondary\\
+\midrule
+Group \# 6 & Developers & Tertiary\\
+\midrule
+Players & & Tertiary\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\plt{This section summarizes the skills and knowledge of the readers of the
-  SRS.  It does NOT have the same purpose as the ``User Characteristics''
-  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the
-  people that will read, review and maintain the SRS.  They are the people that
-  will conceivably design the software that is intended to meet the
-  requirements.  The user, on the other hand, is the person that uses the
-  software that is built.  They may never read this SRS document.  Of course,
-  the same person could be a ``user'' and an ``intended reader.''}
-
-\plt{The intended reader characteristics should be written as unambiguously and
-  as specifically as possible.  Rather than say, the user should have an
-  understanding of physics, say what kind of physics and at what level.  For
-  instance, is high school physics adequate, or should the reader have had a
-  graduate course on advanced quantum mechanics?}
+\noindent 
 
 \subsection{Organization of Document}
 
-\plt{This section provides a roadmap of the SRS document.  It will help the
-  reader orient themselves.  It will provide direction that will help them
-  select which sections they want to read, and in what order.  This section will
-  be similar between project.}
-
-\section{General System Description}
-
-This section provides general information about the system.  It identifies the
-interfaces between the system and its environment, describes the user
-characteristics and lists the system constraints.  \plt{This text can likely be
-  borrowed verbatim.}
-
-\plt{The purpose of this section is to provide general information about the
-  system so the specific requirements in the next section will be easier to
-  understand. The general system description section is designed to be
-  changeable independent of changes to the functional requirements documented in
-  the specific system description. The general system description provides a
-  context for a family of related models.  The general description can stay the
-  same, while specific details are changed between family members.}
-
-\subsection{System Context}
-
-\plt{Your system context will include a figure that shows the abstract view of
-  the software.  Often in a scientific context, the program can be viewed
-  abstractly following the design pattern of Inputs $\rightarrow$ Calculations
-  $\rightarrow$ Outputs.  The system context will therefore often follow this
-  pattern.  The user provides inputs, the system does the calculations, and then
-  provides the outputs to the user.  The figure should not show all of the
-  inputs, just an abstract view of the main categories of inputs (like material
-  properties, geometry, etc.).  Likewise, the outputs should be presented from
-  an abstract point of view.  In some cases the diagram will show other external
-  entities, besides the user.  For instance, when the software product is a
-  library, the user will be another software program, not an actual end user.
-  If there are system constraints that the software must work with external
-  libraries, these libraries can also be shown on the System Context diagram.
-  They should only be named with a specific library name if this is required by
-  the system constraint.}
-
-\begin{figure}[h!]
-\begin{center}
- \includegraphics[width=0.6\textwidth]{SystemContextFigure}
-\caption{System Context}
-\label{Fig_SystemContext} 
-\end{center}
-\end{figure}
-
-\plt{For each of the entities in the system context diagram its responsibilities
-  should be listed.  Whenever possible the system should check for data quality,
-  but for some cases the user will need to assume that responsibility.  The list
-  of responsibilites should be about the inputs and outputs only, and they
-  should be abstract.  Details should not be presented here.  However, the
-  information should not be so abstract as to just say ``inputs'' and
-  ``outputs''.  A summarizing phrase can be used to characterize the inputs.
-  For instance, saying ``material properties'' provides some information, but it
-  stays away from the detail of listing every required properties.}
-
-\begin{itemize}
-\item User Responsibilities:
-\begin{itemize}
-\item 
-\end{itemize}
-\item \progname{} Responsibilities:
-\begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
-\end{itemize}
-\end{itemize}
-
-\subsection{User Characteristics} \label{SecUserCharacteristics}
-
-\plt{This section summarizes the knowledge/skills expected of the user.
-  Measuring usability, which is often a required non-function requirement,
-  requires knowledge of a typical user.  As mentioned above, the user is a
-  different role from the ``intended reader,'' as given in
-  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the
-  user characteristics should be specific an unambiguous.  For instance, ``The
-  end user of \progname{} should have an understanding of undergraduate Level 1
-  Calculus and Physics.''}
-
-\subsection{System Constraints}
-
-\plt{System constraints differ from other type of requirements because they
-  limit the developers' options in the system design and they identify how the
-  eventual system must fit into the world. This is the only place in the SRS
-  where design decisions can be specified.  That is, the quality requirement for
-  abstraction is relaxed here.  However, system constraints should only be
-  included if they are truly required.}
-
-\section{Specific System Description}
-
-This section first presents the problem description, which gives a high-level
-view of the problem to be solved.  This is followed by the solution characteristics
-specification, which presents the assumptions, theories, definitions and finally
-the instance models.  \plt{Add any project specific details that are relevant
-  for the section overview.}
-
-\subsection{Problem Description} \label{Sec_pd}
-
-\progname{} is intended to solve ... \plt{What problem does your program solve?
-The description here should be in the problem space, not the solution space.}
+This SRS document is intended to be read in the order that the document is presented. The main sections are – scope, general system description, specific system description, functional and non-functional requirements, likely and unlikely changes, and traceability matrices.
 
 \subsubsection{Terminology and  Definitions}
-
-\plt{This section is expressed in words, not with equations.  It provide the
-  meaning of the different words and phrases used in the domain of the problem.
+This section is expressed in words, not with equations.  It provides the meaning of the different words and phrases used in the domain of the problem.
 The terminology is used to introduce concepts from the world outside of the
-mathematical model  The terminology provides a real world connection to give the
-mathematical model meaning.}
+mathematical model  The terminology provides a real-world connection to give the
+mathematical model meaning.
 
 This subsection provides a list of terms that are used in the subsequent
 sections and their meaning, with the purpose of reducing ambiguity and making it
@@ -497,820 +215,639 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item 
+\item \textbf{AI Agent}: Refers to the subsystem that has an AI model trained to play the game at hand acting as one of the players of the game.
+
+\item \textbf{Game Engine}: Refers to the subsystem that is an abstract representation of the actual game as software.
+
+\item \textbf{Data Visualization}: Refers to the subsystem that visualizes Game Engine and AI Agent logs.
+
+\item \textbf{Game State}: Refers to the state of the game, which could include player attributes, player score, and game layout. All attributes and characteristics that change throughout a game simulation are stored here.
+
+\item \textbf{Observation Space}: Refers to the state of the game that is observable to a Game Agent. (Not all information is available to the Game Agents and can vary from agent to agent)
+
+\item \textbf{Action Space}: Refers to the set of moves an AI Agent can take in a particular Game Engine.
+
+\item \textbf{Game Designer}: The game designer is the person who is creating the game by coming up with the rules and writing a scenario for the game. The game designer will be the end user of the system to balance the game and improve the design of the game.
 
 \end{itemize}
 
-\subsubsection{Physical System Description} \label{sec_phySystDescrip}
+\newpage
+\section{General System Description}
 
-\plt{The purpose of this section is to clearly and unambiguously state the
-  physical system that is to be modelled. Effective problem solving requires a
-  logical and organized approach. The statements on the physical system to be
-  studied should cover enough information to solve the problem. The physical
-  description involves element identification, where elements are defined as
-  independent and separable items of the physical system. Some example elements
-  include acceleration due to gravity, the mass of an object, and the size and
-  shape of an object. Each element should be identified and labelled, with their
-  interesting properties specified clearly. The physical description can also
-  include interactions of the elements, such as the following: i) the
-  interactions between the elements and their physical environment; ii) the
-  interactions between elements; and, iii) the initial or boundary conditions.}
+This section provides general information about the system.  It identifies the
+interfaces between the system and its environment, describes the user
+characteristics and lists the system constraints.
 
-The physical system of \progname{}, as shown in Figure~?,
-includes the following elements:
+\subsection{System Context}
 
+Figure 1 shows the system architecture and how the different agents and components interact with their main inputs and outputs. Exact information is abstracted away as the architecture should allow for "swappable" modules. Meaning if different Game Engines and different AI Agents can be interchanged and the functionality of the system will stay the same, with different outcomes and performance. In this system user input is not given and the AI Agents act as "users" that interact with the Game Engine giving commands and receiving data to make those decisions. There are two outputs from the Game Engine, first the new game state from a given move and then a log of the actions and state. This log is then read by a data visualizer that the real end user can view.
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=1.0\textwidth]{SystemArchitecture.png}
+\caption{System Context}
+\label{Fig_SystemContext} 
+\end{center}
+\end{figure}
+
+Inside the Game Engine, there will be a finite state machine that controls the main game loop. The finite state automata will be comprised of variables $<Q, \sum, \delta, q_{0}, F>$
 \begin{itemize}
+    \item $Q$ The set of states, for many systems will be almost infinite as there are many different states the game can get to. Tic-Tac-Toe for example has only 23 unique winning states, while a game like chess has almost infinitely many,
+    \item $\sum$ The alphabet is a list of all possible moves from one state to another.
+    \item $\delta:(Q,\sum) \xrightarrow[]{} Q$ The transition function that will take the current state and a possible move and output the new updated state.
+    \item $q_0$ The starting state, for Tic-Tac-Toe would be an empty board, for Monopoly would be an empty board, and all players with their starting money.
+    \item $F \subset Q$ The set of final states, this will be all the winning end game states for a player.
+\end{itemize}
+To simplify the set of states, only three will be used: start, finish and in progress. These will be denoted as $q_0, q_1, q_2$ respectively. 
 
-\item[PS1:] 
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=0pt]
+\draw [black] (10.6,-25.4) circle (3);
+\draw (10.6,-25.4) node {$q0$};
+\draw [black] (33,-25.4) circle (3);
+\draw (33,-25.4) node {$q_1$};
+\draw [black] (67.1,-25.4) circle (3);
+\draw (67.1,-25.4) node {$q_2$};
+\draw [black] (67.1,-25.4) circle (2.4);
+\draw [black] (13.6,-25.4) -- (30,-25.4);
+\fill [black] (30,-25.4) -- (29.2,-24.9) -- (29.2,-25.9);
+\draw (21.8,-25.9) node [below] {$Begin\mbox{ }game$};
+\draw [black] (36,-25.4) -- (64.1,-25.4);
+\fill [black] (64.1,-25.4) -- (63.3,-24.9) -- (63.3,-25.9);
+\draw (50.05,-25.9) node [below] {$Winning\mbox{ }move\mbox{ }is\mbox{ }played$};
+\draw [black] (32.183,-22.525) arc (223.59229:-64.40771:2.25);
+\draw (41.44,-16.94) node [above] {$Non-winning\mbox{ }valid\mbox{ }move\mbox{ }is\mbox{ }played$};
+\fill [black] (34.78,-23) -- (35.71,-22.81) -- (35.02,-22.09);
+\end{tikzpicture}
+\caption{Finite State Machine for Game Loop}
+\end{center}
+\end{figure}
+The game will continue until a winning move is played and loops after each non-winning move, and all non-valid moves are rejected. Based on the game non-valid moves could result in the game being forfeited and lost, for this simple example, the Game Engine will reject the AI Agent's move and wait for a valid one.\\ 
 
-\item[PS2:] ...
-
+\textbf{User Responsibilities:}
+\begin{itemize}
+\item The Users will observe the data visualizer of game simulations. 
 \end{itemize}
 
-\plt{A figure here makes sense for most SRS documents}
 
-% \begin{figure}[h!]
-% \begin{center}
-% %\rotatebox{-90}
-% {
-%  \includegraphics[width=0.5\textwidth]{<FigureName>}
-% }
-% \caption{\label{<Label>} <Caption>}
-% \end{center}
-% \end{figure}
+\textbf{System Responsibilities:}
+\begin{itemize}
+\item AI Agent: Receive input of a game state and output a decision. 
+\item Available  Actions: List all available moves to the AI Agents (Not an entity itself and is a part of the Game Engine)
+\item Game Engine: Receives inputs of decisions made by the AI Agents and updates its game state accordingly. Outputs a log file of the state and actions and the updated state back to the Game Agents.
+\end{itemize}
+
+\subsection{User Characteristics} \label{SecUserCharacteristics}
+The intended users of the system will be AI research professors and game designers. These users will be observing the same output of the system, but analyzing it in a different way. The AI research professors will be using the output to analyze how different kinds of AI play a specific Game Engine. Meaning these users should have a deep understanding of AI, Neural Networks, Machine Learning, and other AI topics. The game designers will be using the output to check for any "over-powered" strategies or game-breaking rules, these users should have a deep understanding of the game rules and mechanics (For the specific Game Engine in use). For all users of the system should have an understanding of statistics up to Stats 3Y03 to read and understand the data output.
+
+\subsection{System Constraints}
+The main constraint of the system is it must be developed in Python as AI libraries are easiest to implement and highly supported, the Game Engine and all other components must be implemented in Python for simple compatibility and integration.
+
+\subsection{Normal Operation \& Undesired Event Handling}
+The system will have a main loop where all the operations will take place after the initialization until the win condition is reached, then the system will exit the loop and end the current game to provide data visualization. This initialization, main loop, and win condition can be modeled and think as a finite state machine. The process is explained in detail in Section 2.1 and visualized in Figure 2. In the event of an unexpected outcome, since the games to be simulated are extremely complex and each move changes the state of the game significantly, the simulation will start over instead of any error handling. This decision is justified by the fact that each simulation should take less than 5 minutes and no undesired event will have a harmful effect on the system. Thus, the cost of restarting is cheaper than any extensive undesired event handling since we would have to handle thousands of different scenarios if we were to decide to do undesired event handling rather than restarting that particular simulation.
+
+\newpage
+\section{Specific System Description}
+
+This section first presents the problem description, which gives a high-level
+view of the problem to be solved.  This is followed by definitions and assumptions.
+
+\subsection{Problem Description} \label{Sec_pd}
+
+Designing a game is not an easy task. Especially, if the game is not a software that can be updated with correction and balancing patches later on but a physical board game where an incorrect game design can result in significant financial and reputation costs. In complex games, there are multiple players, dozens of variables and actions that can be taken, and millions of possible scenarios that each decision and variable can cause. A good game should be a balanced one and should not contain any definitive way to win the game every single time to make it more competitive and fun. However, it is also humanly not possible to go through each scenario and balance all the variables to make sure there are no loopholes in the game. Our project is trying to create a process where game designers can see most of the scenarios and balance the game before even publishing by utilizing the power of computers.
 
 \subsubsection{Goal Statements}
 
-\plt{The goal statements refine the ``Problem Description''
-  (Section~\ref{Sec_pd}).  A goal is a functional objective the system under
-  consideration should achieve. Goals provide criteria for sufficient
-  completeness of a requirements specification and for requirements
-  pertinence. Goals will be refined in Section “Instanced Models”
-  (Section~\ref{sec_instance}). Large and complex goals should be decomposed
-  into smaller sub-goals.  The goals are written abstractly, with a minimal
-  amount of technical language.  They should be understandable by non-domain
-  experts.}
-
-\noindent Given the \plt{inputs}, the goal statements are:
+\noindent Given the inputs, the goal statements are:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] \plt{One
-    sentence description of the goal.  There may be more than one.  Each Goal
-    should have a meaningful label.}
+\item \textbf{Game Simulation}: The system must simulate good quality board games containing rules and strategies with no serious consequences of mistakes.
+
+\item \textbf{AI Learning}:
+The system must implement artificial intelligent players to play thousands of games efficiently to detect patterns and learn winning strategies.   
+
+\item \textbf{Complex Problem Solving}:
+The AI game players of the system must be able to analyze complex decision paths. Each different AI game player should have a different decision-making process.  
+
+\item \textbf{Quality Data}:
+The system must output readable and correct data to track and save decisions, game states, and patterns throughout the simulations, as well as compare simulations against each other to find winning strategies.
+
+\item \textbf{Data Visualization Analysis}:
+The system must provide a variety of charts to visualize the data for users.
+
+\item \textbf{Live User Interface}:
+The system should have a live user interface where users can view the game states in real-time and the actions that AI game players are making.
+
 
 \end{itemize}
 
-\subsection{Solution Characteristics Specification}
-
-\plt{This section specifies the information in the solution domain of the system
-  to be developed. This section is intended to express what is required in
-  such a way that analysts and stakeholders get a clear picture, and the
-  latter will accept it. The purpose of this section is to reduce the problem
-  into one expressed in mathematical terms. Mathematical expertise is used to
-  extract the essentials from the underlying physical description of the
-  problem, and to collect and substantiate all physical data pertinent to the
-  problem.}
-
-\plt{This section presents the solution characteristics by successively refining
-  models.  It starts with the abstract/general Theoretical Models (TMs) and
-  refines them to the concrete/specific Instance Models (IMs).  If necessary
-  there are intermediate refinements to General Definitions (GDs).  All of these
-  refinements can potentially use Assumptions (A) and Data Definitions (DD).
-  TMs are refined to create new models, that are called GMs or IMs. DDs are not
-  refined; they are just used. GDs and IMs are derived, or refined, from other
-  models. DDs are not derived; they are just given. TMs are also just given, but
-  they are refined, not used.  If a potential DD includes a derivation, then
-  that means it is refining other models, which would make it a GD or an IM.}
-
-\plt{The above makes a distinction between ``refined'' and ``used.'' A model is
-  refined to another model if it is changed by the refinement. When we change a
-  general 3D equation to a 2D equation, we are making a refinement, by applying
-  the assumption that the third dimension does not matter. If we use a
-  definition, like the definition of density, we aren't refining, or changing
-  that definition, we are just using it.}
-
-\plt{The same information can be a TM in one problem and a DD in another.  It is
-  about how the information is used.  In one problem the definition of
-  acceleration can be a TM, in another it would be a DD.}
-
-\plt{There is repetition between the information given in the different chunks
-  (TM, GDs etc) with other information in the document.  For instance, the
-  meaning of the symbols, the units etc are repeated.  This is so that the
-  chunks can stand on their own when being read by a reviewer/user.  It also
-  facilitates reuse of the models in a different context.}
-
-\noindent \plt{The relationships between the parts of the document are show in
-  the following figure.  In this diagram ``may ref'' has the same role as
-  ``uses'' above.  The figure adds ``Likely Changes,'' which are able to
-  reference (use) Assumptions.}
-
-\begin{figure}[H]
-  \includegraphics[scale=0.9]{RelationsBetweenTM_GD_IM_DD_A.pdf}
-\end{figure}
-
-The instance models that govern \progname{} are presented in
-Subsection~\ref{sec_instance}.  The information to understand the meaning of the
-instance models and their derivation is also presented, so that the instance
-models can be verified.
-
-\subsubsection{Assumptions} \label{sec_assumpt}
-
-\plt{The assumptions are a refinement of the scope.  The scope is general, where
-  the assumptions are specific.  All assumptions should be listed, even those
-  that domain experts know so well that they are rarely (if ever) written down.}
-\plt{The document should not take for granted that the reader knows which
-  assumptions have been made. In the case of unusual assumptions, it is
-  recommended that the documentation either include, or point to, an explanation
-  and justification for the assumption.}
-
-This section simplifies the original problem and helps in developing the
-theoretical model by filling in the missing information for the physical
-system. The numbers given in the square brackets refer to the theoretical model
-[T], general definition [GD], data definition [DD], instance model [IM], or
-likely change [LC], in which the respective assumption is used.
+\subsection{Assumptions} \label{sec_assumpt}
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  \plt{Short description of each assumption.  Each assumption
-    should have a meaningful label.  Use cross-references to identify the
-    appropriate traceability to T, GD, DD etc., using commands like dref, ddref
-    etc.  Each assumption should be atomic - that is, there should not be an
-    explicit (or implicit) ``and'' in the text of an assumption.}
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Reward_Function}:]
+  The game to be analyzed will have a clear reward function that AI Agent can optimize its learning towards.
+  
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_End_Condition}:]
+  The game to be analyzed will have a clear win condition where the game ends.\\ 
+  \textbf{Rationale}: It shouldn't be an open-ended, infinite game where the goal is to just increase your score but rather there should be a specific condition(s) that players are playing towards to win and end the game. Otherwise, AI agents won't be able to find the optimal actions to win the game but rather keep outputting sub-optimal decisions which will have little to no value for game design improvements.
+  
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Representable}:]
+  The game to be analyzed will have concrete rules that a computer can represent and enforce.\\
+  \textbf{Rationale}: If the game cannot be simulated digitally, then AI Agent cannot be trained on the game and the system wouldn't be able to generate any meaningful data to aid the game design process.
 
 \end{itemize}
 
-\subsubsection{Theoretical Models}\label{sec_theoretical}
+\section{Required Behaviour Overview}
+Our project consists of three main subsystems– Game Engine, AI Agent, and a data visualizer. These subsystems will work together to help game developers find imbalances in the game mechanics as well as find strategies that result in higher-than-expected winning percentages. 
+\\\\
+\textbf{AI Agent} – An AI model trained to play the game at hand acting as one of the players of the game to give insights into the possible paths to be taken. It would analyze all possible paths that a player can take at any point in the game. It would take as input the game state information (current state and available moves for the player) and output the next move that the player will take. 
+\\
+\textbf{Game Engine} – Abstract representation of the actual game as software. Contains all the game rules, observation space (state of the game), and action space (possible moves and commands that a player can choose from). It is also responsible for validating input from the AI Agent and outputting the game state with the moves available for the player. 
+\\
+\textbf{Data Visualizer} - Read the Game Engine and AI Agent log, and provide diverse graphic representations of data and information of moves to game state transitions. It will take the output from both the AI Agent and Game Engine to provide a way for the user to decipher imbalances in the game.
 
-\plt{Theoretical models are sets of abstract mathematical equations or axioms
-  for solving the problem described in Section ``Physical System Description''
-  (Section~\ref{sec_phySystDescrip}). Examples of theoretical models are
-  physical laws, constitutive equations, relevant conversion factors, etc.}
 
-This section focuses on the general equations and laws that \progname{} is based
-on.  \plt{Modify the examples below for your problem, and add additional models
-  as appropriate.}
+\section{Functional Requirements}
 
-~\newline
-
+\subsection{AI Agent's Functional Requirements}
 \noindent
-\deftheory
-% #2 refname of theory
-{T:COE}
-% #3 label
-{Conservation of thermal energy}
-% #4 equation
-{
-  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$
-}
-% #5 description
-{
-  The above equation gives the conservation of energy for transient heat transfer in a material
-  of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
-  (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
-  $g$ is the volumetric heat generation
-  (\si{\watt\per\cubic\metre}), $T$ is the temperature
-  (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
-  the gradient operator.  For this equation to apply, other forms
-  of energy, such as mechanical energy, are assumed to be negligible in the
-  system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.
-}
-% #6 Notes
-{
-None.
-}
-% #7 Source
-{
-  \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}
-}
-% #8 Referenced by
-{
-  \dref{ROCT}
-}
-% #9 Preconditions
-{
-None
-}
-% #1 derivation - not applicable by default
-{}
 
-\plt{``Ref.\ By'' is used repeatedly with the different types of information.
-  This stands for Referenced By.  It means that the models, definitions and
-  assumptions listed reference the current model, definition or assumption.
-  This information is given for traceability.  Ref. By provides a pointer in the
-  opposite direction to what we commonly do.  You still need to have a reference
-  in the other direction pointing to the current model, definition or
-  assumption.  As an example, if T1 is referenced by G2, that means that G2 will
-  explicitly include a reference to T1.}
-
-~\newline
-
-\subsubsection{General Definitions}\label{sec_gendef}
-
-\plt{General Definitions (GDs) are a refinement of one or more TMs, and/or of
-  other GDs.  The GDs are less abstract than the TMs.  Generally the reduction
-  in abstraction is possible through invoking (using/referencing) Assumptions.
-  For instance, the TM could be Newton's Law of Cooling stated abstracting.  The
-  GD could take the general law and apply it to get a 1D equation.}
-
-This section collects the laws and equations that will be used in building the
-instance models.
-
-\plt{Some projects may not have any content for this section, but the section
-  heading should be kept.}  \plt{Modify the examples below for your problem, and
-  add additional definitions as appropriate.}
-
-~\newline
-
-\noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{NL}\\
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Input} & AI Agent should take the state as input.\\ 
 \hline
-Label &\bf Newton's law of cooling \\
+\bf Rationale & AI Agent will not store the state information. Rather it will get it from the Game Engine as an input.\\
 \hline
-% Units&$MLt^{-3}T^0$\\
-% \hline
-SI Units&\si{\watt\per\square\metre}\\
+\bf Priority& High\\
 \hline
-Equation&$ q(t) = h \Delta T(t)$  \\
-\hline
-Description &
-Newton's law of cooling describes convective cooling from a surface.  The law is
-stated as: the rate of heat loss from a body is proportional to the difference
-in temperatures between the body and its surroundings.
-\\
-& $q(t)$ is the thermal flux (\si{\watt\per\square\metre}).\\
-& $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
-	(\si{\watt\per\square\metre\per\celsius}).\\
-&$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
-between the environment and the object (\si{\celsius}).
-\\
-\hline
-  Source & Citation here \\
-  \hline
-  Ref.\ By & \ddref{FluxCoil}, \ddref{FluxPCM}\\
-  \hline
 \end{tabular}
 \end{minipage}\\
 
-\subsubsection*{Detailed derivation of simplified rate of change of temperature}
-
-\plt{This may be necessary when the necessary information does not fit in the
-  description field.}
-\plt{Derivations are important for justifying a given GD.  You want it to be
-  clear where the equation came from.}
-
-\subsubsection{Data Definitions}\label{sec_datadef}
-
-\plt{The Data Definitions are definitions of symbols and equations that are
-  given for the problem.  They are not derived; they are simply used by other
-  models.  For instance, if a problem depends on density, there may be a data
-  definition for the equation defining density.  The DDs are given information
-  that you can use in your other modules.}
-
-\plt{All Data Definitions should be used (referenced) by at least one other
-  model.}
-
-This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \plt{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
-
-~\newline
-
-\noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Input} & AI Agent can be swapped with another AI Agent or a human player.\\ 
 \hline
-Label& \bf Heat flux out of coil\\
+\bf Rationale & The project aims to provide a tool for all game designers to test their games. Every game will require a different AI model trained specifically on that game. Thus, AI Agent needs to be modular enough to swap with other AI Agents. \\
 \hline
-Symbol &$q_C$\\
+\bf Priority& Medium\\
 \hline
-% Units& $Mt^{-3}$\\
-% \hline
-  SI Units & \si{\watt\per\square\metre}\\
-  \hline
-  Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
-  \hline
-  Description & 
-                $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
-                The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
-                assuming that Newton's Law 
-                of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-                the coil, which has area $A_C$ (\si{\square\metre}) and heat 
-                transfer coefficient $h_C$
-                (\si{\watt\per\square\metre\per\celsius}).  This equation
-                assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
-                of the coil (\aref{A_tlcoil}).
-  \\
-  \hline
-  Sources& Citation here \\
-  \hline
-  Ref.\ By & \iref{ewat}\\
-  \hline
 \end{tabular}
 \end{minipage}\\
 
-\subsubsection{Data Types}\label{sec_datatypes}
-
-\plt{This section is optional.  In many scientific computing programs it isn't
-  necessary, since the inputs and outpus are straightforward types, like reals,
-  integers, and sequences of reals and integers.  However, for some problems it
-  is very helpful to capture the type information.}
-
-\plt{The data types are not derived; they are simply stated and used by other
-  models.}
-
-\plt{All data types must be used by at least one of the models.}
-
-\plt{For the mathematical notation for expressing types, the recommendation is
-  to use the notation of~\citet{HoffmanAndStrooper1995}.}
-
-This section collects and defines all the data types needed to document the
-models. \plt{Modify the examples below for your problem, and add additional
-  definitions as appropriate.}
-
-~\newline
-
-\noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Type Name & Name for Type\\
-  \hline
-  Type Def & mathematical definition of the type\\
-  \hline
-  Description & description here
-  \\
-  \hline
-  Sources & Citation here, if the type is borrowed from another source\\
-  \hline
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Input} & AI Agent should be observable.\\ 
+\hline
+\bf Rationale & The decisions of the AI Agent should be recorded so that it can be reviewed by the game designer to guide the design of the board game.\\
+\hline
+\bf Priority& High\\
+\hline
 \end{tabular}
 \end{minipage}\\
 
-\subsubsection{Instance Models} \label{sec_instance}    
-
-\plt{The motivation for this section is to reduce the problem defined in
-  ``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one
-  expressed in mathematical terms. The IMs are built by refining the TMs and/or
-  GDs.  This section should remain abstract.  The SRS should specify the
-  requirements without considering the implementation.}
-
-This section transforms the problem defined in Section~\ref{Sec_pd} into 
-one which is expressed in mathematical terms. It uses concrete symbols defined 
-in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
-identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
-
-The goals \plt{reference your goals} are solved by \plt{reference your instance
-  models}.  \plt{other details, with cross-references where appropriate.}
-\plt{Modify the examples below for your problem, and add additional models as
-  appropriate.}
-
-~\newline
-
-%Instance Model 1
-
-\noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
-  \hline
-  Label& \bf Energy balance on water to find $T_W$\\
-  \hline
-  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
-  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
-  \hline
-  Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
-  &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
-  &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
-  \hline
-  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-  &$T_C$ is the coil temperature (\si{\celsius}).\\
-  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-  & The above equation applies as long as the water is in liquid form,
-  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
-  and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-  \\
-  \hline
-  Sources& Citation here \\
-  \hline
-  Ref.\ By & \iref{epcm}\\
-  \hline
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Input} & AI Agent should only output an action that is in the action space provided by the Game Engine.\\ 
+\hline
+\bf Rationale & By only selecting the actions in the action space provided by the Game Engine, errors will be reduced and the game can actually progress. \\
+\hline
+\bf Priority& High\\
+\hline
 \end{tabular}
 \end{minipage}\\
 
-%~\newline
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Input} & AI Agent shall not see the state information that a human player cannot see.\\ 
+\hline
+\bf Rationale & In multiplayer games, there will be information specific to the user (e.g. hidden cards) which the AI Agent should not see to have the same level of visibility as a human player would have. \\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
 
-\subsubsection*{Derivation of ...}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Input} & AI Agent shall always respond with an action.\\ 
+\hline
+\bf Rationale & Even if there is no optimal move, AI Agent should output an action so that the game can progress.\\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
 
-\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases
-  where the derivation cannot be described under the Description field, it will
-  be necessary to include this subsection.}
-
-\subsubsection{Input Data Constraints} \label{sec_DataConstraints}    
-
-Table~\ref{TblInputVar} shows the data constraints on the input output
-variables.  The column for physical constraints gives the physical limitations
-on the range of values that can be taken by the variable.  The column for
-software constraints restricts the range of inputs to reasonable values.  The
-software constraints will be helpful in the design stage for picking suitable
-algorithms.  The constraints are conservative, to give the user of the model the
-flexibility to experiment with unusual situations.  The column of typical values
-is intended to provide a feel for a common scenario.  The uncertainty column
-provides an estimate of the confidence with which the physical quantities can be
-measured.  This information would be part of the input if one were performing an
-uncertainty quantification exercise.
-
-The specification parameters in Table~\ref{TblInputVar} are listed in
-Table~\ref{TblSpecParams}.
-
-\begin{table}[!h]
-  \caption{Input Variables} \label{TblInputVar}
-  \renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l l l c} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
-                             \textbf{Typical Value} & \textbf{Uncertainty}\\
-  \midrule 
-  $L$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 \si[per-mode=symbol] {\metre} & 10\%
-  \\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\noindent 
-\begin{description}
-\item[(*)] \plt{you might need to add some notes or clarifications}
-\end{description}
-
-\begin{table}[!h]
-\caption{Specification Parameter Values} \label{TblSpecParams}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Value} \\
-  \midrule 
-  $L_\text{min}$ & 0.1 \si{\metre}\\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
-
+\subsection{Game Engine Functional Requirements}
 \noindent
-A correct solution must exhibit \plt{fill in the details}.  \plt{These
-  properties are in addition to the stated requirements.  There is no need to
-  repeat the requirements here.  These additional properties may not exist for
-  every problem.  Examples include conservation laws (like conservation of
-  energy or mass) and known constraints on outputs, which are usually summarized
-  in tabular form.  A sample table is shown in Table~\ref{TblOutputVar}}
 
-\begin{table}[!h]
-\caption{Output Variables} \label{TblOutputVar}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} \\
-  \midrule 
-  $T_W$ & $T_\text{init} \leq T_W \leq T_C$ (by~\aref{A_charge})
-  \\
-  \bottomrule
-\end{longtable*}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The Game Engine must validate the input from the AI Agent\\ 
+\hline
+\bf Rationale& One of the core functionality of our system is the interaction between the AI Agent and the Game Engine. The Game Engine must be responsible for validating the input (state) from the AI engine, to ensure the action taken is a valid action. \\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The Game Engine must have an end/winning state to end the game.\\ 
+\hline
+\bf Rationale& A Game Engine's main role is to transition from the start state to the end state using the player's moves. The Game Engine must validate if a player(s) has reached the end state at any point of the gameplay.\\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The Game Engine must output the current state of the game, if not in the end state.\\ 
+\hline
+\bf Rationale& As the AI Agent will be using the Game Engine's output to perform different moves, it is essential for the Game Engine to provide the current state of the game in order for the AI to make appropriate decisions.\\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The Game Engine must follow all the playing and business rules of the game\\ 
+\hline
+\bf Rationale& It is necessary for the Game Engine to implement all the game rules such that it can validate moves and transition to the end state.\\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The Game Engine must supply a list of game moves that an AI Agent can take.\\ 
+\hline
+\bf Rationale& It is necessary for the AI Agent to know what moves it can take. This move list does not ensure all moves are legal, only that they can be executed.\\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+
+\subsection{Game Data Visualization Analysis Requirement}
+\noindent
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The game system must generate a variety of data visualization charts\\ 
+\hline
+\bf Rationale &  The functionality of data visualization charts is to provide different graphic representations of data and information such as pie charts, bar graphs, and line charts to the users. It can efficiently show insights that may be missed in traditional reports and translates the data into a visual context that the users can understand easily.\\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The game system must read data from the Game Engine and AI Agent logs. \\ 
+\hline
+\bf Rationale &  The functionality of reading data from the Game Engine and AI Agent allows the system to proceed with deeper data analysis.\\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The game system must allow users to select different data points  \\ 
+\hline
+\bf Rationale &  It is necessary for users to select a variety of data points such as win percentages of different first moves taken, game state changes in different decision-making processes, and actions having the highest win rates. \\
+\hline
+\bf Priority& High\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+
+
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf FR\refstepcounter{reqnum}\thereqnum \label{R_Output} & The game system compare data between different Game Engine and AI Agent logs.\\ 
+\hline
+\bf Rationale &  The functionality of data comparison evaluates and compares selected data points. For example, it can compare multiple AI players’ winning paths and output the most optimal option. \\
+\hline
+\bf Priority& Low\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+
+\newpage
+\section{Nonfunctional Requirements}
+This section will describe the non-functional requirements which will be the qualities the system has and why they are important and how they can be verified.
+
+\subsection{Accuracy}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}: & The system, specifically the AI Agent should get more and more accurate after each simulation in choosing winning moves. After (Learning Benchmark) 1000 simulations an AI Agent should be able to win against its previous version. \\ 
+\hline
+\bf Rationale & Since some of the AI Agent's will be using reinforcement learning they must get more intelligent at playing the game after a duration of simulations. \\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\subsection{Usability}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}: & The system should be understood and navigable by the technical stakeholders (Dr .Mosser, Dr .Reinharz and Game Designers) after a (Understanding Benchmark) 30-minute explanation from the developers  \\ 
+\hline
+\bf Rationale & Usability of the system is not of high importance for the general public. The main users will be AI Research Professors and Game Designers, these two users will only be interacting with one part of the system, that is the data visualizer. Users familiar with data visualization software should have an easy time navigating and understanding the data. \\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\subsection{Modularity}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}: & The system should be modular enough to where additional AI Agents can be implemented in two days of development time. A Game Engine can be implemented in 7 days of development time.  \\ 
+\hline
+\bf Rationale & Modularity is a very important quality the system needs to have. All the components need to be easily swappable, that is AI Agents should be able to be changed with other implementations of AI, with minimal effort and the structure should support different Game Engines being integrated. \\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\subsection{Portability}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}: & The system should run on macOS Monterey and newer, Windows10 and newer, and on Aliance Canada's Computer Cluster. The simulation of the Game Engine with the AI Agent's must be able to run on each OS for them to be verified as working. \\ 
+\hline
+\bf Rationale & These operating systems will be used by the developers and the Aliance Canada's Computer Cluster will be used in case additional computing power is needed.\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\subsection{Performance}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}: & The system should complete a single simulation in under (Speed Benchmark) 5 minutes. \\ 
+\hline
+\bf Rationale & If a simulation is taking too long it will slow down the learning of the AI Agents as well as take up resources from the developers' computers.\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\subsection{Extensibility}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}: & The system should be able to be extended to include additional rules and mechanics in 2 days of development time. \\ 
+\hline
+\bf Rationale & With more complex games and games still in development rules and mechanics will be added iteratively rather than all at once.\\
+\hline
+\end{tabular}
+\end{minipage}\\
+
+\subsection{Look and Feel}
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+\bf NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}: & The system specifically the Data Visualizer should clearly indicate data using different colours, lines and shapes. Should appeal to more than 75\% (Look Feel Benchmark) of game designers  \\ 
+\hline
+\bf Rationale & With a clear and clean look the data will be easier to visualize.\\
+\hline
+\end{tabular}
+\end{minipage}\\
+\subsection{Security}
+N/A
+\subsection{Cultural and Political}
+N/A
+\subsection{Legal}
+N/A
+
+\section{Phase-In Plan}
+All requirements with \textit{High} priority must be implemented prior to the Revision 0 demonstration (February 6-17, 2023) as they represent the core functionality of our system.
+\\All requirements with \textit{Medium} priority will be implemented before the Revision 1 demonstration (March 20-31, 2023). 
+\\All requirements with \textit{Low} priority will be added after all \textit{High} and \textit{Medium} requirements are implemented, time permitting.
+
+
+\newpage
+\section{Likelihood of Changes for Functional Requirements}    
+
+
+\begin{table}[H]
+\begin{tabular}{|l|p{0.20\textwidth}|p{0.34\textwidth}|p{0.20\textwidth}|l}
+\cline{1-4}
+\centering{\textbf{Requirement}} & \centering{\textbf{Likelihood of Change}} & \centering{\textbf{Rationale}}                                                                               & \centering{\textbf{Ways to Change}}                            &  \\ \cline{1-4}
+\textbf{FR1}                                & Very Unlikely                                      & Core implementation aspect                                                                                            & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR2}                                & Very Unlikely                                      & Core implementation aspect                                                                                            & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR3}                                & Very Unlikely                                      & Core implementation aspect                                                                                            & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR4}                                & Very Unlikely                                      & Must produce valid actions within the space or the system could loop indefinitely                                     & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR5}                                & Very Unlikely                                      & AI Agent should not have an advantage over a human player                                                             & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR6}                                & Very Unlikely                                      & Must produce an action or the system cannot continue function                                                         & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR7}                                & Very Unlikely                                      & Core implementation aspect                                                                                            & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR8}                                & Very Unlikely                                      & Core implementation aspect                                                                                            & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR9}                                & Very Unlikely                                      & Important to visualize the state game for data analysis and allows for a human player to understand the state of game & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR10}                               & Very Unlikely                                      & Core implementation aspect                                                                                            & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR11}                               & Very Unlikely                                      & Allows for the AI Agent to generate a valid action to prevent invalid actions                                         & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR12}                               & Unlikely                                           & May produce only a specific visualization data charts                                                                 & Produce only specific data visualization charts                         &  \\ \cline{1-4}
+\textbf{FR13}                               & Very Unlikely                                      & Required for the stakeholder to understand the data                                                                   & N/A                                                                     &  \\ \cline{1-4}
+\textbf{FR14}                               & Unlikely                                           & Subject to time constraints, is not required in the minimal viable product but highly valued for the stakeholder                                            & Requirement is removed and function is not implemented in final product &  \\ \cline{1-4}
+\textbf{FR15}                               & Likely                                           & Subject to time constraints, is not required in the minimal viable product                                            & Requirement is removed and function is not implemented in final product &  \\ \cline{1-4}
+\end{tabular}
 \end{table}
 
-\plt{This section is not for test cases or techniques for verification and
-  validation.  Those topics will be addressed in the Verification and Validation
-  plan.}
-
-\section{Requirements}
-
-\plt{The requirements refine the goal statement.  They will make heavy use of
-  references to the instance models.}
-
-This section provides the functional requirements, the business tasks that the
-software is expected to complete, and the nonfunctional requirements, the
-qualities that the software is expected to exhibit.
-
-\subsection{Functional Requirements}
-
-\noindent \begin{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] \plt{Requirements
-    for the inputs that are supplied by the user.  This information has to be
-    explicit.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] \plt{It isn't
-    always required, but often echoing the inputs as part of the output is a
-    good idea.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] \plt{Calculation
-    related requirements.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:]
-  \plt{Verification related requirements.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] \plt{Output related
-    requirements.}
-
-\end{itemize}
-
-\plt{Every IM should map to at least one requirement, but not every requirement
-  has to map to a corresponding IM.}
-
-\subsection{Nonfunctional Requirements}
-
-\plt{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
-\plt{The goal is for the nonfunctional requirements to be unambiguous, abstract
-  and verifiable.  This isn't easy to show succinctly, so a good strategy may be
-to give a ``high level'' view of the requirement, but allow for the details to
-be covered in the Verification and Validation document.}
-\plt{An absolute requirement on a quality of the system is rarely needed.  For
-  instance, an accuracy of 0.0101 \% is likely fine, even if the requirement is
-  for 0.01 \% accuracy.  Therefore, the emphasis will often be more on
-  describing now well the quality is achieved, through experimentation, and
-  possibly theory, rather than meeting some bar that was defined a priori.}
-\plt{You do not need an entry for correctness in your NFRs.  The purpose of the
-  SRS is to record the requirements that need to be satisfied for correctness.
-  Any statement of correctness would just be redundant. Rather than discuss
-  correctness, you can characterize how far away from the correct (true)
-  solution you are allowed to be.  This is discussed under accuracy.}
-
-\noindent \begin{itemize}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy} \plt{Characterize the accuracy by giving the context/use for
-    the software.  Maybe something like, ``The accuracy of the computed
-    solutions should meet the level needed for $<$engineering or scientific
-    application$>$.  The level of accuracy achieved by \progname{} shall be
-    described following the procedure given in Section~X of the Verification and
-    Validation Plan.''  A link to the VnV plan would be a nice extra.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
-  \plt{Characterize the usability by giving the context/use for the software.
-    You should likely reference the user characteristics section.  The level of
-    usability achieved by the software shall be described following the
-    procedure given in Section~X of the Verification and Validation Plan.  A
-    link to the VnV plan would be a nice extra.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
-  \textbf{Maintainability} \plt{The effort required to make any of the likely
-    changes listed for \progname{} should be less than FRACTION of the original
-    development time.  FRACTION is then a symbolic constant that can be defined
-    at the end of the report.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability} \plt{This NFR is easier to write than the others.  The
-    systems that \progname{} should run on should be listed here.  When possible
-    the specific versions of the potential operating environments should be
-    given.  To make the NFR verifiable a statement could be made that the tests
-    from a given section of the VnV plan can be successfully run on all of the
-    possible operating environments.}
-
-\item Other NFRs that might be discussed include verifiability,
-  understandability and reusability.
-
-\end{itemize}
-
-\section{Likely Changes}    
-
-\noindent \begin{itemize}
-
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with a reference to the related assumption (aref), as appropriate.}
-
-\end{itemize}
-
-\section{Unlikely Changes}    
-
-\noindent \begin{itemize}
-
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
-
-\end{itemize}
-
+\newpage
 \section{Traceability Matrices and Graphs}
-
-The purpose of the traceability matrices is to provide easy references on what
-has to be additionally modified if a certain component is changed.  Every time a
-component is changed, the items in the column of that component that are marked
-with an ``X'' may have to be modified as well.  Table~\ref{Table:trace} shows the
-dependencies of theoretical models, general definitions, data definitions, and
-instance models with each other. Table~\ref{Table:R_trace} shows the
-dependencies of instance models, requirements, and data constraints on each
-other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, and likely changes on
-the assumptions.
-
-\plt{You will have to modify these tables for your problem.}
-
-\plt{The traceability matrix is not generally symmetric.  If GD1 uses A1, that
-  means that GD1's derivation or presentation requires invocation of A1.  A1
-  does not use GD1.  A1 is ``used by'' GD1.}
-
-\plt{The traceability matrix is challenging to maintain manually.  Please do
-  your best.  In the future tools (like Drasil) will make this much easier.}
-
-\afterpage{
-\begin{landscape}
+The table below shows the traceability matrix in how functional requirements depend on each other as well as depend on non-functional requirements and assumptions.
 \begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\resizebox{17cm}{!} 
+{
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
 \hline
-	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
-\hline
-\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
-\hline
+\textbf{ITEM} &
+  \textbf{FR1} &
+  \textbf{FR2} &
+  \textbf{FR3} &
+  \textbf{FR4} &
+  \textbf{FR5} &
+  \textbf{FR6} &
+  \textbf{FR7} &
+  \textbf{FR8} &
+  \textbf{FR9} &
+  \textbf{FR10} &
+  \textbf{FR11} &
+  \textbf{FR12} &
+  \textbf{FR13} &
+  \textbf{FR14} &
+  \textbf{FR15} &
+  \textbf{NFR1} &
+  \textbf{NFR2} &
+  \textbf{NFR3} &
+  \textbf{NFR4} &
+  \textbf{NFR5} &
+  \textbf{NFR6} &
+  \textbf{NFR7} &
+  \textbf{A1} &
+  \textbf{A2} &
+  \textbf{A3} \\ \hline
+\textbf{FR1}  &   &   &   &   &   &   &   &   & X &   &   &   &   &   &   & X &   & X &  & X & X &   &   &   &   \\ \hline
+\textbf{FR2}  &   &   &   &   & X &   & X &   &   &   & X &   & X &   & X & X &   & X &  & X & X &   &   &   &   \\ \hline
+\textbf{FR3}  &   &   &   &   &   &   &   &   &   &   &   &   & X &   & X &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{FR4}  &   &   &   &   &   &   &   &   &   &   & X &   &   &   &   & X &   & X &  & X & X &   &   &   & X \\ \hline
+\textbf{FR5}  &   & X &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{FR6}  &   &   &   &   &   &   & X &   &   & X &   &   &   &   &   & X &   &   &  & X &   &   & X &   &   \\ \hline
+\textbf{FR7}  &   & X &   &   &   & X &   &   &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   & X \\ \hline
+\textbf{FR8}  &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & X &   &   &  & X &   &   & X & X &   \\ \hline
+\textbf{FR9}  & X &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  & X &   &   &   &   &   \\ \hline
+\textbf{FR10} &   &   &   &   &   & X &   &   &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   & X \\ \hline
+\textbf{FR11} &   & X &   & X &   &   &   &   &   &   &   &   &   &   &   & X &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{FR12} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & X &   &  &   &   & X &   &   &   \\ \hline
+\textbf{FR13} &   & X & X &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{FR14} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & X &   &  &   &   & X &   &   &   \\ \hline
+\textbf{FR15} &   & X & X &   &   &   &   &   &   &   &   &   &   &   &   &   & X &   &  &   &   & X &   &   &   \\ \hline
+\textbf{NFR1} & X & X &   & X &   & X &   & X &   &   & X &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{NFR2} &   &   & X &   &   &   &   &   &   &   &   & X &   & X & X &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{NFR3} & X & X &   & X &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{NFR4} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{NFR5} & X & X &   & X &   & X &   & X & X &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{NFR6} & X & X &   & X &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{NFR7} &   &   &   &   &   &   &   &   &   &   &   & X &   & X & X &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{A1}   &   &   &   &   &   & X &   & X &   &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{A2}   &   &   &   &   &   &   &   & X & X &   &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
+\textbf{A3}   &   &   &   & X &   &   & X &   &   & X &   &   &   &   &   &   &   &   &  &   &   &   &   &   &   \\ \hline
 \end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
-\label{Table:A_trace}
-\end{table}
-\end{landscape}
 }
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline        
-	& \tref{T_COE}& \tref{T_SHE}& \tref{T_LHE}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
-\hline
-\tref{T_COE}     & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_LHE}     & & & & & & & & & & & & & \\ \hline
-\dref{NL}        & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
-\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
-\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
-\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
-\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
-\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
-\label{Table:trace}
 \end{table}
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline
-	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
-\hline
-\iref{ewat}            & & X& & & & X& X \\ \hline
-\iref{epcm}            & X& & & X& & X& X \\ \hline
-\iref{I_HWAT}          & & & & & & X& X \\ \hline
-\iref{I_HPCM}          & & X& & & & X& X \\ \hline
-\rref{R_RawInputs}     & & & & & & & \\ \hline
-\rref{R_MassInputs}    & & & & & & X& \\ \hline
-\rref{R_CheckInputs}   & & & & & X& & \\ \hline
-\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
-\rref{R_TempWater}     & X& & & & & & \\ \hline 
-\rref{R_TempPCM}       & & X& & & & & \\ \hline
-\rref{R_EnergyWater}   & & & X& & & & \\ \hline
-\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
-\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
-\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
-\rref{R_timeMeltEnd}   & & X& & & & & \\ 
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
-\label{Table:R_trace}
-\end{table}
 
-The purpose of the traceability graphs is also to provide easy references on
-what has to be additionally modified if a certain component is changed.  The
-arrows in the graphs represent dependencies. The component at the tail of an
-arrow is depended on by the component at the head of that arrow. Therefore, if a
-component is changed, the components that it points to should also be
-changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, likely changes, and
-assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
-instance models, requirements, and data constraints on each other.
+\section{Impact Analysis}
 
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=\textwidth]{ATrace.png}
-% 		}
-% 		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections Between Items of Different Sections}
-% 	\end{center}
-% \end{figure}
+This system will impact society as a stakeholder through the means of cultural factors as it is dealing with managing the quality of entertainment or specifically, the quality of board games. Completing this system will provide board game designers and game designers as a whole with a different and quicker means of balancing their turn-based games with AI. Being able to simulate many games in parallel to find unbalanced strategies in their games will allow them to produce these higher quality games for society to enjoy. In terms of health, safety, and other factors, this system will have a minimal impact.
+
+\section{Values of Constants}
+\begin{itemize}
+\item Learning Benchmark: 1000 simulations
+\item Understanding Benchmark: 30 minutes
+\item Speed Benchmark: 5 minutes
+\item Look and Feel Benchmark: 75\%
+
+\end{itemize}
+
+\section{Reflection Appendix}
+\subsection{Game mechanics and rules}
+\\
+Assigned Team Members: \textit{All}
+\\
+All team members will be required to thoroughly understand the game rules for all the games we will be working on. This knowledge and expertise will be acquired through playing the game, reading game rule books, and any online resources that explain the rules of the games.
+\\\\
+Every team member will be using all the discussed methods to gain the expertise in this domain as it is easy for everyone to understand the game rules by playing the game and then reading the game rule books to further enhance their knowledge.
+
+\\
+\subsection{AI Agent}
+\\
+Assigned Team Members: \textit{Jeffrey and Jonah}
+\\
+Learning how to develop and implement an AI Agent will require the knowledge and learning of specific AI APIs and libraries. The skills acquired from learning how these APIs and libraries work will allow the team to create feasible enough agents to generate viable moves for the Game Engine to accept. The team members assigned for developing the AI Agents will begin with reinforcement learning libraries, Gym, PettingZoo, and SIMPLE, as a starting point to see if any viable AI Agents can be implemented with them and see if the team can further progress to other libraries. The team members were chosen for this topic for their previous experience in the machine learning course, COMPSCI 4ML3: Introduction to Machine Learning, and it should assist them in having to learn these libraries.
+\\
+Approaches to learn these libraries will involve dealing with tutorials, working with the starter code, and reading through the documentation.
+\\\\
+Jonah will use a combination of tutorials and documentation as he is able to understand better through tutorials and then he will be able to continue enforcing his knowledge further with the documentation given for the APIs and libraries.
+\\\\
+Jeffrey will begin by working on the starter code and continue will changing parameters in the starter code to see what output results as a consequence. Additionally, the use of the documentation will help change the starter code successfully. The reason for choosing this approach is because he particularly enjoys implementing first and then debugging towards the desired result afterward.
+\subsection{Game Engine}
+\\
+Assigned Team Members: \textit{Michael and Hargun}
+\\
+Knowledge of Game Engine development and object-oriented programming is expected for this subsystem. The group members responsible for this subsystem will need to gain an understanding of how a Game Engine works and the level of abstraction it requires for it to be compatible with the other subsystems. The team members are also required to have experience with Python and have the thorough understanding principles of object-oriented programming. It is expected team members have a basic understanding of all libraries and frameworks that are used during the development of this subsystem. 
+\\Knowledge and expertise will be gained through online tutorials, online articles, documentations of libraries/frameworks that are used, and through our supervisors.
+\\\\Hargun will be using online tutorials and documentation to gain expertise in this domain area as it he finds it easier to learn from practical examples and then apply it to the desired problem.
+\\\\Michael will be using online articles, documentation and our supervisors' expertise to gain knowledge in this domain area. Michael likes to research thoroughly before trying to solve a problem which is why it is beneficial for him to use these methods.
 
 
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=0.7\textwidth]{RTrace.png}
-% 		}
-% 		\caption{\label{Fig_RTrace} Traceability Matrix Showing the Connections Between Requirements, Instance Models, and Data Constraints}
-% 	\end{center}
-% \end{figure}
-
-\section{Development Plan}
-
-\plt{This section is optional.  It is used to explain the plan for developing
-  the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course  this is
-  where you can indicate which requirements will be implemented as part of the
-  course, and which will be ``faked'' as future work.  This section can be
-  organized as a prioritized list of requirements, or it could should the
-  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
-
-\section{Values of Auxiliary Constants}
-
-\plt{Show the values of the symbolic parameters introduced in the report.}
-
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
-
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
-
+\subsection{Data Visualization Analysis}
+\\
+Assigned Team Members: \textit{Tianzheng}
+\\
+Data Visualization Analysis will require developers to understand users' expected data points, graphic representations, and what types of data need to compare. The group members are required to have sufficient knowledge of python data science libraries such as Matplotlib, Seaborn, NumPy, and pandas to create informative graphics and present accurate information to the users efficiently. 
+\\\\
+Tianzheng will be using online tutorials and documentation to gain expertise in data visualization and data analysis so as to find the most effective way to analyze the logs from the Game Engine and AI Agent. 
 \newpage
 
 \bibliographystyle {plainnat}
 \bibliography {../../refs/References}
-
-\newpage
-
-\noindent \plt{The following is not part of the template, just some things to consider
-  when filing in the template.}
-
-\noindent \plt{Grammar, flow and \LaTeX advice:
-\begin{itemize}
-\item For Mac users \texttt{*.DS\_Store} should be in \texttt{.gitignore}
-\item \LaTeX{} and formatting rules
-\begin{itemize}
-\item Variables are italic, everything else not, includes subscripts (link to
-  document)
-\begin{itemize}
-\item \href{https://physics.nist.gov/cuu/pdf/typefaces.pdf}{Conventions}
-\item Watch out for implied multiplication
-\end{itemize}
-\item Use BibTeX
-\item Use cross-referencing
-\end{itemize}
-\item Grammar and writing rules
-\begin{itemize}
-\item Acronyms expanded on first usage (not just in table of acronyms)
-\item ``In order to'' should be ``to''
-\end{itemize}
-\end{itemize}}
-
-\noindent \plt{Advice on using the template:
-\begin{itemize}
-\item Difference between physical and software constraints
-\item Properties of a correct solution means \emph{additional} properties, not
-  a restating of the requirements (may be ``not applicable'' for your problem).
-  If you have a table of output constraints, then these are properties of a
-  correct solution.
-\item Assumptions have to be invoked somewhere
-\item ``Referenced by'' implies that there is an explicit reference
-\item Think of traceability matrix, list of assumption invocations and list of
-  reference by fields as automatically generatable
-\item If you say the format of the output (plot, table etc), then your
-  requirement could be more abstract
-\end{itemize}
-}
 
 \end{document}
