@@ -1,3 +1,5 @@
+# Add player turn to game engine and remove from environment
+
 class Board:
     def __init__(self):
         # internally self.board.squares holds a flat representation of tic tac toe board
@@ -11,7 +13,8 @@ class Board:
         # player 0 -- 1
         # player 1 -- 2
         self.squares = [0] * 16
-
+        # index 0 = player 1's moves left, index 1 = player 2's moves left
+        self.specialMovesLeft = []
         # precommute possible winning combinations
         self.calculate_winners()
 
