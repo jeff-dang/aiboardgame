@@ -30,18 +30,17 @@ class raw_env(AECEnv):
     def __init__(self, render_mode=None):
         super().__init__()
         self.board = Board()
-
         self.agents = ["player_1", "player_2"]
         self.possible_agents = self.agents[:]
 
-        self.action_spaces = {i: spaces.Discrete(16) for i in self.agents}
+        self.action_spaces = {i: spaces.Discrete(32) for i in self.agents}
         self.observation_spaces = {
             i: spaces.Dict(
                 {
                     "observation": spaces.Box(
                         low=0, high=1, shape=(4, 4, 2), dtype=np.int8
                     ),
-                    "action_mask": spaces.Box(low=0, high=1, shape=(16,), dtype=np.int8),
+                    "action_mask": spaces.Box(low=0, high=1, shape=(32,), dtype=np.int8),
                 }
             )
             for i in self.agents
@@ -80,10 +79,19 @@ class raw_env(AECEnv):
             [cur_p_board, opp_p_board], axis=2).astype(np.int8)
         legal_moves = self._legal_moves() if agent == self.agent_selection else []
 
-        action_mask = np.zeros(16, "int8")
+        action_mask = np.zeros(32, "int8")
         for i in legal_moves:
             action_mask[i] = 1
-
+        if(self.board.specialMovesLeft[cur_player] > 0):
+            for i in range(16, 32):
+                if(self.board.squares[i-16] == (cur_player+1) or self.board.squares[i-16] == 0):
+                    action_mask[i] = 0
+                else:
+                    action_mask[i] = 1
+        else:
+            for i in range(16, 32):
+                action_mask[i] = 0
+        print(cur_player, agent, action_mask[0:16], action_mask[16:32])
         return {"observation": observation, "action_mask": action_mask}
 
     def observation_space(self, agent):
@@ -95,7 +103,6 @@ class raw_env(AECEnv):
     def _legal_moves(self):
         return [i for i in range(len(self.board.squares)) if self.board.squares[i] == 0]
 
-    # action in this case is a value from 0 to 8 indicating position to move on tictactoe board
     def step(self, action):
         if (
             self.terminations[self.agent_selection]
@@ -103,9 +110,16 @@ class raw_env(AECEnv):
         ):
             return self._was_dead_step(action)
         # check if input action is a valid move (0 == empty spot)
-        assert self.board.squares[action] == 0, "played illegal move"
+        if(action <= 15):
+            assert self.board.squares[action] == 0, "played illegal move"
+        elif(action > 15):
+            agentIndex = self.agents.index(self.agent_selection)
+            assert self.board.specialMovesLeft[agentIndex] > 0
+
         # play turn
         self.board.play_turn(self.agents.index(self.agent_selection), action)
+
+        #self.rewards[self.agents[self.agents.index(self.agent_selection)]] -= 1
 
         # update infos
         # list of valid actions (indexes in board)
@@ -117,8 +131,8 @@ class raw_env(AECEnv):
 
             if winner == -1:
                 # tie
-                self.rewards[self.agents[0]] += 0
-                self.rewards[self.agents[1]] += 0
+                self.rewards[self.agents[0]] -= 1  # tie is bad for X player
+                self.rewards[self.agents[1]] += 1  # tie is good for O player
             elif winner == 1:
                 # agent 0 won
                 self.rewards[self.agents[0]] += 2
@@ -133,6 +147,7 @@ class raw_env(AECEnv):
 
         # Switch selection to next agents
         self._cumulative_rewards[self.agent_selection] = 0
+
         self.agent_selection = next_agent
 
         self._accumulate_rewards()
@@ -190,6 +205,11 @@ class raw_env(AECEnv):
         print(f"  {board[3]}  " + "|" + f"  {board[7]}  " +
               "|" + f"  {board[11]} " + " |" + f"  {board[15]} ")
         print(" " * 5 + "|" + " " * 5 + "|" + " " * 5 + "|" + " " * 5)
+        print("Special Moves Left", self.board.specialMovesLeft)
+
+        winner = self.board.check_for_winner()
+        if(winner > 0):
+            print("Winner is", winner)
 
     def close(self):
         pass

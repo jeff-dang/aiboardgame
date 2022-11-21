@@ -12,23 +12,33 @@ class Board:
         # empty -- 0
         # player 0 -- 1
         # player 1 -- 2
+
         self.squares = [0] * 16
+
         # index 0 = player 1's moves left, index 1 = player 2's moves left
-        self.specialMovesLeft = []
+        # special move lets a player remove the other players space, but they skip a turn
+        self.specialMovesLeft = [4, 6]
         # precommute possible winning combinations
         self.calculate_winners()
 
     def setup(self):
+        self.specialMovesLeft = [2, 2]
         self.calculate_winners()
 
-    def play_turn(self, agent, pos):
+    def play_turn(self, agent, action):
         # if spot is empty
-        if self.squares[pos] != 0:
-            return
-        if agent == 0:
-            self.squares[pos] = 1
-        elif agent == 1:
-            self.squares[pos] = 2
+        if action <= 15:
+            if self.squares[action] != 0:
+                return
+            if agent == 0:
+                self.squares[action] = 1
+            elif agent == 1:
+                self.squares[action] = 2
+        else:
+            if self.specialMovesLeft[agent] > 0 and (self.squares[action-16] != (agent+1) or self.squares[action-16] != 0):
+                self.squares[action-16] = agent+1
+                print(action-16)
+                self.specialMovesLeft[agent] = self.specialMovesLeft[agent] - 1
         return
 
     def calculate_winners(self):

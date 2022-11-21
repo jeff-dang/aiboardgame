@@ -45,7 +45,7 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--win-rate",
         type=float,
-        default=0.6,
+        default=0.7,
         help="the expected winning rate: Optimal policy can get 0.7",
     )
     parser.add_argument(

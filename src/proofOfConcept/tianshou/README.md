@@ -9,6 +9,7 @@ run it once with python main.py --agent-id 1
 will run it with training user with X
 
 afterwards can run, will run both agents with training data
-python main.py --agent-id 1 --resume-path log/tic_tac_toe/dqn/policy.pth --opponent-path log/tic_tac_toe/dqn/policy.pth
+python main.py --agent-id 1 --resume-path log/tic_tac_toe/dqn/policy.pth --opponent-path log/tic_tac_toe/dqn/policy.pth --seed 123
+python main.py --agent-id 2 --resume-path log/tic_tac_toe/dqn/policy.pth --opponent-path log/tic_tac_toe/dqn/policy.pth --seed 123
 
 play around with params to get diff outputs
