@@ -1,10 +1,8 @@
 import gymnasium
 import numpy as np
 from gymnasium import spaces
-
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
-
 from .board import Board
 
 
@@ -32,7 +30,6 @@ class raw_env(AECEnv):
         self.board = Board()
         self.agents = ["player_1", "player_2"]
         self.possible_agents = self.agents[:]
-
         self.action_spaces = {i: spaces.Discrete(32) for i in self.agents}
         self.observation_spaces = {
             i: spaces.Dict(
@@ -45,16 +42,13 @@ class raw_env(AECEnv):
             )
             for i in self.agents
         }
-
         self.rewards = {i: 0 for i in self.agents}
         self.terminations = {i: False for i in self.agents}
         self.truncations = {i: False for i in self.agents}
         self.infos = {i: {"legal_moves": list(
             range(0, 9))} for i in self.agents}
-
         self._agent_selector = agent_selector(self.agents)
         self.agent_selection = self._agent_selector.reset()
-
         self.render_mode = render_mode
 
     # Key

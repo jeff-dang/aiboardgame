@@ -22,7 +22,7 @@ class Board:
         self.calculate_winners()
 
     def setup(self):
-        self.specialMovesLeft = [2, 2]
+        self.specialMovesLeft = [4, 6]
         self.calculate_winners()
 
     def play_turn(self, agent, action):
