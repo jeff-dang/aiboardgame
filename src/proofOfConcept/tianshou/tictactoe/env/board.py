@@ -1,4 +1,6 @@
 # Add player turn to game engine and remove from environment
+import random
+
 
 class Board:
     def __init__(self):
@@ -17,9 +19,13 @@ class Board:
 
         # index 0 = player 1's moves left, index 1 = player 2's moves left
         # special move lets a player remove the other players space, but they skip a turn
-        self.specialMovesLeft = [4, 6]
+        self.specialMovesLeft = [2, 6]
+        self.currentPlayer = 0
         # precommute possible winning combinations
         self.calculate_winners()
+
+    def getPlayer(self):
+        return self.currentPlayer
 
     def setup(self):
         self.specialMovesLeft = [4, 6]
@@ -34,11 +40,15 @@ class Board:
                 self.squares[action] = 1
             elif agent == 1:
                 self.squares[action] = 2
+
+            #self.currentPlayer = (self.currentPlayer + 1) % 2
         else:
             if self.specialMovesLeft[agent] > 0 and (self.squares[action-16] != (agent+1) or self.squares[action-16] != 0):
-                self.squares[action-16] = agent+1
-                print(action-16)
+                self.squares[action-16] = 0
                 self.specialMovesLeft[agent] = self.specialMovesLeft[agent] - 1
+
+        self.currentPlayer = random.randint(0, 1)
+
         return
 
     def calculate_winners(self):
