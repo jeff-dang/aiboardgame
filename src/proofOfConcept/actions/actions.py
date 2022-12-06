@@ -8,6 +8,6 @@ class ActionBase(ABC):
 	    raise NotImplementedError
 
     @abstractmethod
-    def isLegalAction(self):
+    def isLegalAction(self, agent):
         #Returns the list of available actions
         raise NotImplementedError
