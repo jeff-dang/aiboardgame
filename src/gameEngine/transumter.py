@@ -32,9 +32,15 @@ class Transmuter:
     def getTile(self, position):
         pass
 
-    # conveys the transmuter tiles by the given amount
-    def convey(self, amount):
-        pass
+    # conveys the transmuter tiles only once, if convey 2 call method twice
+    # Upgrade performance here
+    def convey(self, reservedTileIndex):
+        new_active_tiles = []
+        new_active_tiles[0] = self.reserved_tiles[reservedTileIndex]
+        new_active_tiles.append(self.active_tiles[0:4])
+        self.reserved_tiles[reservedTileIndex] = self.active_tiles[4]
+        self.active_tiles = new_active_tiles
+        
 
     # helper func to move the tiles after removing a tile
     def _moveAllTilesAhead(self):
