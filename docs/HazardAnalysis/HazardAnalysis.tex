@@ -1,17 +1,27 @@
 \documentclass{article}
-
+\usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{float}
+\usepackage{array,ragged2e}
+\usepackage[super]{nth}
+\usepackage[hmargin=2cm, vmargin=2cm]{geometry}
 
-\title{Hazard Analysis\\\progname}
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
-}
+\title{Hazard Analysis for SE 4G06 \\ An AI-based Approach to Designing Board Games}
 
-\date{}
+
+
+\author{Team \#6, Board Gamers
+\\ Ilao Michael, ilaom
+\\ Bedi Hargun, bedih
+\\ Dang Jeffrey, dangj12
+\\ Ada Jonah, karaatan
+\\ Mai Tianzheng, mait6}
+\date{\today}
+
+
 
 \input{../Comments}
 \input{../Common}
@@ -24,8 +34,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
+October $19^{th}$ & All & Initial Draft\\
 ... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -34,6 +43,93 @@ Date2 & Name(s) & Description of changes\\
 \newpage
 
 \maketitle
+\newpage
+\tableofcontents
 
 
+\newpage
+\section{Introduction and Purpose of Hazard Analysis}
+This document aims to analyze, assess, and find ways to eliminate or mitigate potential safety and security hazards that are applicable to our project. Hazard analysis will highlight the various types of hazards, the likelihood of encountering these hazards, and their severity and will try to outline potential actions upon encountering those hazards. The analysis will further help us specify new, and update existing safety and security requirements for our project. 
+
+\section{Scope and Definition of Hazard}
+A hazard for our AI-based game simulation engine will be any threat, vulnerability, system failure, or potential errors that our system is susceptible to. Hazards and risks related to the environment, society and user error will be considered out of the scope for this document. Risks and hazards associated with our project will be based on ones that can be discovered during the development of our project and of similar existing systems. Safety and security requirements that arise from the hazard analysis will be listed at the end of the document. These requirements will be an addition to the requirements presented in our SRS document. 
+
+\section{System Boundary and Components}
+Hazard analysis will be conducted on the following components of our project:
+\begin{itemize}
+    \item AI Agent
+    \item Game Engine
+    \item Data Visualization
+    \item Physical Computer
+\end{itemize}
+
+The physical computer being used to run our system and the reliability of the AI agent are not controlled by Board Gamers. They are an essential part of our system which is why they are included in the hazard analysis.
+
+\section{Critical Assumptions}
+There are no critical assumptions being made.
+
+\section{Failure Modes and Effects Analysis}
+The failure modes and effect analysis (FMEA) was the chosen hazard analysis tool to help identify, analyze, and find solutions to the hazards and risks pertaining to our project.
+\subsection{Hazards Out of Scope}
+\begin{itemize}
+    \item Failures of the external AI libraries being used
+    \item Game Rules
+    \item Physical Computer
+\end{itemize}
+Board Gamers will not be responsible for the hazards listed above as they are either controlled by \nth{3} party developers or the external user. We will attempt to minimize the effect of these hazards, however, complete mitigation is not guaranteed.
+
+
+\subsection{Failure Modes and Effects Analysis Table}
+\begin{table}[H]
+\begin{center}
+    \caption{Failure Modes}
+\end{center}
+\begin{tabular}{| P{7em} | P{7em} | P{7em} | P{7em} | P{7em} | P{7em} |}
+\hline
+\textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of \mbox{Failure}} & \textbf{Causes of \mbox{Failure}} & \textbf{Recommended Action} & \textbf{Requirements}\\
+\hline
+ Training Model & Training data is deleted & Valuable training model is lost and model training cannot progress effectively & Destination folder is not found by the system, Deletion by user & Validate folder destination before training model is saved & AR4 \\
+ \hline
+ Simulation Logs & Simulation logs are deleted & Valuable simulation data that is needed for game balancing is lost & Logs deleted by users or errors in the system & Automatically save simulation logs after every completed iteration & IR4\\
+ \hline
+ Simulation Runtime & Bad state in simulation causing infinite loop & Computer resources will be heavily used for incorrect output & Errors in code in Simulation, AI Game Agents, or Game Engine Rules & Adjust a capped number of simulation moves and time for simulation runtime & IR5\\
+ \cline{2-6}
+ & Simulation is not compatible on the computer cluster & Cannot run the simulation for a long period of time on an efficient computer & Mismatch in versioning or compatibility on the computer cluster & Ensure versions are compatible or create a standalone executable & IR5 \\
+ \hline
+ General & Simulation closes unexpectedly& Lost data on that simulation& Runtime errors, OS errors or User accidents (Can be many different causes) & Write logs as simulation progresses, if simulation crashes, there is an event log up until the crash & IR1 \& IR4\\
+ \hline
+ Data Visualization & Visualization does not render properly& Game designer and other users cannot understand the data & Errors in logs or errors in visualization system. Edge cases that are not properly checked& Check each log on the visualization system to see if the system renders or crashes, if so check what edge case caused it & IR4\\
+ \hline
+
+\end{tabular}
+\end{table}
+
+
+\section{Safety and Security Requirements}
+\subsection{Access Requirements}
+
+\textbf{AR1}: Only admins can access and modify the product's source code. \\\\
+\textbf{AR2}: Users will be able to install and access the software in the required systems\\\\
+\textbf{AR3}: Only the admins will be able to release a new version of the product.\\\\ 
+\textbf{AR4}: The system should be able to check if a file location exists.
+
+\subsection{Integrity Requirements}
+
+\textbf{IR1}: The execution of the product will not damage the users' operating systems.\\\\
+\textbf{IR2}: The game engine will not modify the game state data unnecessarily. \\\\
+\textbf{IR3}: The AI agent will not make changes to game engine data unrelated to its execution.  \\\\
+\textbf{IR4}: The data visualization chart will only be able to create if the game engine and AI agent successfully output the information log.\\\\
+\textbf{IR5}: The system will not harm the device it runs on nor it will cause any resource locks for more than 10 minutes per simulation.
+
+\subsection{Privacy Requirements}
+
+\textbf{PR1}: The software will not expose users' confidential information.\\\\
+\textbf{PR2}: Only authorized users can obtain the installer to install the product in their systems.
+
+\subsection{Audit Requirements}
+N/A
+\subsection{Immunity Requirements}
+N/A
+\section{Roadmap}
+The hazard analysis has concluded a number of new safety and security requirements. Sufficient crucial requirements will be implemented in the finished application. However, some of them with low priority may not be implemented due to the hard project deadline constraints. The hazard analysis will efficiently help us keep track and find out what risks need to be solved during the development process.
 \end{document}
