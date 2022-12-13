@@ -3,8 +3,6 @@ import numpy as np
 from gymnasium import spaces
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
-from .board import Board
-
 from engine import Engine
 
 
@@ -22,7 +20,7 @@ def env(render_mode=None):
 class raw_env(AECEnv):
     metadata = {
         "render_modes": ["human"],
-        "name": "tictactoe_v0",
+        "name": "an_age_contrived_v0",
         "is_parallelizable": False,
         "render_fps": 1,
     }
@@ -33,14 +31,15 @@ class raw_env(AECEnv):
 
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
-        self.action_spaces = {i: spaces.Discrete(32) for i in self.agents}
+        self.action_spaces = {i: self.engine.get_action_space()
+                              for i in self.agents}
         self.observation_spaces = {
             i: spaces.Dict(
                 {
                     "observation": spaces.Box(
-                        low=0, high=1, shape=(4, 4, 4), dtype=np.int8
+                        low=0, high=1, shape=(self.engine.get_observation_space_shape()), dtype=np.int8
                     ),
-                    "action_mask": spaces.Box(low=0, high=1, shape=(32,), dtype=np.int8),
+                    "action_mask": spaces.Box(low=0, high=1, shape=(self.engine.get_action_space(),), dtype=np.int8),
                 }
             )
             for i in self.agents
@@ -54,30 +53,10 @@ class raw_env(AECEnv):
         self.render_mode = render_mode
 
     def observe(self, agent):
-        board_vals = np.array(self.board.squares).reshape(4, 4)
-        cur_player = self.possible_agents.index(agent)
-        opp_player = (cur_player + 1) % 2
-
-        cur_p_board = np.equal(board_vals, cur_player + 1)
-        opp_p_board = np.equal(board_vals, opp_player + 1)
-
-        observation = np.stack(
-            [cur_p_board, opp_p_board], axis=2).astype(np.int8)
-        legal_moves = self._legal_moves() if agent == self.agent_selection else []
 
         # Get Action Space Vector and check legal moves
-        action_mask = np.zeros(32, "int8")
-        for i in legal_moves:
-            action_mask[i] = 1
-        if(self.board.specialMovesLeft[cur_player] > 0):
-            for i in range(16, 32):
-                if(self.board.squares[i-16] == (cur_player+1) or self.board.squares[i-16] == 0):
-                    action_mask[i] = 0
-                else:
-                    action_mask[i] = 1
-        else:
-            for i in range(16, 32):
-                action_mask[i] = 0
+        action_mask = self.engine.get_legal_actions(agent)
+        observation = self.engine.get_game_state(agent)
         return {"observation": observation, "action_mask": action_mask}
 
     def observation_space(self, agent):
@@ -86,59 +65,37 @@ class raw_env(AECEnv):
     def action_space(self, agent):
         return self.action_spaces[agent]
 
-    def _legal_moves(self):
-        return [i for i in range(len(self.board.squares)) if self.board.squares[i] == 0]
+    def _legal_moves(self, agent):
+        return self.engine.get_legal_actions
 
     def step(self, action):
+
+        # Check if terminations or truncations for current agent
         if (
             self.terminations[self.agent_selection]
             or self.truncations[self.agent_selection]
         ):
             return self._was_dead_step(action)
-        # check if input action is a valid move (0 == empty spot)
 
-        agentIndex = self.agents.index(self.agent_selection)
-        if(action <= 15):
-            assert self.board.squares[action] == 0, "played illegal move"
-        elif(action > 15):
-            agentIndex = self.agents.index(self.agent_selection)
-            assert self.board.specialMovesLeft[agentIndex] > 0
+        # Check if action is a legal move
+        # Get index of current agent self.agents.index(self.agent_selection)
+        # Get name of current agent self.agent_selection
 
-        # play turn
-        self.board.play_turn(self.agents.index(self.agent_selection), action)
+        # Play turn
+        self.engine.play_turn(self.agents.index(self.agent_selection), action)
 
-        #self.rewards[self.agents[self.agents.index(self.agent_selection)]] -= 1
+        # Assign rewards for players
 
-        # update infos
-        # list of valid actions (indexes in board)
-        # next_agent = self.agents[(self.agents.index(self.agent_selection) + 1) % len(self.agents)]
-        next_agent = self._agent_selector.next()
+        # If game is over assign termination for all agents
+        # self.terminations = {i: True for i in self.agents}
 
-        if self.board.check_game_over():
-            winner = self.board.check_for_winner()
+        # Assign current players turn
+        self.agent_selection = self.engine.get_current_agents_turn()
 
-            if winner == -1:
-                # tie
-                self.rewards[self.agents[0]] -= 1  # tie is bad for X player
-                self.rewards[self.agents[1]] += 1  # tie is good for O player
-            elif winner == 1:
-                # agent 0 won
-                self.rewards[self.agents[0]] += 2
-                self.rewards[self.agents[1]] -= 1
-            else:
-                # agent 1 won
-                self.rewards[self.agents[1]] += 2
-                self.rewards[self.agents[0]] -= 1
-
-            # once either play wins or there is a draw, game over, both players are done
-            self.terminations = {i: True for i in self.agents}
-
-        # Switch selection to next agents
+        # Don't know what this does
         self._cumulative_rewards[self.agent_selection] = 0
-
-        self.agent_selection = next_agent
-
         self._accumulate_rewards()
+
         if self.render_mode == "human":
             self.render()
 

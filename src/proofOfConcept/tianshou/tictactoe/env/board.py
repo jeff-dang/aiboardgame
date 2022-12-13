@@ -4,19 +4,7 @@ import random
 
 class Board:
     def __init__(self):
-        # internally self.board.squares holds a flat representation of tic tac toe board
-        # where an empty board is [0, 0, 0, 0, 0, 0, 0, 0, 0]
-        # where indexes are column wise order
-        # 0 3 6
-        # 1 4 7
-        # 2 5 8
-
-        # empty -- 0
-        # player 0 -- 1
-        # player 1 -- 2
-
         self.squares = [0] * 16
-
         # index 0 = player 1's moves left, index 1 = player 2's moves left
         # special move lets a player remove the other players space, but they skip a turn
         self.specialMovesLeft = [2, 6]
@@ -28,7 +16,7 @@ class Board:
         return self.currentPlayer
 
     def setup(self):
-        self.specialMovesLeft = [4, 6]
+        self.specialMovesLeft = [2, 6]
         self.calculate_winners()
 
     def play_turn(self, agent, action):
