@@ -52,5 +52,5 @@ class Transmuter:
         pass
 
     def printTransmuter(self):
-        for i in self.active_tiles:
-            i.printTile()
+        for lines in zip(*map(TransmuterTile.printTile, self.active_tiles)):
+            print(*lines)

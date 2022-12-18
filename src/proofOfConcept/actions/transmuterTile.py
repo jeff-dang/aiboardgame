@@ -47,34 +47,39 @@ class TransmuterTile:
     #have getter and setter methods for available positions
 
     def printTile(self):
-        print('---------------')
-        print('|             |')
+        tile_string = ''
+        tile_string += '---------------\n'
+        tile_string += '|             |\n'
         if self.top_size == 0:
-            print('|             |')
-            print('|             |')
-            print('|             |')
+            tile_string += '|             |\n'
+            tile_string += '|             |\n'
+            tile_string += '|             |\n'
         elif self.top_size == 1:
-            print( '|     ---     |')
-            print(f'|    | {self.top[0]} |    |')
-            print( '|     ---     |')
+            tile_string +=  '|     ---     |\n'
+            tile_string += '|    | {} |    |\n'.format(self.top[0])
+            tile_string +=  '|     ---     |\n'
         elif self.top_size == 2:
-            print('|  ---   ---  |')
-            print(f'| | {self.top[0]} | | {self.top[1]} | |')
-            print('|  ---   ---  |')
-        print('|             |')
-        print('|             |')
+            tile_string += '|  ---   ---  |\n'
+            tile_string += '| | {} | | {} | |\n'.format(self.bottom[0], self.bottom[1])
+            tile_string += '|  ---   ---  |\n'
+        tile_string += '|             |\n'
+        tile_string += '|             |\n'
         if self.bottom_size == 0:
-            print('|             |')
-            print('|             |')
-            print('|             |')
+            tile_string += '|             |\n'
+            tile_string += '|             |\n'
+            tile_string += '|             |\n'
         elif self.bottom_size == 1:
-            print('|     ---     |')
-            print(f'|    | {self.bottom[0]} |    |')
-            print('|     ---     |')
+            tile_string += '|     ---     |\n'
+            tile_string += '|    | {} |    |\n'.format(self.top[0])
+            tile_string += '|     ---     |\n'
         elif self.bottom_size == 2:
-            print('|  ---   ---  |')
-            print(f'| | {self.bottom[0]} | | {self.bottom[1]} | |')
-            print('|  ---   ---  |')
-        print('|             |')
-        print('---------------')
+            tile_string += '|  ---   ---  |'
+            tile_string += '| | {} | | {} | |\n'.format(self.bottom[0], self.bottom[1])
+            tile_string += '|  ---   ---  |\n'
+        tile_string += '|             |\n'
+        tile_string += '---------------\n'
+
+        return (
+            tile_string
+        ).format().splitlines()
         
