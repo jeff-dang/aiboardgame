@@ -31,7 +31,7 @@ class raw_env(AECEnv):
 
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
-        self.action_spaces = {i: self.engine.get_action_space()
+        self.action_spaces = {i: spaces.Discrete(self.engine.get_action_space())
                               for i in self.agents}
         self.observation_spaces = {
             i: spaces.Dict(
@@ -55,7 +55,9 @@ class raw_env(AECEnv):
     def observe(self, agent):
 
         # Get Action Space Vector and check legal moves
-        action_mask = self.engine.get_legal_actions(agent)
+        action_mask = np.array(
+            self.engine.get_legal_actions(agent), dtype="int8")
+
         observation = self.engine.get_game_state(agent)
         return {"observation": observation, "action_mask": action_mask}
 
@@ -66,7 +68,7 @@ class raw_env(AECEnv):
         return self.action_spaces[agent]
 
     def _legal_moves(self, agent):
-        return self.engine.get_legal_actions
+        return self.engine.get_legal_actions(agent)
 
     def step(self, action):
 
@@ -81,8 +83,8 @@ class raw_env(AECEnv):
         # Get index of current agent self.agents.index(self.agent_selection)
         # Get name of current agent self.agent_selection
 
-        # Play turn
-        self.engine.play_turn(self.agents.index(self.agent_selection), action)
+        # Play turn, pass in agent name
+        self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players
 

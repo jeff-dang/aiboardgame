@@ -1,10 +1,11 @@
+from transmuter import Transmuter
+
+
 class Player():
 
-    number_of_players = 0
-    def __init__(self) -> None:
-        self.name = 'Player ' + str(self.number_of_players)
-        self.transmuter = None
-        self.number_of_players += 1
+    def __init__(self, name) -> None:
+        self.name = name
+        self.transmuter = Transmuter()
 
     def set_transmuter(self, transmuter):
         self.transmuter = transmuter
