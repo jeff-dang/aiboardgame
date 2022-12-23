@@ -1,10 +1,11 @@
-from transmuter import Transmuter
+from .transmuter import Transmuter
 
 
 class Player():
 
-    def __init__(self, name) -> None:
-        self.name = name
+    def __init__(self, agent, character) -> None:
+        self.agent = agent
+        self.character = character
         self.transmuter = Transmuter()
 
     def set_transmuter(self, transmuter):
@@ -13,8 +14,5 @@ class Player():
     def get_transmuter(self):
         return self.transmuter
 
-    def set_player_name(self, name):
-        self.name = name
-
     def get_player_name(self):
-        return self.name
+        return self.agent

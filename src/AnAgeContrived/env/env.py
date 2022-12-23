@@ -3,7 +3,7 @@ import numpy as np
 from gymnasium import spaces
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
-from engine import Engine
+from .engine import Engine
 
 
 def env(render_mode=None):
@@ -15,6 +15,9 @@ def env(render_mode=None):
     env = wrappers.AssertOutOfBoundsWrapper(env)
     env = wrappers.OrderEnforcingWrapper(env)
     return env
+
+
+NUM_PLAYERS = 4
 
 
 class raw_env(AECEnv):
@@ -37,7 +40,7 @@ class raw_env(AECEnv):
             i: spaces.Dict(
                 {
                     "observation": spaces.Box(
-                        low=0, high=1, shape=(self.engine.get_observation_space_shape()), dtype=np.int8
+                        low=0, high=np.inf, shape=(4, 7, 4), dtype=np.int8
                     ),
                     "action_mask": spaces.Box(low=0, high=1, shape=(self.engine.get_action_space(),), dtype=np.int8),
                 }
@@ -45,6 +48,7 @@ class raw_env(AECEnv):
             for i in self.agents
         }
         self.rewards = {i: 0 for i in self.agents}
+        self._cumulative_rewards = {i: 0 for i in self.agents}
         self.terminations = {i: False for i in self.agents}
         self.truncations = {i: False for i in self.agents}
         self.infos = {i: {} for i in self.agents}
@@ -58,7 +62,21 @@ class raw_env(AECEnv):
         action_mask = np.array(
             self.engine.get_legal_actions(agent), dtype="int8")
 
-        observation = self.engine.get_game_state(agent)
+        observation = np.array(self.engine.get_game_state(agent)).reshape(4, 7)
+
+        opponents_obs = []
+        opponents_obs.append(np.array(self.engine.get_game_state_others(
+            agent)[0]).reshape(4, 7))
+        opponents_obs.append(np.array(self.engine.get_game_state_others(
+            agent)[1]).reshape(4, 7))
+        opponents_obs.append(np.array(self.engine.get_game_state_others(
+            agent)[2]).reshape(4, 7))
+
+        observable_state = opponents_obs
+        observable_state.insert(0, observation)
+
+        observation = np.stack(
+            observable_state, axis=2).astype(np.int8)
         return {"observation": observation, "action_mask": action_mask}
 
     def observation_space(self, agent):
@@ -86,10 +104,14 @@ class raw_env(AECEnv):
         # Play turn, pass in agent name
         self.engine.play_turn(self.agent_selection, action)
 
-        # Assign rewards for players
-
-        # If game is over assign termination for all agents
-        # self.terminations = {i: True for i in self.agents}
+        # Assign rewards for players, updates only not incremental
+        self.rewards[self.agent_selection] += -1
+        if(self.engine.check_over()):
+            for agent in self.agents:
+                self.rewards[agent] += (self.engine.get_reward(agent))
+            # If game is over assign termination for all agents
+            print(self.rewards)
+            self.terminations = {i: True for i in self.agents}
 
         # Assign current players turn
         self.agent_selection = self.engine.get_current_agents_turn()
@@ -121,7 +143,7 @@ class raw_env(AECEnv):
             gymnasium.logger.warn(
                 "You are calling render method without specifying any render mode.")
             return
-        self.engine.render()
+        self.engine.render(self.agent_selection)
 
     def close(self):
         pass

@@ -1,4 +1,4 @@
-from actions import ActionBase
+from .actions import ActionBase
 from functools import partial
 #import Player
 
@@ -15,7 +15,8 @@ class Convey(ActionBase):
         return True
 
     @staticmethod
-    def convey(transmuter, stepSize, order):
+    def convey(engine, transmuter, stepSize, order):
+        print("Convey", stepSize)
         if stepSize == 1:
             transmuter.convey(order)
         elif stepSize == 2:
@@ -25,7 +26,15 @@ class Convey(ActionBase):
             else:
                 transmuter.convey(1)
                 transmuter.convey(0)
-
+        engine.turn.conveyed()
     # if the functions are not static, available actions may not work globally but be player dependent
+
+    def convey1Legal(engine):
+        return engine.turn.canConvey
+
+    # TODO Need to check if player can convey twice
+    def convey2Legal(engine):
+        return engine.turn.canConvey and False
+
     def availableActions(self):
         return []
