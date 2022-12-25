@@ -47,12 +47,6 @@ class Transmuter:
 
     # helper func to move the tiles after removing a tile
 
-    def _moveAllTilesAhead(self):
-        pass
-
-    def isFull(self):
-        pass
-
     def getState(self):
         w, h = 7, 4
         matrix = [[0 for x in range(w)] for y in range(h)]
