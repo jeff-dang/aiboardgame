@@ -1,5 +1,5 @@
 # Add player turn to game engine and remove from environment
-
+import json
 class Board:
     def __init__(self):
         # internally self.board.squares holds a flat representation of tic tac toe board
@@ -18,6 +18,8 @@ class Board:
         # index 0 = player 1's moves left, index 1 = player 2's moves left
         # special move lets a player remove the other players space, but they skip a turn
         self.specialMovesLeft = [4, 6]
+        self.history = {}
+        self.turn_num = 0
         # precommute possible winning combinations
         self.calculate_winners()
 
@@ -27,6 +29,7 @@ class Board:
 
     def play_turn(self, agent, action):
         # if spot is empty
+        self.turn_num += 1
         if action <= 15:
             if self.squares[action] != 0:
                 return
@@ -34,10 +37,12 @@ class Board:
                 self.squares[action] = 1
             elif agent == 1:
                 self.squares[action] = 2
+            print("played in board spot",action)
+            self.history[self.turn_num] = action.item(0) #type conversion
         else:
             if self.specialMovesLeft[agent] > 0 and (self.squares[action-16] != (agent+1) or self.squares[action-16] != 0):
                 self.squares[action-16] = agent+1
-                print(action-16)
+                print("played in special in board spot",action-16)
                 self.specialMovesLeft[agent] = self.specialMovesLeft[agent] - 1
         return
 
@@ -79,6 +84,11 @@ class Board:
             # tie
             return True
         elif winner in [1, 2]:
+            #output json file
+            print(self.history)
+            json_object = json.dumps(self.history)
+            with open("sample.json", "w") as outfile:
+                outfile.write(json_object)
             return True
         else:
             return False
