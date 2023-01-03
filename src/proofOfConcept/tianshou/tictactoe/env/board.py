@@ -38,7 +38,7 @@ class Board:
             elif agent == 1:
                 self.squares[action] = 2
             print("played in board spot",action)
-            self.history[self.turn_num] = action.item(0) #type conversion
+            self.history["Turn "+str(self.turn_num)] = action.item(0) #type conversion
         else:
             if self.specialMovesLeft[agent] > 0 and (self.squares[action-16] != (agent+1) or self.squares[action-16] != 0):
                 self.squares[action-16] = agent+1
@@ -85,9 +85,8 @@ class Board:
             return True
         elif winner in [1, 2]:
             #output json file
-            print(self.history)
             json_object = json.dumps(self.history)
-            with open("sample.json", "w") as outfile:
+            with open("history.json", "w") as outfile:
                 outfile.write(json_object)
             return True
         else:
