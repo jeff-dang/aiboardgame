@@ -42,12 +42,18 @@ class Board:
             turn_ent = {}
             turn_ent["Action"] = action.item(0)
             turn_ent["Player"] = agent #type conversion
+            turn_ent["Special"] = False
             self.history["Turn "+str(self.turn_num)] = turn_ent #append to simulation history
             #self.history["Turn "+str(self.turn_num)] = action.item(0) #type conversion
         else:
             if self.specialMovesLeft[agent] > 0 and (self.squares[action-16] != (agent+1) or self.squares[action-16] != 0):
                 self.squares[action-16] = agent+1
                 print("played in special in board spot",action-16)
+                turn_ent = {}
+                turn_ent["Action"] = action.item(0)-16
+                turn_ent["Player"] = agent #type conversion
+                turn_ent["Special"] = True
+                self.history["Turn "+str(self.turn_num)] = turn_ent #append to simulation history
                 self.specialMovesLeft[agent] = self.specialMovesLeft[agent] - 1
         return
 
