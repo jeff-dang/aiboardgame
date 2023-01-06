@@ -39,7 +39,11 @@ class Board:
             elif agent == 1:
                 self.squares[action] = 2
             print("played in board spot",action)
-            self.history["Turn "+str(self.turn_num)] = action.item(0) #type conversion
+            turn_ent = {}
+            turn_ent["Action"] = action.item(0)
+            turn_ent["Player"] = agent #type conversion
+            self.history["Turn "+str(self.turn_num)] = turn_ent #append to simulation history
+            #self.history["Turn "+str(self.turn_num)] = action.item(0) #type conversion
         else:
             if self.specialMovesLeft[agent] > 0 and (self.squares[action-16] != (agent+1) or self.squares[action-16] != 0):
                 self.squares[action-16] = agent+1
@@ -87,7 +91,7 @@ class Board:
         elif winner in [1, 2]:
             #output json file
             if path.isfile("history.json") is False:
-                json_object = json.dumps(self.history)
+                json_object = json.dumps([self.history]) #create list
                 with open("history.json", "w") as outfile:
                     outfile.write(json_object)
             else:
@@ -96,7 +100,7 @@ class Board:
                 dictObj.append(self.history)
 
                 with open("history.json", "w") as outfile:
-                    json.dump(dictObj,outfile)
+                    json.dump(dictObj,outfile, indent=4)
             print("write to file.")
             return True
         else:
