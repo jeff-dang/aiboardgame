@@ -1,5 +1,6 @@
 # Add player turn to game engine and remove from environment
 import json
+from os import path
 class Board:
     def __init__(self):
         # internally self.board.squares holds a flat representation of tic tac toe board
@@ -85,9 +86,18 @@ class Board:
             return True
         elif winner in [1, 2]:
             #output json file
-            json_object = json.dumps(self.history)
-            with open("history.json", "w") as outfile:
-                outfile.write(json_object)
+            if path.isfile("history.json") is False:
+                json_object = json.dumps(self.history)
+                with open("history.json", "w") as outfile:
+                    outfile.write(json_object)
+            else:
+                with open("history.json") as openjson:
+                    dictObj = json.load(openjson)
+                dictObj.append(self.history)
+
+                with open("history.json", "w") as outfile:
+                    json.dump(dictObj,outfile)
+            print("write to file.")
             return True
         else:
             return False
@@ -130,3 +140,4 @@ if __name__ == "__main__":
     print(f"  {board[3]}  " + "|" + f"  {board[7]}  " +
           "|" + f"  {board[11]} " + " |" + f"  {board[15]} ")
     print(" " * 5 + "|" + " " * 5 + "|" + " " * 5 + "|" + " " * 5)
+    
