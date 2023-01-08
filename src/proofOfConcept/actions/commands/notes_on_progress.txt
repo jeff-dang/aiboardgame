@@ -1,0 +1,35 @@
+    # action_list = []
+
+    # dir_path = os.path.dirname(os.path.realpath(__file__))
+    # pattern = "*.py"
+
+    # for file in os.listdir('.'):
+    #     if file == 'action_initiater.py':
+    #         continue
+    #     if fnmatch.fnmatch(file, pattern):
+    #         print('looking for file: ', file)
+    #         found_module = imp.find_module(file[:-3])
+    #         module = imp.load_module(file, found_module[0], found_module[1], found_module[2])
+    #         for mem_name, obj in inspect.getmembers(module):
+    #             if inspect.isclass(obj) and inspect.getmodule(obj) is module:
+    #                 action_list.append(obj())
+    #         #action_list.append(file)
+    #         print('printing the file name: ', file)
+
+
+    # # #modify to only get the files in command folder
+    # # for path, subdirs, files in os.walk(dir_path):
+    # #     for name in files:
+    # #         if fnmatch(name, pattern):
+    # #             found_module = importlib.find_module(name[:-3], [path])
+    # #             module = importlib.load_module(name, found_module[0], found_module[1], found_module[2])
+    # #             for mem_name, obj in inspect.getmembers(module):
+    # #                 if inspect.isclass(obj) and inspect.getmodule(obj) is module:
+    # #                     action_list.append(obj())
+    # print('printing the list in the function: ', action_list)
+    # sorted = action_list.sort()
+    # return sorted
+
+
+    ########################### __init__.py ###################
+    all = ['command', 'conveyCommand']

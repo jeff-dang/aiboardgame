@@ -1,6 +1,10 @@
 from player import Player
 from transmuter import Transmuter
 from convey import Convey
+from actions import ActionBase
+#from commands import *
+# from commands.command import Command
+import commands
 
 
 t1 = Transmuter()
@@ -22,4 +26,17 @@ Convey.convey(p1.transmuter, 1, 1)
 print('************* AFTER ****************')
 t1.printTransmuter()
 print('************* END **************')
-p2.get_player_name()
+print(p1.get_player_name())
+
+print('************* BEFORE ****************')
+t2.printTransmuter()
+print('************* END **************')
+#actions[0](transmuter = p1.transmuter)
+Convey.convey(p2.transmuter, 2, 0)
+print('************* AFTER ****************')
+t2.printTransmuter()
+print('************* END **************')
+print(p2.get_player_name())
+
+print(ActionBase.__subclasses__())
+print(commands.Command.__subclasses__())
