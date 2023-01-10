@@ -1,13 +1,7 @@
-import sys
-print(sys.path)
 from gameEngine.player import Player
 from gameEngine.transmuter import Transmuter
-from gameEngine.convey import Convey
-#from gameEngine.actions import ActionBase
-#from gameEngine.actions import *
+#from gameEngine.convey import Convey
 from gameEngine.action_initiater import get_actions
-from gameEngine import command
-from gameEngine.actions import conveyOnceFirstCard, conveyOnceSecondCard, conveyTwiceFirstOrder, conveyTwiceSecondOrder
 
 
 t1 = Transmuter()

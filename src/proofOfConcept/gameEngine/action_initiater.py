@@ -3,7 +3,9 @@
 # import imp
 # import inspect
 from gameEngine.command import Command
-import gameEngine.actions.conveyCommand
+#import gameEngine.actions.conveyCommand
+from gameEngine.actions import *
+#from gameEngine.actions import conveyOnceFirstCard, conveyOnceSecondCard, conveyTwiceFirstOrder, conveyTwiceSecondOrder
 
 #TODO need to import all the classes in the commands somehow
 def get_actions(player, board):
