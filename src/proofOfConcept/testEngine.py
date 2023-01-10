@@ -1,10 +1,15 @@
-from player import Player
-from transmuter import Transmuter
-from convey import Convey
-from actions import ActionBase
-#from commands import *
-# from commands.command import Command
-import commands
+import sys
+print(sys.path)
+from actions.player import Player
+from actions.transmuter import Transmuter
+from actions.convey import Convey
+from actions.actions import ActionBase
+from actions.commands import *
+#import commands
+# import commands.command, commands.conveyCommand
+# import commands.command, commands.conveyOnceFirstCard, commands.conveyOnceSecondCard
+# import commands.conveyCommand
+from actions.action_initiater import get_actions
 
 
 t1 = Transmuter()
@@ -39,4 +44,5 @@ print('************* END **************')
 print(p2.get_player_name())
 
 print(ActionBase.__subclasses__())
-print(commands.Command.__subclasses__())
+print(actions.commands.command.Command.__subclasses__())
+print(get_actions())

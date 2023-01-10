@@ -2,8 +2,8 @@
 # import os
 # import imp
 # import inspect
-from command import Command
-import conveyCommand
+from commands.command import Command
+import commands.conveyCommand
 
 #TODO need to import all the classes in the commands somehow
 def get_actions():
