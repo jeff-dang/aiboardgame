@@ -1,11 +1,10 @@
-from .actions import ActionBase
 from functools import partial
 # import Player
 
 TOTAL_PLAYERS = 4
 
 
-class Turn(ActionBase):
+class Turn():
 
     @staticmethod
     def isLegalAction(agent):

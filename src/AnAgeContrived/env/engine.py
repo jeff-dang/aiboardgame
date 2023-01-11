@@ -1,10 +1,11 @@
 from functools import partial
 
-from .actions.convey import Convey
-from .actions.turn import Turn
+from .helpers.convey import Convey
+from .helpers.turn import Turn
 
 from .entities.turnState import TurnState
 from .entities.player import Player
+from .actionInitiater import get_actions
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3"]
@@ -57,15 +58,17 @@ class Engine:
         return(7, 4, 1)
 
     def get_legal_actions(self, agent_name):
-        legal_actions = {
-            0: Turn.endTurnLegal(self),
-            1: Turn.conveyTurnLegal(self),
-            2: Turn.actionTurnLegal(self),
-            3: Convey.convey1Legal(self),
-            4: Convey.convey2Legal(self),
-            5: Convey.convey2Legal(self),
-        }
-        return list(legal_actions.values())
+        # legal_actions = {
+        #     0: Turn.endTurnLegal(self),
+        #     1: Turn.conveyTurnLegal(self),
+        #     2: Turn.actionTurnLegal(self),
+        #     3: Convey.convey1Legal(self),
+        #     4: Convey.convey2Legal(self),
+        #     5: Convey.convey2Legal(self),
+        # }
+        # return list(legal_actions.values())
+        legal_actions = get_actions(self.get_agent(agent_name), self)
+        return legal_actions
 
     def play_turn(self, agent_name, action):
         agent = self.get_agent(agent_name)
@@ -74,15 +77,18 @@ class Engine:
             print("ILLEGAL MOVE")
             return
 
-        switch = {
-            0: partial(Turn.endTurn, engine=self),
-            1: partial(Turn.conveyTurn, engine=self),
-            2: partial(Turn.actionTurn, engine=self),
-            3: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=1, order=0),
-            4: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=2, order=0),
-            5: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=2, order=1),
-        }
-        switch[action]()
+        actions = self.get_legal_actions(agent_name)
+        actions[action].execute()
+
+        # switch = {
+        #     0: partial(Turn.endTurn, engine=self),
+        #     1: partial(Turn.conveyTurn, engine=self),
+        #     2: partial(Turn.actionTurn, engine=self),
+        #     3: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=1, order=0),
+        #     4: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=2, order=0),
+        #     5: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=2, order=1),
+        # }
+        # switch[action]()
 
     def get_current_agents_turn(self):
         return self.get_agents()[self.current_player]

@@ -1,11 +1,8 @@
-from .actions import ActionBase
-from functools import partial
-#import Player
 
 MAX_STEP_SIZE = 2
 
 
-class Convey(ActionBase):
+class Convey():
 
     # probably also don't need the isLegalAction function. If necessary what to check?
     def isLegalAction(self, transmuter, stepSize, order):
