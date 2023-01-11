@@ -16,7 +16,7 @@ class MonumentTile:
 
     # fills the section at the given index with the given energy type
     def fillSection(self, section_index, energy):
-        if(self.empty_sections == 0):
+        if(self.empty_sections != 0):
             self.filled_sections[section_index] = energy
             self.empty_sections -= 1
     

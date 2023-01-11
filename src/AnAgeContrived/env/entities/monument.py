@@ -1,9 +1,9 @@
 from env.entities.monumentTile import MonumentTile
 
 class Monument:
-    def __init__(self, name):
+    def __init__(self, name, monumentTiles):
         self.name = name
-        self.tiles = [] # list of MonumentTile objects
+        self.tiles = monumentTiles # list of MonumentTile objects
         self.completed_tiles = [] # list of completed MonumentTile objects
 
     def isCompleted(self):
