@@ -26,9 +26,11 @@ class Convey():
         engine.turn.conveyed()
     # if the functions are not static, available actions may not work globally but be player dependent
 
+    @staticmethod
     def convey1Legal(engine):
         return engine.turn.canConvey
 
+    @staticmethod
     # TODO Need to check if player can convey twice
     def convey2Legal(engine):
         return engine.turn.canConvey and False
