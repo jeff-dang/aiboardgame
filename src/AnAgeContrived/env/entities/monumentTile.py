@@ -4,11 +4,11 @@ class MonumentTile:
     # num_sections is the number of sections on this tile
     # filled_sections is a list of the energy types that are currently placed on this tile
     # empty_sections is the number of sections that are currently empty
-    # owner is the player that owns this tile 
+    # owner is the player that owns this tile --> TODO: May need multiple owners
     # monument_benefit_token is the benefit token that is placed on this tile, implementation of this is TBD
     def __init__(self, acceptable_energy_types, monument_benefit_token):
         self.sections = acceptable_energy_types
-        self.num_sections = len(acceptable_energy_types)
+        self.num_sections = len(acceptable_energy_types) #TODO: May need to calculate it differently because there might be multiple tiles with the same energy type
         self.filled_sections = [0]*self.num_sections
         self.empty_sections = self.num_sections
         self.monument_benefit_token = monument_benefit_token

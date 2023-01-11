@@ -8,3 +8,6 @@ class ConveyTurn(Command):
 
     def execute(self):
         Turn.conveyTurn(self.engine)
+
+    def check(self) -> bool:
+        return Turn.conveyTurnLegal(self.engine)

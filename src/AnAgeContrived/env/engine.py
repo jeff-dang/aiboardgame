@@ -5,7 +5,7 @@ from .helpers.turn import Turn
 
 from .entities.turnState import TurnState
 from .entities.player import Player
-from .actionInitiater import get_actions, get_legal_actions
+from .actionInitiater import get_actions
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3"]
@@ -67,21 +67,21 @@ class Engine:
         #     5: Convey.convey2Legal(self),
         # }
         # return list(legal_actions.values())
-        legal_actions = get_legal_actions(self.get_agent(agent_name), self)
-        allowed_actions = []
-        for i in legal_actions:
-            b = i.execute()
-            allowed_actions.append(b)
-        return allowed_actions
+        actions = get_actions(self.players[self.current_player], self)
+        legal_actions = []
+        for action in actions:
+            isLegal = action.check()
+            legal_actions.append(isLegal)
+        return legal_actions
 
     def play_turn(self, agent_name, action):
         agent = self.get_agent(agent_name)
 
-        if(not self.get_legal_actions(agent_name)[action]):
+        if(not self.get_legal_actions(self.current_player)[action]):
             print("ILLEGAL MOVE")
             return
 
-        actions = get_actions(agent_name, self)
+        actions = get_actions(self.players[self.current_player], self)
         actions[action].execute()
 
         # switch = {

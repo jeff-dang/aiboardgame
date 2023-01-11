@@ -8,3 +8,6 @@ class ActionTurn(Command):
 
     def execute(self):
         Turn.actionTurn(self.engine)
+
+    def check(self) -> bool:
+        return Turn.actionTurnLegal(self.engine)

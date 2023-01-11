@@ -8,3 +8,6 @@ class ConveyOnceFirstCard(Command):
 
     def execute(self):
         Convey.convey(self.engine, self.player.transmuter, 1, 0)
+
+    def check(self) -> bool:
+        return Convey.convey1Legal(self.engine)

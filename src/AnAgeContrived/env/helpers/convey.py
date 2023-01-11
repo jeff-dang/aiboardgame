@@ -4,13 +4,8 @@ MAX_STEP_SIZE = 2
 
 class Convey():
 
-    # probably also don't need the isLegalAction function. If necessary what to check?
-    def isLegalAction(self, transmuter, stepSize, order):
-        #character = player.getCharacterType()
-        # if charachter == 'Dragon':
-        #   return False
-        return True
-
+    # TODO: need to change the convey requiring engine as a parameter since we are calling the actions inside the Engine class
+    # before Engine object is initiated
     @staticmethod
     def convey(engine, transmuter, stepSize, order):
         print("Convey", stepSize)
@@ -34,6 +29,3 @@ class Convey():
     # TODO Need to check if player can convey twice
     def convey2Legal(engine):
         return engine.turn.canConvey and False
-
-    def availableActions(self):
-        return []

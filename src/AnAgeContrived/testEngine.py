@@ -3,31 +3,41 @@ from env.entities.transmuter import Transmuter
 #from env.helpers.convey import Convey
 from env.actionInitiater import get_actions
 from env.engine import Engine
+from env.entities.monument import Monument
+from env.entities.monumentTile import MonumentTile
+from env.entities.energy import Energy
 
 
-t1 = Transmuter()
-t2 = Transmuter()
+def testMonumentEnergy():
+    pass
 
-e = Engine()
 
-p1 = Player('player_0', 'Freyith')
-p2 = Player('player_1', 'Ignotas')
+def testConveying():
+    t1 = Transmuter()
+    t2 = Transmuter()
 
-# p1.set_player_name('Player 1')
-p1.set_transmuter(t1)
-p2.set_transmuter(t2)
+    e = Engine()
 
-print('ACTION LIST')
-actions = get_actions(p1, e)
-print(actions)
+    p1 = Player('player_0', 'Freyith')
+    p2 = Player('player_1', 'Ignotas')
 
-print('************* BEFORE ****************')
-t1.printTransmuter()
-print('************* END **************')
-actions[3].execute()
-print('************* AFTER ****************')
-t1.printTransmuter()
-print('************* END **************')
+    # p1.set_player_name('Player 1')
+    p1.set_transmuter(t1)
+    p2.set_transmuter(t2)
+
+    print('ACTION LIST')
+    actions = get_actions(p1, e)
+    print(actions)
+
+    print('************* BEFORE ****************')
+    t1.printTransmuter()
+    print('************* END **************')
+    actions[3].execute()
+    print('************* AFTER ****************')
+    t1.printTransmuter()
+    print('************* END **************')
+
+testConveying()
 
 # #actions = Convey.availableActions()
 # print('************* BEFORE ****************')

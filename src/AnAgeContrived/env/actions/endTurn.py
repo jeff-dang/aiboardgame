@@ -8,3 +8,6 @@ class EndTurn(Command):
 
     def execute(self):
         Turn.endTurn(self.engine)
+
+    def check(self) -> bool:
+        return Turn.endTurnLegal(self.engine)
