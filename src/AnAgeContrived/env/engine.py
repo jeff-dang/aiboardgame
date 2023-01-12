@@ -16,6 +16,7 @@ NUM_MOVES = 7
 class Engine:
     def __init__(self):
         self.turnCounter = 0
+        self.actionCounter = 0
         self.game = 1
         self.current_player = 0
         self.player_turn_queue = []
@@ -30,6 +31,7 @@ class Engine:
 
     def reset(self):
         self.turnCounter = 0
+        self.actionCounter = 0
         self.game = 1
         self.current_player = 0
         self.player_turn_queue = []
@@ -83,7 +85,7 @@ class Engine:
 
         actions = get_actions(self.players[self.current_player], self)
         actions[action].execute()
-
+        self.actionCounter += 1
         # switch = {
         #     0: partial(Turn.endTurn, engine=self),
         #     1: partial(Turn.conveyTurn, engine=self),
