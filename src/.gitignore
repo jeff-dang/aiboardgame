@@ -1,4 +1,7 @@
 /venv
+venv/
+log/
 /log
 /pycache
+pycache/
 *.pyc

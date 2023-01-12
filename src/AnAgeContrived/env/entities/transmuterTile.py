@@ -1,7 +1,7 @@
 class TransmuterTile:
     def __init__(self, top_size, bottom_size):
-        self.top = [0, 0] # put a max of 2 energies on top
-        self.bottom =[0, 0] # put a max of 2 energies on bottom
+        self.top = [0, 0]  # put a max of 2 energies on top
+        self.bottom = [0, 0]  # put a max of 2 energies on bottom
         self.top_size = top_size
         self.bottom_size = bottom_size
         self.available_top_positions = top_size
@@ -10,7 +10,8 @@ class TransmuterTile:
     # fill the energy at the given position: position: 1 == top, position: 2 == bottom
     def fillTile(self, energy, position):
         if position > 2 or position < 1:
-            print('Position is wrong. Please enter a correct position between [1, 2]')
+            print(
+                'Position is wrong. Please enter a correct position between [1, 2]')
         elif position == 1:
             if self.top_size == 0:
                 return print('No tile at the top')
@@ -43,8 +44,12 @@ class TransmuterTile:
                         self.bottom[1] = energy
                 else:
                     self.bottom[0] = energy
-        
-    #have getter and setter methods for available positions
+
+    def emptyTile(self):
+        self.top = [0, 0]
+        self.bottom = [0, 0]
+
+    # have getter and setter methods for available positions
 
     def printTile(self):
         tile_string = ''
@@ -55,12 +60,13 @@ class TransmuterTile:
             tile_string += '|             |\n'
             tile_string += '|             |\n'
         elif self.top_size == 1:
-            tile_string +=  '|     ---     |\n'
+            tile_string += '|     ---     |\n'
             tile_string += '|    | {} |    |\n'.format(self.top[0])
-            tile_string +=  '|     ---     |\n'
+            tile_string += '|     ---     |\n'
         elif self.top_size == 2:
             tile_string += '|  ---   ---  |\n'
-            tile_string += '| | {} | | {} | |\n'.format(self.bottom[0], self.bottom[1])
+            tile_string += '| | {} | | {} | |\n'.format(
+                self.bottom[0], self.bottom[1])
             tile_string += '|  ---   ---  |\n'
         tile_string += '|             |\n'
         tile_string += '|             |\n'
@@ -74,7 +80,8 @@ class TransmuterTile:
             tile_string += '|     ---     |\n'
         elif self.bottom_size == 2:
             tile_string += '|  ---   ---  |'
-            tile_string += '| | {} | | {} | |\n'.format(self.bottom[0], self.bottom[1])
+            tile_string += '| | {} | | {} | |\n'.format(
+                self.bottom[0], self.bottom[1])
             tile_string += '|  ---   ---  |\n'
         tile_string += '|             |\n'
         tile_string += '---------------\n'
@@ -82,4 +89,3 @@ class TransmuterTile:
         return (
             tile_string
         ).format().splitlines()
-        

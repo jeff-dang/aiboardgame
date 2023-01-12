@@ -1,36 +1,26 @@
 # Add player turn to game engine and remove from environment
-import json
-from os import path
+import random
+
+
 class Board:
     def __init__(self):
-        # internally self.board.squares holds a flat representation of tic tac toe board
-        # where an empty board is [0, 0, 0, 0, 0, 0, 0, 0, 0]
-        # where indexes are column wise order
-        # 0 3 6
-        # 1 4 7
-        # 2 5 8
-
-        # empty -- 0
-        # player 0 -- 1
-        # player 1 -- 2
-
         self.squares = [0] * 16
-
         # index 0 = player 1's moves left, index 1 = player 2's moves left
         # special move lets a player remove the other players space, but they skip a turn
-        self.specialMovesLeft = [4, 6]
-        self.history = {}
-        self.turn_num = 0
+        self.specialMovesLeft = [2, 6]
+        self.currentPlayer = 0
         # precommute possible winning combinations
         self.calculate_winners()
 
+    def getPlayer(self):
+        return self.currentPlayer
+
     def setup(self):
-        self.specialMovesLeft = [4, 6]
+        self.specialMovesLeft = [2, 6]
         self.calculate_winners()
 
     def play_turn(self, agent, action):
         # if spot is empty
-        self.turn_num += 1
         if action <= 15:
             if self.squares[action] != 0:
                 return
@@ -38,23 +28,15 @@ class Board:
                 self.squares[action] = 1
             elif agent == 1:
                 self.squares[action] = 2
-            print("played in board spot",action)
-            turn_ent = {}
-            turn_ent["Action"] = action.item(0)
-            turn_ent["Player"] = agent #type conversion
-            turn_ent["Special"] = False
-            self.history["Turn "+str(self.turn_num)] = turn_ent #append to simulation history
-            #self.history["Turn "+str(self.turn_num)] = action.item(0) #type conversion
+
+            #self.currentPlayer = (self.currentPlayer + 1) % 2
         else:
             if self.specialMovesLeft[agent] > 0 and (self.squares[action-16] != (agent+1) or self.squares[action-16] != 0):
-                self.squares[action-16] = agent+1
-                print("played in special in board spot",action-16)
-                turn_ent = {}
-                turn_ent["Action"] = action.item(0)-16
-                turn_ent["Player"] = agent #type conversion
-                turn_ent["Special"] = True
-                self.history["Turn "+str(self.turn_num)] = turn_ent #append to simulation history
+                self.squares[action-16] = 0
                 self.specialMovesLeft[agent] = self.specialMovesLeft[agent] - 1
+
+        self.currentPlayer = random.randint(0, 1)
+
         return
 
     def calculate_winners(self):
@@ -95,19 +77,6 @@ class Board:
             # tie
             return True
         elif winner in [1, 2]:
-            #output json file
-            if path.isfile("history.json") is False:
-                json_object = json.dumps([self.history]) #create list
-                with open("history.json", "w") as outfile:
-                    outfile.write(json_object)
-            else:
-                with open("history.json") as openjson:
-                    dictObj = json.load(openjson)
-                dictObj.append(self.history)
-
-                with open("history.json", "w") as outfile:
-                    json.dump(dictObj,outfile, indent=4)
-            print("write to file.")
             return True
         else:
             return False
@@ -150,4 +119,3 @@ if __name__ == "__main__":
     print(f"  {board[3]}  " + "|" + f"  {board[7]}  " +
           "|" + f"  {board[11]} " + " |" + f"  {board[15]} ")
     print(" " * 5 + "|" + " " * 5 + "|" + " " * 5 + "|" + " " * 5)
-    

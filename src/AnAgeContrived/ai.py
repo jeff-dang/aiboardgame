@@ -15,7 +15,7 @@ from tianshou.utils import TensorboardLogger
 from tianshou.utils.net.common import Net
 from torch.utils.tensorboard import SummaryWriter
 
-from tictactoe import tictactoe_v0
+import anAgeContrived_v0
 
 
 def get_parser() -> argparse.ArgumentParser:
@@ -30,8 +30,8 @@ def get_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--n-step", type=int, default=3)
     parser.add_argument("--target-update-freq", type=int, default=320)
-    parser.add_argument("--epoch", type=int, default=50)
-    parser.add_argument("--step-per-epoch", type=int, default=1000)
+    parser.add_argument("--epoch", type=int, default=10)
+    parser.add_argument("--step-per-epoch", type=int, default=10)
     parser.add_argument("--step-per-collect", type=int, default=10)
     parser.add_argument("--update-per-step", type=float, default=0.1)
     parser.add_argument("--batch-size", type=int, default=64)
@@ -70,7 +70,7 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--opponent-path",
         type=str,
-        default="",  # log/tic_tac_toe/dqn/policy.pth is where the pre trained policy is
+        default="",
         help="the path of opponent agent pth file "
         "for resuming from a pre-trained agent",
     )
@@ -129,15 +129,15 @@ def get_agents(
             agent_opponent = RandomPolicy()
 
     if args.agent_id == 1:
-        agents = [agent_learn, agent_opponent]
+        agents = [agent_learn, agent_learn, agent_learn, agent_opponent]
     else:
-        agents = [agent_opponent, agent_learn]
+        agents = [agent_learn, agent_learn, agent_learn, agent_opponent]
     policy = MultiAgentPolicyManager(agents, env)
     return policy, optim, env.agents
 
 
 def get_env(render_mode=None):
-    return PettingZooEnv(tictactoe_v0.env(render_mode=render_mode))
+    return PettingZooEnv(anAgeContrived_v0.env(render_mode=render_mode))
 
 
 def train_agent(
@@ -172,7 +172,7 @@ def train_agent(
     train_collector.collect(n_step=args.batch_size * args.training_num)
 
     # ======== tensorboard logging setup =========
-    log_path = os.path.join(args.logdir, "tic_tac_toe", "dqn")
+    log_path = os.path.join(args.logdir, "AnAgeContrived", "dqn")
     writer = SummaryWriter(log_path)
     writer.add_text("args", str(args))
     logger = TensorboardLogger(writer)
@@ -183,7 +183,7 @@ def train_agent(
             model_save_path = args.model_save_path
         else:
             model_save_path = os.path.join(
-                args.logdir, "tic_tac_toe", "dqn", "policy.pth"
+                args.logdir, "AnAgeContrived", "dqn", "policy.pth"
             )
         torch.save(
             policy.policies[agents[args.agent_id - 1]
@@ -244,9 +244,13 @@ def watch(
         f"Final reward: {rews[:, args.agent_id - 1].mean()}, length: {lens.mean()}")
 
 
-if __name__ == "__main__":
-    # train the agent and watch its performance in a match!
+def run_default():
     args = get_args()
     print(args)
     result, agent = train_agent(args)
     watch(args, agent)
+
+
+if __name__ == "__main__":
+    # train the agent and watch its performance in a match!
+    run_default()

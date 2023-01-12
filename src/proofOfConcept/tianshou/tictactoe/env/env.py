@@ -51,16 +51,6 @@ class raw_env(AECEnv):
         self.agent_selection = self._agent_selector.reset()
         self.render_mode = render_mode
 
-    # Key
-    # ----
-    # blank space = 0
-    # agent 0 = 1
-    # agent 1 = 2
-    # An observation is list of lists, where each list represents a row
-    #
-    # [[0,0,2]
-    #  [1,2,1]
-    #  [2,1,0]]
     def observe(self, agent):
         board_vals = np.array(self.board.squares).reshape(4, 4)
         cur_player = self.possible_agents.index(agent)
@@ -85,7 +75,6 @@ class raw_env(AECEnv):
         else:
             for i in range(16, 32):
                 action_mask[i] = 0
-        print(cur_player, agent, action_mask[0:16], action_mask[16:32])
         return {"observation": observation, "action_mask": action_mask}
 
     def observation_space(self, agent):
@@ -111,14 +100,13 @@ class raw_env(AECEnv):
             assert self.board.specialMovesLeft[agentIndex] > 0
 
         # play turn
+        print(self.agent_selection)
         self.board.play_turn(self.agents.index(self.agent_selection), action)
-
-        #self.rewards[self.agents[self.agents.index(self.agent_selection)]] -= 1
+        # self.rewards[self.agents[self.agents.index(self.agent_selection)]] -= 1
 
         # update infos
         # list of valid actions (indexes in board)
         # next_agent = self.agents[(self.agents.index(self.agent_selection) + 1) % len(self.agents)]
-        next_agent = self._agent_selector.next()
 
         if self.board.check_game_over():
             winner = self.board.check_for_winner()
@@ -142,7 +130,7 @@ class raw_env(AECEnv):
         # Switch selection to next agents
         self._cumulative_rewards[self.agent_selection] = 0
 
-        self.agent_selection = next_agent
+        self.agent_selection = self.agents[self.board.getPlayer()]
 
         self._accumulate_rewards()
         if self.render_mode == "human":
