@@ -1,15 +1,27 @@
-class Energy():
+from enum import Enum
 
-    ENERGY_TYPES = ['0', '1', '2', 'special']
+class EnergyTile():
 
-    def __init__(self) -> None:
-        self.energy_type = 'default'
+    def __init__(self, energy_type, player) -> None:
+        # if energy_type not in Energy._value2member_map_ and energy_type not in Energy._member_names_ and energy_type not in Energy._member_map_:
+        if not Energy(energy_type):
+            print('Wrong energy_type. Please enter a correct energy type')
+            self.energy_type = 'INVALID'
+        else:
+            self.energy_type = Energy(energy_type).name
+        self.owner = player #initiate the energy with the correct player
 
     def get_energy_type(self):
         return self.energy_type
 
     def set_energy_type(self, energy_type):
-        if energy_type not in self.ENERGY_TYPES:
+        if energy_type not in Energy._value2member_map_:
             print('Wrong energy_type. Please enter a correct energy type')
         else:
             self.energy_type = energy_type
+
+class Energy(Enum):
+    CONSTRUCTIVE = 1
+    INVERTIBLE = 2
+    GENERATIVE = 3
+    PRIMAL = 4

@@ -5,13 +5,15 @@ from .helpers.turn import Turn
 
 from .entities.turnState import TurnState
 from .entities.player import Player
+from env.entities.monument import Monument
+from env.entities.monumentTile import MonumentTile
 from .actionInitiater import get_actions
+
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3"]
 
-NUM_MOVES = 7
-
+NUM_MOVES = len(get_actions('self', 'eng')) #TODO: may fail but should make this number automatic perhaps inside the engine class
 
 class Engine:
     def __init__(self):
@@ -21,7 +23,14 @@ class Engine:
         self.player_turn_queue = []
         self.players = []
         self.turn = TurnState()
-
+        self.monuments = [
+                            Monument('1', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
+                            Monument('2', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
+                            Monument('3', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
+                            Monument('4', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
+                            Monument('5', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
+                            Monument('6', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]) 
+                         ]
         for i in range(4):
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
 

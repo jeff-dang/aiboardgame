@@ -4,7 +4,8 @@ from .transmuterTile import TransmuterTile
 class Transmuter:
     def __init__(self):
 
-        t1 = TransmuterTile(1, 1)
+        #TODO: modify the transmuter to actually be filled with the energies
+        t1 = TransmuterTile(1, 1) 
         t2 = TransmuterTile(1, 1)
         t3 = TransmuterTile(1, 1)
         t4 = TransmuterTile(1, 1)
