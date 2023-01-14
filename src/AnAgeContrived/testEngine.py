@@ -5,26 +5,29 @@ from env.actionInitiater import get_actions
 from env.engine import Engine
 from env.entities.monument import Monument
 from env.entities.monumentTile import MonumentTile
-from env.entities.energy import Energy
+from env.entities.energy import EnergyTile, Energy
 
 
 def testMonumentEnergy():
-    e1 = Energy()
-    e2 = Energy()
-    e3 = Energy()
-    e1.set_energy_type('0')
-    e2.set_energy_type('1')
-    e3.set_energy_type('2')
-    print('energy type is: ', e3.get_energy_type())
+    # e1 = EnergyTile('Constructive', 'player')
+    # e2 = EnergyTile('Constructive', 'player')
+    # e3 = EnergyTile('Invertible', 'player')
+    # e4 = EnergyTile('Primal', 'player')
+    e1 = EnergyTile(1, 'player')
+    e2 = EnergyTile(2, 'player')
+    e3 = EnergyTile(Energy.GENERATIVE, 'player')
+    e4 = EnergyTile(4, 'player')
+    print('energy type is: ', e4.get_energy_type())
     m1 = MonumentTile([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
     m2 = MonumentTile([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
     m3 = MonumentTile([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
     mon = Monument('Test Monument', [m1, m2, m3])
     print('number of empty sections BEFORE filling: ', m1.empty_sections)
-    m1.fillSection(0, e3)
+    print('monument tile sections: ', m1.sections)
+    # m1.fill_section(e1)
+    m1.fill_section(e4)
     print('number of empty sections AFTER filling: ', m1.empty_sections)
-    print('energy in filled section is: ', m1.getEnergyAtFilledSection(0))
-    pass
+    print('energy in filled section is: ', m1.filled_sections)
 
 
 def testConveying():
