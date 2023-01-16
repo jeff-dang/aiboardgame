@@ -6,7 +6,7 @@ from .helpers.turn import Turn
 from .entities.turnState import TurnState
 from .entities.player import Player
 from env.entities.monument import Monument
-from env.entities.monumentTile import MonumentTile
+from env.entities.monumentWall import MonumentWall
 from .actionInitiater import get_actions
 
 
@@ -25,12 +25,12 @@ class Engine:
         self.players = []
         self.turn = TurnState()
         self.monuments = [
-                            Monument('1', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
-                            Monument('2', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
-                            Monument('3', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
-                            Monument('4', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
-                            Monument('5', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]), 
-                            Monument('6', [MonumentTile([1, 2, 3], 'None'), MonumentTile([3, 2, 3], 'None'), MonumentTile([2, 2, 3], 'None'), MonumentTile([1, 3, 3], 'None')]) 
+                            Monument('1', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
+                            Monument('2', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
+                            Monument('3', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
+                            Monument('4', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
+                            Monument('5', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
+                            Monument('6', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]) 
                          ]
         for i in range(4):
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
@@ -39,15 +39,19 @@ class Engine:
         return self.turnCounter == 4*5
 
     def reset(self):
-        self.turnCounter = 0
+
+        # self.turnCounter = 0
         self.actionCounter = 0
-        self.game = 1
-        self.current_player = 0
-        self.player_turn_queue = []
-        self.players = []
-        self.turn = TurnState()
-        for i in range(4):
-            self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
+        # self.game = 1
+        # self.current_player = 0
+        # self.player_turn_queue = []
+        # self.players = []
+        # self.turn = TurnState()
+        # for i in range(4):
+        #     self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
+        self.__init__()
+        #TODO: have to reset the monuments 
+        # (can we just call the self.__init__ here instead of repeating everything manually? It would help with the future modifications)
 
     def get_agents(self):
         return AGENT_NAMES
@@ -66,18 +70,10 @@ class Engine:
 
     def get_observation_space_shape(self):
         # index=0 will be all possible states, index=1 will be value for that state, index=2 is #of players,
+        #TODO: might want to automate this as well instead of hardcoding it to make the new functionality integration easier
         return(7, 4, 1)
 
     def get_legal_actions(self, agent_name):
-        # legal_actions = {
-        #     0: Turn.endTurnLegal(self),
-        #     1: Turn.conveyTurnLegal(self),
-        #     2: Turn.actionTurnLegal(self),
-        #     3: Convey.convey1Legal(self),
-        #     4: Convey.convey2Legal(self),
-        #     5: Convey.convey2Legal(self),
-        # }
-        # return list(legal_actions.values())
         actions = get_actions(self.players[self.current_player], self)
         legal_actions = []
         for action in actions:
@@ -94,16 +90,26 @@ class Engine:
 
         actions = get_actions(self.players[self.current_player], self)
         actions[action].execute()
+
+        #check whether the monument wall is filled and either:
+        # 1: start a mini turn for players who have energy tiles on the wall or
+        # 2: end the game if all the walls of all the monuments are filled
+        num_of_built_monuments = 0
+        # for monument in self.monuments: #TODO: Later convert to this condition
+        for i in range(0, 1):
+            monument = self.monuments[i]
+            if monument.is_top_wall_completed():
+                filled_wall = monument.get_top_wall()
+                monument.change_top_wall() #if the current top wall is completed, change the top wall to next wall
+                #TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
+            if monument.is_completed():
+                num_of_built_monuments += 1
+        #check if all monuments are built
+        if num_of_built_monuments == len(self.monuments):
+            #TODO: set game end condition to true and calculate the player's points
+            pass
         self.actionCounter += 1
-        # switch = {
-        #     0: partial(Turn.endTurn, engine=self),
-        #     1: partial(Turn.conveyTurn, engine=self),
-        #     2: partial(Turn.actionTurn, engine=self),
-        #     3: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=1, order=0),
-        #     4: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=2, order=0),
-        #     5: partial(Convey.convey, engine=self, transmuter=agent.get_transmuter(), stepSize=2, order=1),
-        # }
-        # switch[action]()
+
 
     def get_current_agents_turn(self):
         return self.get_agents()[self.current_player]
