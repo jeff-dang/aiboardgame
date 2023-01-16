@@ -18,6 +18,7 @@ NUM_MOVES = len(get_actions('self', 'eng')) #TODO: may fail but should make this
 class Engine:
     def __init__(self):
         self.turnCounter = 0
+        self.actionCounter = 0
         self.game = 1
         self.current_player = 0
         self.player_turn_queue = []
@@ -38,7 +39,9 @@ class Engine:
         return self.turnCounter == 4*5
 
     def reset(self):
+
         # self.turnCounter = 0
+        self.actionCounter = 0
         # self.game = 1
         # self.current_player = 0
         # self.player_turn_queue = []
@@ -105,7 +108,8 @@ class Engine:
         if num_of_built_monuments == len(self.monuments):
             #TODO: set game end condition to true and calculate the player's points
             pass
-        
+        self.actionCounter += 1
+
 
     def get_current_agents_turn(self):
         return self.get_agents()[self.current_player]

@@ -3,7 +3,10 @@ import numpy as np
 from gymnasium import spaces
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
+from os import path
 from .engine import Engine
+import json
+from datetime import datetime
 
 
 def env(render_mode=None):
@@ -31,7 +34,6 @@ class raw_env(AECEnv):
     def __init__(self, render_mode=None):
         super().__init__()
         self.engine = Engine()
-
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
         self.action_spaces = {i: spaces.Discrete(self.engine.get_action_space())
@@ -55,6 +57,17 @@ class raw_env(AECEnv):
         self._agent_selector = agent_selector(self.agents)
         self.agent_selection = self._agent_selector.reset()
         self.render_mode = render_mode
+
+        self.simulation_history = {}
+        now = datetime.now()
+        timestamp = now.strftime("%m_%d_%Y_%H_%M_%S")
+        self.json_name = "simulation_history_"+timestamp+".json"
+
+        if path.isfile(self.json_name) is False:
+            json_object = json.dumps([])  # create list
+            with open(self.json_name, "w") as outfile:
+                outfile.write(json_object)
+        print("writing file")
 
     def observe(self, agent):
 
@@ -102,6 +115,15 @@ class raw_env(AECEnv):
         # Get name of current agent self.agent_selection
 
         # Play turn, pass in agent name
+        turn_entry = {
+            "player": self.engine.current_player,
+            "turn_num": self.engine.turnCounter,
+            "action": action.item(0),
+            "action_details": "",
+            "current_score": self.rewards[self.agent_selection]
+        }
+        self.simulation_history[str(self.engine.actionCounter
+                                    )] = turn_entry
         self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players, updates only not incremental
@@ -137,6 +159,15 @@ class raw_env(AECEnv):
         self._agent_selector.reinit(self.agents)
         self._agent_selector.reset()
         self.agent_selection = self._agent_selector.reset()
+
+        # Dump into json
+        with open(self.json_name) as openjson:
+            dictObj = json.load(openjson)
+            dictObj.append(self.simulation_history)
+
+        with open(self.json_name, "w") as outfile:
+            json.dump(dictObj, outfile, indent=4)
+        self.simulation_history = {}
 
     def render(self):
         if self.render_mode is None:
