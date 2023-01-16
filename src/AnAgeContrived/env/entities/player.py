@@ -14,6 +14,7 @@ class Player():
                             'GENERATIVE': [EnergyTile(Energy.GENERATIVE, self), EnergyTile(Energy.GENERATIVE, self)],
                             'PRIMAL': [EnergyTile(Energy.PRIMAL, self), EnergyTile(Energy.PRIMAL, self)]
                         }
+        self.location = [0, 0] #keep tracks of the player's location on the board
         #TODO: need to track the energies on the board, on his hand (done) and the remaining energies
 
     def set_transmuter(self, transmuter):

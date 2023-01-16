@@ -1,6 +1,6 @@
 from env.entities.energy import Energy
 
-class MonumentTile:
+class MonumentWall():
 
     # acceptable_energy_types is a list of energy types that can be placed on this tile
     # num_sections is the number of sections on this tile
@@ -20,21 +20,24 @@ class MonumentTile:
     def fill_section(self, energy):
         if(self.empty_sections != 0):
             print('e type is: ', energy.energy_type)
+            print('self.sections is: ', self.sections)
             if energy.energy_type == Energy.PRIMAL.name:
                 index = self.filled_sections.index(0)
                 self.filled_sections[index] = energy
                 self.sections[index] = 'Filled'
                 self.empty_sections -= 1
-            elif energy.energy_type in self.sections:
-                index = self.sections.index(energy.energy_type)
+                print('SECTION FILLED WITH ENERGY: ', energy.energy_type) #DELETE LATER
+            elif self._is_in_acceptable_energy_types(energy.energy_type):
+                index = self.get_acceptable_energy_types().index(energy.energy_type)
                 if self.filled_sections[index] == 0:
                     self.filled_sections[index] = energy
                     self.sections[index] = 'Filled'
                     self.empty_sections -= 1
+                    print('SECTION FILLED WITH ENERGY: ', energy.energy_type) #DELETE LATER
                 else:
                     print('All the sections with the matching energy type is filled')
             else:
-                print('Energy type is not supported on this monument wall')
+                print('Energy type is not supported on this monument wall - condition is: ', energy.energy_type in self.sections, 'where the supported sections are', self.sections)
             if self.is_completed():
                 self.assign_owner(energy.owner) #TODO: find a way to assign the owner who finished the wall
         else:
@@ -63,3 +66,15 @@ class MonumentTile:
 
     def get_monument_benefit_token(self):
         return self.monument_benefit_token
+
+    def _is_in_acceptable_energy_types(self, energy_type):
+        acceptable_type_names = self.get_acceptable_energy_types()
+        acceptable_type_numbers = self.sections
+        return energy_type in acceptable_type_names or energy_type in acceptable_type_numbers
+
+    def get_acceptable_energy_types(self):
+        acceptable_type_names = []
+        for i in self.sections:
+            if i != 'Filled':
+                acceptable_type_names.append(Energy(i).name)
+        return acceptable_type_names

@@ -4,7 +4,7 @@ from env.entities.transmuter import Transmuter
 from env.actionInitiater import get_actions
 from env.engine import Engine
 from env.entities.monument import Monument
-from env.entities.monumentTile import MonumentTile
+from env.entities.monumentWall import MonumentWall
 from env.entities.energy import EnergyTile, Energy
 
 
@@ -18,9 +18,9 @@ def testMonumentEnergy():
     e3 = EnergyTile(Energy.GENERATIVE, 'player')
     e4 = EnergyTile(4, 'player')
     print('energy type is: ', e4.get_energy_type())
-    m1 = MonumentTile([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
-    m2 = MonumentTile([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
-    m3 = MonumentTile([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
+    m1 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
+    m2 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
+    m3 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
     mon = Monument('Test Monument', [m1, m2, m3])
     print('number of empty sections BEFORE filling: ', m1.empty_sections)
     print('monument tile sections: ', m1.sections)
