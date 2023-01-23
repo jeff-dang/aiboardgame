@@ -161,12 +161,13 @@ class raw_env(AECEnv):
         self.agent_selection = self._agent_selector.reset()
 
         # Dump into json
-        with open(self.json_name) as openjson:
-            dictObj = json.load(openjson)
-            dictObj.append(self.simulation_history)
+        if self.simulation_history != {}:
+            with open(self.json_name) as openjson:
+                dictObj = json.load(openjson)
+                dictObj.append(self.simulation_history)
 
-        with open(self.json_name, "w") as outfile:
-            json.dump(dictObj, outfile, indent=4)
+            with open(self.json_name, "w") as outfile:
+                json.dump(dictObj, outfile, indent=4)
         self.simulation_history = {}
 
     def render(self):
