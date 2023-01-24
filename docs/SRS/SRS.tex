@@ -261,6 +261,8 @@ Inside the Game Engine, there will be a finite state machine that controls the m
     \item $\sum$ The alphabet is a list of all possible moves from one state to another.
     \item $\delta:(Q,\sum) \xrightarrow[]{} Q$ The transition function that will take the current state and a possible move and output the new updated state.
     \item $q_0$ The starting state, for Tic-Tac-Toe would be an empty board, for Monopoly would be an empty board, and all players with their starting money.
+    \item $q_1$ The state after the game has began and will be looping through continuously until the game has concluded.
+    \item $q_2$ The final state afterwards the winning move is made in the game and concludes the system.
     \item $F \subset Q$ The set of final states, this will be all the winning end game states for a player.
 \end{itemize}
 To simplify the set of states, only three will be used: start, finish and in progress. These will be denoted as $q_0, q_1, q_2$ respectively. 
