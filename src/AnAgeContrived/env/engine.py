@@ -1,19 +1,54 @@
-from functools import partial
-
 from .helpers.convey import Convey
 from .helpers.turn import Turn
-
 from .entities.turnState import TurnState
 from .entities.player import Player
 from env.entities.monument import Monument
 from env.entities.monumentWall import MonumentWall
 from .actionInitiater import get_actions
-
+from env.entities.energy import Energy
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3"]
+NUM_MOVES = len(get_actions('self', 'eng'))
 
-NUM_MOVES = len(get_actions('self', 'eng')) #TODO: may fail but should make this number automatic perhaps inside the engine class
+#Monuments From The Rule Book:
+THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE], [Energy.PRIMAL]),
+                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.GENERATIVE]),
+                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any']) #TODO: Need a mechanism to handle any energy reward
+                                                    ])
+THE_LIBRARY_OF_VALDUIN = Monument('THE LIBRARY OF VALDUIN', 'location', [
+                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [Energy.GENERATIVE, Energy.INVERTIBLE]),
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE], [Energy.PRIMAL]),
+                                                        MonumentWall([Energy.INVERTIBLE, Energy.GENERATIVE], ['Any']) #TODO: Need a mechanism to handle any energy reward
+                                                    ])
+THE_ERIDONIC_GATE = Monument('THE ERIDONIC GATE', 'location', [
+                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE, Energy.GENERATIVE]),
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.INVERTIBLE]),
+                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [Energy.GENERATIVE]),
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any']) #TODO: Need a mechanism to handle any energy reward
+                                                    ])
+THE_NAMARILLION_FORGE = Monument('THE NAMARILLION FORGE', 'location', [
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE], [Energy.INVERTIBLE, Energy.GENERATIVE]),
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.PRIMAL]),
+                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any']) #TODO: Need a mechanism to handle any energy reward
+                                                    ])
+THE_FORTRESS_OF_KOLYM_THRIN = Monument('THE FORTRESS OF KOLYM THRIN', 'location', [
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.CONSTRUCTIVE, Energy.PRIMAL]),
+                                                        MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.GENERATIVE]),
+                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE], ['Any']),#TODO: Need a mechanism to handle any energy reward
+                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE], [Energy.INVERTIBLE]),
+                                                        MonumentWall([Energy.PRIMAL], []),
+                                                    ])
+THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', 'location', [
+                                                        MonumentWall([Energy.GENERATIVE, Energy.GENERATIVE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
+                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.INVERTIBLE], [Energy.GENERATIVE]),
+                                                        MonumentWall([Energy.INVERTIBLE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [Energy.PRIMAL]),
+                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any']) #TODO: Need a mechanism to handle any energy reward
+                                                    ])
 
 class Engine:
     def __init__(self):
@@ -24,14 +59,7 @@ class Engine:
         self.player_turn_queue = []
         self.players = []
         self.turn = TurnState()
-        self.monuments = [
-                            Monument('1', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
-                            Monument('2', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
-                            Monument('3', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
-                            Monument('4', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
-                            Monument('5', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]), 
-                            Monument('6', [MonumentWall([1, 2, 3], 'None'), MonumentWall([3, 2, 3], 'None'), MonumentWall([2, 2, 3], 'None'), MonumentWall([1, 3, 3], 'None')]) 
-                         ]
+        self.monuments = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN ,THE_ERIDONIC_GATE, THE_NAMARILLION_FORGE , THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
         for i in range(4):
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
 
@@ -39,19 +67,7 @@ class Engine:
         return self.turnCounter == 4*5
 
     def reset(self):
-
-        # self.turnCounter = 0
-        self.actionCounter = 0
-        # self.game = 1
-        # self.current_player = 0
-        # self.player_turn_queue = []
-        # self.players = []
-        # self.turn = TurnState()
-        # for i in range(4):
-        #     self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
         self.__init__()
-        #TODO: have to reset the monuments 
-        # (can we just call the self.__init__ here instead of repeating everything manually? It would help with the future modifications)
 
     def get_agents(self):
         return AGENT_NAMES
@@ -83,9 +99,10 @@ class Engine:
 
     def play_turn(self, agent_name, action):
         agent = self.get_agent(agent_name)
+        print(self.get_legal_actions(self.current_player))
 
         if(not self.get_legal_actions(self.current_player)[action]):
-            print("ILLEGAL MOVE")
+            print("ILLEGAL MOVE, is", action)
             return
 
         actions = get_actions(self.players[self.current_player], self)
@@ -142,4 +159,5 @@ class Engine:
         agent = self.get_agent(agent_name)
         print(agent.character)
         agent.get_transmuter().printTransmuter()
+        # print(self.monuments[0].get_top_wall().print_wall())
         self.turn.printTurnState()
