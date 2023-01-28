@@ -1,4 +1,4 @@
-from env.entities.monumentWall import MonumentWall
+from env.entities.monument_wall import MonumentWall
 
 class Monument:
     def __init__(self, name, location, monumentWalls):

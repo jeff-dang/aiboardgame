@@ -1,4 +1,4 @@
-from .transmuterTile import TransmuterTile
+from .transmuter_tile import TransmuterTile
 
 
 class Transmuter:
@@ -13,14 +13,14 @@ class Transmuter:
         t6 = TransmuterTile(2, 1)
         t7 = TransmuterTile(2, 1)
 
-        t1.fillTile(1, 1)
-        t1.fillTile(1, 2)
+        t1.fill_tile(1, 1)
+        t1.fill_tile(1, 2)
 
-        t2.fillTile(1, 1)
-        t2.fillTile(1, 2)
+        t2.fill_tile(1, 1)
+        t2.fill_tile(1, 2)
 
-        t3.fillTile(1, 1)
-        t3.fillTile(1, 2)
+        t3.fill_tile(1, 1)
+        t3.fill_tile(1, 2)
 
         self.active_tiles = [t1, t2, t3, t4, t5]
         self.reserved_tiles = [t6, t7]
@@ -28,11 +28,11 @@ class Transmuter:
         pass
 
     # gets all the tiles currently on the transmuter
-    def getAllTiles(self):
+    def get_all_tiles(self):
         pass
 
     # returns the tile at the given position
-    def getTile(self, position):
+    def get_tile(self, position):
         pass
 
     # conveys the transmuter tiles only once, if convey 2 call method twice
@@ -42,19 +42,19 @@ class Transmuter:
         new_active_tiles[0] = self.reserved_tiles[reservedTileIndex]
         for i in range(len(self.active_tiles)-1):
             new_active_tiles[i+1] = self.active_tiles[i]
-        self.active_tiles[4].emptyTile()
+        self.active_tiles[4].empty_tile()
         self.reserved_tiles[reservedTileIndex] = self.active_tiles[4]
         self.active_tiles = new_active_tiles
 
     # helper func to move the tiles after removing a tile
 
-    def _moveAllTilesAhead(self):
+    def _move_all_tiles_ahead(self):
         pass
 
-    def isFull(self):
+    def is_full(self):
         pass
 
-    def getState(self):
+    def get_state(self):
         w, h = 7, 4
         matrix = [[0 for x in range(w)] for y in range(h)]
         for i, tile in enumerate(self.active_tiles):
@@ -70,18 +70,18 @@ class Transmuter:
             matrix[3][i+5] = tile.bottom.count(1)
         return matrix
 
-    def printTransmuter(self):
-        for lines in zip(*map(TransmuterTile.printTile, self.active_tiles)):
+    def print_transmuter(self):
+        for lines in zip(*map(TransmuterTile.print_tile, self.active_tiles)):
             print(*lines)
 
-    def getTotalEnergyCells(self):
+    def get_total_energy_cells(self):
         sum = 0
         for tile in self.active_tiles:
             sum += tile.top.count(1)
             sum += tile.bottom.count(1)
         return sum
 
-    def getTotalEmptyCells(self):
+    def get_total_empty_cells(self):
         sum = 0
         for tile in self.active_tiles:
             sum += tile.top.count(0)
