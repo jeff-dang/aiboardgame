@@ -15,7 +15,7 @@ from tianshou.utils import TensorboardLogger
 from tianshou.utils.net.common import Net
 from torch.utils.tensorboard import SummaryWriter
 
-import anAgeContrived_v0
+import an_age_contrived_v0
 
 
 def get_parser() -> argparse.ArgumentParser:
@@ -137,7 +137,7 @@ def get_agents(
 
 
 def get_env(render_mode=None):
-    return PettingZooEnv(anAgeContrived_v0.env(render_mode=render_mode))
+    return PettingZooEnv(an_age_contrived_v0.env(render_mode=render_mode))
 
 
 def train_agent(
