@@ -117,12 +117,12 @@ class raw_env(AECEnv):
         # Play turn, pass in agent name
         turn_entry = {
             "player": self.engine.current_player,
-            "turn_num": self.engine.turnCounter,
+            "turn_num": self.engine.turn_counter,
             "action": action.item(0),
             "action_details": "",
             "current_score": self.rewards[self.agent_selection]
         }
-        self.simulation_history[str(self.engine.actionCounter
+        self.simulation_history[str(self.engine.action_counter
                                     )] = turn_entry
         self.engine.play_turn(self.agent_selection, action)
 

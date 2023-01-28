@@ -7,10 +7,10 @@ class ActionTurn(Command):
         super().__init__(player, engine)
 
     def execute(self):
-        Turn.actionTurn(self.engine)
+        Turn.action_turn(self.engine)
 
     def check(self) -> bool:
-        return Turn.actionTurnLegal(self.engine)
+        return Turn.action_turn_legal(self.engine)
 
 class ConveyTurn(Command):
 
@@ -18,10 +18,10 @@ class ConveyTurn(Command):
         super().__init__(player, engine)
 
     def execute(self):
-        Turn.conveyTurn(self.engine)
+        Turn.convey_turn(self.engine)
 
     def check(self) -> bool:
-        return Turn.conveyTurnLegal(self.engine)
+        return Turn.convey_turn_legal(self.engine)
 
 class EndTurn(Command):
 
@@ -29,7 +29,7 @@ class EndTurn(Command):
         super().__init__(player, engine)
 
     def execute(self):
-        Turn.endTurn(self.engine)
+        Turn.end_turn(self.engine)
 
     def check(self) -> bool:
-        return Turn.endTurnLegal(self.engine)
+        return Turn.end_turn_legal(self.engine)

@@ -52,8 +52,8 @@ THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', 'location', [
 
 class Engine:
     def __init__(self):
-        self.turnCounter = 0
-        self.actionCounter = 0
+        self.turn_counter = 0
+        self.action_counter = 0
         self.game = 1
         self.current_player = 0
         self.player_turn_queue = []
@@ -64,7 +64,7 @@ class Engine:
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
 
     def check_over(self):
-        return self.turnCounter == 4*5
+        return self.turn_counter == 4*5
 
     def reset(self):
         self.__init__()
@@ -125,7 +125,7 @@ class Engine:
         if num_of_built_monuments == len(self.monuments):
             #TODO: set game end condition to true and calculate the player's points
             pass
-        self.actionCounter += 1
+        self.action_counter += 1
 
 
     def get_current_agents_turn(self):
@@ -142,22 +142,22 @@ class Engine:
         return others_game_state
 
     def get_game_state(self, agent_name):
-        return self.get_agent(agent_name).get_transmuter().getState()
+        return self.get_agent(agent_name).get_transmuter().get_state()
 
     def get_reward(self, agent_name):
-        return self.get_agent(agent_name).get_transmuter().getTotalEmptyCells() * 10
+        return self.get_agent(agent_name).get_transmuter().get_total_empty_cells() * 10
 
     def get_winner(self):
         max = 0
         winner = ""
         for agent in AGENT_NAMES:
-            if self.get_agent(agent).get_transmuter().getTotalEmptyCells() > max:
+            if self.get_agent(agent).get_transmuter().get_total_empty_cells() > max:
                 winner = agent
         return winner
 
     def render(self, agent_name):
         agent = self.get_agent(agent_name)
         print(agent.character)
-        agent.get_transmuter().printTransmuter()
+        agent.get_transmuter().print_transmuter()
         # print(self.monuments[0].get_top_wall().print_wall())
         self.turn.print_turn_state()
