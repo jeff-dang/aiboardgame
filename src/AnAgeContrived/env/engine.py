@@ -77,8 +77,8 @@ THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', 'location', [
 
 class Engine:
     def __init__(self):
-        self.turnCounter = 0
-        self.actionCounter = 0
+        self.turn_counter = 0
+        self.action_counter = 0
         self.game = 1
         self.current_player = 0
         self.player_turn_queue = []
@@ -90,7 +90,7 @@ class Engine:
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
 
     def check_over(self):
-        return self.turnCounter == 4*5
+        return self.turn_counter == 4*5
 
     def reset(self):
         self.__init__()
@@ -152,7 +152,7 @@ class Engine:
         if num_of_built_monuments == len(self.monuments):
             # TODO: set game end condition to true and calculate the player's points
             pass
-        self.actionCounter += 1
+        self.action_counter += 1
 
     def get_current_agents_turn(self):
         return self.get_agents()[self.current_player]

@@ -19,7 +19,8 @@ class MonumentWall():
         self.owner = None
 
     # fills the section at the given energy_type by macthing the first available matching section
-    def fill_section(self, energy):
+    def fill_section(self, energy: Energy):
+        is_successful = False
         if(self.empty_sections != 0):
             print('e type is: ', energy.energy_type)
             print('self.sections is: ', self.sections)
@@ -29,7 +30,7 @@ class MonumentWall():
                 self.remaining_sections[index] = None
                 self.empty_sections -= 1
                 print('SECTION FILLED WITH ENERGY: ', energy.energy_type) #DELETE LATER
-                return True
+                is_successful = True
             elif energy.energy_type in self.remaining_sections:
             # elif self._is_in_acceptable_energy_types(energy.energy_type):
                 # index = self.get_acceptable_energy_types().index(energy.energy_type)
@@ -39,18 +40,16 @@ class MonumentWall():
                     self.remaining_sections[index] = None
                     self.empty_sections -= 1
                     print('SECTION FILLED WITH ENERGY: ', energy.energy_type) #DELETE LATER
-                    return True
+                    is_successful = True
                 else:
                     print('All the sections with the matching energy type is filled')
-                    return False
             else:
                 print('Energy type is not supported on this monument wall - condition is: ', energy.energy_type in self.sections, 'where the supported sections are', self.sections)
-                return False
             if self.is_completed():
                 self.assign_owner(energy.owner) #TODO: find a way to assign the owner who finished the wall
         else:
             print('All the sections are filled. Please try to fill the next wall of the monument')
-            return False
+        return is_successful
     
     # assigns the owner of this tile
     def assign_owner(self, owner):
