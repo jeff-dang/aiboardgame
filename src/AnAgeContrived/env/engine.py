@@ -11,44 +11,69 @@ CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3"]
 NUM_MOVES = len(get_actions('self', 'eng'))
 
-#Monuments From The Rule Book:
+# Monuments From The Rule Book:
 THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE], [Energy.PRIMAL]),
-                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.GENERATIVE]),
-                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any']) #TODO: Need a mechanism to handle any energy reward
-                                                    ])
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
+                 Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE,
+                 Energy.GENERATIVE], [Energy.PRIMAL]),
+    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE,
+                 Energy.INVERTIBLE], [Energy.GENERATIVE]),
+    # TODO: Need a mechanism to handle any energy reward
+    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any'])
+])
 THE_LIBRARY_OF_VALDUIN = Monument('THE LIBRARY OF VALDUIN', 'location', [
-                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [Energy.GENERATIVE, Energy.INVERTIBLE]),
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE], [Energy.PRIMAL]),
-                                                        MonumentWall([Energy.INVERTIBLE, Energy.GENERATIVE], ['Any']) #TODO: Need a mechanism to handle any energy reward
-                                                    ])
+    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [
+                 Energy.GENERATIVE, Energy.INVERTIBLE]),
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
+                 Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE,
+                 Energy.GENERATIVE], [Energy.PRIMAL]),
+    # TODO: Need a mechanism to handle any energy reward
+    MonumentWall([Energy.INVERTIBLE, Energy.GENERATIVE], ['Any'])
+])
 THE_ERIDONIC_GATE = Monument('THE ERIDONIC GATE', 'location', [
-                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE, Energy.GENERATIVE]),
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.INVERTIBLE]),
-                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [Energy.GENERATIVE]),
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any']) #TODO: Need a mechanism to handle any energy reward
-                                                    ])
+    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
+                 Energy.CONSTRUCTIVE, Energy.GENERATIVE]),
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
+                 Energy.GENERATIVE], [Energy.INVERTIBLE]),
+    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE,
+                 Energy.CONSTRUCTIVE], [Energy.GENERATIVE]),
+    # TODO: Need a mechanism to handle any energy reward
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any'])
+])
 THE_NAMARILLION_FORGE = Monument('THE NAMARILLION FORGE', 'location', [
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE], [Energy.INVERTIBLE, Energy.GENERATIVE]),
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.PRIMAL]),
-                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any']) #TODO: Need a mechanism to handle any energy reward
-                                                    ])
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE], [
+                 Energy.INVERTIBLE, Energy.GENERATIVE]),
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
+                 Energy.GENERATIVE], [Energy.PRIMAL]),
+    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE,
+                 Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
+    # TODO: Need a mechanism to handle any energy reward
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any'])
+])
 THE_FORTRESS_OF_KOLYM_THRIN = Monument('THE FORTRESS OF KOLYM THRIN', 'location', [
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.CONSTRUCTIVE, Energy.PRIMAL]),
-                                                        MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.GENERATIVE], [Energy.GENERATIVE]),
-                                                        MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE], ['Any']),#TODO: Need a mechanism to handle any energy reward
-                                                        MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE], [Energy.INVERTIBLE]),
-                                                        MonumentWall([Energy.PRIMAL], []),
-                                                    ])
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [
+                 Energy.CONSTRUCTIVE, Energy.PRIMAL]),
+    MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE,
+                 Energy.GENERATIVE], [Energy.GENERATIVE]),
+    # TODO: Need a mechanism to handle any energy reward
+    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE], ['Any']),
+    MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE,
+                 Energy.GENERATIVE], [Energy.INVERTIBLE]),
+    MonumentWall([Energy.PRIMAL], []),
+])
 THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', 'location', [
-                                                        MonumentWall([Energy.GENERATIVE, Energy.GENERATIVE, Energy.INVERTIBLE], [Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
-                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.INVERTIBLE], [Energy.GENERATIVE]),
-                                                        MonumentWall([Energy.INVERTIBLE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [Energy.PRIMAL]),
-                                                        MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any']) #TODO: Need a mechanism to handle any energy reward
-                                                    ])
+    MonumentWall([Energy.GENERATIVE, Energy.GENERATIVE, Energy.INVERTIBLE], [
+                 Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
+    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE,
+                 Energy.INVERTIBLE], [Energy.GENERATIVE]),
+    MonumentWall([Energy.INVERTIBLE, Energy.CONSTRUCTIVE,
+                 Energy.CONSTRUCTIVE], [Energy.PRIMAL]),
+    # TODO: Need a mechanism to handle any energy reward
+    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any'])
+])
+
 
 class Engine:
     def __init__(self):
@@ -59,7 +84,8 @@ class Engine:
         self.player_turn_queue = []
         self.players = []
         self.turn = TurnState()
-        self.monuments = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN ,THE_ERIDONIC_GATE, THE_NAMARILLION_FORGE , THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
+        self.monuments = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN, THE_ERIDONIC_GATE,
+                          THE_NAMARILLION_FORGE, THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
         for i in range(4):
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
 
@@ -86,7 +112,7 @@ class Engine:
 
     def get_observation_space_shape(self):
         # index=0 will be all possible states, index=1 will be value for that state, index=2 is #of players,
-        #TODO: might want to automate this as well instead of hardcoding it to make the new functionality integration easier
+        # TODO: might want to automate this as well instead of hardcoding it to make the new functionality integration easier
         return(7, 4, 1)
 
     def get_legal_actions(self, agent_name):
@@ -108,7 +134,7 @@ class Engine:
         actions = get_actions(self.players[self.current_player], self)
         actions[action].execute()
 
-        #check whether the monument wall is filled and either:
+        # check whether the monument wall is filled and either:
         # 1: start a mini turn for players who have energy tiles on the wall or
         # 2: end the game if all the walls of all the monuments are filled
         num_of_built_monuments = 0
@@ -117,16 +143,16 @@ class Engine:
             monument = self.monuments[i]
             if monument.is_top_wall_completed():
                 filled_wall = monument.get_top_wall()
-                monument.change_top_wall() #if the current top wall is completed, change the top wall to next wall
-                #TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
+                # if the current top wall is completed, change the top wall to next wall
+                monument.change_top_wall()
+                # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
             if monument.is_completed():
                 num_of_built_monuments += 1
-        #check if all monuments are built
+        # check if all monuments are built
         if num_of_built_monuments == len(self.monuments):
-            #TODO: set game end condition to true and calculate the player's points
+            # TODO: set game end condition to true and calculate the player's points
             pass
         self.action_counter += 1
-
 
     def get_current_agents_turn(self):
         return self.get_agents()[self.current_player]

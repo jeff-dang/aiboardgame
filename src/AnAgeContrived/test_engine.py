@@ -8,7 +8,17 @@ from env.entities.monument_wall import MonumentWall
 from env.entities.energy import EnergyTile, Energy
 
 
-def testMonumentEnergy():
+def test_transmuter_state():
+    e = Engine()
+    f = e.get_agent("player_0")
+    ftransmuter = (f.get_transmuter())
+    print(ftransmuter.get_state())
+
+
+test_transmuter_state()
+
+
+def test_monument_energy():
     # e1 = EnergyTile('Constructive', 'player')
     # e2 = EnergyTile('Constructive', 'player')
     # e3 = EnergyTile('Invertible', 'player')
@@ -18,9 +28,12 @@ def testMonumentEnergy():
     e3 = EnergyTile(Energy.GENERATIVE, 'player')
     e4 = EnergyTile(Energy.PRIMAL, 'player')
     print('energy type is: ', e4.get_energy_type())
-    m1 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
-    m2 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
-    m3 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(), e3.get_energy_type()], 'No benefit')
+    m1 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(),
+                      e3.get_energy_type()], 'No benefit')
+    m2 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(),
+                      e3.get_energy_type()], 'No benefit')
+    m3 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(),
+                      e3.get_energy_type()], 'No benefit')
     mon = Monument('Test Monument', 'location', [m1, m2, m3])
     print('number of empty sections BEFORE filling: ', m1.empty_sections)
     print('monument tile sections: ', m1.sections)
@@ -30,7 +43,7 @@ def testMonumentEnergy():
     print('energy in filled section is: ', m1.filled_sections)
 
 
-def testConveying():
+def test_conveying():
     t1 = Transmuter()
     t2 = Transmuter()
 
@@ -54,32 +67,3 @@ def testConveying():
     print('************* AFTER ****************')
     t1.print_transmuter()
     print('************* END **************')
-
-# testConveying()
-testMonumentEnergy()
-# print(Energy.CONSTRUCTIVE.value)
-
-# #actions = Convey.availableActions()
-# print('************* BEFORE ****************')
-# t1.printTransmuter()
-# print('************* END **************')
-# #actions[0](transmuter = p1.transmuter)
-# Convey.convey(p1.transmuter, 1, 1)
-# print('************* AFTER ****************')
-# t1.printTransmuter()
-# print('************* END **************')
-# print(p1.get_player_name())
-
-# print('************* BEFORE ****************')
-# t2.printTransmuter()
-# print('************* END **************')
-# #actions[0](transmuter = p1.transmuter)
-# Convey.convey(p2.transmuter, 2, 0)
-# print('************* AFTER ****************')
-# t2.printTransmuter()
-# print('************* END **************')
-# print(p2.get_player_name())
-
-#print(ActionBase.__subclasses__())
-#print(gameEngine.actions.command.Command.__subclasses__())
-#print(get_actions())

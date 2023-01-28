@@ -1,6 +1,6 @@
-# Project Name
+# An AI-based Approach to Designing Board Games 
 
-Developer Names:
+Developer Names: Michael Ilao, Hargun Bedi, Jeffrey Dang, Jonah Ada, Tiangzheng Mai
 
 Date of project start:
 
