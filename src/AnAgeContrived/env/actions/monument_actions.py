@@ -1,5 +1,5 @@
 from env.command import Command
-from env.helpers.fillMonument import FillMonument
+from env.helpers.fill_monument import FillMonument
 from env.entities.energy import EnergyTile, Energy
 
 class FillMonumentWithConstructiveEnergy(Command):

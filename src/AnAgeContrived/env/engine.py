@@ -1,10 +1,10 @@
 from .helpers.convey import Convey
 from .helpers.turn import Turn
-from .entities.turnState import TurnState
+from .entities.turn_state import TurnState
 from .entities.player import Player
 from env.entities.monument import Monument
-from env.entities.monumentWall import MonumentWall
-from .actionInitiater import get_actions
+from env.entities.monument_wall import MonumentWall
+from .action_initiater import get_actions
 from env.entities.energy import Energy
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
@@ -160,4 +160,4 @@ class Engine:
         print(agent.character)
         agent.get_transmuter().printTransmuter()
         # print(self.monuments[0].get_top_wall().print_wall())
-        self.turn.printTurnState()
+        self.turn.print_turn_state()

@@ -8,7 +8,7 @@ class TurnState():
         self.turnType = ""
         self.canConvey = False
 
-    def updateTurnType(self, turnType):
+    def update_turn_type(self, turnType):
         self.turnType = turnType
         if(turnType == "convey"):
             self.canConvey = True
@@ -16,6 +16,6 @@ class TurnState():
     def conveyed(self):
         self.canConvey = False
 
-    def printTurnState(self):
+    def print_turn_state(self):
         print("Turn Type: ", self.turnType)
         print("Can Convey: ", self.canConvey)

@@ -8,7 +8,7 @@ class TransmuterTile:
         self.available_bottom_positions = bottom_size
 
     # fill the energy at the given position: position: 1 == top, position: 2 == bottom
-    def fillTile(self, energy, position):
+    def fill_tile(self, energy, position):
         if position > 2 or position < 1:
             print(
                 'Position is wrong. Please enter a correct position between [1, 2]')
@@ -45,13 +45,17 @@ class TransmuterTile:
                 else:
                     self.bottom[0] = energy
 
-    def emptyTile(self):
+    def empty_tile(self):
         self.top = [0, 0]
         self.bottom = [0, 0]
 
-    # have getter and setter methods for available positions
+    def release_bottom_energy(self):
+        return self.bottom.pop()
 
-    def printTile(self):
+    def release_top_energy(self):
+        return self.top.pop()
+
+    def print_tile(self):
         tile_string = ''
         tile_string += '---------------\n'
         tile_string += '|             |\n'

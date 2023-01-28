@@ -1,10 +1,10 @@
 from env.entities.player import Player
 from env.entities.transmuter import Transmuter
 #from env.helpers.convey import Convey
-from env.actionInitiater import get_actions
+from env.action_initiater import get_actions
 from env.engine import Engine
 from env.entities.monument import Monument
-from env.entities.monumentWall import MonumentWall
+from env.entities.monument_wall import MonumentWall
 from env.entities.energy import EnergyTile, Energy
 
 
@@ -48,11 +48,11 @@ def testConveying():
     print(actions)
 
     print('************* BEFORE ****************')
-    t1.printTransmuter()
+    t1.print_transmuter()
     print('************* END **************')
     actions[3].execute()
     print('************* AFTER ****************')
-    t1.printTransmuter()
+    t1.print_transmuter()
     print('************* END **************')
 
 # testConveying()
