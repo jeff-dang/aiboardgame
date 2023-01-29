@@ -6,6 +6,7 @@ from env.action_initiater import get_actions
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES = len(get_actions('self', 'eng'))
+MAX_TURNS = 50
 
 # ************ MONUMENTS START **************************
 # Monuments From The Rule Book:
