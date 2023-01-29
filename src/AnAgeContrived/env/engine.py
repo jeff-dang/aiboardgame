@@ -6,11 +6,11 @@ from env.entities.monument import Monument
 from env.entities.monument_wall import MonumentWall
 from .action_initiater import get_actions
 from env.entities.energy import Energy
-
-CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
-AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3"]
+from .states import States
+CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
+AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES = len(get_actions('self', 'eng'))
-
+MAX_TURNS = 30
 # Monuments From The Rule Book:
 THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
@@ -84,13 +84,22 @@ class Engine:
         self.player_turn_queue = []
         self.players = []
         self.turn = TurnState()
+        self.monument_index = 0
         self.monuments = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN, THE_ERIDONIC_GATE,
                           THE_NAMARILLION_FORGE, THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
-        for i in range(4):
+        for i in range(len(CHARACTER_NAMES)):
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
 
     def check_over(self):
-        return self.turn_counter == 4*5
+        if(self.monument_index == len(self.monuments)):
+            print("ALL MONUMENT BUILT")
+            print(self.turn_counter, self.action_counter)
+            return True
+        elif (self.turn_counter == 4*MAX_TURNS):
+            print("MAX TURNS REACHED")
+            return True
+        else:
+            return False
 
     def reset(self):
         self.__init__()
@@ -110,13 +119,8 @@ class Engine:
     def get_action_space(self):
         return NUM_MOVES
 
-    def get_observation_space_shape(self):
-        # index=0 will be all possible states, index=1 will be value for that state, index=2 is #of players,
-        # TODO: might want to automate this as well instead of hardcoding it to make the new functionality integration easier
-        return(7, 4, 1)
-
     def get_legal_actions(self, agent_name):
-        actions = get_actions(self.players[self.current_player], self)
+        actions = get_actions(self.get_agent(agent_name), self)
         legal_actions = []
         for action in actions:
             isLegal = action.check()
@@ -137,21 +141,20 @@ class Engine:
         # check whether the monument wall is filled and either:
         # 1: start a mini turn for players who have energy tiles on the wall or
         # 2: end the game if all the walls of all the monuments are filled
-        num_of_built_monuments = 0
         # for monument in self.monuments: #TODO: Later convert to this condition
-        for i in range(0, 1):
+        self.num_of_built_monuments = 0
+
+        for i in range(0, 6):
             monument = self.monuments[i]
             if monument.is_top_wall_completed():
                 filled_wall = monument.get_top_wall()
                 # if the current top wall is completed, change the top wall to next wall
                 monument.change_top_wall()
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
-            if monument.is_completed():
-                num_of_built_monuments += 1
-        # check if all monuments are built
-        if num_of_built_monuments == len(self.monuments):
-            # TODO: set game end condition to true and calculate the player's points
-            pass
+            if monument.is_completed() and self.monument_index < 5:
+                self.monument_index += 1
+                self.num_of_built_monuments += 1
+
         self.action_counter += 1
 
     def get_current_agents_turn(self):
@@ -160,15 +163,15 @@ class Engine:
     def get_current_characters_turn(self):
         return CHARACTER_NAMES[self.current_player]
 
-    def get_game_state_others(self, agent_name):
-        others_game_state = []
-        for agent in AGENT_NAMES:
-            if(agent != agent_name):
-                others_game_state.append(self.get_game_state(agent_name))
-        return others_game_state
-
-    def get_game_state(self, agent_name):
-        return self.get_agent(agent_name).get_transmuter().get_state()
+    def get_game_state(self):
+        index_of_agent = self.current_player
+        all_character_states = []
+        for i in range(len(self.players)):
+            index = ((i+index_of_agent) % len(self.players))
+            player = (self.players[index])
+            all_character_states.extend(States.get_character_states(
+                self, player))
+        return all_character_states
 
     def get_reward(self, agent_name):
         return self.get_agent(agent_name).get_transmuter().get_total_empty_cells() * 10

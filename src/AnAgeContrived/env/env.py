@@ -20,9 +20,6 @@ def env(render_mode=None):
     return env
 
 
-NUM_PLAYERS = 4
-
-
 class raw_env(AECEnv):
     metadata = {
         "render_modes": ["human"],
@@ -33,18 +30,21 @@ class raw_env(AECEnv):
 
     def __init__(self, render_mode=None):
         super().__init__()
+        self.output_json = False
         self.engine = Engine()
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
         self.action_spaces = {i: spaces.Discrete(self.engine.get_action_space())
                               for i in self.agents}
+
+        game_state_shape = np.shape(np.array(self.engine.get_game_state()))
         self.observation_spaces = {
             i: spaces.Dict(
                 {
                     "observation": spaces.Box(
-                        low=0, high=np.inf, shape=(4, 7, 4), dtype=np.int8
+                        low=0, high=1, shape=game_state_shape, dtype=np.bool8
                     ),
-                    "action_mask": spaces.Box(low=0, high=1, shape=(self.engine.get_action_space(),), dtype=np.int8),
+                    "action_mask": spaces.Box(low=0, high=1, shape=(self.engine.get_action_space(),), dtype=np.bool8),
                 }
             )
             for i in self.agents
@@ -63,11 +63,11 @@ class raw_env(AECEnv):
         timestamp = now.strftime("%m_%d_%Y_%H_%M_%S")
         self.json_name = "simulation_history_"+timestamp+".json"
 
-        if path.isfile(self.json_name) is False:
+        if path.isfile(self.json_name) is False and self.output_json:
             json_object = json.dumps([])  # create list
             with open(self.json_name, "w") as outfile:
                 outfile.write(json_object)
-        print("writing file")
+            print("writing file")
 
     def observe(self, agent):
 
@@ -75,21 +75,10 @@ class raw_env(AECEnv):
         action_mask = np.array(
             self.engine.get_legal_actions(agent), dtype="int8")
 
-        observation = np.array(self.engine.get_game_state(agent)).reshape(4, 7)
-
-        opponents_obs = []
-        opponents_obs.append(np.array(self.engine.get_game_state_others(
-            agent)[0]).reshape(4, 7))
-        opponents_obs.append(np.array(self.engine.get_game_state_others(
-            agent)[1]).reshape(4, 7))
-        opponents_obs.append(np.array(self.engine.get_game_state_others(
-            agent)[2]).reshape(4, 7))
-
-        observable_state = opponents_obs
-        observable_state.insert(0, observation)
+        observation = np.array(self.engine.get_game_state())
 
         observation = np.stack(
-            observable_state, axis=2).astype(np.int8)
+            observation, axis=1).astype(np.int8)
         return {"observation": observation, "action_mask": action_mask}
 
     def observation_space(self, agent):
@@ -161,12 +150,13 @@ class raw_env(AECEnv):
         self.agent_selection = self._agent_selector.reset()
 
         # Dump into json
-        with open(self.json_name) as openjson:
-            dictObj = json.load(openjson)
-            dictObj.append(self.simulation_history)
+        if self.output_json:
+            with open(self.json_name) as openjson:
+                dictObj = json.load(openjson)
+                dictObj.append(self.simulation_history)
 
-        with open(self.json_name, "w") as outfile:
-            json.dump(dictObj, outfile, indent=4)
+            with open(self.json_name, "w") as outfile:
+                json.dump(dictObj, outfile, indent=4)
         self.simulation_history = {}
 
     def render(self):

@@ -1,18 +1,23 @@
 from env.entities.player import Player
 from env.entities.transmuter import Transmuter
-#from env.helpers.convey import Convey
+# from env.helpers.convey import Convey
 from env.action_initiater import get_actions
 from env.engine import Engine
 from env.entities.monument import Monument
 from env.entities.monument_wall import MonumentWall
 from env.entities.energy import EnergyTile, Energy
+from env.states import States
+import numpy as np
 
 
 def test_transmuter_state():
     e = Engine()
-    f = e.get_agent("player_0")
-    ftransmuter = (f.get_transmuter())
-    print(ftransmuter.get_state())
+    e.render("player_0")
+    print("RENDERING DONE")
+    e.current_player = 0
+    state = e.get_game_state()
+    arr = np.array(state)
+    print(np.shape(arr))
 
 
 test_transmuter_state()
@@ -29,11 +34,11 @@ def test_monument_energy():
     e4 = EnergyTile(Energy.PRIMAL, 'player')
     print('energy type is: ', e4.get_energy_type())
     m1 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(),
-                      e3.get_energy_type()], 'No benefit')
+                       e3.get_energy_type()], 'No benefit')
     m2 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(),
-                      e3.get_energy_type()], 'No benefit')
+                       e3.get_energy_type()], 'No benefit')
     m3 = MonumentWall([e1.get_energy_type(), e2.get_energy_type(),
-                      e3.get_energy_type()], 'No benefit')
+                       e3.get_energy_type()], 'No benefit')
     mon = Monument('Test Monument', 'location', [m1, m2, m3])
     print('number of empty sections BEFORE filling: ', m1.empty_sections)
     print('monument tile sections: ', m1.sections)

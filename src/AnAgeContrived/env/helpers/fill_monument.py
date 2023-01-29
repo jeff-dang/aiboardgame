@@ -7,10 +7,13 @@ class FillMonument():
     @staticmethod
     def fill_monument_tile(player, engine, energy):
         if len(player.energies_on_char_board[energy.energy_type]) > 0:
-            print('------------- fillMonument.py - fill_monument_tile(): ----------------')
-            print('player:', player.get_player_name() ,'Trying to fill section with energy:', energy.energy_type)
+            print(
+                '------------- fillMonument.py - fill_monument_tile(): ----------------')
+            print('player:', player.get_player_name(),
+                  'Trying to fill section with energy:', energy.energy_type)
 
-            monumentWall = engine.monuments[0].get_top_wall()
+            monumentWall = engine.monuments[engine.monument_index].get_top_wall(
+            )
             print('Monument supports energy types:', monumentWall.sections)
             result = monumentWall.fill_section(energy)
             if result == True:
@@ -21,4 +24,4 @@ class FillMonument():
     @staticmethod
     def is_legal_to_fill_monument_tile(engine):
         # TODO: if the player has no energy type, mask the action
-        return not engine.monuments[0].is_completed()
+        return not engine.monuments[engine.monument_index].is_completed()
