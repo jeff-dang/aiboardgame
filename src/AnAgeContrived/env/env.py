@@ -3,7 +3,7 @@ import numpy as np
 from gymnasium import spaces
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
-from os import path
+from os import path,mkdir,getcwd
 from .engine import Engine
 import json
 from datetime import datetime
@@ -30,7 +30,7 @@ class raw_env(AECEnv):
 
     def __init__(self, render_mode=None):
         super().__init__()
-        self.output_json = False
+        self.output_json = True 
         self.engine = Engine()
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
@@ -61,9 +61,13 @@ class raw_env(AECEnv):
         self.simulation_history = {}
         now = datetime.now()
         timestamp = now.strftime("%m_%d_%Y_%H_%M_%S")
-        self.json_name = "simulation_history_"+timestamp+".json"
+        self.json_name = "ai_history/simulation_history_"+timestamp+".json"
 
         if path.isfile(self.json_name) is False and self.output_json:
+            cur_directory = getcwd()
+            folder_path = path.join(cur_directory,'ai_history')
+            if path.exists(folder_path) != True:
+                mkdir(folder_path)
             json_object = json.dumps([])  # create list
             with open(self.json_name, "w") as outfile:
                 outfile.write(json_object)
@@ -150,7 +154,7 @@ class raw_env(AECEnv):
         self.agent_selection = self._agent_selector.reset()
 
         # Dump into json
-        if self.output_json:
+        if self.output_json and self.simulation_history != {}:
             with open(self.json_name) as openjson:
                 dictObj = json.load(openjson)
                 dictObj.append(self.simulation_history)
