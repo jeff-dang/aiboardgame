@@ -5,5 +5,5 @@ log/
 /pycache
 pycache/
 *.pyc
-
+__pycache__
 simulation_history*
