@@ -1,11 +1,11 @@
-from env.entities.monumentWall import MonumentWall
+from env.entities.monument_wall import MonumentWall
 
 class Monument:
-    def __init__(self, name, monumentWalls):
+    def __init__(self, name, location, monumentWalls):
         self.name = name
         self.walls = monumentWalls # list of MonumentTile objects
         self.completed_walls = [] # list of completed MonumentTile objects
-        self.location = None #TODO: need a way to know where the monument is located on the board
+        self.location = location #TODO: need a way to know where the monument is located on the board
         self.top_wall_index = len(self.walls)-1
 
     def is_completed(self):

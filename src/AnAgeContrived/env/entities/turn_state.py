@@ -1,0 +1,21 @@
+class TurnState():
+    def __init__(self):
+        # actionChoice can be convey or action
+        self.turn_type = ""
+        self.can_convey = False
+
+    def reset(self):
+        self.turn_type = ""
+        self.can_convey = False
+
+    def update_turn_type(self, turnType):
+        self.turn_type = turnType
+        if(turnType == "convey"):
+            self.can_convey = True
+
+    def conveyed(self):
+        self.can_convey = False
+
+    def print_turn_state(self):
+        print("Turn Type: ", self.turn_type)
+        print("Can Convey: ", self.can_convey)

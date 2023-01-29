@@ -15,7 +15,7 @@ from tianshou.utils import TensorboardLogger
 from tianshou.utils.net.common import Net
 from torch.utils.tensorboard import SummaryWriter
 
-import anAgeContrived_v0
+import an_age_contrived_v0
 
 
 def get_parser() -> argparse.ArgumentParser:
@@ -38,8 +38,8 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--hidden-sizes", type=int, nargs="*", default=[128, 128, 128, 128]
     )
-    parser.add_argument("--training-num", type=int, default=10)
-    parser.add_argument("--test-num", type=int, default=10)
+    parser.add_argument("--training-num", type=int, default=1)
+    parser.add_argument("--test-num", type=int, default=1)
     parser.add_argument("--logdir", type=str, default="log")
     parser.add_argument("--render", type=float, default=0)
     parser.add_argument(
@@ -128,16 +128,14 @@ def get_agents(
         else:
             agent_opponent = RandomPolicy()
 
-    if args.agent_id == 1:
-        agents = [agent_learn, agent_learn, agent_learn, agent_opponent]
-    else:
-        agents = [agent_learn, agent_learn, agent_learn, agent_opponent]
+    agents = [agent_learn, RandomPolicy(), RandomPolicy(),
+              RandomPolicy(), RandomPolicy()]
     policy = MultiAgentPolicyManager(agents, env)
     return policy, optim, env.agents
 
 
 def get_env(render_mode=None):
-    return PettingZooEnv(anAgeContrived_v0.env(render_mode=render_mode))
+    return PettingZooEnv(an_age_contrived_v0.env(render_mode=render_mode))
 
 
 def train_agent(
