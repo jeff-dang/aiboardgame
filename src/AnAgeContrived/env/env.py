@@ -19,7 +19,6 @@ def env(render_mode=None):
     env = wrappers.OrderEnforcingWrapper(env)
     return env
 
-
 class raw_env(AECEnv):
     metadata = {
         "render_modes": ["human"],
