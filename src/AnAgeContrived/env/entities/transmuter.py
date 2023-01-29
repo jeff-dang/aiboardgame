@@ -13,19 +13,18 @@ class Transmuter:
         t6 = TransmuterTile(2, 1)
         t7 = TransmuterTile(2, 1)
 
-        t1.fill_tile(1, 1)
-        t1.fill_tile(1, 2)
+        # t1.fill_tile(1, 1)
+        # t1.fill_tile(1, 2)
 
-        t2.fill_tile(1, 1)
-        t2.fill_tile(1, 2)
+        # t2.fill_tile(1, 1)
+        # t2.fill_tile(1, 2)
 
-        t3.fill_tile(1, 1)
-        t3.fill_tile(1, 2)
+        # t3.fill_tile(1, 1)
+        # t3.fill_tile(1, 2)
 
         self.active_tiles = [t1, t2, t3, t4, t5]
         self.reserved_tiles = [t6, t7]
         self.action_tokens = []
-        pass
 
     # gets all the tiles currently on the transmuter
     def get_all_tiles(self):
