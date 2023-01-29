@@ -84,12 +84,19 @@ class Engine:
         self.player_turn_queue = []
         self.players = []
         self.turn = TurnState()
+        self.monument_index = 0
         self.monuments = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN, THE_ERIDONIC_GATE,
                           THE_NAMARILLION_FORGE, THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
         for i in range(4):
             self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
 
     def check_over(self):
+        if self._check_if_current_wall_filled():
+            if self.monument_index < 5:
+                self.monument_index += 1
+        if self._check_if_last_wall_filled():
+            #TODO: end the game here
+            pass
         return self.turn_counter == 4*5
 
     def reset(self):
@@ -133,25 +140,13 @@ class Engine:
 
         actions = get_actions(self.players[self.current_player], self)
         actions[action].execute()
-
-        # check whether the monument wall is filled and either:
-        # 1: start a mini turn for players who have energy tiles on the wall or
-        # 2: end the game if all the walls of all the monuments are filled
-        num_of_built_monuments = 0
-        # for monument in self.monuments: #TODO: Later convert to this condition
-        for i in range(0, 1):
-            monument = self.monuments[i]
-            if monument.is_top_wall_completed():
-                filled_wall = monument.get_top_wall()
-                # if the current top wall is completed, change the top wall to next wall
-                monument.change_top_wall()
-                # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
-            if monument.is_completed():
-                num_of_built_monuments += 1
-        # check if all monuments are built
-        if num_of_built_monuments == len(self.monuments):
-            # TODO: set game end condition to true and calculate the player's points
-            pass
+        print('Current wall is:', self.monuments[self.monument_index].name, 'index is:', self.monument_index)
+        monument = self.monuments[self.monument_index]
+        if monument.is_top_wall_completed():
+            filled_wall = monument.get_top_wall()
+            # if the current top wall is completed, change the top wall to next wall
+            monument.change_top_wall()
+            # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
         self.action_counter += 1
 
     def get_current_agents_turn(self):
@@ -187,3 +182,14 @@ class Engine:
         agent.get_transmuter().print_transmuter()
         # print(self.monuments[0].get_top_wall().print_wall())
         self.turn.print_turn_state()
+
+    def _check_if_last_wall_filled(self):
+        if self.monument_index == 5:
+            if self.monuments[self.monument_index].is_completed():
+                return True
+        return False
+
+    def _check_if_current_wall_filled(self):
+        if self.monuments[self.monument_index].is_completed():
+            return True
+        return False
