@@ -1,7 +1,8 @@
-from .entities.turn_state import TurnState
-from .entities.player import Player
-from .action_initiater import get_actions
+from env.entities.turn_state import TurnState
+from env.entities.player import Player
+from env.action_initiater import get_actions
 import env.helpers.constants as constants
+from env.states import States
 
 
 class Engine:
@@ -26,7 +27,7 @@ class Engine:
         if self._check_if_last_wall_filled():
             print("MONUMENTS ALL BUILT")
             return True
-        if(self.turn_counter == MAX_TURNS):
+        if(self.turn_counter == constants.MAX_TURNS):
             print("MAX MOVES REACHED")
             return True
         return False
