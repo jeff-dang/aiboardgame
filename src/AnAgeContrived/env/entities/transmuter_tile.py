@@ -1,3 +1,5 @@
+from env.entities.energy import EnergyTile
+
 class TransmuterTile:
     def __init__(self, top_size, bottom_size):
         self.top = [0, 0]  # put a max of 2 energies on top
@@ -65,12 +67,12 @@ class TransmuterTile:
             tile_string += '|             |\n'
         elif self.top_size == 1:
             tile_string += '|     ---     |\n'
-            tile_string += '|    | {} |    |\n'.format(self.top[0])
+            tile_string += '|    | {} |    |\n'.format(self.top[0].energy_type.name[0] if type(self.top[0]) == EnergyTile else self.top[0])
             tile_string += '|     ---     |\n'
         elif self.top_size == 2:
             tile_string += '|  ---   ---  |\n'
             tile_string += '| | {} | | {} | |\n'.format(
-                self.bottom[0], self.bottom[1])
+                self.top[0].energy_type.name[0] if type(self.top[0]) == EnergyTile else self.top[0], self.top[0].energy_type.name[0] if type(self.top[1]) == EnergyTile else self.top[0])
             tile_string += '|  ---   ---  |\n'
         tile_string += '|             |\n'
         tile_string += '|             |\n'
@@ -80,12 +82,12 @@ class TransmuterTile:
             tile_string += '|             |\n'
         elif self.bottom_size == 1:
             tile_string += '|     ---     |\n'
-            tile_string += '|    | {} |    |\n'.format(self.top[0])
+            tile_string += '|    | {} |    |\n'.format(self.bottom[0].energy_type.name[0] if type(self.bottom[0]) == EnergyTile else self.bottom[0])
             tile_string += '|     ---     |\n'
         elif self.bottom_size == 2:
             tile_string += '|  ---   ---  |'
             tile_string += '| | {} | | {} | |\n'.format(
-                self.bottom[0], self.bottom[1])
+                self.bottom[0].energy_type.name[0] if type(self.bottom[0]) == EnergyTile else self.bottom[0], self.bottom[0].energy_type.name[0] if type(self.bottom[0]) == EnergyTile else self.bottom[0])
             tile_string += '|  ---   ---  |\n'
         tile_string += '|             |\n'
         tile_string += '---------------\n'
