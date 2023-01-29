@@ -64,11 +64,10 @@ class States:
             embedded_array_tile = []
             for i in range(len(row)):
                 embedded_array_tile_position = [0]*SIZE_OF_EMBEDDED_ARRAY
-                if(tile.top[i] == 0):
+                if(row[i] == 0):
                     embedded_array_tile_position[0] = 1
                 else:
-                    # TODO when energies are properly implemented change to tile.top[i].value to get enum value of energy
-                    energy_enum_value = tile.top[i]
+                    energy_enum_value = row[i].energy_type.value
                     embedded_array_tile_position[energy_enum_value] = 1
                 embedded_array_tile.append(embedded_array_tile_position)
             return embedded_array_tile
@@ -78,8 +77,11 @@ class States:
             top = get_state_active_tile_row(tile.top)
             bottom = get_state_active_tile_row(tile.bottom)
             state.append(top[0])
+
             state.append(top[1])
+
             state.append(bottom[0])
+
             state.append(bottom[1])
 
         for i, tile in enumerate(transmuter.reserved_tiles):

@@ -10,7 +10,7 @@ from .states import States
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES = len(get_actions('self', 'eng'))
-MAX_TURNS = 30
+MAX_TURNS = 50
 # Monuments From The Rule Book:
 THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
@@ -95,9 +95,12 @@ class Engine:
             if self.monument_index < 5:
                 self.monument_index += 1
         if self._check_if_last_wall_filled():
-            # TODO: end the game here
-            pass
-        return self.turn_counter == 4*5
+            print("MONUMENTS ALL BUILT")
+            return True
+        if(self.turn_counter == MAX_TURNS):
+            print("MAX MOVES REACHED")
+            return True
+        return False
 
     def reset(self):
         self.__init__()
@@ -135,6 +138,24 @@ class Engine:
 
         actions = get_actions(self.players[self.current_player], self)
         actions[action].execute()
+
+        # check whether the monument wall is filled and either:
+        # 1: start a mini turn for players who have energy tiles on the wall or
+        # 2: end the game if all the walls of all the monuments are filled
+        # for monument in self.monuments: #TODO: Later convert to this condition
+        self.num_of_built_monuments = 0
+
+        for i in range(0, 6):
+            monument = self.monuments[i]
+            if monument.is_top_wall_completed():
+                filled_wall = monument.get_top_wall()
+                # if the current top wall is completed, change the top wall to next wall
+                monument.change_top_wall()
+                # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
+            if monument.is_completed() and self.monument_index < 5:
+                self.monument_index += 1
+                self.num_of_built_monuments += 1
+
         print('Current wall is:',
               self.monuments[self.monument_index].name, 'index is:', self.monument_index)
         monument = self.monuments[self.monument_index]

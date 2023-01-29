@@ -14,7 +14,6 @@ def test_transmuter_state():
     e = Engine()
     e.render("player_0")
     print("RENDERING DONE")
-    e.current_player = 0
     state = e.get_game_state()
     arr = np.array(state)
     print(np.shape(arr))
