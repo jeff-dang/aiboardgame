@@ -128,10 +128,8 @@ def get_agents(
         else:
             agent_opponent = RandomPolicy()
 
-    if args.agent_id == 1:
-        agents = [agent_learn, agent_learn, agent_learn, agent_opponent]
-    else:
-        agents = [agent_learn, agent_learn, agent_learn, agent_opponent]
+    agents = [agent_learn, RandomPolicy(), RandomPolicy(),
+              RandomPolicy(), RandomPolicy()]
     policy = MultiAgentPolicyManager(agents, env)
     return policy, optim, env.agents
 

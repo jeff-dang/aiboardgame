@@ -1,79 +1,7 @@
-from .helpers.convey import Convey
-from .helpers.turn import Turn
 from .entities.turn_state import TurnState
 from .entities.player import Player
-from env.entities.monument import Monument
-from env.entities.monument_wall import MonumentWall
 from .action_initiater import get_actions
-from env.entities.energy import Energy
-
-CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne"]
-AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3"]
-NUM_MOVES = len(get_actions('self', 'eng'))
-
-# Monuments From The Rule Book:
-THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
-                 Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE,
-                 Energy.GENERATIVE], [Energy.PRIMAL]),
-    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE,
-                 Energy.INVERTIBLE], [Energy.GENERATIVE]),
-    # TODO: Need a mechanism to handle any energy reward
-    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any'])
-])
-THE_LIBRARY_OF_VALDUIN = Monument('THE LIBRARY OF VALDUIN', 'location', [
-    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [
-                 Energy.GENERATIVE, Energy.INVERTIBLE]),
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
-                 Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE,
-                 Energy.GENERATIVE], [Energy.PRIMAL]),
-    # TODO: Need a mechanism to handle any energy reward
-    MonumentWall([Energy.INVERTIBLE, Energy.GENERATIVE], ['Any'])
-])
-THE_ERIDONIC_GATE = Monument('THE ERIDONIC GATE', 'location', [
-    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
-                 Energy.CONSTRUCTIVE, Energy.GENERATIVE]),
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
-                 Energy.GENERATIVE], [Energy.INVERTIBLE]),
-    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE,
-                 Energy.CONSTRUCTIVE], [Energy.GENERATIVE]),
-    # TODO: Need a mechanism to handle any energy reward
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any'])
-])
-THE_NAMARILLION_FORGE = Monument('THE NAMARILLION FORGE', 'location', [
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE], [
-                 Energy.INVERTIBLE, Energy.GENERATIVE]),
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
-                 Energy.GENERATIVE], [Energy.PRIMAL]),
-    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE,
-                 Energy.INVERTIBLE], [Energy.CONSTRUCTIVE]),
-    # TODO: Need a mechanism to handle any energy reward
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any'])
-])
-THE_FORTRESS_OF_KOLYM_THRIN = Monument('THE FORTRESS OF KOLYM THRIN', 'location', [
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [
-                 Energy.CONSTRUCTIVE, Energy.PRIMAL]),
-    MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE,
-                 Energy.GENERATIVE], [Energy.GENERATIVE]),
-    # TODO: Need a mechanism to handle any energy reward
-    MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE], ['Any']),
-    MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE,
-                 Energy.GENERATIVE], [Energy.INVERTIBLE]),
-    MonumentWall([Energy.PRIMAL], []),
-])
-THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', 'location', [
-    MonumentWall([Energy.GENERATIVE, Energy.GENERATIVE, Energy.INVERTIBLE], [
-                 Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
-    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE,
-                 Energy.INVERTIBLE], [Energy.GENERATIVE]),
-    MonumentWall([Energy.INVERTIBLE, Energy.CONSTRUCTIVE,
-                 Energy.CONSTRUCTIVE], [Energy.PRIMAL]),
-    # TODO: Need a mechanism to handle any energy reward
-    MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any'])
-])
-
+import env.helpers.constants as constants
 
 class Engine:
     def __init__(self):
@@ -85,10 +13,9 @@ class Engine:
         self.players = []
         self.turn = TurnState()
         self.monument_index = 0
-        self.monuments = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN, THE_ERIDONIC_GATE,
-                          THE_NAMARILLION_FORGE, THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
-        for i in range(4):
-            self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
+        self.monuments = constants.MONUMENTS
+        for i in range(len(constants.CHARACTER_NAMES)):
+            self.players.append(Player(constants.AGENT_NAMES[i], constants.CHARACTER_NAMES[i]))
 
     def check_over(self):
         if self._check_if_current_wall_filled():
@@ -103,10 +30,10 @@ class Engine:
         self.__init__()
 
     def get_agents(self):
-        return AGENT_NAMES
+        return constants.AGENT_NAMES
 
     def get_characters(self):
-        return CHARACTER_NAMES
+        return constants.CHARACTER_NAMES
 
     def get_agent(self, name):
         for player in self.players:
@@ -115,7 +42,7 @@ class Engine:
 
     # Gets number of total actions
     def get_action_space(self):
-        return NUM_MOVES
+        return constants.NUM_MOVES
 
     def get_observation_space_shape(self):
         # index=0 will be all possible states, index=1 will be value for that state, index=2 is #of players,
@@ -123,7 +50,7 @@ class Engine:
         return(7, 4, 1)
 
     def get_legal_actions(self, agent_name):
-        actions = get_actions(self.players[self.current_player], self)
+        actions = get_actions(self.get_agent(agent_name), self)
         legal_actions = []
         for action in actions:
             isLegal = action.check()
@@ -153,11 +80,11 @@ class Engine:
         return self.get_agents()[self.current_player]
 
     def get_current_characters_turn(self):
-        return CHARACTER_NAMES[self.current_player]
+        return constants.CHARACTER_NAMES[self.current_player]
 
     def get_game_state_others(self, agent_name):
         others_game_state = []
-        for agent in AGENT_NAMES:
+        for agent in constants.AGENT_NAMES:
             if(agent != agent_name):
                 others_game_state.append(self.get_game_state(agent_name))
         return others_game_state
@@ -171,7 +98,7 @@ class Engine:
     def get_winner(self):
         max = 0
         winner = ""
-        for agent in AGENT_NAMES:
+        for agent in constants.AGENT_NAMES:
             if self.get_agent(agent).get_transmuter().get_total_empty_cells() > max:
                 winner = agent
         return winner

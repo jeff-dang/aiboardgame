@@ -20,7 +20,7 @@ def env(render_mode=None):
     return env
 
 
-NUM_PLAYERS = 4
+NUM_PLAYERS = 5
 
 
 class raw_env(AECEnv):
