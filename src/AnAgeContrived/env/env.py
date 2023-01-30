@@ -65,15 +65,6 @@ class raw_env(AECEnv):
         history_writer.jsonWriter(folder_path,self.json_name)
 
 
-        # if path.isfile(self.json_name) is False and self.output_json:
-        #     cur_directory = getcwd()
-        #     folder_path = path.join(cur_directory,'ai_history')
-        #     if path.exists(folder_path) != True:
-        #         mkdir(folder_path)
-        #     json_object = json.dumps([])  # create list
-        #     with open(self.json_name, "w") as outfile:
-        #         outfile.write(json_object)
-        #     print("writing file")
 
     def observe(self, agent):
 
