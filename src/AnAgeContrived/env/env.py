@@ -3,7 +3,7 @@ import numpy as np
 from gymnasium import spaces
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
-from os import path,mkdir,getcwd
+from os import path, mkdir, getcwd
 from .engine import Engine
 import history_writer
 import json
@@ -20,6 +20,7 @@ def env(render_mode=None):
     env = wrappers.OrderEnforcingWrapper(env)
     return env
 
+
 class raw_env(AECEnv):
     metadata = {
         "render_modes": ["human"],
@@ -30,7 +31,7 @@ class raw_env(AECEnv):
 
     def __init__(self, render_mode=None):
         super().__init__()
-        self.output_json = True 
+        self.output_json = False
         self.engine = Engine()
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
@@ -61,9 +62,7 @@ class raw_env(AECEnv):
         self.simulation_history = {}
         self.json_name = history_writer.jsonNamer('ai_history')
         folder_path = history_writer.jsonDirectory('ai_history')
-        history_writer.jsonWriter(folder_path,self.json_name)
-
-
+        history_writer.jsonWriter(folder_path, self.json_name)
 
     def observe(self, agent):
 
@@ -147,7 +146,7 @@ class raw_env(AECEnv):
 
         # Dump into json list
         if self.output_json and self.simulation_history != {}:
-            history_writer.jsonDump(self.simulation_history,self.json_name)
+            history_writer.jsonDump(self.simulation_history, self.json_name)
         self.simulation_history = {}
 
     def render(self):
