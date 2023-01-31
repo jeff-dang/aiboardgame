@@ -3,8 +3,9 @@ import numpy as np
 from gymnasium import spaces
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
-from os import path
+from os import path,mkdir,getcwd
 from .engine import Engine
+import history_writer
 import json
 from datetime import datetime
 
@@ -19,7 +20,6 @@ def env(render_mode=None):
     env = wrappers.OrderEnforcingWrapper(env)
     return env
 
-
 class raw_env(AECEnv):
     metadata = {
         "render_modes": ["human"],
@@ -30,7 +30,7 @@ class raw_env(AECEnv):
 
     def __init__(self, render_mode=None):
         super().__init__()
-        self.output_json = False
+        self.output_json = True 
         self.engine = Engine()
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
@@ -59,15 +59,11 @@ class raw_env(AECEnv):
         self.render_mode = render_mode
 
         self.simulation_history = {}
-        now = datetime.now()
-        timestamp = now.strftime("%m_%d_%Y_%H_%M_%S")
-        self.json_name = "simulation_history_"+timestamp+".json"
+        self.json_name = history_writer.jsonNamer('ai_history')
+        folder_path = history_writer.jsonDirectory('ai_history')
+        history_writer.jsonWriter(folder_path,self.json_name)
 
-        if path.isfile(self.json_name) is False and self.output_json:
-            json_object = json.dumps([])  # create list
-            with open(self.json_name, "w") as outfile:
-                outfile.write(json_object)
-            print("writing file")
+
 
     def observe(self, agent):
 
@@ -103,7 +99,7 @@ class raw_env(AECEnv):
         # Get index of current agent self.agents.index(self.agent_selection)
         # Get name of current agent self.agent_selection
 
-        # Play turn, pass in agent name
+        # Play turn, pass in agent name, add some extra details
         turn_entry = {
             "player": self.engine.current_player,
             "turn_num": self.engine.turn_counter,
@@ -149,14 +145,9 @@ class raw_env(AECEnv):
         self._agent_selector.reset()
         self.agent_selection = self._agent_selector.reset()
 
-        # Dump into json
-        if self.output_json:
-            with open(self.json_name) as openjson:
-                dictObj = json.load(openjson)
-                dictObj.append(self.simulation_history)
-
-            with open(self.json_name, "w") as outfile:
-                json.dump(dictObj, outfile, indent=4)
+        # Dump into json list
+        if self.output_json and self.simulation_history != {}:
+            history_writer.jsonDump(self.simulation_history,self.json_name)
         self.simulation_history = {}
 
     def render(self):
