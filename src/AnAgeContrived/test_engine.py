@@ -7,7 +7,24 @@ from env.entities.monument import Monument
 from env.entities.monument_wall import MonumentWall
 from env.entities.energy import EnergyTile, Energy
 from env.states import States
+from env.helpers.move_player import MovePlayer
 import numpy as np
+
+
+def test_map():
+    e = Engine()
+    p0 = e.get_agent("player_0")
+    p1 = e.get_agent("player_1")
+    p2 = e.get_agent("player_2")
+
+    p2.location = 35
+    p1.location = 37
+
+    print(MovePlayer.is_legal_move(p0, e, 38))
+    print(e.get_reward("player_0"))
+
+
+test_map()
 
 
 def test_transmuter_state():
@@ -17,9 +34,6 @@ def test_transmuter_state():
     state = e.get_game_state()
     arr = np.array(state)
     print(np.shape(arr))
-
-
-test_transmuter_state()
 
 
 def test_monument_energy():

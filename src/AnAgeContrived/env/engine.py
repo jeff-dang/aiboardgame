@@ -4,13 +4,16 @@ from .entities.turn_state import TurnState
 from .entities.player import Player
 from env.entities.monument import Monument
 from env.entities.monument_wall import MonumentWall
-from .action_initiater import get_actions
 from env.entities.energy import Energy
+from env.entities.map import Map
+import sys
+from .action_initiater import get_actions
 from .states import States
+
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES = len(get_actions('self', 'eng'))
-MAX_TURNS = 50
+MAX_TURNS = 100
 # Monuments From The Rule Book:
 THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
@@ -80,6 +83,7 @@ class Engine:
         self.turn_counter = 0
         self.action_counter = 0
         self.game = 1
+        self.map = Map()
         self.current_player = 0
         self.player_turn_queue = []
         self.players = []
@@ -88,7 +92,9 @@ class Engine:
         self.monuments = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN, THE_ERIDONIC_GATE,
                           THE_NAMARILLION_FORGE, THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
         for i in range(len(CHARACTER_NAMES)):
-            self.players.append(Player(AGENT_NAMES[i], CHARACTER_NAMES[i]))
+            self.players.append(
+                Player(AGENT_NAMES[i], CHARACTER_NAMES[i], self.map.starting_positions[i]))
+        self.map = Map()
 
     def check_over(self):
         if self._check_if_current_wall_filled():
@@ -124,15 +130,13 @@ class Engine:
         actions = get_actions(self.get_agent(agent_name), self)
         legal_actions = []
         for action in actions:
-            isLegal = action.check()
-            legal_actions.append(isLegal)
+            is_legal = action.check()
+            legal_actions.append(is_legal)
         return legal_actions
 
     def play_turn(self, agent_name, action):
         agent = self.get_agent(agent_name)
-        print(self.get_legal_actions(self.current_player))
-
-        if(not self.get_legal_actions(self.current_player)[action]):
+        if(not self.get_legal_actions(self.get_agents()[self.current_player])[action]):
             print("ILLEGAL MOVE, is", action)
             return
 
@@ -183,7 +187,12 @@ class Engine:
         return all_character_states
 
     def get_reward(self, agent_name):
-        return self.get_agent(agent_name).get_transmuter().get_total_empty_cells() * 10
+        agent = self.get_agent(agent_name)
+
+        transumter_score = self.get_agent(
+            agent_name).get_transmuter().get_total_empty_cells() * 10
+        movement_score = abs(agent.location - agent.initial_location)*100
+        return movement_score
 
     def get_winner(self):
         max = 0
@@ -198,6 +207,7 @@ class Engine:
         print(agent.character)
         agent.get_transmuter().print_transmuter()
         # print(self.monuments[0].get_top_wall().print_wall())
+        print(agent.location, agent.initial_location)
         self.turn.print_turn_state()
 
     def _check_if_last_wall_filled(self):
