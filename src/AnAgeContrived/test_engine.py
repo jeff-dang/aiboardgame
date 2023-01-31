@@ -24,7 +24,20 @@ def test_map():
     print(e.get_reward("player_0"))
 
 
-test_map()
+def test_map_state():
+    e = Engine()
+    # e.render("player_0")
+    print("RENDERING DONE")
+    state = e.get_game_state()
+    print(state)
+    for i in state:
+        print(i)
+        print(len(i))
+    arr = np.array(state)
+    print(np.shape(arr))
+
+
+test_map_state()
 
 
 def test_transmuter_state():

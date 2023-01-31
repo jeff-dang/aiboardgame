@@ -29,9 +29,10 @@ class Engine:
         if self._check_if_last_wall_filled():
             print("MONUMENTS ALL BUILT")
             return True
-        if(self.turn_counter == constants.MAX_TURNS):
+        if(self.turn_counter == constants.MAX_TURNS or self.action_counter == constants.MAX_TURNS*10):
             print("MAX MOVES REACHED")
             return True
+
         return False
 
     def reset(self):
@@ -117,7 +118,8 @@ class Engine:
 
         transumter_score = self.get_agent(
             agent_name).get_transmuter().get_total_empty_cells() * 10
-        movement_score = abs(agent.location - agent.initial_location)*100
+        movement_score = abs(agent.location == agent.initial_location)*100
+
         return movement_score
 
     def get_winner(self):
