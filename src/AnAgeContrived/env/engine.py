@@ -20,7 +20,7 @@ class Engine:
         self.monuments = constants.MONUMENTS
         for i in range(len(constants.CHARACTER_NAMES)):
             self.players.append(
-                Player(constants.AGENT_NAMES[i], constants.CHARACTER_NAMES[i]))
+                Player(constants.AGENT_NAMES[i], constants.CHARACTER_NAMES[i], self.map.starting_positions[i]))
 
     def check_over(self):
         if self._check_if_current_wall_filled():
