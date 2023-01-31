@@ -7,6 +7,7 @@ from os import path, mkdir, getcwd
 from .engine import Engine
 import history_writer
 import json
+from env.action_initiater import get_actions
 from datetime import datetime
 
 
@@ -99,11 +100,12 @@ class raw_env(AECEnv):
         # Get name of current agent self.agent_selection
 
         # Play turn, pass in agent name, add some extra details
+        actions = get_actions(self.engine.current_player,self.engine)
         turn_entry = {
             "player": self.engine.current_player,
             "turn_num": self.engine.turn_counter,
-            "action": action.item(0),
-            "action_details": "",
+            "action": actions[action.item(0)].action,
+            "action_details": actions[action.item(0)].action_details,
             "current_score": self.rewards[self.agent_selection]
         }
         self.simulation_history[str(self.engine.action_counter
