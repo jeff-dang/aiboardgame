@@ -1,0 +1,64 @@
+{
+    "Player1" : [
+        {
+            "State": 1,
+            "Scores": 23
+        },
+        {
+            "State": 2,
+            "Scores": 24
+        },
+        {
+            "State": 3,
+            "Scores": 26
+        },
+        {
+            "State": 4,
+            "Scores": 40
+        },
+        {
+            "State": 5,
+            "Scores": 32
+        },
+        {
+            "State": 6,
+            "Scores": 45
+        }
+        ,
+        {
+            "State": 7,
+            "Scores": 55
+        }
+    ],
+    "Player2" : [
+        {
+            "State": 1,
+            "Scores": 11
+        },
+        {
+            "State": 2,
+            "Scores": 23
+        },
+        {
+            "State": 3,
+            "Scores": 36
+        },
+        {
+            "State": 4,
+            "Scores": 31
+        },
+        {
+            "State": 5,
+            "Scores": 42
+        },
+        {
+            "State": 6,
+            "Scores": 53
+        }
+        ,
+        {
+            "State": 7,
+            "Scores": 50
+        }
+    ]
+    }
