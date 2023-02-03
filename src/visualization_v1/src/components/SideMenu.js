@@ -11,9 +11,12 @@ const SideMenu = () => {
           <MenuItem component={<Link to="/bar-chart" />}>
             Frequently Used Moves
           </MenuItem>
-          <MenuItem> Line charts </MenuItem>
+          
         </SubMenu>
         <MenuItem component={<Link to="/heatmap" />}> Heat Map</MenuItem>
+        <MenuItem component={<Link to="/pie-chart" />}> Pie Chart</MenuItem>
+        <MenuItem component={<Link to="/line-chart" />}> Line Chart</MenuItem>
+        <MenuItem component={<Link to="/tree-graph" />}> Tree Graph</MenuItem>
         <MenuItem> Move Tree </MenuItem>
         <MenuItem> Radial Graph</MenuItem>
       </Menu>
