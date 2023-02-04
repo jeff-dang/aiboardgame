@@ -4,6 +4,7 @@ import { Group } from "@visx/group";
 import { GradientTealBlue, GradientPurpleRed } from "@visx/gradient";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisLeft } from "@visx/axis";
+import { useSpring, animated } from "@react-spring/web";
 import {
   getAllDataExEnd,
   getFrequencyMapForPlayer,
@@ -36,6 +37,8 @@ const axisLeftScale = scaleLinear({
 const verticalMargin = 120;
 
 const BarChart = ({ width, height }) => {
+  const [toggle, setToggle] = React.useState(true);
+
   const xMax = width;
   const yMax = height - verticalMargin;
 
@@ -59,6 +62,12 @@ const BarChart = ({ width, height }) => {
     [yMax]
   );
 
+  const { scale } = useSpring({
+    from: { scale: 0 },
+    to: { scale: 1 },
+  });
+  const AnimatedBar = animated(Bar);
+
   axisBottomScale.rangeRound([0, xMax]);
   axisLeftScale.rangeRound([yMax, 0]);
 
@@ -73,14 +82,14 @@ const BarChart = ({ width, height }) => {
             const barWidth = xScale.bandwidth();
             const barHeight = yMax - (yScale(getFrequecy(d)) ?? 0);
             const barX = xScale(move);
-            const barY = yMax - barHeight;
+            //const barY = yMax - barHeight;
             return (
-              <Bar
+              <AnimatedBar
                 key={`bar-${move}`}
                 x={barX}
-                y={barY}
+                y={scale.to((s) => yMax - s * barHeight)}
                 width={barWidth}
-                height={barHeight}
+                height={scale.to((s) => s * barHeight)}
                 fill="rgba(30, 105, 98, 0.7)"
               />
             );

@@ -91,23 +91,6 @@ const opacityScale = scaleLinear({
 
 const defaultMargin = { top: 10, left: 40, right: 20, bottom: 10 };
 
-// const HoverText = ({ info }) => {
-//   console.log(info);
-//   return (
-//     <div
-//       style={{
-//         position: "absolute",
-//         top: "20px",
-//         right: "20px",
-//         width: "50px",
-//         height: "100px",
-//       }}
-//     >
-//       Hovering right meow!
-//     </div>
-//   );
-// };
-
 const HeatMap = ({
   width,
   height,

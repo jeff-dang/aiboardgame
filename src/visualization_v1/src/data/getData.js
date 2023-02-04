@@ -3,12 +3,12 @@ import allActions from "./allActions.json";
 
 const allData = gameData;
 
-const d = getAllDataExEnd();
-const d1 = getDataWithMergedActions(d);
+// const d = getAllDataExEnd();
+// const d1 = getDataWithMergedActions(d);
 
-const f = getFrequencyMapForPlayer(d1, 1, 0);
+// const f = getFrequencyMapForPlayer(d1, 1, 0);
 
-console.log(getAllNonZeroActions(f));
+// getAllNonZeroActions(f);
 
 export function getAllData() {
   return allData;
