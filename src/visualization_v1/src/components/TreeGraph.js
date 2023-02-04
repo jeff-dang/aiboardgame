@@ -1,219 +1,74 @@
-
-
-// import React, { Component } from "react";
-// import { Tree } from 'react-tree-graph';
-// import "./css/style.css";
-
-
-// export const data = {
-//   name: "Colour",
-//   textProps: { x: -25, y: 25 },
-//   children: [
-//     {
-//       name: "Black",
-//       pathProps: "black",
-//       textProps: { x: -25, y: 25 },
-//       children: []
-//     },
-//     {
-//       name: "Blue",
-//       textProps: { x: -25, y: 25 },
-//       children: [
-//         {
-//           name: "Aquamarine",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         },
-//         {
-//           name: "Cyan",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         },
-//         {
-//           name: "Navy",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         },
-//         {
-//           name: "Turquoise",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         }
-//       ]
-//     },
-//     {
-//       name: "Green",
-//       textProps: { x: -25, y: 25 },
-//       children: []
-//     },
-//     {
-//       name: "Purple",
-//       textProps: { x: -25, y: 25 },
-//       children: [
-//         {
-//           name: "Indigo",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         },
-//         {
-//           name: "Violet",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         }
-//       ]
-//     },
-//     {
-//       name: "Red",
-//       textProps: { x: -25, y: 25 },
-//       children: [
-//         {
-//           name: "Crimson",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         },
-//         {
-//           name: "Maroon",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         },
-//         {
-//           name: "Scarlet",
-//           textProps: { x: -25, y: 25 },
-//           children: []
-//         }
-//       ]
-//     },
-//     {
-//       name: "White",
-//       textProps: { x: -25, y: 25 },
-//       children: []
-//     },
-//     {
-//       name: "Yellow",
-//       textProps: { x: -25, y: 25 },
-//       children: []
-//     }
-//   ]
-// };
-
-// export default function App() {
-//   <div>
-//         <Tree
-//           animated={true}
-//           data={data}
-//           nodeRadius={15}
-//           margins={{ top: 20, bottom: 10, left: 20, right: 200 }}
-//           height={600}
-//           width={800}
-//         />
-//       </div>
-// }
-
 import React, { Component } from "react";
-import { Tree } from 'react-tree-graph';
+import { Tree, AnimatedTree } from "react-tree-graph";
+import {
+  getAllDataExEnd,
+  getDataWithMergedActions,
+  getMap,
+} from "../data/getData";
 import "./css/style.css";
+
+const textProps = { x: -25, y: 10 };
+
+const d = getAllDataExEnd();
+const d1 = getDataWithMergedActions(d);
+
+let results = getMap(d1, 2, 0);
+let result = results[0];
+const map = results[1];
+
+function makeGraph(map, arr, numMoves) {
+  let data = { name: "Start", textProps, children: [] };
+  const currLevel = data.children;
+  const queue = [];
+  let visited = new Array(arr.length);
+
+  for (let i = 0; i < visited.length; i++) {
+    visited[i] = new Array(arr[i].length);
+  }
+
+  for (let i = 0; i < visited.length; i++) {
+    for (let k = 0; k < visited[i].length; k++) {
+      visited[i][k] = false;
+    }
+  }
+
+  for (let i = 0; i < arr[0].length; i++) {
+    queue.push({ currLevel, index: 0 });
+  }
+
+  while (queue.length && numMoves > 0) {
+    let { currLevel, index } = queue.shift();
+    for (let j = 0; j < arr[index].length; j++) {
+      if (arr[index][j] in map) {
+        const ind = map[arr[index][j]];
+        if (!visited[index][j]) {
+          currLevel.push({ name: arr[index][j], textProps, children: [] });
+          queue.push({
+            currLevel: currLevel[currLevel.length - 1].children,
+            index: ind,
+          });
+          visited[index][j] = true;
+        }
+      }
+    }
+    numMoves--;
+  }
+
+  return data;
+}
 
 export default class Dropdown extends Component {
   render() {
-    let data = {
-      name: "Colour",
-      textProps: { x: -25, y: 25 },
-      children: [
-        {
-          name: "Black",
-          pathProps: "black",
-          textProps: { x: -25, y: 25 },
-          children: []
-        },
-        {
-          name: "Blue",
-          textProps: { x: -25, y: 25 },
-          children: [
-            {
-              name: "Aquamarine",
-              textProps: { x: -25, y: 25 },
-              children: []
-            },
-            {
-              name: "Cyan",
-              textProps: { x: -25, y: 25 },
-              children: []
-            },
-            {
-              name: "Navy",
-              textProps: { x: -25, y: 25 },
-              children: []
-            },
-            {
-              name: "Turquoise",
-              textProps: { x: -25, y: 25 },
-              children: []
-            }
-          ]
-        },
-        {
-          name: "Green",
-          textProps: { x: -25, y: 25 },
-          children: []
-        },
-        {
-          name: "Purple",
-          textProps: { x: -25, y: 25 },
-          children: [
-            {
-              name: "Indigo",
-              textProps: { x: -25, y: 25 },
-              children: []
-            },
-            {
-              name: "Violet",
-              textProps: { x: -25, y: 25 },
-              children: []
-            }
-          ]
-        },
-        {
-          name: "Red",
-          textProps: { x: -25, y: 25 },
-          children: [
-            {
-              name: "Crimson",
-              textProps: { x: -25, y: 25 },
-              children: []
-            },
-            {
-              name: "Maroon",
-              textProps: { x: -25, y: 25 },
-              children: []
-            },
-            {
-              name: "Scarlet",
-              textProps: { x: -25, y: 25 },
-              children: []
-            }
-          ]
-        },
-        {
-          name: "White",
-          textProps: { x: -25, y: 25 },
-          children: []
-        },
-        {
-          name: "Yellow",
-          textProps: { x: -25, y: 25 },
-          children: []
-        }
-      ]
-    };
+    const numMoves = 7;
+    const data = makeGraph(map, result, numMoves);
     return (
-      <div>
-        <Tree
-          animated={true}
+      <div style={{ overflowX: "scroll" }}>
+        <AnimatedTree
           data={data}
-          nodeRadius={15}
+          nodeRadius={100}
           margins={{ top: 20, bottom: 10, left: 20, right: 200 }}
           height={700}
-          width={1000}
+          width={numMoves * 250}
         />
       </div>
     );

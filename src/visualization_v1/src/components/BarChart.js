@@ -37,8 +37,6 @@ const axisLeftScale = scaleLinear({
 const verticalMargin = 120;
 
 const BarChart = ({ width, height }) => {
-  const [toggle, setToggle] = React.useState(true);
-
   const xMax = width;
   const yMax = height - verticalMargin;
 

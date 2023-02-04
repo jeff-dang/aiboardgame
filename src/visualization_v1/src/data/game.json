@@ -399,5 +399,21 @@
       "action_details": "Position 31",
       "current_score": -19
     }
+  },
+  {
+    "0": {
+      "player": 0,
+      "turn_num": 0,
+      "action": "Move Player",
+      "action_details": "Position 2",
+      "current_score": 0
+    },
+    "1": {
+      "player": 0,
+      "turn_num": 1,
+      "action": "Fill Monument",
+      "action_details": "Primal Energy",
+      "current_score": -1
+    }
   }
 ]

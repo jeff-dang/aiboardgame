@@ -7,8 +7,8 @@ import {
   getAllDataExEnd,
   getCountMapForPlayer,
   getDataWithMergedActions,
-  getFrequencyMapForPlayer,
 } from "../data/getData";
+import { useSpring, animated } from "@react-spring/web";
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -36,8 +36,6 @@ const getData = (freqMap, rows) => {
 };
 
 const data = getData(freqMap, 6);
-
-console.log(data);
 
 function max(data, value) {
   return Math.max(...data.map(value));
@@ -101,6 +99,13 @@ const HeatMap = ({
   xScale.range([0, xMax]);
   yScale.range([0, yMax]);
 
+  const { scale } = useSpring({
+    from: { scale: 0 },
+    to: { scale: 1 },
+  });
+
+  const AnimatedHeatMap = animated(HeatmapCircle);
+
   return (
     <div className="centering">
       <svg width={width} height={height}>
@@ -113,13 +118,13 @@ const HeatMap = ({
           fill={background}
         />
         <Group top={margin.top} left={margin.left}>
-          <HeatmapCircle
+          <AnimatedHeatMap
             data={data}
             xScale={(d) => xScale(d) ?? 0}
             yScale={(d) => yScale(d) ?? 0}
             colorScale={circleColorScale}
             opacityScale={opacityScale}
-            radius={radius}
+            radius={scale.to((s) => s * radius)}
             gap={2}
           >
             {(heatmap) =>
@@ -154,7 +159,7 @@ const HeatMap = ({
                 ))
               )
             }
-          </HeatmapCircle>
+          </AnimatedHeatMap>
         </Group>
       </svg>
       {tooltipOpen && tooltipData && (

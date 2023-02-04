@@ -3,9 +3,13 @@ import allActions from "./allActions.json";
 
 const allData = gameData;
 
-// const d = getAllDataExEnd();
-// const d1 = getDataWithMergedActions(d);
+const d = getAllDataExEnd();
+const d1 = getDataWithMergedActions(d);
 
+let results = getMap(d1, 2, 0);
+let result = results[0];
+const map = results[1];
+console.log(result);
 // const f = getFrequencyMapForPlayer(d1, 1, 0);
 
 // getAllNonZeroActions(f);
@@ -143,4 +147,31 @@ export function getAllNonZeroActions(frequencyMap) {
     return action.frequency > 0;
   });
   return filteredMap;
+}
+
+export function getMap(data, numSims, player) {
+  let result = [];
+  let map = {};
+  const simulationData = Object.fromEntries(
+    Object.entries(data).slice(0, numSims)
+  );
+
+  Object.entries(simulationData).forEach((simulation) => {
+    let turnNum = 1;
+    const playerData = getPlayerData(simulation[1], player);
+    Object.entries(playerData).forEach((turn, index) => {
+      const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
+      if (!map.hasOwnProperty(turnStr)) {
+        map[turnStr] = turnNum;
+        result.push([]);
+      }
+
+      if (!result[index].includes(turnStr)) {
+        result[index].push(turnStr);
+      }
+      turnNum++;
+    });
+  });
+  console.log(map);
+  return [result, map];
 }
