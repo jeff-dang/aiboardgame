@@ -3,6 +3,12 @@ import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { HeatmapCircle } from "@visx/heatmap";
 import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip";
+import {
+  getAllDataExEnd,
+  getCountMapForPlayer,
+  getDataWithMergedActions,
+  getFrequencyMapForPlayer,
+} from "../data/getData";
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -12,46 +18,24 @@ const tooltipStyles = {
 
 const hot1 = "#77312f";
 const hot2 = "#f33d15";
-const background = "#28272c";
+const background = "#9de3d4"; //"#28272c";
 
-const data = [
-  {
-    column: 0,
-    bins: [
-      { name: "move1", count: 5 },
-      { name: "move2", count: 200 },
-      { name: "move3", count: 300 },
-      { name: "move4", count: 400 },
-    ],
-  },
-  {
-    column: 1,
-    bins: [
-      { name: "move5", count: 100 },
-      { name: "move6", count: 200 },
-      { name: "move7", count: 300 },
-      { name: "move8", count: 400 },
-    ],
-  },
-  {
-    column: 2,
-    bins: [
-      { name: "move9", count: 100 },
-      { name: "move10", count: 200 },
-      { name: "move11", count: 300 },
-      { name: "move12", count: 400 },
-    ],
-  },
-  {
-    column: 3,
-    bins: [
-      { name: "move13", count: 100 },
-      { name: "move14", count: 200 },
-      { name: "move15", count: 300 },
-      { name: "move16", count: 500 },
-    ],
-  },
-];
+const allData = getAllDataExEnd();
+const mergedData = getDataWithMergedActions(allData);
+
+const freqMap = getCountMapForPlayer(mergedData, 1, 0);
+
+const getData = (freqMap, rows) => {
+  const newData = [];
+  let columnNum = 0;
+  while (freqMap.length) {
+    newData.push({ column: columnNum++, bins: freqMap.splice(0, rows) });
+  }
+
+  return newData;
+};
+
+const data = getData(freqMap, 6);
 
 console.log(data);
 

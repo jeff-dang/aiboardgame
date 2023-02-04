@@ -107,6 +107,35 @@ export function sortFrequencyMap(freqMap) {
   });
 }
 
+export function getCountMap() {
+  let actions = [];
+  Object.entries(allActions).forEach((action) => {
+    actions.push({ name: action[0], count: 0 });
+  });
+
+  return actions;
+}
+
+export function getCountMapForPlayer(data, numSims, player) {
+  const simulationData = Object.fromEntries(
+    Object.entries(data).slice(0, numSims)
+  );
+
+  let freqMap = getCountMap();
+  Object.entries(simulationData).forEach((simulation) => {
+    const playerData = getPlayerData(simulation[1], player);
+
+    Object.entries(playerData).forEach((turn) => {
+      const objIndex = freqMap.findIndex(
+        (obj) => obj.name === turn[1].action_details
+      );
+      freqMap[objIndex].count++;
+    });
+  });
+
+  return freqMap;
+}
+
 export function getAllNonZeroActions(frequencyMap) {
   let newMap = JSON.parse(JSON.stringify(frequencyMap));
   sortFrequencyMap(newMap);

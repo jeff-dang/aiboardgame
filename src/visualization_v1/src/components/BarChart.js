@@ -17,7 +17,7 @@ const mergedData = getDataWithMergedActions(allData);
 
 const freqMap = getFrequencyMapForPlayer(mergedData, 1, 0);
 
-const data = getBarGraphData(freqMap, 5, 0);
+const data = getBarGraphData(freqMap, 5);
 
 const axisTextColor = "#000000";
 const getMove = (move) => move.name;
