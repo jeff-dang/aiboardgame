@@ -1,43 +1,86 @@
-import React, {useState, useEffect} from 'react'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import React, { useState, useEffect } from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+import {
+  getAllDataExEnd,
+  getAllNonZeroActions,
+  getDataWithMergedActions,
+  getFrequencyMapForPlayer,
+} from "../data/getData";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const data = {
-  labels: ['action 0', 'action 1', 'action 2', 'action 3', 'action 4', 'action 5'],
+const getRandomColor = () => {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+};
+
+const d = getAllDataExEnd();
+const d1 = getDataWithMergedActions(d);
+
+const f = getFrequencyMapForPlayer(d1, 1, 0);
+
+const allNonZeroActions = getAllNonZeroActions(f);
+
+const getLabels = () => {
+  let labels = [];
+  Object.entries(allNonZeroActions).forEach((action) => {
+    labels.push(action[1].name);
+  });
+  return labels;
+};
+
+const getValues = () => {
+  let values = [];
+  Object.entries(allNonZeroActions).forEach((action) => {
+    values.push(action[1].frequency);
+  });
+  return values;
+};
+
+const getBackgroundColors = () => {
+  let backgroundColors = [];
+  allNonZeroActions.forEach((action) => {
+    backgroundColors.push(getRandomColor());
+  });
+
+  return backgroundColors;
+};
+
+const getBorderColors = () => {
+  let borderColors = [];
+  allNonZeroActions.forEach((action) => {
+    borderColors.push("#000000");
+  });
+
+  return borderColors;
+};
+
+const data = {
+  labels: getLabels(),
   datasets: [
     {
-      label: '# of actions',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
+      label: "# of times used",
+      data: getValues(),
+      backgroundColor: getBackgroundColors(),
+      borderColor: getBorderColors(),
       borderWidth: 0.5,
     },
   ],
 };
 
-const PieChart = (gameJSON, setGameJSON) => {
-
+const PieChart = () => {
   return (
-    <div>{
-      <Pie data={data} width={800} height={600} options={{ maintainAspectRatio: false }}/>}</div>
-    
-  )
-}
+    <div>
+      {
+        <Pie
+          data={data}
+          width={1200}
+          height={700}
+          options={{ maintainAspectRatio: false }}
+        />
+      }
+    </div>
+  );
+};
 
-export default PieChart
+export default PieChart;

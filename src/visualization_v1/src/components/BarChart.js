@@ -1,18 +1,22 @@
 import React, { useMemo } from "react";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
-import { GradientTealBlue } from "@visx/gradient";
+import { GradientTealBlue, GradientPurpleRed } from "@visx/gradient";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisLeft } from "@visx/axis";
+import {
+  getAllDataExEnd,
+  getFrequencyMapForPlayer,
+  getDataWithMergedActions,
+  getBarGraphData,
+} from "../data/getData";
 
-const data = [
-  { name: "Move 1", frequency: 10 },
-  { name: "Move 2", frequency: 2 },
-  { name: "Move 3", frequency: 15 },
-  { name: "Move 4", frequency: 1 },
-  { name: "Move 5", frequency: 3 },
-  { name: "Move 6", frequency: 9 },
-];
+const allData = getAllDataExEnd();
+const mergedData = getDataWithMergedActions(allData);
+
+const freqMap = getFrequencyMapForPlayer(mergedData, 1, 0);
+
+const data = getBarGraphData(freqMap, 5, 0);
 
 const axisTextColor = "#000000";
 const getMove = (move) => move.name;
@@ -77,10 +81,7 @@ const BarChart = ({ width, height }) => {
                 y={barY}
                 width={barWidth}
                 height={barHeight}
-                fill="rgba(23, 233, 217, .5)"
-                //   onClick={() => {
-                //     if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                //   }}
+                fill="rgba(30, 105, 98, 0.7)"
               />
             );
           })}
