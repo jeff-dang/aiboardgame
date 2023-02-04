@@ -27,4 +27,3 @@ class Monument:
             print('TOP WALL SWITCHED') #DELETE
         else:
             print('MONUMENT COMPLETED') #DELETE
-
