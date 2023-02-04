@@ -1,0 +1,22 @@
+.title {
+  text-align: center;
+  justify-content: center;
+}
+
+.sidebar {
+  max-width: 20%;
+  flex: 1;
+}
+
+.page-content {
+  flex: 4;
+}
+
+.page {
+  flex-direction: row;
+  display: flex;
+}
+
+.centering {
+  margin-left: 100px;
+}
