@@ -1,4 +1,5 @@
 from env.entities.monument import Monument
+from env.entities.energy import Energy
 
 
 class FillMonument():
@@ -17,11 +18,31 @@ class FillMonument():
             print('Monument supports energy types:', monumentWall.sections)
             result = monumentWall.fill_section(energy)
             if result == True:
+                print(len(player.energies_on_char_board[energy.energy_type]))
                 player.energies_on_char_board[energy.energy_type].pop()
+                print(len(player.energies_on_char_board[energy.energy_type]))
                 print('Remaining sections:', monumentWall.remaining_sections)
             print('***----------------------------------------***')
 
-    @staticmethod
-    def is_legal_to_fill_monument_tile(engine):
-        # TODO: if the player has no energy type, mask the action
-        return not engine.monuments[engine.monument_index].is_completed()
+    def is_legal_to_fill_monument_tile(engine, energy_type):
+
+        # Check turn is type action
+        if(not engine.turn.get_turn_type() == "action"):
+            return False
+
+        # Check if current monument is completed, should never occur
+        if(engine.monuments[engine.monument_index].is_completed()):
+            return False
+
+        current_player = engine.players[engine.current_player]
+        current_monument = engine.monuments[engine.monument_index]
+
+        # check if they even have that energy they want to fill
+        if(len(current_player.energies_on_char_board[energy_type]) == 0):
+            return False
+
+        # check if energy they have fits on current monument
+        if(not current_monument.get_top_wall().check_accept(energy_type)):
+            return False
+
+        return True

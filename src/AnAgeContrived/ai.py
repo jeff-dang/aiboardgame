@@ -38,8 +38,8 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--hidden-sizes", type=int, nargs="*", default=[128, 128, 128, 128]
     )
-    parser.add_argument("--training-num", type=int, default=500)
-    parser.add_argument("--test-num", type=int, default=10)
+    parser.add_argument("--training-num", type=int, default=100)
+    parser.add_argument("--test-num", type=int, default=1)
     parser.add_argument("--logdir", type=str, default="log")
     parser.add_argument("--render", type=float, default=0)
     parser.add_argument(

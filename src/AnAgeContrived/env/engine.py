@@ -29,9 +29,10 @@ class Engine:
         if self._check_if_last_wall_filled():
             print("MONUMENTS ALL BUILT")
             return True
-        if(self.turn_counter == constants.MAX_TURNS):
+        if(self.turn_counter == constants.MAX_TURNS or self.action_counter == constants.MAX_TURNS*10):
             print("MAX MOVES REACHED")
             return True
+
         return False
 
     def reset(self):
@@ -39,6 +40,24 @@ class Engine:
 
     def get_agents(self):
         return constants.AGENT_NAMES
+
+    def get_action_names(self):
+        actions = get_actions(self.players[self.current_player], self)
+        for i, a in enumerate(actions):
+            print(i)
+            print("action: ", a.action)
+            print("action_details: ", a.action_details)
+
+        return
+
+    def get_legal_action_names(self, agent_name):
+        actions = get_actions(self.get_agent(agent_name), self)
+        legal_actions = []
+        for i, action in enumerate(actions):
+            if(action.check()):
+                legal_actions.append(
+                    str(i)+": "+action.action + action.action_details)
+        return legal_actions
 
     def get_characters(self):
         return constants.CHARACTER_NAMES
@@ -118,6 +137,7 @@ class Engine:
         transumter_score = self.get_agent(
             agent_name).get_transmuter().get_total_empty_cells() * 10
         movement_score = abs(agent.location - agent.initial_location)*100
+
         return movement_score
 
     def get_winner(self):
