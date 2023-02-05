@@ -18,6 +18,8 @@ class MovePlayer():
         current_location = player.location
         map = engine.map
 
+        if(not engine.turn.get_turn_type() == "action"):
+            return False
         if(not engine.turn.can_move):
             return False
         if(current_location == next_location):

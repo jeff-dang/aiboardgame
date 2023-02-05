@@ -22,7 +22,7 @@ class Player():
         self.initial_location = starting_location
         self.previous_location = 0
         # TODO: need to track the energies on the board, on his hand (done) and the remaining energies
-        self._initiate_fill_tranmuster_files()
+        # self._initiate_fill_tranmuster_files()
 
     def set_transmuter(self, transmuter):
         self.transmuter = transmuter

@@ -2,15 +2,17 @@ from env.entities.monument import Monument
 from env.entities.monument_wall import MonumentWall
 from env.entities.energy import Energy
 from env.action_initiater import get_actions
+from env.entities.map_data import Map_Areas
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES = len(get_actions('self', 'eng'))
-MAX_TURNS = 30
+MAX_TURNS = 1000
+NUM_AGENTS = len(CHARACTER_NAMES)
 
 # ************ MONUMENTS START **************************
 # Monuments From The Rule Book:
-THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
+THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', Map_Areas.PLAINS, [
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
                  Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
     MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE,
@@ -20,7 +22,7 @@ THE_ANFIRIEN_BEACON = Monument('THE ANFIRIEN BEACON', 'location', [
     # TODO: Need a mechanism to handle any energy reward
     MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any'])
 ])
-THE_LIBRARY_OF_VALDUIN = Monument('THE LIBRARY OF VALDUIN', 'location', [
+THE_LIBRARY_OF_VALDUIN = Monument('THE LIBRARY OF VALDUIN', Map_Areas.PLAINS, [
     MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE], [
                  Energy.GENERATIVE, Energy.INVERTIBLE]),
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
@@ -30,7 +32,7 @@ THE_LIBRARY_OF_VALDUIN = Monument('THE LIBRARY OF VALDUIN', 'location', [
     # TODO: Need a mechanism to handle any energy reward
     MonumentWall([Energy.INVERTIBLE, Energy.GENERATIVE], ['Any'])
 ])
-THE_ERIDONIC_GATE = Monument('THE ERIDONIC GATE', 'location', [
+THE_ERIDONIC_GATE = Monument('THE ERIDONIC GATE', Map_Areas.QUARRY, [
     MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
                  Energy.CONSTRUCTIVE, Energy.GENERATIVE]),
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
@@ -40,7 +42,7 @@ THE_ERIDONIC_GATE = Monument('THE ERIDONIC GATE', 'location', [
     # TODO: Need a mechanism to handle any energy reward
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any'])
 ])
-THE_NAMARILLION_FORGE = Monument('THE NAMARILLION FORGE', 'location', [
+THE_NAMARILLION_FORGE = Monument('THE NAMARILLION FORGE', Map_Areas.MOUNTAIN, [
     MonumentWall([Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE], [
                  Energy.INVERTIBLE, Energy.GENERATIVE]),
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE,
@@ -50,7 +52,7 @@ THE_NAMARILLION_FORGE = Monument('THE NAMARILLION FORGE', 'location', [
     # TODO: Need a mechanism to handle any energy reward
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any'])
 ])
-THE_FORTRESS_OF_KOLYM_THRIN = Monument('THE FORTRESS OF KOLYM THRIN', 'location', [
+THE_FORTRESS_OF_KOLYM_THRIN = Monument('THE FORTRESS OF KOLYM THRIN', Map_Areas.FOREST, [
     MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [
                  Energy.CONSTRUCTIVE, Energy.PRIMAL]),
     MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE,
@@ -61,7 +63,7 @@ THE_FORTRESS_OF_KOLYM_THRIN = Monument('THE FORTRESS OF KOLYM THRIN', 'location'
                  Energy.GENERATIVE], [Energy.INVERTIBLE]),
     MonumentWall([Energy.PRIMAL], []),
 ])
-THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', 'location', [
+THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', Map_Areas.SEA, [
     MonumentWall([Energy.GENERATIVE, Energy.GENERATIVE, Energy.INVERTIBLE], [
                  Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
     MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE,

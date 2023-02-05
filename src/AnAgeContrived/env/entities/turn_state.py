@@ -18,6 +18,9 @@ class TurnState():
     def conveyed(self):
         self.can_convey = False
 
+    def get_turn_type(self):
+        return self.turn_type
+
     def print_turn_state(self):
         print("Turn Type: ", self.turn_type)
         print("Can Convey: ", self.can_convey)

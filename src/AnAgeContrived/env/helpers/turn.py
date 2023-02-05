@@ -1,5 +1,5 @@
-
-TOTAL_PLAYERS = 4
+# Cant import from constatns.py since circular import
+TOTAL_PLAYERS = 5
 
 
 class Turn():

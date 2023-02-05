@@ -18,7 +18,7 @@ class FillMonumentWithConstructiveEnergy(Command):
 
     def check(self):
         # TODO: need to check whether the player has released energy on the board
-        return FillMonument.is_legal_to_fill_monument_tile(self.engine)
+        return FillMonument.is_legal_to_fill_monument_tile(self.engine, Energy.CONSTRUCTIVE)
 
 
 class FillMonumentWithInvertibleEnergy(Command):
@@ -33,7 +33,7 @@ class FillMonumentWithInvertibleEnergy(Command):
         FillMonument.fill_monument_tile(self.player, self.engine, energy)
 
     def check(self):
-        return FillMonument.is_legal_to_fill_monument_tile(self.engine)
+        return FillMonument.is_legal_to_fill_monument_tile(self.engine, Energy.INVERTIBLE)
 
 
 class FillMonumentWithGenerativeEnergy(Command):
@@ -48,7 +48,7 @@ class FillMonumentWithGenerativeEnergy(Command):
         FillMonument.fill_monument_tile(self.player, self.engine, energy)
 
     def check(self):
-        return FillMonument.is_legal_to_fill_monument_tile(self.engine)
+        return FillMonument.is_legal_to_fill_monument_tile(self.engine, Energy.GENERATIVE)
 
 
 class FillMonumentWithPrimalEnergy(Command):
@@ -63,4 +63,4 @@ class FillMonumentWithPrimalEnergy(Command):
         FillMonument.fill_monument_tile(self.player, self.engine, energy)
 
     def check(self):
-        return FillMonument.is_legal_to_fill_monument_tile(self.engine)
+        return FillMonument.is_legal_to_fill_monument_tile(self.engine, Energy.PRIMAL)
