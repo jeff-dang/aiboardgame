@@ -37,9 +37,7 @@ const options = {
       callbacks: {
         label: function (tooltipItem) {
           var label = `Simulation ${tooltipItem.dataIndex + 1}`;
-          return (
-            label + ": (" + tooltipItem.raw.x + ", " + tooltipItem.raw.y + ")"
-          );
+          return `${label}: (${tooltipItem.raw.x} moves, ${tooltipItem.raw.y} score)`;
         },
       },
     },

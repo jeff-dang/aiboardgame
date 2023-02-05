@@ -4,15 +4,13 @@ const Home = () => {
   return (
     <div
       style={{
-        justifyContent: "center",
-        alignItems: "center",
-        display: "flex",
-        marginLeft: "15%",
+        margin: "auto",
       }}
     >
       <div className="page-content">
-        {/* <h1 style={{ marginLeft: 100, marginTop: 100 }}> */}
-        <h1>An Age Contrived</h1>
+        <div>
+          <h1 style={{ fontSize: "3em" }}>An Age Contrived</h1>
+        </div>
       </div>
     </div>
   );

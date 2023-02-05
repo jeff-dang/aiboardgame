@@ -75,7 +75,7 @@ const PieChart = ({ width, height }) => {
   return (
     <div>
       <h1>
-        All Used Moves for{" "}
+        All Used Moves for
         {numSims > 1 ? `${numSims} Simulations` : `${numSims} Simulation`}
       </h1>
       <div style={{ overflowX: "scroll", marginTop: 20 }}>

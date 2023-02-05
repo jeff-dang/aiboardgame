@@ -1,4 +1,4 @@
-import gameData from "./game.json";
+import gameData from "./game2.json";
 import allActions from "./allActions.json";
 
 const allData = gameData;
@@ -12,7 +12,8 @@ const d1 = getDataWithMergedActions(d);
 // console.log(result);
 // // const f = getFrequencyMapForPlayer(d1, 1, 0);
 
-getMovesScoresData(allData, 0);
+//getMovesScoresData(allData, 0);
+getNumberOfSimulations(allData);
 
 export function getAllData() {
   return allData;
@@ -24,7 +25,11 @@ export function getAllDataExEnd() {
     let elemData = {};
 
     Object.entries(element).filter((turn) => {
-      if (turn[1].action !== "End Turn") {
+      if (
+        turn[1].action !== "End Turn" &&
+        turn[1].action !== "Action Turn" &&
+        turn[1].action !== "Convey Turn"
+      ) {
         elemData[turn[0]] = turn[1];
       }
     });
@@ -38,7 +43,7 @@ export function getDataWithMergedActions(data) {
   let allDataMerged = [];
   newData.forEach((element) => {
     Object.entries(element).forEach((turn) => {
-      if (turn[0] !== "metadata") {
+      if (turn[0] !== "meta_data") {
         const actionDetail = turn[1].action_details;
         turn[1].action_details = `${turn[1].action} ${actionDetail}`;
       }
@@ -55,7 +60,7 @@ export function getPlayerData(data, player) {
   let playerData = {};
 
   Object.entries(data).forEach((turn) => {
-    if (turn[0] !== "metadata") {
+    if (turn[0] !== "meta_data") {
       if (turn[1].player === player) {
         playerData[turn[0]] = turn[1];
       }
@@ -180,7 +185,7 @@ export function getScores(data, numSims) {
   );
   let result = [];
   Object.entries(simulationData).forEach((simulation, index) => {
-    result.push({ [`Sim ${index}`]: simulation[1].metadata });
+    result.push({ [`Sim ${index}`]: simulation[1].meta_data });
   });
 
   return result;
@@ -192,9 +197,34 @@ export function getMovesScoresData(data, player) {
     const playerData = getPlayerData(simulation[1], player);
     const moves = Object.keys(playerData).length;
 
-    const score = simulation[1].metadata[`Player ${player}`];
+    const score = simulation[1].meta_data[`player_${player}`];
     result.push({ x: moves, y: score });
   });
 
+  return result;
+}
+
+export function getNumberOfPlayers(data) {
+  let players = [];
+  const simulation = Object.entries(data)[0];
+  Object.entries(simulation[1]).forEach((turn) => {
+    if (turn[0] === "meta_data") {
+      Object.keys(turn[1]).forEach((player) => {
+        const playerNum = player.split("_")[1];
+        if (!players.includes(playerNum)) {
+          players.push(playerNum);
+        }
+      });
+    }
+  });
+  return players;
+}
+
+export function getNumberOfSimulations(data) {
+  let result = Array(Object.keys(data).length)
+    .fill()
+    .map((_, i) => i + 1);
+
+  console.log(result);
   return result;
 }

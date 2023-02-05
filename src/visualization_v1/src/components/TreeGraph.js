@@ -9,12 +9,15 @@ import "./css/style.css";
 
 const textProps = { x: -45, y: 20 };
 
+// parameters
+const numSims = 2;
+const player = 0;
+
 const allData = getAllDataExEnd();
 const mergedData = getDataWithMergedActions(allData);
-
-let results = getMap(mergedData, 2, 0);
-let result = results[0];
-const map = results[1];
+let results = getMap(mergedData, numSims, player);
+let nextMoveArray = results[0];
+const indexMap = results[1];
 
 function makeGraph(map, arr, numMoves) {
   let data = { name: "Start", textProps: { x: -25, y: 20 }, children: [] };
@@ -32,17 +35,17 @@ function makeGraph(map, arr, numMoves) {
 
   while (queue.length && numMoves > 0) {
     let { currLevel, index } = queue.shift();
-    let turnName = result[index].shift();
+    let turnName = arr[index].shift();
     if (turnName in map) {
       const ind = map[turnName];
-      if (result[index].length >= 0) {
+      if (arr[index].length >= 0) {
         currLevel.push({ name: turnName, textProps, children: [] });
         queue.push({
           currLevel: currLevel[currLevel.length - 1].children,
           index: ind,
         });
       }
-      if (result[index].length == 0) numMoves--;
+      if (arr[index].length == 0) numMoves--;
     }
   }
 
@@ -53,7 +56,7 @@ export default class Dropdown extends Component {
   render() {
     // change moves here
     const numMoves = 7;
-    const data = makeGraph(map, result, numMoves);
+    const data = makeGraph(indexMap, nextMoveArray, numMoves);
     return (
       <div style={{ overflowX: "scroll" }}>
         <h1>Tree Graph</h1>

@@ -7,6 +7,7 @@ const SideMenu = () => {
   return (
     <Sidebar className="sidebar">
       <Menu>
+        <MenuItem component={<Link to="/" />}>Home</MenuItem>
         <MenuItem component={<Link to="/freq-used" />}>
           Frequently Used Moves
         </MenuItem>

@@ -33,13 +33,12 @@ export const options = {
 };
 
 //paramters
-const numSims = 2;
+const numSims = 3;
 
 const allData = getAllData();
 const scoreData = getScores(allData, numSims);
 
 let labels = [];
-
 scoreData.forEach((sim) => {
   labels.push(Object.keys(sim)[0]);
 });
