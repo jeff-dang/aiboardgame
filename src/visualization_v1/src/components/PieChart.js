@@ -14,12 +14,15 @@ const getRandomColor = () => {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);
 };
 
-const d = getAllDataExEnd();
-const d1 = getDataWithMergedActions(d);
+//parameter
+const player = 0;
+const numSims = 1;
 
-const f = getFrequencyMapForPlayer(d1, 1, 0);
+const allData = getAllDataExEnd();
+const mergedData = getDataWithMergedActions(allData);
 
-const allNonZeroActions = getAllNonZeroActions(f);
+const freqMap = getFrequencyMapForPlayer(mergedData, numSims, player);
+const allNonZeroActions = getAllNonZeroActions(freqMap);
 
 const getLabels = () => {
   let labels = [];

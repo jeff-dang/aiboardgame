@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,9 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { getAllData, getScores } from "../data/getData";
 
 ChartJS.register(
   CategoryScale,
@@ -27,48 +27,72 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: "top",
     },
     title: {
       display: true,
-      text: 'Round VS Scores',
+      text: "Simulation VS Scores",
     },
   },
 };
 
-const labels = ['turn 1', 'turn 2', 'turn 3', 'turn 4', 'turn 5', 'turn 6', 'turn 7'];
+//paramters
+const numSims = 2;
+
+const allData = getAllData();
+const scoreData = getScores(allData, numSims);
+
+let labels = [];
+
+scoreData.forEach((sim) => {
+  labels.push(Object.keys(sim)[0]);
+});
+
+const getPlayerScore = (sim, player) => {
+  const index = scoreData.findIndex((e) => Object.keys(e)[0] === sim);
+
+  const simData = scoreData[index];
+
+  return Object.values(simData)[0][player];
+};
+
+const getPlayers = () => {
+  const simData = scoreData[0];
+
+  return Object.keys(Object.values(simData)[0]);
+};
+
+const getRandomColor = () => {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+};
+
+const getDataSet = () => {
+  let dataSet = [];
+
+  const players = getPlayers();
+
+  players.forEach((player) => {
+    const color = getRandomColor();
+    const data = {
+      label: player,
+      data: labels.map((sim) => getPlayerScore(sim, player)),
+      borderColor: color,
+      backgroundColor: color,
+    };
+    dataSet.push(data);
+  });
+  return dataSet;
+};
 
 export const data = {
   labels,
-  datasets: [
-    {
-      label: 'player 0',
-      data: labels.map(() => Math.random()),
-      borderColor: 'rgb(553, 162, 23)',
-      backgroundColor: 'rgba(553, 162, 23)',
-    },
-    {
-      label: 'player 1',
-      data: labels.map(() => Math.random()),
-      borderColor: 'rgb(99, 255, 132)',
-      backgroundColor: 'rgba(99, 255, 132)',
-    },
-    {
-      label: 'player 2',
-      data: labels.map(() => Math.random()),
-      borderColor: 'red',
-      backgroundColor: 'red',
-    },
-    {
-      label: 'player 3',
-      data: labels.map(() => Math.random()),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
+  datasets: getDataSet(),
 };
 
-export default function App() {
-  return <Line options={options} width={800}
-  height={600} data={data} />;
+export default function LineChart() {
+  return (
+    <div style={{ overflowX: "scroll" }}>
+      <Line options={options} width={numSims * 1000} height={600} data={data} />
+    </div>
+  );
 }

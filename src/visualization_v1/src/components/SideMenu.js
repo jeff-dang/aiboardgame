@@ -15,8 +15,6 @@ const SideMenu = () => {
         <MenuItem component={<Link to="/pie-chart" />}> Pie Chart</MenuItem>
         <MenuItem component={<Link to="/line-chart" />}> Line Chart</MenuItem>
         <MenuItem component={<Link to="/tree-graph" />}> Tree Graph</MenuItem>
-        <MenuItem> Move Tree </MenuItem>
-        <MenuItem> Radial Graph</MenuItem>
       </Menu>
     </Sidebar>
   );

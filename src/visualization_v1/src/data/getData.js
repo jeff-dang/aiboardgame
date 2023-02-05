@@ -6,13 +6,13 @@ const allData = gameData;
 const d = getAllDataExEnd();
 const d1 = getDataWithMergedActions(d);
 
-let results = getMap(d1, 2, 0);
-let result = results[0];
-const map = results[1];
-console.log(result);
-// const f = getFrequencyMapForPlayer(d1, 1, 0);
+// const result = getMap2(d1, 2, 0);
+// // let result = results[0];
+// // const map = results[1];
+// console.log(result);
+// // const f = getFrequencyMapForPlayer(d1, 1, 0);
 
-// getAllNonZeroActions(f);
+getScores(allData, 2);
 
 export function getAllData() {
   return allData;
@@ -38,17 +38,16 @@ export function getDataWithMergedActions(data) {
   let allDataMerged = [];
   newData.forEach((element) => {
     Object.entries(element).forEach((turn) => {
-      const actionDetail = turn[1].action_details;
-      turn[1].action_details = `${turn[1].action} ${actionDetail}`;
+      if (turn[0] !== "metadata") {
+        const actionDetail = turn[1].action_details;
+        turn[1].action_details = `${turn[1].action} ${actionDetail}`;
+      }
     });
+
     allDataMerged.push(element);
   });
 
   return allDataMerged;
-}
-
-export function getSimulationData(simulationData, simulation) {
-  return simulationData[simulation];
 }
 
 // must be a simulation data
@@ -159,6 +158,7 @@ export function getMap(data, numSims, player) {
   Object.entries(simulationData).forEach((simulation) => {
     let turnNum = 1;
     const playerData = getPlayerData(simulation[1], player);
+    const size = Object.keys(playerData).length;
     Object.entries(playerData).forEach((turn, index) => {
       const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
       if (!map.hasOwnProperty(turnStr)) {
@@ -166,12 +166,30 @@ export function getMap(data, numSims, player) {
         result.push([]);
       }
 
-      if (!result[index].includes(turnStr)) {
-        result[index].push(turnStr);
-      }
+      result[index].push(turnStr);
       turnNum++;
+
+      if (index === size - 1) {
+        if (!map.hasOwnProperty("End Game")) {
+          map["End Game"] = turnNum;
+          result.push([]);
+        }
+        result[turnNum - 1].push("End Game");
+      }
     });
   });
-  console.log(map);
+
   return [result, map];
+}
+
+export function getScores(data, numSims) {
+  const simulationData = Object.fromEntries(
+    Object.entries(data).slice(0, numSims)
+  );
+  let result = [];
+  Object.entries(simulationData).forEach((simulation, index) => {
+    result.push({ [`Sim ${index}`]: simulation[1].metadata });
+  });
+
+  return result;
 }

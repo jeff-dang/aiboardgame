@@ -8,8 +8,7 @@ import HeatMapWithTooltip from "./components/HeatMap";
 import Piechart from "./components/PieChart";
 import LineChart from "./components/LineChart";
 import TreeGraph from "./components/TreeGraph";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import "./data/getData";
 
 function App() {
