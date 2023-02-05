@@ -119,6 +119,7 @@ class raw_env(AECEnv):
                 self.rewards[agent] += (self.engine.get_reward(agent))
             # If game is over assign termination for all agents
             print(self.rewards)
+            self.simulation_history['meta_data'] = self.rewards
             self.terminations = {i: True for i in self.agents}
 
         # Assign current players turn
