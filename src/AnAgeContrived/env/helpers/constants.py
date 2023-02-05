@@ -3,6 +3,7 @@ from env.entities.monument_wall import MonumentWall
 from env.entities.energy import Energy
 from env.action_initiater import get_actions
 from env.entities.map_data import Map_Areas
+from env.entities.action_tokens import EnergyActionToken, MoveActionToken
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
@@ -79,5 +80,14 @@ MONUMENTS = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN, THE_ERIDONIC_GATE,
 
 # --------------- MONUMENTS END --------------------------
 
+# ************ ACTION TOKENS START **************************
+FORTH_FIFTH_TILES_ENERGY = EnergyActionToken([0, 0, 0, 1, 1], 1)
+SECOND_THIRD_TILES_ENERGY = EnergyActionToken([0, 1, 1, 0, 0], 1)
+TWO_ONE_ONE_MOVE = MoveActionToken(2, 1, 1)
+TWO_TWO_ONE_MOVE = MoveActionToken(2, 2, 1)
+ANY = 'ANY'
 
-INITIAL_ACTION_TOKENS = []
+INITIAL_ACTION_TOKENS = [FORTH_FIFTH_TILES_ENERGY,
+                         SECOND_THIRD_TILES_ENERGY, TWO_ONE_ONE_MOVE, TWO_TWO_ONE_MOVE, ANY]
+
+# --------------- ACTION TOKENS END --------------------------
