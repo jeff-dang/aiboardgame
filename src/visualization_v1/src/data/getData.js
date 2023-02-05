@@ -3,17 +3,17 @@ import allActions from "./allActions.json";
 
 const allData = gameData;
 
-const d = getAllDataExEnd();
-const d1 = getDataWithMergedActions(d);
+// const d = getAllDataExEnd();
+// const d1 = getDataWithMergedActions(d);
 
-// const result = getMap2(d1, 2, 0);
-// // let result = results[0];
-// // const map = results[1];
-// console.log(result);
-// // const f = getFrequencyMapForPlayer(d1, 1, 0);
+// // const result = getMap2(d1, 2, 0);
+// // // let result = results[0];
+// // // const map = results[1];
+// // console.log(result);
+// // // const f = getFrequencyMapForPlayer(d1, 1, 0);
 
-//getMovesScoresData(allData, 0);
-getNumberOfSimulations(allData);
+// //getMovesScoresData(allData, 0);
+// getNumberOfSimulations(allData);
 
 export function getAllData() {
   return allData;
@@ -24,7 +24,7 @@ export function getAllDataExEnd() {
   allData.forEach((element) => {
     let elemData = {};
 
-    Object.entries(element).filter((turn) => {
+    Object.entries(element).forEach((turn) => {
       if (
         turn[1].action !== "End Turn" &&
         turn[1].action !== "Action Turn" &&
@@ -41,6 +41,7 @@ export function getAllDataExEnd() {
 export function getDataWithMergedActions(data) {
   let newData = JSON.parse(JSON.stringify(data));
   let allDataMerged = [];
+
   newData.forEach((element) => {
     Object.entries(element).forEach((turn) => {
       if (turn[0] !== "meta_data") {
@@ -51,7 +52,6 @@ export function getDataWithMergedActions(data) {
 
     allDataMerged.push(element);
   });
-
   return allDataMerged;
 }
 
@@ -66,6 +66,7 @@ export function getPlayerData(data, player) {
       }
     }
   });
+
   return playerData;
 }
 
@@ -109,7 +110,7 @@ export function getCountMap() {
 
 export function sortFrequencyMap(freqMap) {
   freqMap.sort((a, b) => {
-    if (a.frequency != b.frequency) {
+    if (a.frequency !== b.frequency) {
       return a.frequency < b.frequency ? 1 : -1;
     }
     return 0;
@@ -210,13 +211,13 @@ export function getNumberOfPlayers(data) {
   Object.entries(simulation[1]).forEach((turn) => {
     if (turn[0] === "meta_data") {
       Object.keys(turn[1]).forEach((player) => {
-        const playerNum = player.split("_")[1];
-        if (!players.includes(playerNum)) {
-          players.push(playerNum);
-        }
+        const playerNum = Number(player.split("_")[1]);
+
+        players.push(playerNum);
       });
     }
   });
+
   return players;
 }
 
@@ -225,6 +226,5 @@ export function getNumberOfSimulations(data) {
     .fill()
     .map((_, i) => i + 1);
 
-  console.log(result);
   return result;
 }

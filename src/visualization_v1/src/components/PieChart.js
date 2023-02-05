@@ -6,6 +6,8 @@ import {
   getAllNonZeroActions,
   getDataWithMergedActions,
   getFrequencyMapForPlayer,
+  getNumberOfPlayers,
+  getNumberOfSimulations,
 } from "../data/getData";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,16 +17,11 @@ const getRandomColor = () => {
 };
 
 //parameter
-const player = 0;
-const numSims = 1;
-
 const allData = getAllDataExEnd();
-const mergedData = getDataWithMergedActions(allData);
+const players = getNumberOfPlayers(allData);
+const numSimulations = getNumberOfSimulations(allData);
 
-const freqMap = getFrequencyMapForPlayer(mergedData, numSims, player);
-const allNonZeroActions = getAllNonZeroActions(freqMap);
-
-const getLabels = () => {
+const getLabels = (allNonZeroActions) => {
   let labels = [];
   Object.entries(allNonZeroActions).forEach((action) => {
     labels.push(action[1].name);
@@ -32,7 +29,7 @@ const getLabels = () => {
   return labels;
 };
 
-const getValues = () => {
+const getValues = (allNonZeroActions) => {
   let values = [];
   Object.entries(allNonZeroActions).forEach((action) => {
     values.push(action[1].frequency);
@@ -40,7 +37,7 @@ const getValues = () => {
   return values;
 };
 
-const getBackgroundColors = () => {
+const getBackgroundColors = (allNonZeroActions) => {
   let backgroundColors = [];
   allNonZeroActions.forEach((action) => {
     backgroundColors.push(getRandomColor());
@@ -49,7 +46,7 @@ const getBackgroundColors = () => {
   return backgroundColors;
 };
 
-const getBorderColors = () => {
+const getBorderColors = (allNonZeroActions) => {
   let borderColors = [];
   allNonZeroActions.forEach((action) => {
     borderColors.push("#000000");
@@ -58,26 +55,66 @@ const getBorderColors = () => {
   return borderColors;
 };
 
-const data = {
-  labels: getLabels(),
-  datasets: [
-    {
-      label: "# of times used",
-      data: getValues(),
-      backgroundColor: getBackgroundColors(),
-      borderColor: getBorderColors(),
-      borderWidth: 0.5,
-    },
-  ],
-};
-
 const PieChart = ({ width, height }) => {
+  const [player, setPlayer] = useState(0);
+  const [numSims, setNumSims] = useState(1);
+  const [freqMap, setFreqMap] = useState([]);
+  const [allNonZeroActions, setAllNonZeroActions] = useState([]);
+  const [data, setData] = useState({
+    labels: [],
+    datasets: [],
+  });
+
+  useEffect(() => {
+    const mergedData = getDataWithMergedActions(allData);
+
+    setFreqMap(getFrequencyMapForPlayer(mergedData, numSims, player));
+  }, [player, numSims]);
+
+  useEffect(() => {
+    setAllNonZeroActions(getAllNonZeroActions(freqMap));
+  }, [freqMap]);
+
+  useEffect(() => {
+    setData({
+      labels: getLabels(allNonZeroActions),
+      datasets: [
+        {
+          label: "# of times used",
+          data: getValues(allNonZeroActions),
+          backgroundColor: getBackgroundColors(allNonZeroActions),
+          borderColor: getBorderColors(allNonZeroActions),
+          borderWidth: 0.5,
+        },
+      ],
+    });
+  }, [allNonZeroActions]);
+
   return (
-    <div>
-      <h1>
-        All Used Moves for
-        {numSims > 1 ? `${numSims} Simulations` : `${numSims} Simulation`}
-      </h1>
+    <div style={{ marginBottom: 20 }}>
+      <h1>All Used Moves Frequency</h1>
+      <span> Player: </span>
+      <select
+        style={{ margin: 10 }}
+        onChange={(e) => setPlayer(Number(e.target.value))}
+      >
+        {players.map((player) => (
+          <option key={player} value={player}>
+            {player}
+          </option>
+        ))}
+      </select>
+      <span> Simulations: </span>
+      <select
+        style={{ margin: 10 }}
+        onChange={(e) => setNumSims(Number(e.target.value))}
+      >
+        {numSimulations.map((simulation) => (
+          <option key={simulation} value={simulation}>
+            {simulation}
+          </option>
+        ))}
+      </select>
       <div style={{ overflowX: "scroll", marginTop: 20 }}>
         {
           <Pie

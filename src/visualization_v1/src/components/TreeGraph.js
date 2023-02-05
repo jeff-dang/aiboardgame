@@ -1,26 +1,35 @@
-import React, { Component } from "react";
-import { Tree, AnimatedTree } from "react-tree-graph";
+import React, { useEffect, useState } from "react";
+import { AnimatedTree } from "react-tree-graph";
 import {
   getAllDataExEnd,
   getDataWithMergedActions,
   getMap,
+  getNumberOfPlayers,
+  getNumberOfSimulations,
 } from "../data/getData";
 import "./css/style.css";
 
-const textProps = { x: -45, y: 20 };
+const textProps = {
+  x: 0,
+  y: 20,
+  textAnchor: "middle",
+};
 
-// parameters
-const numSims = 2;
-const player = 0;
+const allMoves = [];
+const totalMoves = 10;
+for (var i = 3; i <= totalMoves; i++) {
+  allMoves.push(i);
+}
 
 const allData = getAllDataExEnd();
-const mergedData = getDataWithMergedActions(allData);
-let results = getMap(mergedData, numSims, player);
-let nextMoveArray = results[0];
-const indexMap = results[1];
+const players = getNumberOfPlayers(allData);
+const numSimulations = getNumberOfSimulations(allData);
 
-function makeGraph(map, arr, numMoves) {
-  let data = { name: "Start", textProps: { x: -25, y: 20 }, children: [] };
+function makeGraph(dataMap, dataArr, numMoves) {
+  let moves = numMoves;
+  let arr = JSON.parse(JSON.stringify(dataArr));
+  let map = JSON.parse(JSON.stringify(dataMap));
+  let data = { name: "Start", textProps: textProps, children: [] };
   const currLevel = data.children;
   const queue = [];
   let visited = new Array(arr.length);
@@ -33,7 +42,7 @@ function makeGraph(map, arr, numMoves) {
     queue.push({ currLevel, index: 0 });
   }
 
-  while (queue.length && numMoves > 0) {
+  while (queue.length && moves > 0) {
     let { currLevel, index } = queue.shift();
     let turnName = arr[index].shift();
     if (turnName in map) {
@@ -45,29 +54,80 @@ function makeGraph(map, arr, numMoves) {
           index: ind,
         });
       }
-      if (arr[index].length == 0) numMoves--;
+      if (arr[index].length === 0) moves--;
     }
   }
-
+  console.log(data);
   return data;
 }
 
-export default class Dropdown extends Component {
-  render() {
-    // change moves here
-    const numMoves = 7;
-    const data = makeGraph(indexMap, nextMoveArray, numMoves);
-    return (
-      <div style={{ overflowX: "scroll" }}>
-        <h1>Tree Graph</h1>
-        <AnimatedTree
-          data={data}
-          nodeRadius={100}
-          margins={{ top: 20, bottom: 10, left: 20, right: 200 }}
-          height={700}
-          width={numMoves * 250}
-        />
-      </div>
-    );
-  }
-}
+const TreeGraph = () => {
+  const [player, setPlayer] = useState(0);
+  const [numSims, setNumSims] = useState(1);
+  const [numMoves, setNumMoves] = useState(3);
+  const res = getDataWithMergedActions(allData);
+  const initMap = getMap(res, numSims, player)[1];
+  const initArr = getMap(res, numSims, player)[0];
+  const [nextMoveArray, setNextMoveArray] = useState(initArr);
+  const [indexMap, setIndexMap] = useState(initMap);
+  const [data, setData] = useState(makeGraph(initMap, initArr, numMoves));
+
+  useEffect(() => {
+    const mergedData = getDataWithMergedActions(allData);
+    const results = getMap(mergedData, numSims, player);
+    setNextMoveArray(results[0]);
+    setIndexMap(results[1]);
+  }, [player, numSims]);
+
+  useEffect(() => {
+    setData(makeGraph(indexMap, nextMoveArray, numMoves));
+  }, [nextMoveArray, indexMap, numMoves]);
+
+  return (
+    <div style={{ overflowX: "scroll" }}>
+      <h1>Tree Graph</h1>
+      <span> Player: </span>
+      <select
+        style={{ margin: 10 }}
+        onChange={(e) => setPlayer(Number(e.target.value))}
+      >
+        {players.map((player) => (
+          <option key={player} value={player}>
+            {player}
+          </option>
+        ))}
+      </select>
+      <span> Simulations: </span>
+      <select
+        style={{ margin: 10 }}
+        onChange={(e) => setNumSims(Number(e.target.value))}
+      >
+        {numSimulations.map((simulation) => (
+          <option key={simulation} value={simulation}>
+            {simulation}
+          </option>
+        ))}
+      </select>
+      <span> Number of Moves: </span>
+      <select
+        style={{ margin: 10 }}
+        onChange={(e) => setNumMoves(Number(e.target.value))}
+      >
+        {allMoves.map((move) => (
+          <option key={move} value={move}>
+            {move}
+          </option>
+        ))}
+      </select>
+      <AnimatedTree
+        data={data}
+        nodeRadius={20}
+        margins={{ top: 20, bottom: 10, left: 20, right: 200 }}
+        height={700}
+        width={numMoves * 300}
+      />
+    </div>
+  );
+};
+
+export default TreeGraph;

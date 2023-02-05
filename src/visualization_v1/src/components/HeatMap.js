@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { HeatmapCircle } from "@visx/heatmap";
@@ -7,6 +7,8 @@ import {
   getAllDataExEnd,
   getCountMapForPlayer,
   getDataWithMergedActions,
+  getNumberOfPlayers,
+  getNumberOfSimulations,
 } from "../data/getData";
 import { useSpring, animated } from "@react-spring/web";
 const tooltipStyles = {
@@ -21,9 +23,8 @@ const hot2 = "#f33d15";
 const background = "#9de3d4"; //"#28272c";
 
 const allData = getAllDataExEnd();
-const mergedData = getDataWithMergedActions(allData);
-
-const freqMap = getCountMapForPlayer(mergedData, 1, 0);
+const players = getNumberOfPlayers(allData);
+const numSimulations = getNumberOfSimulations(allData);
 
 const getData = (freqMap, rows) => {
   const newData = [];
@@ -35,8 +36,6 @@ const getData = (freqMap, rows) => {
   return newData;
 };
 
-const data = getData(freqMap, 6);
-
 function max(data, value) {
   return Math.max(...data.map(value));
 }
@@ -45,31 +44,7 @@ function min(data, value) {
   return Math.min(...data.map(value));
 }
 
-// accessors
-const bins = (d) => d.bins;
-const count = (d) => d.count;
-
-const colorMax = max(data, (d) => max(bins(d), count));
-const bucketSizeMax = max(data, (d) => bins(d).length);
-
 let tooltipTimeout;
-
-// scales
-const xScale = scaleLinear({
-  domain: [0, data.length],
-});
-const yScale = scaleLinear({
-  domain: [0, bucketSizeMax],
-});
-const circleColorScale = scaleLinear({
-  range: [hot1, hot2],
-  domain: [0, colorMax],
-});
-
-const opacityScale = scaleLinear({
-  range: [0.1, 1],
-  domain: [0, colorMax],
-});
 
 const defaultMargin = { top: 10, left: 40, right: 20, bottom: 10 };
 
@@ -92,9 +67,47 @@ const HeatMap = ({
   const xMax = size;
   const yMax = height - margin.bottom - margin.top;
 
+  const [numSims, setNumSims] = useState(1);
+  const [player, setPlayer] = useState(0);
+  const [freqMap, setFreqMap] = useState([]);
+  const [data, setData] = useState([]);
+
+  // accessors
+  const bins = (d) => d.bins;
+  const count = (d) => d.count;
+
+  const colorMax = useMemo(() => max(data, (d) => max(bins(d), count)), [data]);
+  const bucketSizeMax = useMemo(() => max(data, (d) => bins(d).length), [data]);
+
   const binWidth = xMax / data.length;
   const binHeight = yMax / bucketSizeMax;
   const radius = min([binWidth, binHeight], (d) => d) / 2;
+
+  const xScale = scaleLinear({
+    domain: [0, data.length],
+  });
+
+  const yScale = scaleLinear({
+    domain: [0, bucketSizeMax],
+  });
+  const circleColorScale = scaleLinear({
+    range: [hot1, hot2],
+    domain: [0, colorMax],
+  });
+
+  const opacityScale = scaleLinear({
+    range: [0.1, 1],
+    domain: [0, colorMax],
+  });
+
+  useEffect(() => {
+    const mergedData = getDataWithMergedActions(allData);
+    setFreqMap(getCountMapForPlayer(mergedData, numSims, player));
+  }, [player, numSims]);
+
+  useEffect(() => {
+    setData(getData(freqMap, 6));
+  }, [freqMap]);
 
   xScale.range([0, xMax]);
   yScale.range([0, yMax]);
@@ -107,8 +120,30 @@ const HeatMap = ({
   const AnimatedHeatMap = animated(HeatmapCircle);
 
   return (
-    <div className="centering">
+    <div className="centering" style={{ marginBottom: 20 }}>
       <h1>Heat Map of All Moves</h1>
+      <span> Player: </span>
+      <select
+        style={{ margin: 10 }}
+        onChange={(e) => setPlayer(Number(e.target.value))}
+      >
+        {players.map((player) => (
+          <option key={player} value={player}>
+            {player}
+          </option>
+        ))}
+      </select>
+      <span> Simulations: </span>
+      <select
+        style={{ margin: 10 }}
+        onChange={(e) => setNumSims(Number(e.target.value))}
+      >
+        {numSimulations.map((simulation) => (
+          <option key={simulation} value={simulation}>
+            {simulation}
+          </option>
+        ))}
+      </select>
       <svg width={width} height={height}>
         <rect
           x={0}

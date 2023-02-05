@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
-import { GradientTealBlue, GradientPurpleRed } from "@visx/gradient";
+import { GradientTealBlue } from "@visx/gradient";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useSpring, animated } from "@react-spring/web";
@@ -15,11 +15,14 @@ import {
 } from "../data/getData";
 
 const bars = [3, 4, 5, 6, 7, 8, 9, 10];
+const axisTextColor = "#000000";
 const verticalMargin = 120;
 
-function getBarGraphData(frequencyMap, numBars) {
-  // const freqMap = JSON.parse(JSON.stringify(frequencyMap));
+const allData = getAllDataExEnd();
+const players = getNumberOfPlayers(allData);
+const numSimulations = getNumberOfSimulations(allData);
 
+function getBarGraphData(frequencyMap, numBars) {
   sortFrequencyMap(frequencyMap);
 
   const sliced = frequencyMap.slice(0, numBars);
@@ -36,23 +39,23 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   const [freqMap, setFreqMap] = useState([]);
   const [numBars, setNumBars] = useState(3);
   const [numSims, setNumSims] = useState(1);
+  const [toggle, setToggle] = useState(true);
 
-  const allData = getAllDataExEnd();
-  const players = getNumberOfPlayers(allData);
-  const numSimulations = getNumberOfSimulations(allData);
-
-  const axisTextColor = "#000000";
   const getMove = (move) => move.name;
   const getFrequecy = (move) => move.frequency;
 
   useEffect(() => {
     const mergedData = getDataWithMergedActions(allData);
     setFreqMap(getFrequencyMapForPlayer(mergedData, numSims, player));
-  }, [player, numSims]);
+    setToggle(false);
+  }, [player, numSims, numBars]);
 
   useEffect(() => {
     setData(getBarGraphData(freqMap, numBars));
-  }, [freqMap, numBars]);
+    setTimeout(() => {
+      setToggle(true);
+    }, 400);
+  }, [freqMap]);
 
   const axisBottomScale = useMemo(
     () =>
@@ -95,7 +98,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
 
   const { scale } = useSpring({
     from: { scale: 0 },
-    to: { scale: 1 },
+    to: { scale: toggle ? 1 : 0 },
   });
 
   const AnimatedBar = animated(Bar);
@@ -104,7 +107,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   axisLeftScale.rangeRound([yMax, 0]);
 
   return (
-    <div className="centering">
+    <div style={{ marginBottom: 20 }} className="centering">
       <div>
         <h1> Frequently Used Moves</h1>
         <span> Player: </span>
@@ -170,6 +173,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             fill: axisTextColor,
             fontSize: 12,
             textAnchor: "middle",
+            fontWeight: "bold",
           })}
         />
         <AxisBottom
@@ -182,6 +186,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             fontSize: `${numBars > 6 ? (numBars > 9 ? 6 : 7) : 11}`,
             textAnchor: "middle",
             overflow: "hidden",
+            fontWeight: "bold",
           })}
         />
       </svg>
