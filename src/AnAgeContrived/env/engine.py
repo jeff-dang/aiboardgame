@@ -37,7 +37,6 @@ class Engine:
 
     def reset(self):
         self.__init__()
-        print("RESETTING", self.monument_index)
 
     def get_agents(self):
         return constants.AGENT_NAMES
