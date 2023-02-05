@@ -9,7 +9,7 @@ import {
   getAllDataExEnd,
   getFrequencyMapForPlayer,
   getDataWithMergedActions,
-  getBarGraphData,
+  sortFrequencyMap,
 } from "../data/getData";
 
 const allData = getAllDataExEnd();
@@ -18,6 +18,16 @@ const mergedData = getDataWithMergedActions(allData);
 const freqMap = getFrequencyMapForPlayer(mergedData, 1, 0);
 
 const data = getBarGraphData(freqMap, 5);
+
+function getBarGraphData(frequencyMap, numBars) {
+  // const freqMap = JSON.parse(JSON.stringify(frequencyMap));
+
+  sortFrequencyMap(frequencyMap);
+
+  const sliced = frequencyMap.slice(0, numBars);
+
+  return sliced;
+}
 
 const axisTextColor = "#000000";
 const getMove = (move) => move.name;
@@ -36,7 +46,7 @@ const axisLeftScale = scaleLinear({
 
 const verticalMargin = 120;
 
-const BarChart = ({ width, height }) => {
+const FrequentlyUsedMoves = ({ width, height }) => {
   const xMax = width;
   const yMax = height - verticalMargin;
 
@@ -71,6 +81,7 @@ const BarChart = ({ width, height }) => {
 
   return (
     <div className="centering">
+      <h1> Frequently Used Moves</h1>
       <svg width={width} height={height}>
         <GradientTealBlue id="teal" />
         <rect width={width} height={height} fill="url(#teal)" rx={14} />
@@ -121,4 +132,4 @@ const BarChart = ({ width, height }) => {
   );
 };
 
-export default BarChart;
+export default FrequentlyUsedMoves;

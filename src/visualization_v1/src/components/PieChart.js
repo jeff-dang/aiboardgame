@@ -71,17 +71,23 @@ const data = {
   ],
 };
 
-const PieChart = () => {
+const PieChart = ({ width, height }) => {
   return (
     <div>
-      {
-        <Pie
-          data={data}
-          width={1200}
-          height={700}
-          options={{ maintainAspectRatio: false }}
-        />
-      }
+      <h1>
+        All Used Moves for{" "}
+        {numSims > 1 ? `${numSims} Simulations` : `${numSims} Simulation`}
+      </h1>
+      <div style={{ overflowX: "scroll", marginTop: 20 }}>
+        {
+          <Pie
+            data={data}
+            width={width}
+            height={height}
+            options={{ maintainAspectRatio: false }}
+          />
+        }
+      </div>
     </div>
   );
 };

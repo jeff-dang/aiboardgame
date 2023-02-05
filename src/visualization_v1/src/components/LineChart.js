@@ -29,10 +29,6 @@ export const options = {
     legend: {
       position: "top",
     },
-    title: {
-      display: true,
-      text: "Simulation VS Scores",
-    },
   },
 };
 
@@ -89,10 +85,13 @@ export const data = {
   datasets: getDataSet(),
 };
 
-export default function LineChart() {
+export default function LineChart({ width, height }) {
   return (
-    <div style={{ overflowX: "scroll" }}>
-      <Line options={options} width={numSims * 1000} height={600} data={data} />
+    <div>
+      <h1>Simulation vs. Scores for All Players</h1>
+      <div style={{ overflowX: "scroll" }}>
+        <Line options={options} width={width} height={height} data={data} />
+      </div>
     </div>
   );
 }

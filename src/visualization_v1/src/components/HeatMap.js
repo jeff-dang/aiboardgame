@@ -108,6 +108,7 @@ const HeatMap = ({
 
   return (
     <div className="centering">
+      <h1>Heat Map of All Moves</h1>
       <svg width={width} height={height}>
         <rect
           x={0}
@@ -146,8 +147,8 @@ const HeatMap = ({
                       }}
                       onMouseMove={() => {
                         if (tooltipTimeout) clearTimeout(tooltipTimeout);
-                        const top = bin.cy + radius + margin.top;
-                        const left = bin.cx + radius + margin.left;
+                        const top = bin.cy + radius * 2 + margin.top;
+                        const left = bin.cx + margin.left;
                         showTooltip({
                           tooltipData: bin.bin,
                           tooltipTop: top,

@@ -2,7 +2,6 @@ import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import BarChart from "./components/BarChart";
 import SideMenu from "./components/SideMenu";
 import HeatMapWithTooltip from "./components/HeatMap";
 import Piechart from "./components/PieChart";
@@ -10,18 +9,23 @@ import LineChart from "./components/LineChart";
 import TreeGraph from "./components/TreeGraph";
 import React from "react";
 import "./data/getData";
+import FrequentlyUsedMoves from "./components/BarChart";
+import MovesToScores from "./components/MovesToScores";
 
 function App() {
   return (
-    <div className="title">
-      <h1>An Age Contrived</h1>
+    <div style={{ marginTop: 20 }} className="title">
       <div className="page">
         <SideMenu />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/bar-chart"
-            element={<BarChart width={1000} height={700} />}
+            path="/freq-used"
+            element={<FrequentlyUsedMoves width={1000} height={700} />}
+          />
+          <Route
+            path="/moves-scores"
+            element={<MovesToScores width={1100} height={700} />}
           />
           <Route
             path="/heatmap"
@@ -29,15 +33,15 @@ function App() {
           />
           <Route
             path="/pie-chart"
-            element={<Piechart width={800} height={600} />}
+            element={<Piechart width={1100} height={700} />}
           />
           <Route
             path="/line-chart"
-            element={<LineChart width={600} height={400} />}
+            element={<LineChart width={1100} height={700} />}
           />
           <Route
             path="/tree-graph"
-            element={<TreeGraph width={600} height={400} />}
+            element={<TreeGraph width={1100} height={700} />}
           />
         </Routes>
       </div>

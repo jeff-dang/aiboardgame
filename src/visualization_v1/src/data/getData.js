@@ -12,7 +12,7 @@ const d1 = getDataWithMergedActions(d);
 // console.log(result);
 // // const f = getFrequencyMapForPlayer(d1, 1, 0);
 
-getScores(allData, 2);
+getMovesScoresData(allData, 0);
 
 export function getAllData() {
   return allData;
@@ -55,8 +55,10 @@ export function getPlayerData(data, player) {
   let playerData = {};
 
   Object.entries(data).forEach((turn) => {
-    if (turn[1].player === player) {
-      playerData[turn[0]] = turn[1];
+    if (turn[0] !== "metadata") {
+      if (turn[1].player === player) {
+        playerData[turn[0]] = turn[1];
+      }
     }
   });
   return playerData;
@@ -91,14 +93,13 @@ export function getFrequencyMapForPlayer(data, numSims, player) {
   return freqMap;
 }
 
-export function getBarGraphData(frequencyMap, numBars) {
-  const freqMap = JSON.parse(JSON.stringify(frequencyMap));
+export function getCountMap() {
+  let actions = [];
+  Object.entries(allActions).forEach((action) => {
+    actions.push({ name: action[0], count: 0 });
+  });
 
-  sortFrequencyMap(freqMap);
-
-  const sliced = freqMap.slice(0, numBars);
-
-  return sliced;
+  return actions;
 }
 
 export function sortFrequencyMap(freqMap) {
@@ -108,15 +109,6 @@ export function sortFrequencyMap(freqMap) {
     }
     return 0;
   });
-}
-
-export function getCountMap() {
-  let actions = [];
-  Object.entries(allActions).forEach((action) => {
-    actions.push({ name: action[0], count: 0 });
-  });
-
-  return actions;
 }
 
 export function getCountMapForPlayer(data, numSims, player) {
@@ -189,6 +181,19 @@ export function getScores(data, numSims) {
   let result = [];
   Object.entries(simulationData).forEach((simulation, index) => {
     result.push({ [`Sim ${index}`]: simulation[1].metadata });
+  });
+
+  return result;
+}
+
+export function getMovesScoresData(data, player) {
+  let result = [];
+  Object.entries(data).forEach((simulation) => {
+    const playerData = getPlayerData(simulation[1], player);
+    const moves = Object.keys(playerData).length;
+
+    const score = simulation[1].metadata[`Player ${player}`];
+    result.push({ x: moves, y: score });
   });
 
   return result;

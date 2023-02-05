@@ -56,6 +56,7 @@ export default class Dropdown extends Component {
     const data = makeGraph(map, result, numMoves);
     return (
       <div style={{ overflowX: "scroll" }}>
+        <h1>Tree Graph</h1>
         <AnimatedTree
           data={data}
           nodeRadius={100}

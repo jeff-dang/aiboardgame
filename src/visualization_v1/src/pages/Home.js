@@ -12,7 +12,7 @@ const Home = () => {
     >
       <div className="page-content">
         {/* <h1 style={{ marginLeft: 100, marginTop: 100 }}> */}
-        <h1>Click on the side menu to see graphs</h1>
+        <h1>An Age Contrived</h1>
       </div>
     </div>
   );
