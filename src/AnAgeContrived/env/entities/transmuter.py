@@ -1,5 +1,5 @@
 from .transmuter_tile import TransmuterTile
-
+from env.helpers.constants import INITIAL_ACTION_TOKENS
 
 class Transmuter:
     def __init__(self):
@@ -15,7 +15,7 @@ class Transmuter:
 
         self.active_tiles = [t1, t2, t3, t4, t5]
         self.reserved_tiles = [t6, t7]
-        self.action_tokens = []
+        self.action_tokens = INITIAL_ACTION_TOKENS
 
     # gets all the tiles currently on the transmuter
     def get_all_tiles(self):
@@ -24,6 +24,9 @@ class Transmuter:
     # returns the tile at the given position
     def get_tile(self, position):
         pass
+
+    def get_action_token(self, index):
+        return self.action_tokens[index]
 
     # conveys the transmuter tiles only once, if convey 2 call method twice
     # Upgrade performance here
