@@ -7,16 +7,23 @@ const SideMenu = () => {
   return (
     <Sidebar className="sidebar">
       <Menu>
-        <MenuItem component={<Link to="/bar-chart" />}>
+        <MenuItem component={<Link to="/" />}>Home</MenuItem>
+        <MenuItem component={<Link to="/freq-used" />}>
           Frequently Used Moves
         </MenuItem>
-
+        <MenuItem component={<Link to="/moves-scores" />}>
+          Moves vs. Scores
+        </MenuItem>
         <MenuItem component={<Link to="/heatmap" />}> Heat Map</MenuItem>
-        <MenuItem component={<Link to="/pie-chart" />}> Pie Chart</MenuItem>
-        <MenuItem component={<Link to="/line-chart" />}> Line Chart</MenuItem>
+        <MenuItem component={<Link to="/pie-chart" />}>
+          {" "}
+          All Used Moves Frequency
+        </MenuItem>
+        <MenuItem component={<Link to="/line-chart" />}>
+          {" "}
+          Simulation vs. Scores
+        </MenuItem>
         <MenuItem component={<Link to="/tree-graph" />}> Tree Graph</MenuItem>
-        <MenuItem> Move Tree </MenuItem>
-        <MenuItem> Radial Graph</MenuItem>
       </Menu>
     </Sidebar>
   );

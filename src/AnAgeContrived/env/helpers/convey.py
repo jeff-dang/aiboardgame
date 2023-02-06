@@ -23,9 +23,9 @@ class Convey():
 
     @staticmethod
     def convey1Legal(engine):
-        return engine.turn.can_convey
+        return engine.turn.can_convey and engine.turn.get_turn_type() == "convey"
 
     @staticmethod
     # TODO Need to check if player can convey twice
     def convey2Legal(engine):
-        return engine.turn.can_convey and False
+        return engine.turn.can_convey and False and engine.turn.get_turn_type() == "convey"

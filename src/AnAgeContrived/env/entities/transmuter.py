@@ -4,8 +4,8 @@ from env.helpers.constants import INITIAL_ACTION_TOKENS
 class Transmuter:
     def __init__(self):
 
-        #TODO: modify the transmuter to actually be filled with the energies
-        t1 = TransmuterTile(1, 1) 
+        # TODO: modify the transmuter to actually be filled with the energies
+        t1 = TransmuterTile(1, 1)
         t2 = TransmuterTile(1, 1)
         t3 = TransmuterTile(1, 1)
         t4 = TransmuterTile(1, 1)
@@ -46,22 +46,6 @@ class Transmuter:
 
     def is_full(self):
         pass
-
-    def get_state(self):
-        w, h = 7, 4
-        matrix = [[0 for x in range(w)] for y in range(h)]
-        for i, tile in enumerate(self.active_tiles):
-            matrix[0][i] = tile.top_size
-            matrix[1][i] = tile.bottom_size
-            matrix[2][i] = tile.top.count(1)
-            matrix[3][i] = tile.bottom.count(1)
-
-        for i, tile in enumerate(self.reserved_tiles):
-            matrix[0][i+5] = tile.top_size
-            matrix[1][i+5] = tile.bottom_size
-            matrix[2][i+5] = tile.top.count(1)
-            matrix[3][i+5] = tile.bottom.count(1)
-        return matrix
 
     def print_transmuter(self):
         for lines in zip(*map(TransmuterTile.print_tile, self.active_tiles)):

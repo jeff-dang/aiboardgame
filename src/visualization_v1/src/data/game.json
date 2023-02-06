@@ -398,6 +398,34 @@
       "action": "Move Player",
       "action_details": "Position 31",
       "current_score": -19
+    },
+    "metadata": {
+      "Player 0": 20,
+      "Player 1": 30,
+      "Player 2": 10,
+      "Player 3": 5
+    }
+  },
+  {
+    "0": {
+      "player": 0,
+      "turn_num": 0,
+      "action": "Move Player",
+      "action_details": "Position 3",
+      "current_score": 0
+    },
+    "1": {
+      "player": 0,
+      "turn_num": 0,
+      "action": "Action Turn",
+      "action_details": "Action Turn",
+      "current_score": -1
+    },
+    "metadata": {
+      "Player 0": 10,
+      "Player 1": 10,
+      "Player 2": 0,
+      "Player 3": 5
     }
   }
 ]

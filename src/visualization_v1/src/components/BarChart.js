@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
-import { GradientTealBlue, GradientPurpleRed } from "@visx/gradient";
+import { GradientTealBlue } from "@visx/gradient";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useSpring, animated } from "@react-spring/web";
@@ -9,38 +9,72 @@ import {
   getAllDataExEnd,
   getFrequencyMapForPlayer,
   getDataWithMergedActions,
-  getBarGraphData,
+  sortFrequencyMap,
+  getNumberOfPlayers,
+  getNumberOfSimulations,
 } from "../data/getData";
 
-const allData = getAllDataExEnd();
-const mergedData = getDataWithMergedActions(allData);
-
-const freqMap = getFrequencyMapForPlayer(mergedData, 1, 0);
-
-const data = getBarGraphData(freqMap, 5);
-
+const bars = [3, 4, 5, 6, 7, 8, 9, 10];
 const axisTextColor = "#000000";
-const getMove = (move) => move.name;
-const getFrequecy = (move) => move.frequency;
-
-const axisBottomScale = scaleBand({
-  domain: data.map(getMove),
-  padding: 0.2,
-});
-
-const axisLeftScale = scaleLinear({
-  domain: [0, Math.max(...data.map(getFrequecy))],
-  nice: true,
-  padding: 0.2,
-});
-
 const verticalMargin = 120;
 
-const BarChart = ({ width, height }) => {
-  const [toggle, setToggle] = React.useState(true);
+const allData = getAllDataExEnd();
+const players = getNumberOfPlayers(allData);
+const numSimulations = getNumberOfSimulations(allData);
 
+function getBarGraphData(frequencyMap, numBars) {
+  sortFrequencyMap(frequencyMap);
+
+  const sliced = frequencyMap.slice(0, numBars);
+
+  return sliced;
+}
+
+const FrequentlyUsedMoves = ({ width, height }) => {
   const xMax = width;
   const yMax = height - verticalMargin;
+
+  const [player, setPlayer] = useState(0);
+  const [data, setData] = useState([]);
+  const [freqMap, setFreqMap] = useState([]);
+  const [numBars, setNumBars] = useState(3);
+  const [numSims, setNumSims] = useState(1);
+  const [toggle, setToggle] = useState(true);
+
+  const getMove = (move) => move.name;
+  const getFrequecy = (move) => move.frequency;
+
+  useEffect(() => {
+    const mergedData = getDataWithMergedActions(allData);
+    setFreqMap(getFrequencyMapForPlayer(mergedData, numSims, player));
+    setToggle(false);
+  }, [player, numSims, numBars]);
+
+  useEffect(() => {
+    setData(getBarGraphData(freqMap, numBars));
+    setTimeout(() => {
+      setToggle(true);
+    }, 400);
+  }, [freqMap]);
+
+  const axisBottomScale = useMemo(
+    () =>
+      scaleBand({
+        domain: data.map(getMove),
+        padding: 0.2,
+      }),
+    [data]
+  );
+
+  const axisLeftScale = useMemo(
+    () =>
+      scaleLinear({
+        domain: [0, Math.max(...data.map(getFrequecy))],
+        nice: true,
+        padding: 0.2,
+      }),
+    [data]
+  );
 
   const xScale = useMemo(
     () =>
@@ -50,7 +84,7 @@ const BarChart = ({ width, height }) => {
         domain: data.map(getMove),
         padding: 0.4,
       }),
-    [xMax]
+    [xMax, data]
   );
   const yScale = useMemo(
     () =>
@@ -59,20 +93,54 @@ const BarChart = ({ width, height }) => {
         round: true,
         domain: [0, Math.max(...data.map(getFrequecy))],
       }),
-    [yMax]
+    [yMax, data]
   );
 
   const { scale } = useSpring({
     from: { scale: 0 },
-    to: { scale: 1 },
+    to: { scale: toggle ? 1 : 0 },
   });
+
   const AnimatedBar = animated(Bar);
 
   axisBottomScale.rangeRound([0, xMax]);
   axisLeftScale.rangeRound([yMax, 0]);
 
   return (
-    <div className="centering">
+    <div style={{ marginBottom: 20 }} className="centering">
+      <div>
+        <h1> Frequently Used Moves</h1>
+        <span> Player: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setPlayer(Number(e.target.value))}
+        >
+          {players.map((player) => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
+        </select>
+        <span> Simulations: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setNumSims(Number(e.target.value))}
+        >
+          {numSimulations.map((simulation) => (
+            <option key={simulation} value={simulation}>
+              {simulation}
+            </option>
+          ))}
+        </select>
+        <span> Number of Moves: </span>
+        <select onChange={(e) => setNumBars(Number(e.target.value))}>
+          {bars.map((bar) => (
+            <option key={bar} value={bar}>
+              {bar}
+            </option>
+          ))}
+        </select>
+      </div>
       <svg width={width} height={height}>
         <GradientTealBlue id="teal" />
         <rect width={width} height={height} fill="url(#teal)" rx={14} />
@@ -105,6 +173,7 @@ const BarChart = ({ width, height }) => {
             fill: axisTextColor,
             fontSize: 12,
             textAnchor: "middle",
+            fontWeight: "bold",
           })}
         />
         <AxisBottom
@@ -114,8 +183,10 @@ const BarChart = ({ width, height }) => {
           tickStroke={axisTextColor}
           tickLabelProps={() => ({
             fill: axisTextColor,
-            fontSize: 12,
+            fontSize: `${numBars > 6 ? (numBars > 9 ? 6 : 7) : 11}`,
             textAnchor: "middle",
+            overflow: "hidden",
+            fontWeight: "bold",
           })}
         />
       </svg>
@@ -123,4 +194,4 @@ const BarChart = ({ width, height }) => {
   );
 };
 
-export default BarChart;
+export default FrequentlyUsedMoves;
