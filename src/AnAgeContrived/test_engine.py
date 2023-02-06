@@ -9,10 +9,21 @@ from env.entities.energy import EnergyTile, Energy
 from env.states import States
 from env.helpers.move_player import MovePlayer
 from env.helpers.constants import THE_ERIDONIC_GATE
+from env.helpers import take_action as TakeAction
+
 
 import numpy as np
 
 MAX_SIZE_EMBEDDED_ARRAY = 6
+
+
+def test_action_tokens():
+    player1 = Player('a', 'c', 1)
+    player1.transmuter.print_transmuter()
+    TakeAction.take_action(player1, 2)
+
+test_action_tokens()
+
 
 
 def build_2_walls(e):
@@ -103,7 +114,7 @@ def test_monument():
                 pass
 
 
-test_monument()
+# test_monument()
 
 
 def get_all_actions():
