@@ -1,3 +1,4 @@
+
 class TurnState():
     def __init__(self):
         # actionChoice can be convey or action

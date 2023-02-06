@@ -17,10 +17,12 @@ class Player():
                 Energy.PRIMAL, self), EnergyTile(Energy.PRIMAL, self)]
         }
         self.energies_released = []
+        self.exhausted_energies = [] #TODO: 
         # keep tracks of the player's location on the board
         self.location = starting_location
         self.initial_location = starting_location
         self.previous_location = 0
+        self.channel_marker = False #if it is true, player can convey twice #TODO: use this to adjust the action mask
         # TODO: need to track the energies on the board, on his hand (done) and the remaining energies
         # self._initiate_fill_tranmuster_files()
 
