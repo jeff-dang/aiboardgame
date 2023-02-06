@@ -2,12 +2,12 @@ from enum import Enum
 
 
 class Map_Areas(Enum):
-    PLAINS = 1
-    QUARRY = 2
-    SEA = 3
-    MOUNTAIN = 4
-    FOREST = 5
-    SWAMP = 6
+    PLAINS = 0
+    QUARRY = 1
+    SEA = 2
+    MOUNTAIN = 3
+    FOREST = 4
+    SWAMP = 5
 
 
 map = {

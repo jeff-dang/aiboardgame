@@ -100,14 +100,19 @@ class raw_env(AECEnv):
         # Get name of current agent self.agent_selection
 
         # Play turn, pass in agent name, add some extra details
-        actions = get_actions(self.engine.current_player,self.engine)
+        actions = get_actions(self.engine.current_player, self.engine)
+
+        legal_actions = self.engine.get_legal_action_names(
+            self.agent_selection)
         turn_entry = {
             "player": self.engine.current_player,
             "turn_num": self.engine.turn_counter,
             "action": actions[action.item(0)].action,
             "action_details": actions[action.item(0)].action_details,
-            "current_score": self.rewards[self.agent_selection]
+            "current_score": self.rewards[self.agent_selection],
+            "legal_actions": legal_actions,
         }
+
         self.simulation_history[str(self.engine.action_counter
                                     )] = turn_entry
         self.engine.play_turn(self.agent_selection, action)

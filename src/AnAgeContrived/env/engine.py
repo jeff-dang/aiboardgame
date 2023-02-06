@@ -1,9 +1,12 @@
 from env.entities.turn_state import TurnState
 from env.entities.player import Player
 from env.entities.map import Map
+from env.entities.monument import Monument
+from env.entities.monument_wall import MonumentWall
 from env.action_initiater import get_actions
-import env.helpers.constants as constants
 from env.states import States
+from env.scoring import Scoring
+import env.helpers.constants as constants
 
 
 class Engine:
@@ -17,7 +20,16 @@ class Engine:
         self.players = []
         self.turn = TurnState()
         self.monument_index = 0
-        self.monuments = constants.MONUMENTS
+
+        self.monuments = []
+        for m in constants.MONUMENT_DICT:
+            walls = []
+            for wall in m['walls']:
+                walls.append(MonumentWall(wall['accepted_energy_types'],
+                             wall['rewarded_energy']))
+
+            self.monuments.append(Monument(m['name'], m['location'], walls))
+
         for i in range(len(constants.CHARACTER_NAMES)):
             self.players.append(
                 Player(constants.AGENT_NAMES[i], constants.CHARACTER_NAMES[i], self.map.starting_positions[i]))
@@ -37,18 +49,26 @@ class Engine:
 
     def reset(self):
         self.__init__()
+        self.monuments = []
+        for m in constants.MONUMENT_DICT:
+            walls = []
+            for wall in m['walls']:
+                walls.append(MonumentWall(wall['accepted_energy_types'],
+                             wall['rewarded_energy']))
+
+            self.monuments.append(Monument(m['name'], m['location'], walls))
 
     def get_agents(self):
         return constants.AGENT_NAMES
 
     def get_action_names(self):
         actions = get_actions(self.players[self.current_player], self)
+        action_names = []
         for i, a in enumerate(actions):
-            print(i)
-            print("action: ", a.action)
-            print("action_details: ", a.action_details)
+            action_names.append(
+                {"index": i, "action": a.action, "action_details": a.action_details})
 
-        return
+        return action_names
 
     def get_legal_action_names(self, agent_name):
         actions = get_actions(self.get_agent(agent_name), self)
@@ -56,7 +76,7 @@ class Engine:
         for i, action in enumerate(actions):
             if(action.check()):
                 legal_actions.append(
-                    str(i)+": "+action.action + action.action_details)
+                    str(i)+": "+action.action + " " + action.action_details)
         return legal_actions
 
     def get_characters(self):
@@ -86,6 +106,9 @@ class Engine:
             return
 
         actions = get_actions(self.players[self.current_player], self)
+        print(self.get_legal_action_names(agent_name))
+        print("EXECUTING ACTION", actions[action].action)
+
         actions[action].execute()
 
         # check whether the monument wall is filled and either:
@@ -105,8 +128,8 @@ class Engine:
                 self.monument_index += 1
                 self.num_of_built_monuments += 1
 
-        print('Current wall is:',
-              self.monuments[self.monument_index].name, 'index is:', self.monument_index)
+        print('Current monument is:',
+              self.monuments[self.monument_index].name, 'index is:', self.monument_index, 'num walls completed', self.monuments[self.monument_index].get_num_walls_completed())
         monument = self.monuments[self.monument_index]
         if monument.is_top_wall_completed():
             filled_wall = monument.get_top_wall()
@@ -134,11 +157,9 @@ class Engine:
     def get_reward(self, agent_name):
         agent = self.get_agent(agent_name)
 
-        transumter_score = self.get_agent(
-            agent_name).get_transmuter().get_total_empty_cells() * 10
-        movement_score = abs(agent.location - agent.initial_location)*100
+        monument_score = Scoring.get_monument_score(self, agent_name)
 
-        return movement_score
+        return monument_score
 
     def get_winner(self):
         max = 0
@@ -152,7 +173,6 @@ class Engine:
         agent = self.get_agent(agent_name)
         print(agent.character)
         agent.get_transmuter().print_transmuter()
-        # print(self.monuments[0].get_top_wall().print_wall())
         print(agent.location, agent.initial_location)
         self.turn.print_turn_state()
 
