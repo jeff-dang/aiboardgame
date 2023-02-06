@@ -30,27 +30,29 @@ def build_2_walls(e):
     e.play_turn("player_0", 48)
     e.play_turn("player_0", 47)
     e.play_turn("player_0", 50)
-    return
     e.play_turn("player_1", 48)
     e.play_turn("player_1", 44)
     e.play_turn("player_1", 50)
     return
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 44)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 47)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 45)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 45)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 44)
+
+
+def calc_scores():
+    e = Engine()
+    e.play_turn("player_0", 48)
+    gs = e.get_game_state()
+    print(len(gs))
+    print(len(gs[0]))
+    return
+
+
+calc_scores()
 
 
 def test_monument():
     e = Engine()
     current_player = "player_0"
     # e.get_action_names()
+
     # build_2_walls(e)
     e.monuments = e.monuments[0:1]
     for i, monument in enumerate(e.monuments):
@@ -115,6 +117,9 @@ def test_monument():
 
 
 # test_monument()
+
+    build_2_walls(e)
+
 
 
 def get_all_actions():

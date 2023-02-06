@@ -28,10 +28,12 @@ class FillMonument():
 
         # Check turn is type action
         if(not engine.turn.get_turn_type() == "action"):
+            #print('not action turn')
             return False
 
         # Check if current monument is completed, should never occur
         if(engine.monuments[engine.monument_index].is_completed()):
+            #print('monument completed')
             return False
 
         current_player = engine.players[engine.current_player]
@@ -39,10 +41,13 @@ class FillMonument():
 
         # check if they even have that energy they want to fill
         if(len(current_player.energies_on_char_board[energy_type]) == 0):
+            #print("dont have the energy", energy_type)
             return False
 
         # check if energy they have fits on current monument
         if(not current_monument.get_top_wall().check_accept(energy_type)):
+            #print("does not accept the energy", energy_type)
+            # print(current_monument.get_top_wall().remaining_sections)
             return False
 
         return True

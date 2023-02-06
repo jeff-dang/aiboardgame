@@ -71,6 +71,7 @@ const HeatMap = ({
   const [player, setPlayer] = useState(0);
   const [freqMap, setFreqMap] = useState([]);
   const [data, setData] = useState([]);
+  const [toggle, setToggle] = useState(true);
 
   // accessors
   const bins = (d) => d.bins;
@@ -103,10 +104,14 @@ const HeatMap = ({
   useEffect(() => {
     const mergedData = getDataWithMergedActions(allData);
     setFreqMap(getCountMapForPlayer(mergedData, numSims, player));
+    setToggle(false);
   }, [player, numSims]);
 
   useEffect(() => {
     setData(getData(freqMap, 6));
+    setTimeout(() => {
+      setToggle(true);
+    }, 500);
   }, [freqMap]);
 
   xScale.range([0, xMax]);
@@ -114,7 +119,7 @@ const HeatMap = ({
 
   const { scale } = useSpring({
     from: { scale: 0 },
-    to: { scale: 1 },
+    to: { scale: toggle ? 1 : 0 },
   });
 
   const AnimatedHeatMap = animated(HeatmapCircle);

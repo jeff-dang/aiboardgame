@@ -10,8 +10,11 @@ class States:
         character_state = []
         transumter = States.get_transmuter_state(player.get_transmuter())
         location = States.get_map_state(player)
+        monuments = States.get_monument_state(engine, player)
         character_state.extend(transumter)
         character_state.extend(location)
+        character_state.extend(monuments)
+
         return character_state
 
     def get_map_state(player):
@@ -59,3 +62,103 @@ class States:
             state.append(embedded_array_reserved_tile_top_size)
             state.append(embedded_array_reserved_tile_bottom_size)
         return state
+
+    # TODO CLEAN THIS UP LOL
+    def get_monument_state(engine, player):
+        monument_state = []
+        for i, monument in enumerate(engine.monuments):
+            embedded_monument_num = [0]*MAX_SIZE_EMBEDDED_ARRAY
+            embedded_monument_location = [0]*MAX_SIZE_EMBEDDED_ARRAY
+            embedded_num_walls_completed = [0]*MAX_SIZE_EMBEDDED_ARRAY
+
+            embedded_monument_num[i] = 1
+            embedded_monument_location[monument.location.value] = 1
+            embedded_num_walls_completed[monument.get_num_walls_completed(
+            )] = 1
+
+            monument_state.append(embedded_monument_num)
+            monument_state.append(embedded_monument_location)
+            monument_state.append(embedded_num_walls_completed)
+
+            MAX_SIZE_WALL_TILE_SPOTS = 3
+            embedded_top_wall_pos_accepts = [
+                [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALL_TILE_SPOTS)]
+            embedded_top_wall_pos_owner = [
+                [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALL_TILE_SPOTS)]
+
+            # Does not have a third spot to fill, accepts none and owner is none
+            if(monument.get_top_wall().num_sections < 3):
+                embedded_top_wall_pos_accepts[MAX_SIZE_WALL_TILE_SPOTS-1][0] = 1
+                embedded_top_wall_pos_owner[MAX_SIZE_WALL_TILE_SPOTS -
+                                            1][len(engine.players)] = 1
+
+            # Assigns value based on filled sections and who owns them
+            for i, pos in enumerate(monument.get_top_wall().filled_sections):
+                # No player owns it assign it last index (index 5)
+                if(pos == 0):
+                    embedded_top_wall_pos_owner[i][len(engine.players)] = 1
+                else:
+                    current_players_index = next(
+                        (index for (index, d) in enumerate(engine.players) if d.agent == player.agent), None)
+
+                    owner_index = next(
+                        (index for (index, d) in enumerate(engine.players) if d.agent == pos.owner.agent), None)
+                    distance_between = (
+                        owner_index - current_players_index) % 5
+                    embedded_top_wall_pos_owner[i][distance_between] = 1
+
+            monument_state.extend(embedded_top_wall_pos_owner)
+            # Assigns value based on remaining sections and their accepting energy
+            for i, pos in enumerate(monument.get_top_wall().remaining_sections):
+                if(pos is None):
+                    embedded_top_wall_pos_accepts[i][0] = 1
+                else:
+                    embedded_top_wall_pos_accepts[i][pos.value] = 1
+
+            monument_state.extend(embedded_top_wall_pos_accepts)
+
+            MAX_SIZE_WALLS_PER_MONUMENT = 5  # Most have 4, one has 5
+            embedded_top_wall_owner = [
+                [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALLS_PER_MONUMENT)]
+
+            if(len(monument.walls) < 5):
+                embedded_top_wall_owner[MAX_SIZE_WALLS_PER_MONUMENT-1][len(
+                    engine.players)] = 1
+
+            embedded_wall_rewards = [
+                [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALLS_PER_MONUMENT*2)]
+
+            # If only 4 walls then last two are empty
+            MAX_REWARD_SIZE = 5
+            if(len(monument.walls) < 5):
+                embedded_wall_rewards[MAX_SIZE_WALLS_PER_MONUMENT *
+                                      2-1][MAX_REWARD_SIZE] = 1
+                embedded_wall_rewards[MAX_SIZE_WALLS_PER_MONUMENT *
+                                      2-2][MAX_REWARD_SIZE] = 1
+
+            for j, wall in enumerate(monument.walls):
+                if(wall.owner is None):
+                    embedded_top_wall_owner[j][len(engine.players)] = 1
+                else:
+                    current_players_index = next(
+                        (index for (index, d) in enumerate(engine.players) if d.agent == player.agent), None)
+
+                    owner_index = next(
+                        (index for (index, d) in enumerate(engine.players) if d.agent == wall.owner.agent), None)
+                    distance_between = (
+                        owner_index - current_players_index) % 5
+                    embedded_top_wall_owner[j][distance_between] = 1
+
+                for k, reward in enumerate(wall.rewarded_energy):
+                    if(reward == "Any"):
+                        ANY_INDEX = 0
+                        embedded_wall_rewards[j*2+k][ANY_INDEX] = 1
+                    else:
+                        embedded_wall_rewards[j*2+k][reward.value] = 1
+
+                    if(len(wall.rewarded_energy) < 2):
+                        embedded_wall_rewards[j*2+1][MAX_REWARD_SIZE] = 1
+
+            monument_state.extend(embedded_top_wall_owner)
+            monument_state.extend(embedded_wall_rewards)
+        return monument_state
