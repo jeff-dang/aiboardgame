@@ -74,9 +74,17 @@ def _take_move_action(action_token):
 def _take_release_energy_action(player, action_token):
     available_tiles = []
     for i in range(0, len(action_token.transmuter_tiles)):
+        # print('top tiles is:', player.transmuter.active_tiles[i].top, 'and condition is:', action_token.transmuter_tiles[i] == 1 and ((len(player.transmuter.active_tiles[i].top) - player.transmuter.active_tiles[i].top.count(0)) > 0))
+        # print('action_token.transmuter_tiles[i] is:', action_token.transmuter_tiles[i])
+        # print('cond 1 is:', action_token.transmuter_tiles[i] == 1, 'and cond2 is:', ((len(player.transmuter.active_tiles[i].top) - player.transmuter.active_tiles[i].top.count(0)) > 0))
         if action_token.transmuter_tiles[i] == 1 and ((len(player.transmuter.active_tiles[i].top) - player.transmuter.active_tiles[i].top.count(0)) > 0):
             available_tiles.append(i)
-    rand_num = randint(0, len(available_tiles))
+    # print('AVAILABLE TILES:', available_tiles)
+    if len(available_tiles) <= 0:
+        print('not enough energies')
+        return False
+    rand_num = randint(0, len(available_tiles) - 1)
+    # print('rand_num is:', rand_num)
     index = available_tiles[rand_num]
     transmuter_tile = player.transmuter.active_tiles[index]
     if (len(transmuter_tile.top) - transmuter_tile.top.count(0)) > 0:

@@ -53,13 +53,33 @@ class TransmuterTile:
 
     #TODO: check to see whether the top and bottom has actually energy in them. do not release (pop) the 0s
     def release_bottom_energy(self):
-        energy = self.bottom.pop()
-        self.bottom.append(0)
+        num_zeros = self.bottom.count(0)
+        if num_zeros > 0:
+            index = self.bottom.index(0)
+            if index == 0:
+                index = 1
+            elif index == 1:
+                index = 0
+            energy = self.bottom[index]
+            self.bottom[index] = 0
+        else:
+            energy = self.bottom.pop()
+            self.bottom.append(0)
         return energy
 
     def release_top_energy(self):
-        energy = self.top.pop()
-        self.top.append(0)
+        num_zeros = self.top.count(0)
+        if num_zeros > 0:
+            index = self.top.index(0)
+            if index == 0:
+                index = 1
+            elif index == 1:
+                index = 0
+            energy = self.top[index]
+            self.top[index] = 0
+        else:
+            energy = self.top.pop()
+            self.top.append(0)
         return energy
 
     def print_tile(self):
