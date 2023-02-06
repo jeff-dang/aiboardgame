@@ -4,6 +4,7 @@ import {
   getAllDataExEnd,
   getDataWithMergedActions,
   getMap,
+  getNumberOfMoves,
   getNumberOfPlayers,
   getNumberOfSimulations,
 } from "../data/getData";
@@ -15,12 +16,6 @@ const textProps = {
   textAnchor: "middle",
 };
 
-const allMoves = [];
-const totalMoves = 10;
-for (var i = 3; i <= totalMoves; i++) {
-  allMoves.push(i);
-}
-
 const allData = getAllDataExEnd();
 const players = getNumberOfPlayers(allData);
 const numSimulations = getNumberOfSimulations(allData);
@@ -30,6 +25,8 @@ function makeGraph(dataMap, dataArr, numMoves) {
   let arr = JSON.parse(JSON.stringify(dataArr));
   let map = JSON.parse(JSON.stringify(dataMap));
   let data = { name: "Start", textProps: textProps, children: [] };
+  if (dataArr.length === 0) return data;
+
   const currLevel = data.children;
   const queue = [];
   let visited = new Array(arr.length);
@@ -57,7 +54,6 @@ function makeGraph(dataMap, dataArr, numMoves) {
       if (arr[index].length === 0) moves--;
     }
   }
-  console.log(data);
   return data;
 }
 
@@ -71,12 +67,19 @@ const TreeGraph = () => {
   const [nextMoveArray, setNextMoveArray] = useState(initArr);
   const [indexMap, setIndexMap] = useState(initMap);
   const [data, setData] = useState(makeGraph(initMap, initArr, numMoves));
+  const [allMoves, setAllMoves] = useState([3]);
 
   useEffect(() => {
     const mergedData = getDataWithMergedActions(allData);
     const results = getMap(mergedData, numSims, player);
     setNextMoveArray(results[0]);
     setIndexMap(results[1]);
+    const maxMoves = getNumberOfMoves(allData, numSims, player);
+    const newAllMoves = [];
+    for (let i = 3; i <= Math.max(3, maxMoves); i++) {
+      newAllMoves.push(i);
+    }
+    setAllMoves(newAllMoves);
   }, [player, numSims]);
 
   useEffect(() => {

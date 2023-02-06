@@ -216,3 +216,20 @@ export function getNumberOfSimulations(data) {
 
   return result;
 }
+
+export function getNumberOfMoves(data, numSims, player) {
+  const simulationData = Object.fromEntries(
+    Object.entries(data).slice(0, numSims)
+  );
+
+  let result = 2;
+  Object.entries(simulationData).forEach((simulation) => {
+    const playerData = getPlayerData(simulation[1], player);
+    const moves = Object.keys(playerData).length;
+
+    if (moves > result) {
+      result = moves;
+    }
+  });
+  return result + 1;
+}

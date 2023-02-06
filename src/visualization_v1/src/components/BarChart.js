@@ -183,7 +183,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
           tickStroke={axisTextColor}
           tickLabelProps={() => ({
             fill: axisTextColor,
-            fontSize: `${numBars > 6 ? (numBars > 9 ? 6 : 7) : 11}`,
+            fontSize: `${numBars > 5 ? (numBars > 9 ? 6 : 7) : 11}`,
             textAnchor: "middle",
             overflow: "hidden",
             fontWeight: "bold",
