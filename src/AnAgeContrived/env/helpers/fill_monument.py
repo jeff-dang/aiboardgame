@@ -25,9 +25,75 @@ class FillMonument():
                 print('Remaining sections:', monument_wall.remaining_sections)
             print('***----------------------------------------***')
 
+    def is_legal_primal(engine):
+        if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
+            return False
+
+        if(engine.monuments[engine.monument_index].is_completed()):
+            return False
+
+        current_player = engine.players[engine.current_player]
+
+        if(len(current_player.energies_released[Energy.PRIMAL]) == 0):
+            return False
+
+        return True
+    
+    def is_legal_constructive(engine):
+        current_player = engine.players[engine.current_player]
+        current_monument = engine.monuments[engine.monument_index]
+        if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
+            return False
+
+        if(current_monument.is_completed()):
+            return False
+
+        if(len(current_player.energies_released[Energy.CONSTRUCTIVE]) == 0):
+            return False
+        
+        if Energy.CONSTRUCTIVE in current_monument.get_top_wall().remaining_sections:
+            return True
+
+        return False
+    
+    def is_legal_invertible(engine):
+        current_player = engine.players[engine.current_player]
+        current_monument = engine.monuments[engine.monument_index]
+        if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
+            return False
+
+        if(current_monument.is_completed()):
+            return False
+
+        if(len(current_player.energies_released[Energy.INVERTIBLE]) == 0):
+            return False
+        
+        if Energy.INVERTIBLE in current_monument.get_top_wall().remaining_sections:
+            return True
+
+        return False
+    
+    def is_legal_generative(engine):
+        current_player = engine.players[engine.current_player]
+        current_monument = engine.monuments[engine.monument_index]
+        if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
+            return False
+
+        if(current_monument.is_completed()):
+            return False
+
+        if(len(current_player.energies_released[Energy.GENERATIVE]) == 0):
+            return False
+        
+        if Energy.GENERATIVE in current_monument.get_top_wall().remaining_sections:
+            return True
+
+        return False
+
+
     def is_legal_to_fill_monument_tile(engine, energy_type):
 
-        print('!TURN *** type is:', engine.turn.get_turn_type())
+        # print('!TURN *** type is:', engine.turn.get_turn_type())
         # Check turn is type action
         if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
             #print('not action turn')
@@ -47,10 +113,17 @@ class FillMonument():
             return False
 
         # check if energy they have fits on current monument
-        if(not current_monument.get_top_wall().check_accept(energy_type)):
-            print("does not accept the energy", energy_type)
-            print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
-            print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)
-            return False
+        # if(not current_monument.get_top_wall().check_accept(energy_type)):
+        #     print("does not accept the energy", energy_type)
+        #     print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
+        #     print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)
+        #     return False
+
+        if energy_type != Energy.PRIMAL:
+            if not (energy_type in current_monument.get_top_wall().remaining_sections):
+                print("does not accept the energy", energy_type)
+                print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
+                print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)
+                return False
 
         return True

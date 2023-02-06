@@ -47,8 +47,8 @@ class Player():
         tile1.fill_tile(
             self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)
         tile2.fill_tile(
-            self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
-        tile2.fill_tile(self.exhausted_energies[Energy.PRIMAL].pop(), 2)
+            self.exhausted_energies[Energy.PRIMAL].pop(), 1)
+        tile2.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 2)
         tile3.fill_tile(
             self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 1)
         tile3.fill_tile(

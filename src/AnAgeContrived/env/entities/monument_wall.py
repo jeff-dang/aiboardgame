@@ -10,7 +10,7 @@ class MonumentWall():
     # owner is the player that owns this tile --> Can identify the owner of every energy tile using EnergyTile.owner
     # monument_benefit_token is the benefit token that is placed on this tile, implementation of this is TBD
     def __init__(self, acceptable_energy_types, rewarded_energy, monument_benefit_token=None):
-        print('monument_wall.py - INITIALIZING monuments with list:', acceptable_energy_types)
+        # print('monument_wall.py - INITIALIZING monuments with list:', acceptable_energy_types)
         self.sections = acceptable_energy_types
         self.remaining_sections = acceptable_energy_types
         self.num_sections = len(acceptable_energy_types)

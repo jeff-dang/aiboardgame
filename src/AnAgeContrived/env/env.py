@@ -113,41 +113,16 @@ class raw_env(AECEnv):
 
         legal_actions = self.engine.get_legal_action_names(
             self.agent_selection)
-        print('DATA BEOFRE JSON starts')
-        print("player", self.engine.current_player)
-        print("turn_num", self.engine.turn_counter)       
+        # print('DATA BEOFRE JSON starts')
+        # print("player", self.engine.current_player)
+        # print("turn_num", self.engine.turn_counter)       
         current_monument = self.engine.monuments[self.engine.monument_index]
-        print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
-        print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)    
-        print('LEGAL ACTIONS ARE:', legal_actions)
-        print('ACTION MASK is:', action_mask)
-        print('DATA BEOFRE JSON ends')
-        # if self.engine.current_player == 1:
-        #     turn_entry = {
-        #         "player": self.engine.current_player,
-        #         "turn_num": self.engine.turn_counter,
-        #         "turn_type": str(self.engine.turn.turn_type),
-        #         "action": actions[action.item(0)].action,
-        #         "action_details": actions[action.item(0)].action_details,
-        #         "current_score": self.rewards[self.agent_selection],
-        #         "legal_actions": legal_actions,
-        #         "player_exhausted_energies": str(self.engine.players[self.engine.current_player].exhausted_energies),
-        #         "player_released_energies": str(self.engine.players[self.engine.current_player].energies_released),
-        #         "monuments": str(self.engine.monuments),
-        #         "current_wall_name": current_monument.name,
-        #         "c_w_accepted_energies": str(current_monument.get_top_wall().sections),
-        #         "c_w_remaining_sections": str(current_monument.get_top_wall().remaining_sections),
-        #         "c_w_remaining_section_num": str(current_monument.get_top_wall().empty_sections),
-        #         "c_w_filled_sections": str(current_monument.get_top_wall().filled_sections),
-        #         # "all_actions": action_details
-        #         # "action_mask": action_mask
-        #     }
+        # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
+        # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)    
+        # print('LEGAL ACTIONS ARE:', legal_actions)
+        # print('ACTION MASK is:', action_mask)
+        # print('DATA BEOFRE JSON ends')
 
-        #     self.simulation_history[str(self.engine.action_counter
-        #                                 )] = turn_entry
-
-
-        # if self.engine.current_player == 1:
         turn_entry = {
             "player": self.engine.current_player,
             "turn_num": self.engine.turn_counter,
@@ -172,13 +147,13 @@ class raw_env(AECEnv):
         self.simulation_history[str(self.engine.action_counter
                                     )] = turn_entry
         
-        print('DATA AFTER JSON starts')
-        print("player", self.engine.current_player)
-        print("turn_num", self.engine.turn_counter)       
-        current_monument = self.engine.monuments[self.engine.monument_index]
-        print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
-        print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)    
-        print('DATA AFTER JSON ends')
+        # print('DATA AFTER JSON starts')
+        # print("player", self.engine.current_player)
+        # print("turn_num", self.engine.turn_counter)       
+        # current_monument = self.engine.monuments[self.engine.monument_index]
+        # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
+        # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)    
+        # print('DATA AFTER JSON ends')
 
         self.engine.play_turn(self.agent_selection, action)
 
@@ -203,8 +178,8 @@ class raw_env(AECEnv):
             self.render()
 
         print('env.py - @@@@@@@@@@@@@@@@@@@@ END STEP FUNCTION @@@@@@@@@@@@@@@@@@@@@@@@@')
-        print()
-        print()
+        # print()
+        # print()
 
     def reset(self, seed=None, return_info=False, options=None):
         # reset environment
