@@ -47,7 +47,22 @@ class TransmuterTile:
                 else:
                     self.bottom[0] = energy
 
-    def empty_tile(self):
+    def empty_tile(self, player):
+        for i in self.top:
+            print('i is:', i, 'and condition is:', i != 0)
+            if i != 0:
+                index = self.top.index(i)
+                energy = self.top[index]
+                self.top[index] = 0
+                print('Energy at the top is:', energy)
+                player.exhausted_energies[energy.energy_type].append(energy)
+        for i in self.bottom:
+            if i != 0:
+                index = self.bottom.index(i)
+                energy = self.bottom[index]
+                self.bottom[index] = 0
+                print('Energy at the bottom is:', energy)
+                player.exhausted_energies[energy.energy_type].append(energy)
         self.top = [0, 0]
         self.bottom = [0, 0]
 

@@ -1,4 +1,5 @@
 import copy
+from env.entities.turn_state import TurnType
 
 
 class MovePlayer():
@@ -12,13 +13,14 @@ class MovePlayer():
             player.previous_location = player.location
         player.location = location
         engine.turn.can_move = False
+        engine.turn.turn_type = TurnType.ACTION_TURN
 
     @staticmethod
     def is_legal_move(player, engine, next_location):
         current_location = player.location
         map = engine.map
 
-        if(not engine.turn.get_turn_type() == "action"):
+        if(not engine.turn.get_turn_type() == TurnType.MOVE_TURN):
             return False
         if(not engine.turn.can_move):
             return False

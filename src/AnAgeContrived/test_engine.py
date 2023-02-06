@@ -8,7 +8,7 @@ from env.entities.monument_wall import MonumentWall
 from env.entities.energy import EnergyTile, Energy
 from env.states import States
 from env.helpers.move_player import MovePlayer
-from env.helpers.constants import THE_ERIDONIC_GATE
+# from env.helpers.constants import THE_ERIDONIC_GATE
 from env.helpers import take_action as TakeAction
 
 
@@ -20,7 +20,7 @@ MAX_SIZE_EMBEDDED_ARRAY = 6
 def test_action_tokens():
     player1 = Player('a', 'c', 1)
     player1.transmuter.print_transmuter()
-    TakeAction.take_action(player1, 2)
+    TakeAction.take_action(player1, 'engine', 2)
 
 test_action_tokens()
 
@@ -45,7 +45,7 @@ def calc_scores():
     return
 
 
-calc_scores()
+# calc_scores()
 
 
 def test_monument():
@@ -118,7 +118,7 @@ def test_monument():
 
 # test_monument()
 
-    build_2_walls(e)
+    # build_2_walls(e)
 
 
 
@@ -225,3 +225,9 @@ def test_conveying():
     print('************* AFTER ****************')
     t1.print_transmuter()
     print('************* END **************')
+
+def test_get_action_names():
+    e = Engine()
+    print(e.get_action_names())
+
+test_get_action_names()

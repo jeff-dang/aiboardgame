@@ -13,7 +13,7 @@ class ConveyOnceFirstCard(Command):
         self.action_details = "First Card"
 
     def execute(self):
-        Convey.convey(self.engine, self.player.transmuter, 1, 0)
+        Convey.convey(self.engine, self.player, 1, 0)
 
     def check(self) -> bool:
         return Convey.convey1Legal(self.engine)
@@ -27,7 +27,7 @@ class ConveyOnceSecondCard(Command):
         self.action_details = "Second Card"
 
     def execute(self):
-        Convey.convey(self.engine, self.player.transmuter, 1, 1)
+        Convey.convey(self.engine, self.player, 1, 1)
 
     def check(self) -> bool:
         return Convey.convey1Legal(self.engine)
@@ -41,7 +41,7 @@ class ConveyTwiceFirstOrder(Command):
         self.action_details = "First Order"
 
     def execute(self):
-        Convey.convey(self.engine, self.player.transmuter, 2, 0)
+        Convey.convey(self.engine, self.player, 2, 0)
 
     def check(self) -> bool:
         return Convey.convey2Legal(self.engine)
@@ -55,7 +55,7 @@ class ConveyTwiceSecondOrder(Command):
         self.action_details = "Second Order"
 
     def execute(self):
-        Convey.convey(self.engine, self.player.transmuter, 2, 1)
+        Convey.convey(self.engine, self.player, 2, 1)
 
     def check(self) -> bool:
         return Convey.convey2Legal(self.engine)

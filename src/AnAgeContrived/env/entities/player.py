@@ -9,15 +9,18 @@ class Player():
         self.character = character
         # TODO: let the player to fill the transmuter.
         self.transmuter = Transmuter()
-        self.energies_on_char_board = {
+        self.exhausted_energies = {
             Energy.CONSTRUCTIVE: [EnergyTile(Energy.CONSTRUCTIVE, self), EnergyTile(Energy.CONSTRUCTIVE, self)],
             Energy.INVERTIBLE: [EnergyTile(Energy.INVERTIBLE, self), EnergyTile(Energy.INVERTIBLE, self)],
             Energy.GENERATIVE: [EnergyTile(Energy.GENERATIVE, self), EnergyTile(Energy.GENERATIVE, self)],
-            Energy.PRIMAL: [EnergyTile(
-                Energy.PRIMAL, self), EnergyTile(Energy.PRIMAL, self)]
+            Energy.PRIMAL: [EnergyTile(Energy.PRIMAL, self), EnergyTile(Energy.PRIMAL, self)]
         }
-        self.energies_released = []
-        self.exhausted_energies = [] #TODO: 
+        self.energies_released = {
+            Energy.CONSTRUCTIVE: [],
+            Energy.INVERTIBLE: [],
+            Energy.GENERATIVE: [],
+            Energy.PRIMAL: []
+        }
         # keep tracks of the player's location on the board
         self.location = starting_location
         self.initial_location = starting_location
@@ -40,13 +43,13 @@ class Player():
         tile2 = self.transmuter.active_tiles[1]
         tile3 = self.transmuter.active_tiles[2]
         tile1.fill_tile(
-            self.energies_on_char_board[Energy.CONSTRUCTIVE].pop(), 1)
+            self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 1)
         tile1.fill_tile(
-            self.energies_on_char_board[Energy.INVERTIBLE].pop(), 2)
+            self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)
         tile2.fill_tile(
-            self.energies_on_char_board[Energy.GENERATIVE].pop(), 1)
-        tile2.fill_tile(self.energies_on_char_board[Energy.PRIMAL].pop(), 2)
+            self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
+        tile2.fill_tile(self.exhausted_energies[Energy.PRIMAL].pop(), 2)
         tile3.fill_tile(
-            self.energies_on_char_board[Energy.CONSTRUCTIVE].pop(), 1)
+            self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 1)
         tile3.fill_tile(
-            self.energies_on_char_board[Energy.INVERTIBLE].pop(), 2)
+            self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)

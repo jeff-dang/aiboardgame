@@ -9,7 +9,7 @@ class TakeAction1(Command):
         self.action_details = "First Transmuter's Action Token"
 
     def execute(self):
-        TakeAction.take_action(self.player, 0)
+        TakeAction.take_action(self.player, self.engine, 0)
 
     def check(self):
         return TakeAction.is_take_action_legal(self.player, self.engine, 0)
@@ -22,7 +22,7 @@ class TakeAction2(Command):
         self.action_details = "Second Transmuter's Action Token"
 
     def execute(self):
-        TakeAction.take_action(self.player, 1)
+        TakeAction.take_action(self.player, self.engine, 1)
 
     def check(self):
         return TakeAction.is_take_action_legal(self.player, self.engine, 1)
@@ -35,7 +35,7 @@ class TakeAction3(Command):
         self.action_details = "Third Transmuter's Action Token"
 
     def execute(self):
-        TakeAction.take_action(self.player, 2)
+        TakeAction.take_action(self.player, self.engine, 2)
 
     def check(self):
         return TakeAction.is_take_action_legal(self.player, self.engine, 2)
@@ -48,7 +48,7 @@ class TakeAction4(Command):
         self.action_details = "Forth Transmuter's Action Token"
 
     def execute(self):
-        TakeAction.take_action(self.player, 3)
+        TakeAction.take_action(self.player, self.engine, 3)
 
     def check(self):
         return TakeAction.is_take_action_legal(self.player, self.engine, 3)
@@ -61,7 +61,7 @@ class TakeAction5(Command):
         self.action_details = "Fifth Transmuter's Action Token"
 
     def execute(self):
-        TakeAction.take_action(self.player, 4)
+        TakeAction.take_action(self.player, self.engine, 4)
 
     def check(self):
         return TakeAction.is_take_action_legal(self.player, self.engine, 4)

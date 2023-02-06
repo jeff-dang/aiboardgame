@@ -30,12 +30,24 @@ class Transmuter:
 
     # conveys the transmuter tiles only once, if convey 2 call method twice
     # Upgrade performance here
-    def convey(self, reservedTileIndex):
+    def convey(self, player, reservedTileIndex):
         new_active_tiles = [None, None, None, None, None]
-        new_active_tiles[0] = self.reserved_tiles[reservedTileIndex]
+        new_tile = self.reserved_tiles[reservedTileIndex]
+        #FILL NEW TRANSMUTER TILE
+        for i in player.exhausted_energies:
+            if len(player.exhausted_energies[i]) > 0:
+                num_empty_top_sections = new_tile.top.count(0)
+                num_empty_bottom_sections = new_tile.bottom.count(0)
+                if  num_empty_bottom_sections > 0:
+                    new_tile.fill_tile(player.exhausted_energies[i].pop(), 2)
+                    print('NEW TILE BOTTOM FILLED')
+                elif num_empty_top_sections > 0:
+                    new_tile.fill_tile(player.exhausted_energies[i].pop(), 1)
+                    print('NEW TILE TOP FILLED')
+        new_active_tiles[0] = new_tile                 
         for i in range(len(self.active_tiles)-1):
             new_active_tiles[i+1] = self.active_tiles[i]
-        self.active_tiles[4].empty_tile()
+        self.active_tiles[4].empty_tile(player)
         self.reserved_tiles[reservedTileIndex] = self.active_tiles[4]
         self.active_tiles = new_active_tiles
 
@@ -50,6 +62,15 @@ class Transmuter:
     def print_transmuter(self):
         for lines in zip(*map(TransmuterTile.print_tile, self.active_tiles)):
             print(*lines)
+
+    def print_energies(self):
+        energies = {'top_energies': {0: [], 1: [], 2: [], 3: [], 4: []}, 'bottom_energies': {0: [], 1: [], 2: [], 3: [], 4: []}}
+        for index in range(0, len(self.active_tiles)):
+            for i in self.active_tiles[index].top:
+                energies['top_energies'][index].append(i)
+            for i in self.active_tiles[index].top:
+                energies['bottom_energies'][index].append(i)
+        return energies
 
     def get_total_energy_cells(self):
         sum = 0

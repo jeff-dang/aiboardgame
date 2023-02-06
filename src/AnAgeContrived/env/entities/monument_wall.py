@@ -10,6 +10,7 @@ class MonumentWall():
     # owner is the player that owns this tile --> Can identify the owner of every energy tile using EnergyTile.owner
     # monument_benefit_token is the benefit token that is placed on this tile, implementation of this is TBD
     def __init__(self, acceptable_energy_types, rewarded_energy, monument_benefit_token=None):
+        print('monument_wall.py - INITIALIZING monuments with list:', acceptable_energy_types)
         self.sections = acceptable_energy_types
         self.remaining_sections = acceptable_energy_types
         self.num_sections = len(acceptable_energy_types)
@@ -18,6 +19,7 @@ class MonumentWall():
         # TODO: need to change it to one benefit token & one energy type
         self.monument_benefit_token = monument_benefit_token
         self.rewarded_energy = rewarded_energy
+        self.is_reward_given = False
         self.owner = None
     # fills the section at the given energy_type by macthing the first available matching section
 
@@ -27,7 +29,7 @@ class MonumentWall():
             if energy_type == Energy.PRIMAL:
                 is_successful = True
             elif energy_type in self.remaining_sections:
-                print(energy_type, self.remaining_sections)
+                print('ENERGY ACTION MASK IS ACCEPTABLE CHECK', energy_type, self.remaining_sections)
                 is_successful = True
 
         return is_successful

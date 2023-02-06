@@ -7,7 +7,7 @@ class Monument:
         self.walls = monumentWalls  # list of MonumentTile objects
         self.completed_walls = []  # list of completed MonumentTile objects
         self.location = location
-        self.top_wall_index = len(self.walls)-1
+        self.top_wall_index = 0
 
     def get_num_walls_completed(self):
         return len(self.walls) - (self.top_wall_index + 1)
@@ -25,8 +25,8 @@ class Monument:
         return self.get_top_wall().is_completed()
 
     def change_top_wall(self):
-        if self.top_wall_index >= 1:
-            self.top_wall_index -= 1
+        if self.top_wall_index < len(self.walls) - 1:
+            self.top_wall_index += 1
             print('Index is: ', self.top_wall_index)  # DELETE
             print('TOP WALL SWITCHED')  # DELETE
         else:
