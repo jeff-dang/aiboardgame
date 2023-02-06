@@ -8,7 +8,6 @@ from env.entities.monument_wall import MonumentWall
 from env.entities.energy import EnergyTile, Energy
 from env.states import States
 from env.helpers.move_player import MovePlayer
-from env.helpers.constants import THE_ERIDONIC_GATE
 
 import numpy as np
 
@@ -19,91 +18,29 @@ def build_2_walls(e):
     e.play_turn("player_0", 48)
     e.play_turn("player_0", 47)
     e.play_turn("player_0", 50)
-    return
     e.play_turn("player_1", 48)
     e.play_turn("player_1", 44)
     e.play_turn("player_1", 50)
     return
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 44)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 47)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 45)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 45)
-    print(e.get_legal_action_names("player_0"))
-    e.play_turn("player_0", 44)
+
+
+def calc_scores():
+    e = Engine()
+    e.play_turn("player_0", 48)
+    gs = e.get_game_state()
+    print(len(gs))
+    print(len(gs[0]))
+    return
+
+
+calc_scores()
 
 
 def test_monument():
     e = Engine()
     current_player = "player_0"
     # e.get_action_names()
-    # build_2_walls(e)
-    e.monuments = e.monuments[0:1]
-    for i, monument in enumerate(e.monuments):
-        embedded_monument_num = [0]*MAX_SIZE_EMBEDDED_ARRAY
-        embedded_monument_location = [0]*MAX_SIZE_EMBEDDED_ARRAY
-        embedded_num_walls_completed = [0]*MAX_SIZE_EMBEDDED_ARRAY
-
-        embedded_monument_num[i] = 1
-        embedded_monument_location[monument.location.value] = 1
-        embedded_num_walls_completed[monument.get_num_walls_completed()] = 1
-
-        MAX_SIZE_WALL_TILE_SPOTS = 3
-        embedded_top_wall_pos_accepts = [
-            [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALL_TILE_SPOTS)]
-        embedded_top_wall_pos_owner = [
-            [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALL_TILE_SPOTS)]
-        print(embedded_top_wall_pos_owner)
-
-        # Does not have a third spot to fill, accepts none and owner is none
-        if(monument.get_top_wall().num_sections < 3):
-            embedded_top_wall_pos_accepts[MAX_SIZE_WALL_TILE_SPOTS-1][0] = 1
-            embedded_top_wall_pos_owner[MAX_SIZE_WALL_TILE_SPOTS -
-                                        1][len(e.players)] = 1
-
-        # Assigns value based on filled sections and who owns them
-        for i, pos in enumerate(monument.get_top_wall().filled_sections):
-            # No player owns it assign it last index (index 5)
-            if(pos == 0):
-                embedded_top_wall_pos_owner[i][len(e.players)] = 1
-            else:
-                current_players_index = next(
-                    (index for (index, d) in enumerate(e.players) if d.agent == current_player), None)
-
-                owner_index = next(
-                    (index for (index, d) in enumerate(e.players) if d.agent == pos.owner.agent), None)
-                distance_between = (owner_index - current_players_index) % 5
-                embedded_top_wall_pos_owner[i][distance_between] = 1
-
-        # Assigns value based on remaining sections and their accepting energy
-        for i, pos in enumerate(monument.get_top_wall().remaining_sections):
-            if(pos is None):
-                embedded_top_wall_pos_accepts[i][0] = 1
-            else:
-                embedded_top_wall_pos_accepts[i][pos.value] = 1
-
-        MAX_SIZE_WALLS_PER_MONUMENT = 5  # Most have 4, one has 5
-        embedded_top_wall_pos_accepts = [
-            [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALL_TILE_SPOTS)]
-        embedded_top_wall_pos_owner = [
-            [0]*MAX_SIZE_EMBEDDED_ARRAY for _ in range(MAX_SIZE_WALL_TILE_SPOTS)]
-        print(embedded_top_wall_pos_owner)
-        for j, wall in enumerate(monument.walls):
-            if(monument.get_num_walls_completed() > 0):
-                print(j, wall)
-                for etile in wall.filled_sections:
-                    if(etile != 0):
-                        print("energy", etile.owner.agent)
-                if(wall.owner):
-                    print("owner", wall.owner.agent)
-
-                pass
-
-
-test_monument()
+    build_2_walls(e)
 
 
 def get_all_actions():
