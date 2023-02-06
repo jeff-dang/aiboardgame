@@ -1,19 +1,7 @@
 import gameData from "./game2.json";
 import allActions from "./allActions.json";
 
-const allData = gameData;
-
-// const d = getAllDataExEnd();
-// const d1 = getDataWithMergedActions(d);
-
-// // const result = getMap2(d1, 2, 0);
-// // // let result = results[0];
-// // // const map = results[1];
-// // console.log(result);
-// // // const f = getFrequencyMapForPlayer(d1, 1, 0);
-
-// //getMovesScoresData(allData, 0);
-// getNumberOfSimulations(allData);
+const allData = JSON.parse(JSON.stringify(gameData));
 
 export function getAllData() {
   return allData;
