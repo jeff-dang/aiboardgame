@@ -9,7 +9,8 @@ from env.scoring import Scoring
 import env.helpers.constants as constants
 from env.entities.energy import EnergyTile, Energy
 from env.entities.map_data import Map_Areas
-
+from env.helpers.logger import Logger
+               
 
 class Engine:
     def __init__(self):
@@ -95,35 +96,35 @@ class Engine:
         for i in range(len(constants.CHARACTER_NAMES)):
             self.players.append(
                 Player(constants.AGENT_NAMES[i], constants.CHARACTER_NAMES[i], self.map.starting_positions[i]))
-        # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        # print('INITIALIZING THE GAME ENGINE:')
-        # print('New monument index is:', self.monument_index)
-        # current_monument = self.monuments[self.monument_index]
+        Logger.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'INITIALIZATION_LOGS')
+        Logger.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'INITIALIZATION_LOGS')
+        Logger.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'INITIALIZATION_LOGS')
+        Logger.log('INITIALIZING THE GAME ENGINE:', 'INITIALIZATION_LOGS')
+        Logger.log('New monument index is:' + str(self.monument_index), 'INITIALIZATION_LOGS')
+        current_monument = self.monuments[self.monument_index]
         # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
         # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)    
-        # print('-----------------')
+        Logger.log('-----------------', 'INITIALIZATION_LOGS')
         # print('monuments:', self.monuments)
-        # print('-------------')
-        # print('-----------------')
+        Logger.log('-----------------', 'INITIALIZATION_LOGS')
+        Logger.log('-----------------', 'INITIALIZATION_LOGS')
         # print('monument walls:', current_monument.walls)
-        # print('-------------')
+        Logger.log('-----------------', 'INITIALIZATION_LOGS')
         # print('eng.legal actions:', self.get_legal_action_names(self.players[self.current_player].agent))
         # print('eng.action mask:', self.get_legal_actions(self.players[self.current_player].agent))
-        # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        Logger.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'INITIALIZATION_LOGS')
+        Logger.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'INITIALIZATION_LOGS')
+        Logger.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'INITIALIZATION_LOGS')
 
     def check_over(self):
         if self._check_if_current_wall_filled():
             if self.monument_index < 5:
                 self.monument_index += 1
         if self._check_if_last_wall_filled():
-            print("MONUMENTS ALL BUILT")
+            Logger.log('MONUMENTS ALL BUILT', 'GAME_ENGINE_LOGS')
             return True
         if(self.turn_counter == constants.MAX_TURNS or self.action_counter == constants.MAX_TURNS*10):
-            print("MAX MOVES REACHED")
+            Logger.log('MAX MOVES REACHED', 'GAME_ENGINE_LOGS')
             return True
 
         return False
@@ -183,7 +184,7 @@ class Engine:
     def play_turn(self, agent_name, action):
         agent = self.get_agent(agent_name)
         if(not self.get_legal_actions(self.get_agents()[self.current_player])[action]):
-            print("ILLEGAL MOVE, is", action)
+            Logger.log("ILLEGAL MOVE, is" + str(action), 'GAME_ENGINE_LOGS')
             return
 
         actions = get_actions(self.players[self.current_player], self)
