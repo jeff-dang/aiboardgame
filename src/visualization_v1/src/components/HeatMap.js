@@ -125,30 +125,43 @@ const HeatMap = ({
   const AnimatedHeatMap = animated(HeatmapCircle);
 
   return (
-    <div className="centering" style={{ marginBottom: 20 }}>
+    <div
+      className="centering"
+      style={{
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h1>Heat Map of All Moves</h1>
-      <span> Player: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setPlayer(Number(e.target.value))}
+      <div
+        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
-        {players.map((player) => (
-          <option key={player} value={player}>
-            {player}
-          </option>
-        ))}
-      </select>
-      <span> Simulations: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setNumSims(Number(e.target.value))}
-      >
-        {numSimulations.map((simulation) => (
-          <option key={simulation} value={simulation}>
-            {simulation}
-          </option>
-        ))}
-      </select>
+        <span> Player: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setPlayer(Number(e.target.value))}
+        >
+          {players.map((player) => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
+        </select>
+        <span> Simulations: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setNumSims(Number(e.target.value))}
+        >
+          {numSimulations.map((simulation) => (
+            <option key={simulation} value={simulation}>
+              {simulation}
+            </option>
+          ))}
+        </select>
+      </div>
       <svg width={width} height={height}>
         <rect
           x={0}

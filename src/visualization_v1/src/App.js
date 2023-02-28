@@ -11,6 +11,7 @@ import React from "react";
 import "./data/getData";
 import FrequentlyUsedMoves from "./components/BarChart";
 import MovesToScores from "./components/MovesToScores";
+import Comparison from "./components/Comparison";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             path="/tree-graph"
             element={<TreeGraph width={1100} height={700} />}
           />
+          <Route path="/comparison" element={<Comparison />} />
         </Routes>
       </div>
     </div>
