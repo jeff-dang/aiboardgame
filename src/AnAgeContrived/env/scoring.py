@@ -6,7 +6,7 @@ SCORE_PER_TRANSMUTER_EMPTY = 10
 class Scoring:
 
     def get_monument_score(engine, agent_name):
-        score = 0
+        score: int = 0
         for monument in engine.monuments:
             for wall in monument.walls:
                 if(not wall.owner is None):

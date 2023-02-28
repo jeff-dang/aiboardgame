@@ -19,11 +19,11 @@ INITIALIZATION_LOGS = True
 
 # ********* GAME ENGINE CONSTANTS ********************
 
-CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
-AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
-NUM_MOVES = len(get_actions('self', 'eng'))
-MAX_TURNS = 100
-NUM_AGENTS = len(CHARACTER_NAMES)
+CHARACTER_NAMES: list[str] = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
+AGENT_NAMES: list[str] = ["player_0", "player_1", "player_2", "player_3", "player_4"]
+NUM_MOVES: int = len(get_actions('self', 'eng'))
+MAX_TURNS: int = 100
+NUM_AGENTS: int = len(CHARACTER_NAMES)
 
 # ************ MONUMENTS START **************************
 # Monuments From The Rule Book:

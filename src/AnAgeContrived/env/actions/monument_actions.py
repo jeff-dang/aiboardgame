@@ -1,13 +1,22 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.entities.player import Player
+    from env.engine import Engine
+    from env.entities.energy import EnergyTile
+    pass
+
 from env.command import Command
 from env.helpers.fill_monument import FillMonument
 from env.entities.energy import EnergyTile, Energy
 
-action_family = "Fill Monument"
+action_family: str = "Fill Monument"
 
 
 class FillMonumentWithConstructiveEnergy(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family
         self.action_details = "Constructive Energy"
@@ -23,7 +32,7 @@ class FillMonumentWithConstructiveEnergy(Command):
 
 class FillMonumentWithInvertibleEnergy(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family
         self.action_details = "Invertible Energy"
@@ -38,7 +47,7 @@ class FillMonumentWithInvertibleEnergy(Command):
 
 class FillMonumentWithGenerativeEnergy(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family
         self.action_details = "Generative Energy"
@@ -53,7 +62,7 @@ class FillMonumentWithGenerativeEnergy(Command):
 
 class FillMonumentWithPrimalEnergy(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family
         self.action_details = "Primal Energy"

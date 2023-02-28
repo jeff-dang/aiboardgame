@@ -1,3 +1,12 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.entities.player import Player
+    from env.engine import Engine
+    # from env.entities.energy import EnergyTile
+    pass
+
 import copy
 from env.entities.turn_state import TurnType
 
@@ -5,7 +14,7 @@ from env.entities.turn_state import TurnType
 class MovePlayer():
 
     @staticmethod
-    def move_player(engine, player, location):
+    def move_player(engine: Engine, player: Player, location):
         if(len(engine.map.map[location]) == 1):
             player.previous_location = 0
             print('moved into dead end')
@@ -16,7 +25,7 @@ class MovePlayer():
         engine.turn.turn_type = TurnType.ACTION_TURN
 
     @staticmethod
-    def is_legal_move(player, engine, next_location):
+    def is_legal_move(player: Player, engine: Engine, next_location) -> bool:
         current_location = player.location
         map = engine.map
 

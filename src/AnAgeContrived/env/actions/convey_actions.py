@@ -1,3 +1,11 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.entities.player import Player
+    from env.engine import Engine
+    pass
+
 from env.command import Command
 from env.helpers.convey import Convey
 
@@ -7,7 +15,7 @@ action_family_2 = "Convey 2"
 
 class ConveyOnceFirstCard(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
         self.action_details = "First Card"
@@ -21,7 +29,7 @@ class ConveyOnceFirstCard(Command):
 
 class ConveyOnceSecondCard(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
         self.action_details = "Second Card"
@@ -35,7 +43,7 @@ class ConveyOnceSecondCard(Command):
 
 class ConveyTwiceFirstOrder(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_2
         self.action_details = "First Order"
@@ -49,7 +57,7 @@ class ConveyTwiceFirstOrder(Command):
 
 class ConveyTwiceSecondOrder(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_2
         self.action_details = "Second Order"

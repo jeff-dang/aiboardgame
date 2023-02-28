@@ -1,3 +1,11 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    # from env.entities.player import Player
+    # from env.entities.energy import EnergyTile
+    pass
+
 from env.entities.turn_state import TurnState
 from env.entities.player import Player
 from env.entities.map import Map
@@ -11,18 +19,17 @@ from env.entities.energy import EnergyTile, Energy
 from env.entities.map_data import Map_Areas
 from env.helpers.logger import Logger
                
-
 class Engine:
     def __init__(self):
-        self.turn_counter = 0
-        self.action_counter = 0
-        self.game = 1
-        self.map = Map()
-        self.current_player = 0
-        self.player_turn_queue = []
-        self.players = []
-        self.turn = TurnState()
-        self.monument_index = 0
+        self.turn_counter: int = 0
+        self.action_counter: int = 0
+        self.game: int = 1
+        self.map: Map = Map()
+        self.current_player: int = 0
+        self.player_turn_queue: list = []
+        self.players: list[Player] = []
+        self.turn: TurnState = TurnState()
+        self.monument_index: int = 0
 
         monument_1 = Monument('THE ANFIRIEN BEACON', Map_Areas.PLAINS, [
                 MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
@@ -91,7 +98,7 @@ class Engine:
                 MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any'])
             ])
         
-        self.monuments = [monument_1, monument_2, monument_3, monument_4, monuemnt_5, monument_6]
+        self.monuments: list[Monument] = [monument_1, monument_2, monument_3, monument_4, monuemnt_5, monument_6]
 
         for i in range(len(constants.CHARACTER_NAMES)):
             self.players.append(
@@ -101,7 +108,7 @@ class Engine:
         Logger.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'INITIALIZATION_LOGS')
         Logger.log('INITIALIZING THE GAME ENGINE:', 'INITIALIZATION_LOGS')
         Logger.log('New monument index is:' + str(self.monument_index), 'INITIALIZATION_LOGS')
-        current_monument = self.monuments[self.monument_index]
+        current_monument: Monument = self.monuments[self.monument_index]
         # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
         # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)    
         Logger.log('-----------------', 'INITIALIZATION_LOGS')
@@ -140,40 +147,39 @@ class Engine:
 
             self.monuments.append(Monument(m['name'], m['location'], walls))
 
-    def get_agents(self):
+    def get_agents(self) -> list[str]:
         return constants.AGENT_NAMES
 
-    def get_action_names(self):
+    def get_action_names(self) -> list[dict[str, str]]:
         actions = get_actions(self.players[self.current_player], self)
-        action_names = []
+        action_names: list[dict[str, str]] = []
         for i, a in enumerate(actions):
             action_names.append(
                 {"index": i, "action": a.action, "action_details": a.action_details})
-
         return action_names
 
-    def get_legal_action_names(self, agent_name):
+    def get_legal_action_names(self, agent_name: str) -> list[str]:
         actions = get_actions(self.get_agent(agent_name), self)
-        legal_actions = []
+        legal_actions: list[str] = []
         for i, action in enumerate(actions):
             if(action.check()):
                 legal_actions.append(
                     str(i)+": "+action.action + " " + action.action_details)
         return legal_actions
 
-    def get_characters(self):
+    def get_characters(self) -> list[str]:
         return constants.CHARACTER_NAMES
 
-    def get_agent(self, name):
+    def get_agent(self, name: str) -> Player:
         for player in self.players:
             if player.get_player_name() == name:
                 return player
 
     # Gets number of total actions
-    def get_action_space(self):
+    def get_action_space(self) -> int:
         return constants.NUM_MOVES
 
-    def get_legal_actions(self, agent_name):
+    def get_legal_actions(self, agent_name: str):
         actions = get_actions(self.get_agent(agent_name), self)
         legal_actions = []
         for action in actions:
@@ -181,8 +187,8 @@ class Engine:
             legal_actions.append(is_legal)
         return legal_actions
 
-    def play_turn(self, agent_name, action):
-        agent = self.get_agent(agent_name)
+    def play_turn(self, agent_name: str, action):
+        agent: Player = self.get_agent(agent_name)
         if(not self.get_legal_actions(self.get_agents()[self.current_player])[action]):
             Logger.log("ILLEGAL MOVE, is" + str(action), 'GAME_ENGINE_LOGS')
             return
@@ -197,7 +203,7 @@ class Engine:
         # 1: start a mini turn for players who have energy tiles on the wall or
         # 2: end the game if all the walls of all the monuments are filled
         # for monument in self.monuments: #TODO: Later convert to this condition
-        self.num_of_built_monuments = 0
+        self.num_of_built_monuments: int = 0
 
         for i in range(0, 6):
             monument = self.monuments[i]
@@ -225,10 +231,10 @@ class Engine:
             # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
         self.action_counter += 1
 
-    def get_current_agents_turn(self):
+    def get_current_agents_turn(self) -> str:
         return self.get_agents()[self.current_player]
 
-    def get_current_characters_turn(self):
+    def get_current_characters_turn(self) -> str:
         return constants.CHARACTER_NAMES[self.current_player]
 
     def get_game_state(self):

@@ -1,3 +1,12 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.engine import Engine
+    from env.entities.player import Player
+    from env.entities.energy import EnergyTile
+
+#real imports start here
 from env.entities.monument import Monument
 from env.entities.energy import Energy
 from env.entities.turn_state import TurnType
@@ -7,7 +16,7 @@ class FillMonument():
 
     # TODO: need to check the player location and get the closest monument to fill ,instead of currently just filling the monuments[0]
     @staticmethod
-    def fill_monument_tile(player, engine, energy):
+    def fill_monument_tile(player: Player, engine: Engine, energy: EnergyTile):
         if len(player.energies_released[energy.energy_type]) > 0:
             print(
                 '------------- fillMonument.py - fill_monument_tile(): ----------------')
@@ -25,7 +34,7 @@ class FillMonument():
                 print('Remaining sections:', monument_wall.remaining_sections)
             print('***----------------------------------------***')
 
-    def is_legal_primal(engine):
+    def is_legal_primal(engine: Engine) -> bool:
         if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
             return False
 
@@ -39,7 +48,7 @@ class FillMonument():
 
         return True
     
-    def is_legal_constructive(engine):
+    def is_legal_constructive(engine: Engine) -> bool:
         current_player = engine.players[engine.current_player]
         current_monument = engine.monuments[engine.monument_index]
         if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
@@ -56,7 +65,7 @@ class FillMonument():
 
         return False
     
-    def is_legal_invertible(engine):
+    def is_legal_invertible(engine: Engine) -> bool:
         current_player = engine.players[engine.current_player]
         current_monument = engine.monuments[engine.monument_index]
         if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
@@ -73,7 +82,7 @@ class FillMonument():
 
         return False
     
-    def is_legal_generative(engine):
+    def is_legal_generative(engine: Engine) -> bool:
         current_player = engine.players[engine.current_player]
         current_monument = engine.monuments[engine.monument_index]
         if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
@@ -91,7 +100,7 @@ class FillMonument():
         return False
 
 
-    def is_legal_to_fill_monument_tile(engine, energy_type):
+    def is_legal_to_fill_monument_tile(engine: Engine, energy_type: Energy) -> bool:
 
         # print('!TURN *** type is:', engine.turn.get_turn_type())
         # Check turn is type action
