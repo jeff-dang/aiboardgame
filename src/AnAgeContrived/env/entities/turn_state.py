@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class TurnState():
     def __init__(self):
         # actionChoice can be convey or action
@@ -28,9 +29,12 @@ class TurnState():
         print("Can Convey: ", self.can_convey)
         print("Can Move:", self.can_move)
 
-#TODO: enumerate the turn type
+# TODO: enumerate the turn type
+
+
 class TurnType(Enum):
     CONVEY_TURN = 1
     ACTION_TURN = 2
     MOVE_TURN = 3
     END_TURN = 4
+    BRIDGE_REWARD_TURN = 5

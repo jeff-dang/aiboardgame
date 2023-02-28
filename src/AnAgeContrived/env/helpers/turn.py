@@ -26,7 +26,6 @@ class Turn():
 
     @staticmethod
     def convey_turn(engine):
-        print("Choose Convey Turn")
         engine.turn.update_turn_type(TurnType.CONVEY_TURN)
 
     @staticmethod
@@ -35,7 +34,6 @@ class Turn():
 
     @staticmethod
     def action_turn(engine):
-        print("Choose Action Turn")
         engine.turn.update_turn_type(TurnType.ACTION_TURN)
 
     @staticmethod

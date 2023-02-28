@@ -1,5 +1,6 @@
 from .transmuter import Transmuter
 from env.entities.energy import EnergyTile, Energy
+from env.helpers.constants import STARTING_PLAYER_BRIDGES
 
 
 class Player():
@@ -7,6 +8,7 @@ class Player():
     def __init__(self, agent, character, starting_location) -> None:
         self.agent = agent
         self.character = character
+        self.num_bridges_left = STARTING_PLAYER_BRIDGES
         # TODO: let the player to fill the transmuter.
         self.transmuter = Transmuter()
         self.exhausted_energies = {
@@ -25,7 +27,7 @@ class Player():
         self.location = starting_location
         self.initial_location = starting_location
         self.previous_location = 0
-        self.channel_marker = False #if it is true, player can convey twice #TODO: use this to adjust the action mask
+        self.channel_marker = False  # if it is true, player can convey twice #TODO: use this to adjust the action mask
         # TODO: need to track the energies on the board, on his hand (done) and the remaining energies
         self._initiate_fill_tranmuster_files()
 

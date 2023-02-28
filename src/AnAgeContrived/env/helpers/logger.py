@@ -1,4 +1,5 @@
-from env.helpers.constants import GAME_ENGINE_LOGS, MONUMENT_LOGS, ENERGY_LOGS, ACTION_LOGS, HELPER_LOGS, OBSERVATION_SPACE_LOGS, OTHER_LOGS, CONDITION_CHECK_LOGS, FLOW_LOGS, INITIALIZATION_LOGS
+from env.helpers.constants import GAME_ENGINE_LOGS, MONUMENT_LOGS, ENERGY_LOGS, ACTION_LOGS, HELPER_LOGS, OBSERVATION_SPACE_LOGS, OTHER_LOGS, CONDITION_CHECK_LOGS, FLOW_LOGS, INITIALIZATION_LOGS, MAP_LOGS
+
 
 class Logger():
 
@@ -24,3 +25,5 @@ class Logger():
             print('FLOW_LOGS', message)
         elif type == 'INITIALIZATION_LOGS' and INITIALIZATION_LOGS == True:
             print('INITIALIZATION_LOGS', message)
+        elif type == 'MAP_LOGS' and MAP_LOGS == True:
+            print('MAP_LOGS', message)

@@ -3,13 +3,13 @@ from env.entities.turn_state import TurnType
 from random import randint
 
 
-#index is the index of the transmuter tile that you want to take action on
+# index is the index of the transmuter tile that you want to take action on
 def take_action(player, engine, index: int):
     if index < 0 or index > 4:
         print('index is suppose to be between [0, 4]. Current index is not valid:', index)
         return False
-    transmuter_tile = player.transmuter.active_tiles[index] #this is TransmuterTile object
-    bottom_energies = transmuter_tile.bottom #this is a list
+    transmuter_tile = player.transmuter.active_tiles[index]  # this is TransmuterTile object
+    bottom_energies = transmuter_tile.bottom  # this is a list
     num_energies = len(bottom_energies) - bottom_energies.count(0)
     if num_energies > 0:
         energy = transmuter_tile.release_bottom_energy()
@@ -41,10 +41,11 @@ def take_action(player, engine, index: int):
         print('No energy in the bottom tiles')
         return False
 
+
 def is_take_action_legal(player, engine, index):
     is_legal = False
     if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
-            return False
+        return False
     if index < 0 or index > 4:
         print('index is suppose to be between [0, 4]. Current index is not valid:', index)
         return False
@@ -52,8 +53,8 @@ def is_take_action_legal(player, engine, index):
     if action_token == 'ANY':
         new_index = _get_random_token()
         action_token = player.transmuter.get_action_token(new_index)
-    transmuter_tile = player.transmuter.active_tiles[index] #this is TransmuterTile object
-    bottom_energies = transmuter_tile.bottom #this is a list
+    transmuter_tile = player.transmuter.active_tiles[index]  # this is TransmuterTile object
+    bottom_energies = transmuter_tile.bottom  # this is a list
     num_energies = len(bottom_energies) - bottom_energies.count(0)
     if action_token.type == ActionType.MOVE or action_token.type == ActionType.RECHARGE:
         if num_energies > 0:
@@ -68,11 +69,13 @@ def is_take_action_legal(player, engine, index):
                 is_legal = True
     return is_legal
 
+
 def _take_move_action(engine, action_token):
-    #TODO: discuss how to implement this
+    # TODO: discuss how to implement this
     # move_times = action_token.move_times
     engine.turn.turn_type = TurnType.MOVE_TURN
     return True
+
 
 def _take_release_energy_action(player, action_token):
     available_tiles = []
@@ -97,8 +100,10 @@ def _take_release_energy_action(player, action_token):
         print('energies AFTER:', player.energies_released)
         return True
 
+
 def _take_recharge_action(player):
     player.channel_marker = True
 
+
 def _get_random_token():
-    return randint(0,3)
+    return randint(0, 3)
