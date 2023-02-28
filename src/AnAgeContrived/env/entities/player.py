@@ -1,4 +1,4 @@
-from .transmuter import Transmuter
+from env.entities.transmuter import Transmuter
 from env.entities.energy import EnergyTile, Energy
 
 
@@ -25,9 +25,9 @@ class Player():
         self.location = starting_location
         self.initial_location = starting_location
         self.previous_location = 0
-        self.channel_marker: bool = False #if it is true, player can convey twice #TODO: use this to adjust the action mask
+        self.channel_marker: bool = False #if it is true, player can convey twice
         # TODO: need to track the energies on the board, on his hand (done) and the remaining energies
-        self._initiate_fill_tranmuster_files()
+        self._initiate_fill_tranmuster_tiles()
 
     def set_transmuter(self, transmuter: Transmuter):
         self.transmuter = transmuter
@@ -38,18 +38,18 @@ class Player():
     def get_player_name(self) -> str:
         return self.agent
 
-    def _initiate_fill_tranmuster_files(self):
+    def _initiate_fill_tranmuster_tiles(self):
         tile1 = self.transmuter.active_tiles[0]
         tile2 = self.transmuter.active_tiles[1]
         tile3 = self.transmuter.active_tiles[2]
         tile1.fill_tile(
-            self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 1)
+            self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
         tile1.fill_tile(
             self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)
         tile2.fill_tile(
             self.exhausted_energies[Energy.PRIMAL].pop(), 1)
-        tile2.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 2)
+        tile2.fill_tile(self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 2)
         tile3.fill_tile(
-            self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 1)
+            self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
         tile3.fill_tile(
             self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)

@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     pass
 
 from env.entities.turn_state import TurnType
+from env.helpers.logger import Logger
 # Cant import from constatns.py since circular import
 TOTAL_PLAYERS: int = 5
 
@@ -20,7 +21,7 @@ class Turn():
 
     @staticmethod
     def end_turn(engine: Engine):
-        print("End Turn")
+        Logger.log('End Turn', 'TURN_LOGS')
         engine.current_player = (engine.current_player+1) % TOTAL_PLAYERS
         engine.turn_counter += 1
         engine.turn.reset()
@@ -34,7 +35,7 @@ class Turn():
 
     @staticmethod
     def convey_turn(engine: Engine):
-        print("Choose Convey Turn")
+        Logger.log('Choose Convey Turn', 'TURN_LOGS')
         engine.turn.update_turn_type(TurnType.CONVEY_TURN)
 
     @staticmethod
@@ -43,7 +44,7 @@ class Turn():
 
     @staticmethod
     def action_turn(engine: Engine):
-        print("Choose Action Turn")
+        Logger.log('Choose Action Turn', 'TURN_LOGS')
         engine.turn.update_turn_type(TurnType.ACTION_TURN)
 
     @staticmethod

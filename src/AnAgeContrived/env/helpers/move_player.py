@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
 import copy
 from env.entities.turn_state import TurnType
+from env.helpers.logger import Logger
 
 
 class MovePlayer():
@@ -17,7 +18,7 @@ class MovePlayer():
     def move_player(engine: Engine, player: Player, location):
         if(len(engine.map.map[location]) == 1):
             player.previous_location = 0
-            print('moved into dead end')
+            Logger.log('moved into dead end', 'ACTION_LOGS')
         else:
             player.previous_location = player.location
         player.location = location

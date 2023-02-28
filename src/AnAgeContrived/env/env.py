@@ -6,6 +6,7 @@ from pettingzoo.utils import agent_selector, wrappers
 from .engine import Engine
 import history_writer
 from env.action_initiater import get_actions
+from env.helpers.logger import Logger
 
 
 def env(render_mode=None):
@@ -84,8 +85,7 @@ class raw_env(AECEnv):
         return self.engine.get_legal_actions(agent)
 
     def step(self, action):
-
-        print('env.py - @@@@@@@@@@@@@@@@@@@@ START STEP FUNCTION @@@@@@@@@@@@@@@@@@@@@@@@@')
+        Logger.log('env.py - @@@@@@@@@@@@@@@@@@@@ START STEP FUNCTION @@@@@@@@@@@@@@@@@@@@@@@@@', 'INITIALIZATION_LOGS')
 
         # Check if terminations or truncations for current agent
         if (
@@ -163,7 +163,7 @@ class raw_env(AECEnv):
             for agent in self.agents:
                 self.rewards[agent] += (self.engine.get_reward(agent))
             # If game is over assign termination for all agents
-            print(self.rewards)
+            Logger.log(str(self.rewards), 'INITIALIZATION_LOGS')
             self.simulation_history['meta_data'] = self.rewards
             actionList = self.engine.get_action_names()
             history_writer.jsonActionConverter('ai_history',actionList)
@@ -179,9 +179,7 @@ class raw_env(AECEnv):
         if self.render_mode == "human":
             self.render()
 
-        print('env.py - @@@@@@@@@@@@@@@@@@@@ END STEP FUNCTION @@@@@@@@@@@@@@@@@@@@@@@@@')
-        # print()
-        # print()
+        Logger.log('env.py - @@@@@@@@@@@@@@@@@@@@ END STEP FUNCTION @@@@@@@@@@@@@@@@@@@@@@@@@', 'INITIALIZATION_LOGS')
 
     def reset(self, seed=None, return_info=False, options=None):
         # reset environment

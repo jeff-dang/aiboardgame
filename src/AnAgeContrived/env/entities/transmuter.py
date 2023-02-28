@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 from env.entities.transmuter_tile import TransmuterTile
 from env.helpers.constants import INITIAL_ACTION_TOKENS
+from env.helpers.logger import Logger
 
 class Transmuter:
     def __init__(self):
@@ -48,18 +49,16 @@ class Transmuter:
                 num_empty_bottom_sections = new_tile.bottom.count(0)
                 if  num_empty_bottom_sections > 0:
                     new_tile.fill_tile(player.exhausted_energies[i].pop(), 2)
-                    print('NEW TILE BOTTOM FILLED')
+                    Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
                 elif num_empty_top_sections > 0:
                     new_tile.fill_tile(player.exhausted_energies[i].pop(), 1)
-                    print('NEW TILE TOP FILLED')
+                    Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
         new_active_tiles[0] = new_tile                 
         for i in range(len(self.active_tiles)-1):
             new_active_tiles[i+1] = self.active_tiles[i]
         self.active_tiles[4].empty_tile(player)
         self.reserved_tiles[reservedTileIndex] = self.active_tiles[4]
         self.active_tiles = new_active_tiles
-
-    # helper func to move the tiles after removing a tile
 
     def _move_all_tiles_ahead(self):
         pass

@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from env.entities.player import Player
 
 from enum import Enum
+from env.helpers.logger import Logger
 
 class Energy(Enum):
     CONSTRUCTIVE = 1
@@ -14,10 +15,9 @@ class Energy(Enum):
 
 class EnergyTile():
 
-    def __init__(self, energy_type: Energy, player: Player) -> None:
-        # if energy_type not in Energy._value2member_map_ and energy_type not in Energy._member_names_ and energy_type not in Energy._member_map_:
+    def __init__(self, energy_type: Energy, player: Player):
         if energy_type not in Energy:
-            print('Wrong energy_type. Please enter a correct energy type')
+            Logger.log('Wrong energy_type. Please enter a correct energy type', 'ENERGY_LOGS')
             self.energy_type: str = 'INVALID'
         else:
             self.energy_type: str = energy_type
@@ -28,7 +28,7 @@ class EnergyTile():
 
     def set_energy_type(self, energy_type: Energy):
         if energy_type not in Energy:
-            print('Wrong energy_type. Please enter a correct energy type')
+            Logger.log('Wrong energy_type. Please enter a correct energy type', 'ENERGY_LOGS')
         else:
             self.energy_type = energy_type
 

@@ -1,4 +1,14 @@
-from .entities.energy import Energy
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.engine import Engine
+    from env.entities.player import Player
+    from env.entities.transmuter import Transmuter
+    # from env.entities.energy import EnergyTile
+    pass
+
+from env.entities.energy import Energy
 
 # TODO Make it automatiacally change to max array length
 MAX_SIZE_EMBEDDED_ARRAY = 40  # Size of the biggest entity state
@@ -6,9 +16,9 @@ MAX_SIZE_EMBEDDED_ARRAY = 40  # Size of the biggest entity state
 
 class States:
 
-    def get_character_states(engine, player):
+    def get_character_states(engine: Engine, player: Player):
         character_state = []
-        transumter = States.get_transmuter_state(player.get_transmuter())
+        transumter: Transmuter = States.get_transmuter_state(player.get_transmuter())
         location = States.get_map_state(player)
         monuments = States.get_monument_state(engine, player)
         character_state.extend(transumter)
@@ -17,7 +27,7 @@ class States:
 
         return character_state
 
-    def get_map_state(player):
+    def get_map_state(player: Player):
         embedded_map_state = [0]*MAX_SIZE_EMBEDDED_ARRAY
         embedded_map_state[player.location-1] = 1
 
@@ -26,7 +36,7 @@ class States:
 
         return [embedded_map_state, embedded_initial_map_state]
 
-    def get_transmuter_state(transmuter):
+    def get_transmuter_state(transmuter: Transmuter):
         SIZE_OF_TRANSMUTER_ARRAY = 5
 
         def get_state_active_tile_row(row):
