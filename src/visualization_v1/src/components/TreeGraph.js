@@ -87,41 +87,57 @@ const TreeGraph = () => {
   }, [nextMoveArray, indexMap, numMoves]);
 
   return (
-    <div style={{ overflowX: "scroll" }}>
+    <div
+      style={{
+        overflowX: "scroll",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h1>Tree Graph</h1>
-      <span> Player: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setPlayer(Number(e.target.value))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
       >
-        {players.map((player) => (
-          <option key={player} value={player}>
-            {player}
-          </option>
-        ))}
-      </select>
-      <span> Simulations: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setNumSims(Number(e.target.value))}
-      >
-        {numSimulations.map((simulation) => (
-          <option key={simulation} value={simulation}>
-            {simulation}
-          </option>
-        ))}
-      </select>
-      <span> Number of Moves: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setNumMoves(Number(e.target.value))}
-      >
-        {allMoves.map((move) => (
-          <option key={move} value={move}>
-            {move}
-          </option>
-        ))}
-      </select>
+        <span> Player: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setPlayer(Number(e.target.value))}
+        >
+          {players.map((player) => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
+        </select>
+        <span> Simulations: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setNumSims(Number(e.target.value))}
+        >
+          {numSimulations.map((simulation) => (
+            <option key={simulation} value={simulation}>
+              {simulation}
+            </option>
+          ))}
+        </select>
+        <span> Number of Moves: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setNumMoves(Number(e.target.value))}
+        >
+          {allMoves.map((move) => (
+            <option key={move} value={move}>
+              {move}
+            </option>
+          ))}
+        </select>
+      </div>
       <AnimatedTree
         data={data}
         nodeRadius={20}

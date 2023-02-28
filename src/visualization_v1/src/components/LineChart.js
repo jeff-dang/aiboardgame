@@ -100,19 +100,35 @@ export default function LineChart({ width, height }) {
   }, [scoreData]);
 
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h1>Simulation vs. Scores for All Players</h1>
-      <span> Simulations: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setNumSims(Number(e.target.value))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
       >
-        {numSimulations.map((simulation) => (
-          <option key={simulation} value={simulation}>
-            {simulation}
-          </option>
-        ))}
-      </select>
+        <span> Simulations: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setNumSims(Number(e.target.value))}
+        >
+          {numSimulations.map((simulation) => (
+            <option key={simulation} value={simulation}>
+              {simulation}
+            </option>
+          ))}
+        </select>
+      </div>
       <div style={{ overflowX: "scroll" }}>
         <Line options={options} width={width} height={height} data={data} />
       </div>

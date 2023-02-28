@@ -91,30 +91,46 @@ const PieChart = ({ width, height }) => {
   }, [allNonZeroActions]);
 
   return (
-    <div style={{ marginBottom: 20 }}>
+    <div
+      style={{
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h1>All Used Moves Frequency</h1>
-      <span> Player: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setPlayer(Number(e.target.value))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
       >
-        {players.map((player) => (
-          <option key={player} value={player}>
-            {player}
-          </option>
-        ))}
-      </select>
-      <span> Simulations: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setNumSims(Number(e.target.value))}
-      >
-        {numSimulations.map((simulation) => (
-          <option key={simulation} value={simulation}>
-            {simulation}
-          </option>
-        ))}
-      </select>
+        <span> Player: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setPlayer(Number(e.target.value))}
+        >
+          {players.map((player) => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
+        </select>
+        <span> Simulations: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setNumSims(Number(e.target.value))}
+        >
+          {numSimulations.map((simulation) => (
+            <option key={simulation} value={simulation}>
+              {simulation}
+            </option>
+          ))}
+        </select>
+      </div>
       <div style={{ overflowX: "scroll", marginTop: 20 }}>
         {
           <Pie

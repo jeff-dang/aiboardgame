@@ -24,6 +24,7 @@ const SideMenu = () => {
           Simulation vs. Scores
         </MenuItem>
         <MenuItem component={<Link to="/tree-graph" />}> Tree Graph</MenuItem>
+        <MenuItem component={<Link to="/comparison" />}>Comparison</MenuItem>
       </Menu>
     </Sidebar>
   );

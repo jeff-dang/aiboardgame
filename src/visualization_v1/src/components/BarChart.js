@@ -107,39 +107,56 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   axisLeftScale.rangeRound([yMax, 0]);
 
   return (
-    <div style={{ marginBottom: 20 }} className="centering">
+    <div
+      style={{
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      className="centering"
+    >
       <div>
         <h1> Frequently Used Moves</h1>
-        <span> Player: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setPlayer(Number(e.target.value))}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
         >
-          {players.map((player) => (
-            <option key={player} value={player}>
-              {player}
-            </option>
-          ))}
-        </select>
-        <span> Simulations: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setNumSims(Number(e.target.value))}
-        >
-          {numSimulations.map((simulation) => (
-            <option key={simulation} value={simulation}>
-              {simulation}
-            </option>
-          ))}
-        </select>
-        <span> Number of Moves: </span>
-        <select onChange={(e) => setNumBars(Number(e.target.value))}>
-          {bars.map((bar) => (
-            <option key={bar} value={bar}>
-              {bar}
-            </option>
-          ))}
-        </select>
+          <span> Player: </span>
+          <select
+            style={{ margin: 10 }}
+            onChange={(e) => setPlayer(Number(e.target.value))}
+          >
+            {players.map((player) => (
+              <option key={player} value={player}>
+                {player}
+              </option>
+            ))}
+          </select>
+          <span> Simulations: </span>
+          <select
+            style={{ margin: 10 }}
+            onChange={(e) => setNumSims(Number(e.target.value))}
+          >
+            {numSimulations.map((simulation) => (
+              <option key={simulation} value={simulation}>
+                {simulation}
+              </option>
+            ))}
+          </select>
+          <span> Number of Moves: </span>
+          <select onChange={(e) => setNumBars(Number(e.target.value))}>
+            {bars.map((bar) => (
+              <option key={bar} value={bar}>
+                {bar}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <svg width={width} height={height}>
         <GradientTealBlue id="teal" />
