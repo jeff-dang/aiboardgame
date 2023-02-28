@@ -5,18 +5,6 @@ from env.action_initiater import get_actions
 from env.entities.map_data import Map_Areas
 from env.entities.action_tokens import EnergyActionToken, MoveActionToken, RechargeActionToken
 
-# *********** Logger Constants ******************
-GAME_ENGINE_LOGS = True
-MONUMENT_LOGS = False
-ENERGY_LOGS = True
-ACTION_LOGS = True
-HELPER_LOGS = True
-OBSERVATION_SPACE_LOGS = True
-OTHER_LOGS = True
-CONDITION_CHECK_LOGS = True
-FLOW_LOGS = True
-INITIALIZATION_LOGS = True
-
 # ********* GAME ENGINE CONSTANTS ********************
 
 CHARACTER_NAMES: list[str] = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]

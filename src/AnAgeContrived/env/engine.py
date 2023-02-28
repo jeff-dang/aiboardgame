@@ -194,8 +194,8 @@ class Engine:
             return
 
         actions = get_actions(self.players[self.current_player], self)
-        print(self.get_legal_action_names(agent_name))
-        print("EXECUTING ACTION", actions[action].action)
+        Logger.log(str(self.get_legal_action_names(agent_name)), 'GAME_ENGINE_LOGS')
+        Logger.log("EXECUTING ACTION " + str(actions[action].action), 'GAME_ENGINE_LOGS')
 
         actions[action].execute()
 
@@ -220,9 +220,7 @@ class Engine:
             if monument.is_completed() and self.monument_index < 5:
                 self.monument_index += 1
                 self.num_of_built_monuments += 1
-
-        print('Current monument is:',
-              self.monuments[self.monument_index].name, 'index is:', self.monument_index, 'num walls completed', self.monuments[self.monument_index].get_num_walls_completed())
+        Logger.log('Current monument is: ' + str(self.monuments[self.monument_index].name) + ' index is: ' + str(self.monument_index) + ' num walls completed ' +  str(self.monuments[self.monument_index].get_num_walls_completed()), 'GAME_ENGINE_LOGS')
         monument = self.monuments[self.monument_index]
         if monument.is_top_wall_completed():
             filled_wall = monument.get_top_wall()
@@ -264,10 +262,10 @@ class Engine:
 
     def render(self, agent_name):
         agent = self.get_agent(agent_name)
-        print(agent.character)
-        agent.get_transmuter().print_transmuter()
-        print(agent.location, agent.initial_location)
-        self.turn.print_turn_state()
+        Logger.log(str(agent.character), 'GAME_ENGINE_LOGS')
+        # agent.get_transmuter().print_transmuter()
+        Logger.log(str(agent.location) + ' ' + str(agent.initial_location), 'GAME_ENGINE_LOGS')
+        # self.turn.print_turn_state()
 
     #TODO: fix it in a way that players can select from one of the rewards instead of giving both energies automatically
     def give_energy_rewards(self, players_contributed, monument_wall):
@@ -275,14 +273,14 @@ class Engine:
             for j in players_contributed:
                 if i == 'Any':
                     energy = EnergyTile(Energy.PRIMAL, j)
-                    print('BEFORE REWARDS energies are:', j.exhausted_energies)
+                    Logger.log('BEFORE REWARDS energies are: ' + str(j.exhausted_energies), 'GAME_ENGINE_LOGS')
                     j.exhausted_energies[energy.energy_type].append(energy)
-                    print('AFTER REWARDS energies are:', j.exhausted_energies)
+                    Logger.log('AFTER REWARDS energies are: ' + str(j.exhausted_energies), 'GAME_ENGINE_LOGS')
                 else:
                     energy = EnergyTile(i, j)
-                    print('BEFORE REWARDS energies are:', j.exhausted_energies)
+                    Logger.log('BEFORE REWARDS energies are: ' + str(j.exhausted_energies), 'GAME_ENGINE_LOGS')
                     j.exhausted_energies[energy.energy_type].append(energy)
-                    print('AFTER REWARDS energies are:', j.exhausted_energies)
+                    Logger.log('AFTER REWARDS energies are: ' + str(j.exhausted_energies), 'GAME_ENGINE_LOGS')
         monument_wall.is_reward_given = True
 
     def _check_if_last_wall_filled(self):

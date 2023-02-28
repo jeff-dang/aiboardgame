@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from env.entities.player import Player
 
 from env.entities.energy import Energy
+from env.helpers.logger import Logger
 
 
 class MonumentWall():
@@ -15,8 +16,8 @@ class MonumentWall():
     # empty_sections is the number of sections that are currently empty
     # owner is the player that owns this tile --> Can identify the owner of every energy tile using EnergyTile.owner
     # monument_benefit_token is the benefit token that is placed on this tile, implementation of this is TBD
-    def __init__(self, acceptable_energy_types: list[Energy], rewarded_energy: list[Energy], monument_benefit_token:list=None):
-        # print('monument_wall.py - INITIALIZING monuments with list:', acceptable_energy_types)
+    def __init__(self, acceptable_energy_types: list[Energy], rewarded_energy: list[Energy], monument_benefit_token: list = None):
+        Logger.log('monument_wall.py - INITIALIZING monuments with list: ' + str(acceptable_energy_types), 'INITIALIZATION_LOGS')
         self.sections: list[Energy] = acceptable_energy_types
         self.remaining_sections: list[Energy] = acceptable_energy_types
         self.num_sections: int = len(acceptable_energy_types)
@@ -35,7 +36,7 @@ class MonumentWall():
             if energy_type == Energy.PRIMAL:
                 is_successful = True
             elif energy_type in self.remaining_sections:
-                print('ENERGY ACTION MASK IS ACCEPTABLE CHECK', energy_type, self.remaining_sections)
+                Logger.log('ENERGY ACTION MASK IS ACCEPTABLE CHECK: ' + str(energy_type) + ' ' + str(self.remaining_sections), 'MONUMENT_LOGS')
                 is_successful = True
 
         return is_successful
@@ -43,8 +44,8 @@ class MonumentWall():
     def fill_section(self, energy: Energy) -> bool:
         is_successful = False
         if(self.empty_sections != 0):
-            print('e type is: ', energy.energy_type)
-            print('self.sections is: ', self.sections)
+            Logger.log('e type is: ' + str(energy.energy_type), 'MONUMENT_LOGS')
+            Logger.log('self.sections is: ' + str(self.sections), 'MONUMENT_LOGS')
             if energy.energy_type == Energy.PRIMAL:
                 # get the first empty section's index
                 index = self.filled_sections.index(0)
@@ -52,31 +53,25 @@ class MonumentWall():
                 self.filled_sections[index] = energy
                 self.remaining_sections[index] = None
                 self.empty_sections -= 1
-                print('SECTION FILLED WITH ENERGY: ',
-                      energy.energy_type)  # DELETE LATER
+                Logger.log('SECTION FILLED WITH ENERGY: ' + str(energy.energy_type), 'OTHER_LOGS')
                 is_successful = True
             elif energy.energy_type in self.remaining_sections:
-                # elif self._is_in_acceptable_energy_types(energy.energy_type):
-                # index = self.get_acceptable_energy_types().index(energy.energy_type)
                 index = self.remaining_sections.index(energy.energy_type)
                 if self.filled_sections[index] == 0:
                     self.filled_sections[index] = energy
                     self.remaining_sections[index] = None
                     self.empty_sections -= 1
-                    print('SECTION FILLED WITH ENERGY: ',
-                          energy.energy_type)  # DELETE LATER
+                    Logger.log('SECTION FILLED WITH ENERGY: ' + str(energy.energy_type), 'MONUMENT_LOGS')
                     is_successful = True
                 else:
-                    print('All the sections with the matching energy type is filled')
+                    Logger.log('All the sections with the matching energy type is filled', 'MONUMENT_LOGS')
             else:
-                print('Energy type is not supported on this monument wall - condition is: ',
-                      energy.energy_type in self.sections, 'where the supported sections are', self.sections)
+                Logger.log('Energy type is not supported on this monument wall - condition is: ' + str(energy.energy_type in self.sections) + ' where the supported sections are ' + str(self.sections), 'MONUMENT_LOGS')
             if self.is_completed():
                 # TODO: find a way to assign the owner who finished the wall
                 self.set_owner(energy.owner)
         else:
-            print(
-                'All the sections are filled. Please try to fill the next wall of the monument')
+            Logger.log('All the sections are filled. Please try to fill the next wall of the monument', 'MONUMENT_LOGS')
         return is_successful
 
     # assigns the owner of this tile

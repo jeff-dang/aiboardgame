@@ -1,4 +1,5 @@
 from enum import Enum
+from env.helpers.logger import Logger
 
 class TurnType(Enum):
     CONVEY_TURN = 1
@@ -30,6 +31,6 @@ class TurnState():
         return self.turn_type
 
     def print_turn_state(self):
-        print("Turn Type: ", self.turn_type)
-        print("Can Convey: ", self.can_convey)
-        print("Can Move:", self.can_move)
+        Logger.log("Turn Type: " + str(self.turn_type), 'TURN_LOGS')
+        Logger.log("Can Convey: " + str(self.can_convey), 'TURN_LOGS')
+        Logger.log("Can Move: " + str(self.can_move), 'TURN_LOGS')

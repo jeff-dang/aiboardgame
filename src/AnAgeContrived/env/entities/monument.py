@@ -1,5 +1,5 @@
 from env.entities.monument_wall import MonumentWall
-
+from env.helpers.logger import Logger
 
 class Monument:
     def __init__(self, name: str, location, monumentWalls: list[MonumentWall]):
@@ -27,7 +27,7 @@ class Monument:
     def change_top_wall(self):
         if self.top_wall_index < len(self.walls) - 1:
             self.top_wall_index += 1
-            print('Index is: ', self.top_wall_index)  # DELETE
-            print('TOP WALL SWITCHED')  # DELETE
+            Logger.log('Index is: ' + str(self.top_wall_index), 'MONUMENT_LOGS')
+            Logger.log('TOP WALL SWITCHED', 'MONUMENT_LOGS')
         else:
-            print('MONUMENT COMPLETED')  # DELETE
+            Logger.log('MONUMENT COMPLETED', 'MONUMENT_LOGS')
