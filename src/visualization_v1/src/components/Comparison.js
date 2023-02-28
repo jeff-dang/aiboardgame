@@ -26,7 +26,11 @@ const Comparison = () => {
       <select
         style={{ margin: 10 }}
         onChange={(e) => setFirstChart(chartOptions[e.target.value])}
+        defaultValue={"none"}
       >
+        <option disabled value={"none"}>
+          None
+        </option>
         {Object.keys(chartOptions).map((option) => (
           <option key={option} value={option}>
             {option}
@@ -37,7 +41,11 @@ const Comparison = () => {
       <select
         style={{ margin: 10 }}
         onChange={(e) => setSecondChart(chartOptions[e.target.value])}
+        defaultValue={"none"}
       >
+        <option disabled value={"none"}>
+          None
+        </option>
         {Object.keys(chartOptions).map((option) => (
           <option key={option} value={option}>
             {option}
