@@ -1,4 +1,4 @@
-import entities.energy
+from entities.energy import Energy 
 class VictoryPoints:
 
     CONSTRUCTIVE = 1
@@ -61,8 +61,67 @@ class VictoryPoints:
         return vp_points
 
     def calcAchievements(engine,player):
-        #insert constants
-        vp_points = 1
+        #award 2 transformative 
+        vp_points = 0
+        #assuming transformative.timestwo is the tile
+        if achievements.transformative.timestwo.owner == player:
+            vp_points += 2
+            #check if consider tiles on board
+            for monument in monument.list:
+                top_wall = monument.get_top_wall()
+                for tile in top_wall.filled_sections:
+                    if tile.owner == player and achievements.transformative.timestwo == tile:
+                        vp_points += 2 
+        if achievements.transformative.plusfive.owner == player:
+            vp_points += 5
+
+        #achievements under sentient
+        if achievements.sentient.timestwo.owner == player:
+            vp_points += 2
+            #check if consider tiles on board
+            for monument in monument.list:
+                top_wall = monument.get_top_wall()
+                for tile in top_wall.filled_sections:
+                    if tile.owner == player and achievements.sentient.timestwo == tile:
+                        vp_points += 2 
+        if achievements.sentient.plusfive.owner == player:
+            vp_points += 5
+
+         #achievements under journey icons
+        if achievements.journey.timestwo.owner == player:
+            vp_points += 2
+            #check if consider tiles on board
+            for monument in monument.list:
+                top_wall = monument.get_top_wall()
+                for tile in top_wall.filled_sections:
+                    if tile.owner == player and achievements.journey.timestwo == tile:
+                        vp_points += 2 
+        if achievements.journey.plusfive.owner == player:
+            vp_points += 5
+        
+
+        if achievements.random1.timestwo.owner == player:
+            vp_points += 2
+            #check if consider tiles on board
+            for monument in monument.list:
+                top_wall = monument.get_top_wall()
+                for tile in top_wall.filled_sections:
+                    if tile.owner == player and achievements.random1.timestwo == tile:
+                        vp_points += 2 
+        if achievements.random1.plusfive.owner == player:
+            vp_points += 5
+
+        if achievements.random2.timestwo.owner == player:
+            vp_points += 2
+            #check if consider tiles on board
+            for monument in monument.list:
+                top_wall = monument.get_top_wall()
+                for tile in top_wall.filled_sections:
+                    if tile.owner == player and achievements.random2.timestwo == tile:
+                        vp_points += 2 
+        if achievements.random2.plusfive.owner == player:
+            vp_points += 5
+
         return vp_points
 
 
