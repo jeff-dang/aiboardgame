@@ -7,6 +7,7 @@ import HeatMapWithTooltip from "./components/HeatMap";
 import Piechart from "./components/PieChart";
 import LineChart from "./components/LineChart";
 import TreeGraph from "./components/TreeGraph";
+import TreeChart from "./components/TreeChart";
 import React from "react";
 import "./data/getData";
 import FrequentlyUsedMoves from "./components/BarChart";
@@ -43,6 +44,10 @@ function App() {
           <Route
             path="/tree-graph"
             element={<TreeGraph width={1100} height={700} />}
+          />
+          <Route
+            path="/tree-chart"
+            element={<TreeChart width={1100} height={700} />}
           />
           <Route path="/comparison" element={<Comparison />} />
         </Routes>
