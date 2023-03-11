@@ -13,6 +13,7 @@ import "./data/getData";
 import FrequentlyUsedMoves from "./components/BarChart";
 import MovesToScores from "./components/MovesToScores";
 import Comparison from "./components/Comparison";
+import SimpleTreeGraph from "./components/SimpleTreeGraph";
 
 function App() {
   return (
@@ -43,13 +44,17 @@ function App() {
           />
           <Route
             path="/tree-graph"
+            element={<SimpleTreeGraph width={1100} height={700} />}
+          />
+          <Route path="/comparison" element={<Comparison />} />
+          {/* <Route
+            path="/tree-graph"
             element={<TreeGraph width={1100} height={700} />}
           />
           <Route
             path="/tree-chart"
             element={<TreeChart width={1100} height={700} />}
-          />
-          <Route path="/comparison" element={<Comparison />} />
+          /> */}
         </Routes>
       </div>
     </div>

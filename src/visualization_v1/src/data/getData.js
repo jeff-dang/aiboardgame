@@ -179,20 +179,6 @@ export default class Data {
     return result;
   }
 
-  // // move this to moves to score component
-  // getMovesScoresData(data, player) {
-  //   let result = [];
-  //   Object.entries(data).forEach((simulation) => {
-  //     const playerData = getPlayerData(simulation[1], player);
-  //     const moves = Object.keys(playerData).length;
-
-  //     const score = simulation[1].meta_data[`player_${player}`];
-  //     result.push({ x: moves, y: score });
-  //   });
-
-  //   return result;
-  // }
-
   getNumberOfPlayers(data) {
     let players = [];
     const simulation = Object.entries(data)[0];

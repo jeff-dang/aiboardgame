@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import {
-  getAllDataExEnd,
-  getAllNonZeroActions,
-  getDataWithMergedActions,
-  getFrequencyMapForPlayer,
-  getNumberOfPlayers,
-  getNumberOfSimulations,
-} from "../data/getData";
+import Data from "../data/getData";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -17,9 +10,10 @@ const getRandomColor = () => {
 };
 
 //parameter
-const allData = getAllDataExEnd();
-const players = getNumberOfPlayers(allData);
-const numSimulations = getNumberOfSimulations(allData);
+const dataInit = new Data();
+const allData = dataInit.getAllDataExEnd();
+const players = dataInit.getNumberOfPlayers(allData);
+const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 const getLabels = (allNonZeroActions) => {
   let labels = [];
@@ -66,13 +60,13 @@ const PieChart = ({ width, height }) => {
   });
 
   useEffect(() => {
-    const mergedData = getDataWithMergedActions(allData);
+    const mergedData = dataInit.getDataWithMergedActions(allData);
 
-    setFreqMap(getFrequencyMapForPlayer(mergedData, numSims, player));
+    setFreqMap(dataInit.getFrequencyMapForPlayer(mergedData, numSims, player));
   }, [player, numSims]);
 
   useEffect(() => {
-    setAllNonZeroActions(getAllNonZeroActions(freqMap));
+    setAllNonZeroActions(dataInit.getAllNonZeroActions(freqMap));
   }, [freqMap]);
 
   useEffect(() => {

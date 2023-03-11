@@ -4,15 +4,16 @@ import HeatMapWithTooltip from "./HeatMap";
 import LineChart from "./LineChart";
 import MovesToScores from "./MovesToScores";
 import PieChart from "./PieChart";
+import SimpleTreeGraph from "./SimpleTreeGraph";
 import TreeGraph from "./TreeGraph";
 
 const chartOptions = {
-  "Frequency Used Moves": <FrequentlyUsedMoves width={1000} height={700} />,
+  "Frequency Used Moves": <FrequentlyUsedMoves width={1100} height={700} />,
   "Moves vs. Scores": <MovesToScores />,
   "Heat map": <HeatMapWithTooltip width={1100} height={700} />,
   "Line Chart": <LineChart width={1100} height={700} />,
   "Pie Chart": <PieChart width={1100} height={700} />,
-  "Tree Graph": <TreeGraph />,
+  "Tree Graph": <SimpleTreeGraph width={1100} height={700} />,
 };
 
 const Comparison = () => {

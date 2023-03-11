@@ -5,25 +5,19 @@ import { GradientTealBlue } from "@visx/gradient";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useSpring, animated } from "@react-spring/web";
-import {
-  getAllDataExEnd,
-  getFrequencyMapForPlayer,
-  getDataWithMergedActions,
-  sortFrequencyMap,
-  getNumberOfPlayers,
-  getNumberOfSimulations,
-} from "../data/getData";
+import Data from "../data/getData";
 
 const bars = [3, 4, 5, 6, 7, 8, 9, 10];
 const axisTextColor = "#000000";
 const verticalMargin = 120;
 
-const allData = getAllDataExEnd();
-const players = getNumberOfPlayers(allData);
-const numSimulations = getNumberOfSimulations(allData);
+const dataInit = new Data();
+const allData = dataInit.getAllDataExEnd();
+const players = dataInit.getNumberOfPlayers(allData);
+const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 function getBarGraphData(frequencyMap, numBars) {
-  sortFrequencyMap(frequencyMap);
+  dataInit.sortFrequencyMap(frequencyMap);
 
   const sliced = frequencyMap.slice(0, numBars);
 
@@ -45,8 +39,8 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   const getFrequecy = (move) => move.frequency;
 
   useEffect(() => {
-    const mergedData = getDataWithMergedActions(allData);
-    setFreqMap(getFrequencyMapForPlayer(mergedData, numSims, player));
+    const mergedData = dataInit.getDataWithMergedActions(allData);
+    setFreqMap(dataInit.getFrequencyMapForPlayer(mergedData, numSims, player));
     setToggle(false);
   }, [player, numSims, numBars]);
 

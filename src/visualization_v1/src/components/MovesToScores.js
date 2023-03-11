@@ -8,16 +8,26 @@ import {
   Legend,
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
-import {
-  getMovesScoresData,
-  getAllData,
-  getNumberOfPlayers,
-} from "../data/getData";
+import Data from "../data/getData";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const allData = getAllData();
-const players = getNumberOfPlayers(allData);
+const dataInit = new Data();
+const allData = dataInit.getAllDataExEnd();
+const players = dataInit.getNumberOfPlayers(allData);
+
+function getMovesScoresData(data, player) {
+  let result = [];
+  Object.entries(data).forEach((simulation) => {
+    const playerData = dataInit.getPlayerData(simulation[1], player);
+    const moves = Object.keys(playerData).length;
+
+    const score = simulation[1].meta_data[`player_${player}`];
+    result.push({ x: moves, y: score });
+  });
+
+  return result;
+}
 
 const options = {
   scales: {

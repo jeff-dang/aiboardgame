@@ -3,13 +3,7 @@ import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { HeatmapCircle } from "@visx/heatmap";
 import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip";
-import {
-  getAllDataExEnd,
-  getCountMapForPlayer,
-  getDataWithMergedActions,
-  getNumberOfPlayers,
-  getNumberOfSimulations,
-} from "../data/getData";
+import Data from "../data/getData";
 import { useSpring, animated } from "@react-spring/web";
 const tooltipStyles = {
   ...defaultStyles,
@@ -22,9 +16,10 @@ const hot1 = "#77312f";
 const hot2 = "#f33d15";
 const background = "#9de3d4"; //"#28272c";
 
-const allData = getAllDataExEnd();
-const players = getNumberOfPlayers(allData);
-const numSimulations = getNumberOfSimulations(allData);
+const dataInit = new Data();
+const allData = dataInit.getAllDataExEnd();
+const players = dataInit.getNumberOfPlayers(allData);
+const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 const getData = (freqMap, rows) => {
   const newData = [];
@@ -102,8 +97,8 @@ const HeatMap = ({
   });
 
   useEffect(() => {
-    const mergedData = getDataWithMergedActions(allData);
-    setFreqMap(getCountMapForPlayer(mergedData, numSims, player));
+    const mergedData = dataInit.getDataWithMergedActions(allData);
+    setFreqMap(dataInit.getCountMapForPlayer(mergedData, numSims, player));
     setToggle(false);
   }, [player, numSims]);
 

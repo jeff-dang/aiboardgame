@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { getAllData, getNumberOfSimulations, getScores } from "../data/getData";
+import Data from "../data/getData";
 
 ChartJS.register(
   CategoryScale,
@@ -32,8 +32,9 @@ export const options = {
   },
 };
 
-const allData = getAllData();
-const numSimulations = getNumberOfSimulations(allData);
+const dataInit = new Data();
+const allData = dataInit.getAllData();
+const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 const getLabels = (scoreData) => {
   let labels = [];
@@ -81,7 +82,9 @@ const getDataSet = (scoreData, labels) => {
 
 export default function LineChart({ width, height }) {
   const [numSims, setNumSims] = useState(1);
-  const [scoreData, setScoreData] = useState(getScores(allData, numSims));
+  const [scoreData, setScoreData] = useState(
+    dataInit.getScores(allData, numSims)
+  );
   const labels = getLabels(scoreData);
   const [data, setData] = useState({
     labels: labels,
@@ -89,7 +92,7 @@ export default function LineChart({ width, height }) {
   });
 
   useEffect(() => {
-    setScoreData(getScores(allData, numSims));
+    setScoreData(dataInit.getScores(allData, numSims));
   }, [numSims]);
 
   useEffect(() => {
