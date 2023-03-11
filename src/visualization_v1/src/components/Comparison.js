@@ -7,13 +7,16 @@ import PieChart from "./PieChart";
 import SimpleTreeGraph from "./SimpleTreeGraph";
 import TreeGraph from "./TreeGraph";
 
+const width = 1100;
+const height = 700;
+
 const chartOptions = {
-  "Frequency Used Moves": <FrequentlyUsedMoves width={1100} height={700} />,
-  "Moves vs. Scores": <MovesToScores />,
-  "Heat map": <HeatMapWithTooltip width={1100} height={700} />,
-  "Line Chart": <LineChart width={1100} height={700} />,
-  "Pie Chart": <PieChart width={1100} height={700} />,
-  "Tree Graph": <SimpleTreeGraph width={1100} height={700} />,
+  "Frequency Used Moves": <FrequentlyUsedMoves width={width} height={height} />,
+  "Moves vs. Scores": <MovesToScores width={width} height={height} />,
+  "Heat map": <HeatMapWithTooltip width={width} height={height} />,
+  "Line Chart": <LineChart width={width} height={height} />,
+  "Pie Chart": <PieChart width={width} height={height} />,
+  "Tree Graph": <SimpleTreeGraph width={width} height={height} />,
 };
 
 const Comparison = () => {

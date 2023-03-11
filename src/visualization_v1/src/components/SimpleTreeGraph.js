@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import EChartsReact from "echarts-for-react";
 import Data from "../data/getData";
+import { files } from "../data/getFiles";
 
 const dataInit = new Data();
-const allData = dataInit.getAllDataExEnd();
-const players = dataInit.getNumberOfPlayers(allData);
-const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 const categories = [
   { name: "Start", itemStyle: { color: "green" } },
   { name: "End Game", itemStyle: { color: "red" } },
   { name: "Fill Monument", itemStyle: { color: "aqua" } },
   { name: "Move Player", itemStyle: { color: "yellow" } },
+  { name: "Convey", itemStyle: { color: "teal" } },
+  { name: "Action Tokens", itemStyle: { color: "lightgreen" } },
 ];
 
 const labelOptions = {
@@ -37,7 +37,7 @@ const generateData = (dataArr, moves) => {
       if (result.findIndex((item) => item.name === action) === -1) {
         const category = categories.findIndex((item) => {
           const name = action !== "End Game" ? action.split(", ")[1] : action;
-          console.log(name);
+
           if (name.length < item.name.length) return false;
           return name.substring(0, item.name.length) === item.name;
         });
@@ -48,6 +48,7 @@ const generateData = (dataArr, moves) => {
           y: newY,
           label: labelOptions,
           category,
+          value: categories[category].name,
         });
       } else {
         result[result.findIndex((item) => item.name === action)].x = x;
@@ -86,21 +87,23 @@ const generateOptions = (dataArr, moves) => {
   const option = {
     tooltip: {},
     animationDurationUpdate: 2000,
-    animationEasingUpdate: "quinticInOut",
+    animationEasingUpdate: "sinusoidalInOut",
     textStyle: {
-      fontSize: 11,
+      fontSize: 9,
     },
     series: [
       {
         type: "graph",
         layout: "none",
-        symbolSize: 80,
+        symbolSize: 70,
+        nodeScaleRatio: 0.2,
         itemStyle: {
           color: "#ff7f50",
         },
+        autoCurveness: true,
         roam: true,
         scaleLimit: {
-          min: 1,
+          min: 0.7,
           max: 3,
         },
         label: {
@@ -108,10 +111,6 @@ const generateOptions = (dataArr, moves) => {
         },
         edgeSymbol: ["circle", "arrow"],
         edgeSymbolSize: [4, 10],
-        edgeLabel: {
-          fontSize: 20,
-        },
-
         data: generateData(dataArr, moves),
         links: generateLinks(dataArr, moves),
         lineStyle: {
@@ -126,15 +125,40 @@ const generateOptions = (dataArr, moves) => {
   return option;
 };
 
-const SimpleTreeGraph = ({ width = 1100, height = 700 }) => {
+const SimpleTreeGraph = ({ width, height }) => {
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
+  const [numSimulations, setNumSimulations] = useState(
+    dataInit.getNumberOfSimulations(allData)
+  );
+
   const [player, setPlayer] = useState(0);
   const [numSims, setNumSims] = useState(1);
   const [numMoves, setNumMoves] = useState(3);
   const [allMoves, setAllMoves] = useState([3]);
+
   const res = dataInit.getDataWithMergedActions(allData);
   const initArr = dataInit.getMap(res, numSims, player)[0];
   const [nextMoveArray, setNextMoveArray] = useState(initArr);
   const [option, setOptions] = useState(generateOptions(initArr, numMoves));
+
+  useEffect(() => {
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setPlayers(dataInit.getNumberOfPlayers(allData));
+    setNumSimulations(dataInit.getNumberOfSimulations(allData));
+  }, [allData]);
 
   useEffect(() => {
     const mergedData = dataInit.getDataWithMergedActions(allData);
@@ -146,7 +170,11 @@ const SimpleTreeGraph = ({ width = 1100, height = 700 }) => {
       newAllMoves.push(i);
     }
     setAllMoves(newAllMoves);
-  }, [player, numSims]);
+
+    console.log("maxMoves", maxMoves);
+
+    if (numMoves > maxMoves) setNumMoves(maxMoves);
+  }, [allData, player, numSims]);
 
   useEffect(() => {
     setOptions(generateOptions(nextMoveArray, numMoves));
@@ -160,6 +188,7 @@ const SimpleTreeGraph = ({ width = 1100, height = 700 }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        margin: "auto",
       }}
     >
       <h1>Tree Graph</h1>
@@ -170,10 +199,26 @@ const SimpleTreeGraph = ({ width = 1100, height = 700 }) => {
           alignItems: "center",
         }}
       >
+        <span> Simulation File: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setSimulationFile(e.target.value)}
+          defaultValue={"none"}
+        >
+          <option disabled value={"none"}>
+            None
+          </option>
+          {files.map((filename) => (
+            <option key={filename} value={filename}>
+              {filename}
+            </option>
+          ))}
+        </select>
         <span> Player: </span>
         <select
           style={{ margin: 10 }}
           onChange={(e) => setPlayer(Number(e.target.value))}
+          disabled={simulationFile === "none"}
         >
           {players.map((player) => (
             <option key={player} value={player}>
@@ -185,6 +230,7 @@ const SimpleTreeGraph = ({ width = 1100, height = 700 }) => {
         <select
           style={{ margin: 10 }}
           onChange={(e) => setNumSims(Number(e.target.value))}
+          disabled={simulationFile === "none"}
         >
           {numSimulations.map((simulation) => (
             <option key={simulation} value={simulation}>
@@ -196,6 +242,8 @@ const SimpleTreeGraph = ({ width = 1100, height = 700 }) => {
         <select
           style={{ margin: 10 }}
           onChange={(e) => setNumMoves(Number(e.target.value))}
+          disabled={simulationFile === "none"}
+          value={numMoves}
         >
           {allMoves.map((move) => (
             <option key={move} value={move}>
@@ -204,13 +252,15 @@ const SimpleTreeGraph = ({ width = 1100, height = 700 }) => {
           ))}
         </select>
       </div>
-      <EChartsReact
-        option={option}
-        style={{
-          height: `${height}px`,
-          width: `${width}px`,
-        }}
-      />
+      {simulationFile !== "none" && (
+        <EChartsReact
+          option={option}
+          style={{
+            height: `${height}px`,
+            width: `90vw`,
+          }}
+        />
+      )}
     </div>
   );
 };

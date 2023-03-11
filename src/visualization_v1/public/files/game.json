@@ -595,76 +595,6 @@
       "action_details": "Action Turn",
       "current_score": -12
     },
-    "85": {
-      "player": 2,
-      "turn_num": 32,
-      "action": "End Turn",
-      "action_details": "End Turn",
-      "current_score": -13
-    },
-    "86": {
-      "player": 3,
-      "turn_num": 33,
-      "action": "Action Turn",
-      "action_details": "Action Turn",
-      "current_score": -17
-    },
-    "87": {
-      "player": 3,
-      "turn_num": 33,
-      "action": "End Turn",
-      "action_details": "End Turn",
-      "current_score": -18
-    },
-    "88": {
-      "player": 4,
-      "turn_num": 34,
-      "action": "Action Turn",
-      "action_details": "Action Turn",
-      "current_score": -19
-    },
-    "89": {
-      "player": 4,
-      "turn_num": 34,
-      "action": "Fill Monument",
-      "action_details": "Constructive Energy",
-      "current_score": -20
-    },
-    "90": {
-      "player": 4,
-      "turn_num": 34,
-      "action": "Fill Monument",
-      "action_details": "Invertible Energy",
-      "current_score": -21
-    },
-    "91": {
-      "player": 4,
-      "turn_num": 34,
-      "action": "Move Player",
-      "action_details": "Position 6",
-      "current_score": -22
-    },
-    "92": {
-      "player": 4,
-      "turn_num": 34,
-      "action": "Fill Monument",
-      "action_details": "Primal Energy",
-      "current_score": -23
-    },
-    "93": {
-      "player": 4,
-      "turn_num": 34,
-      "action": "Fill Monument",
-      "action_details": "Generative Energy",
-      "current_score": -24
-    },
-    "94": {
-      "player": 4,
-      "turn_num": 35,
-      "action": "Action Tokens",
-      "action_details": "First Transmuter's Action Token",
-      "current_score": -24
-    },
     "meta_data": {
       "player_0": 180,
       "player_1": 184,
@@ -1101,41 +1031,6 @@
       "action_details": "End Turn",
       "current_score": -10
     },
-    "61": {
-      "player": 2,
-      "turn_num": 22,
-      "action": "Action Turn",
-      "action_details": "Action Turn",
-      "current_score": -8
-    },
-    "62": {
-      "player": 2,
-      "turn_num": 22,
-      "action": "End Turn",
-      "action_details": "End Turn",
-      "current_score": -9
-    },
-    "63": {
-      "player": 3,
-      "turn_num": 23,
-      "action": "Action Turn",
-      "action_details": "Action Turn",
-      "current_score": -9
-    },
-    "64": {
-      "player": 3,
-      "turn_num": 23,
-      "action": "Fill Monument",
-      "action_details": "Generative Energy",
-      "current_score": -11
-    },
-    "65": {
-      "player": 3,
-      "turn_num": 23,
-      "action": "Fill Monument",
-      "action_details": "Invertible Energy",
-      "current_score": -12
-    },
     "meta_data": {
       "player_0": 184,
       "player_1": -11,
@@ -1169,36 +1064,6 @@
     "meta_data": {
       "player_0": -2,
       "player_1": -1,
-      "player_2": 0,
-      "player_3": 0,
-      "player_4": 0
-    }
-  },
-  {
-    "0": {
-      "player": 0,
-      "turn_num": 0,
-      "action": "Action Turn",
-      "action_details": "Action Turn",
-      "current_score": 0
-    },
-    "1": {
-      "player": 0,
-      "turn_num": 0,
-      "action": "Move Player",
-      "action_details": "Position 14",
-      "current_score": -1
-    },
-    "2": {
-      "player": 0,
-      "turn_num": 0,
-      "action": "End Turn",
-      "action_details": "End Turn",
-      "current_score": -2
-    },
-    "meta_data": {
-      "player_0": 97,
-      "player_1": 0,
       "player_2": 0,
       "player_3": 0,
       "player_4": 0

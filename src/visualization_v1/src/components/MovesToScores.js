@@ -9,12 +9,11 @@ import {
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
 import Data from "../data/getData";
+import { files } from "../data/getFiles";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 const dataInit = new Data();
-const allData = dataInit.getAllDataExEnd();
-const players = dataInit.getNumberOfPlayers(allData);
 
 function getMovesScoresData(data, player) {
   let result = [];
@@ -59,6 +58,10 @@ const options = {
 };
 
 export default function MovesToScores({ width, height }) {
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
+
   const [player, setPlayer] = useState(0);
   const [data, setData] = useState({
     datasets: [
@@ -71,6 +74,22 @@ export default function MovesToScores({ width, height }) {
   });
 
   useEffect(() => {
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setPlayers(dataInit.getNumberOfPlayers(allData));
+  }, [allData]);
+
+  useEffect(() => {
     setData({
       datasets: [
         {
@@ -80,7 +99,7 @@ export default function MovesToScores({ width, height }) {
         },
       ],
     });
-  }, [player]);
+  }, [allData, player]);
 
   return (
     <div
@@ -90,6 +109,7 @@ export default function MovesToScores({ width, height }) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        margin: "auto",
       }}
     >
       <h1>Moves Vs. Scores</h1>
@@ -100,10 +120,26 @@ export default function MovesToScores({ width, height }) {
           alignItems: "center",
         }}
       >
+        <span> Simulation File: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setSimulationFile(e.target.value)}
+          defaultValue={"none"}
+        >
+          <option disabled value={"none"}>
+            None
+          </option>
+          {files.map((filename) => (
+            <option key={filename} value={filename}>
+              {filename}
+            </option>
+          ))}
+        </select>
         <span> Player: </span>
         <select
           style={{ margin: 10 }}
           onChange={(e) => setPlayer(Number(e.target.value))}
+          disabled={simulationFile === "none"}
         >
           {players.map((player) => (
             <option key={player} value={player}>
@@ -112,9 +148,16 @@ export default function MovesToScores({ width, height }) {
           ))}
         </select>
       </div>
-      <div style={{ overflowX: "scroll" }}>
-        <Scatter options={options} width={width} height={height} data={data} />
-      </div>
+      {simulationFile !== "none" && (
+        <div style={{ overflowX: "scroll" }}>
+          <Scatter
+            options={options}
+            width={width}
+            height={height}
+            data={data}
+          />
+        </div>
+      )}
     </div>
   );
 }

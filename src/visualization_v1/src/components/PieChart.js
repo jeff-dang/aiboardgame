@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import Data from "../data/getData";
+import { files } from "../data/getFiles";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -11,9 +12,6 @@ const getRandomColor = () => {
 
 //parameter
 const dataInit = new Data();
-const allData = dataInit.getAllDataExEnd();
-const players = dataInit.getNumberOfPlayers(allData);
-const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 const getLabels = (allNonZeroActions) => {
   let labels = [];
@@ -50,6 +48,12 @@ const getBorderColors = (allNonZeroActions) => {
 };
 
 const PieChart = ({ width, height }) => {
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
+  const [numSimulations, setNumSimulations] = useState(
+    dataInit.getNumberOfSimulations(allData)
+  );
   const [player, setPlayer] = useState(0);
   const [numSims, setNumSims] = useState(1);
   const [freqMap, setFreqMap] = useState([]);
@@ -60,14 +64,31 @@ const PieChart = ({ width, height }) => {
   });
 
   useEffect(() => {
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setPlayers(dataInit.getNumberOfPlayers(allData));
+    setNumSimulations(dataInit.getNumberOfSimulations(allData));
+  }, [allData]);
+
+  useEffect(() => {
     const mergedData = dataInit.getDataWithMergedActions(allData);
 
     setFreqMap(dataInit.getFrequencyMapForPlayer(mergedData, numSims, player));
-  }, [player, numSims]);
+  }, [allData, player, numSims]);
 
   useEffect(() => {
     setAllNonZeroActions(dataInit.getAllNonZeroActions(freqMap));
-  }, [freqMap]);
+  }, [allData, freqMap]);
 
   useEffect(() => {
     setData({
@@ -82,7 +103,7 @@ const PieChart = ({ width, height }) => {
         },
       ],
     });
-  }, [allNonZeroActions]);
+  }, [allData, allNonZeroActions]);
 
   return (
     <div
@@ -92,6 +113,7 @@ const PieChart = ({ width, height }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        margin: "auto",
       }}
     >
       <h1>All Used Moves Frequency</h1>
@@ -102,10 +124,26 @@ const PieChart = ({ width, height }) => {
           alignItems: "center",
         }}
       >
+        <span> Simulation File: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setSimulationFile(e.target.value)}
+          defaultValue={"none"}
+        >
+          <option disabled value={"none"}>
+            None
+          </option>
+          {files.map((filename) => (
+            <option key={filename} value={filename}>
+              {filename}
+            </option>
+          ))}
+        </select>
         <span> Player: </span>
         <select
           style={{ margin: 10 }}
           onChange={(e) => setPlayer(Number(e.target.value))}
+          disabled={simulationFile === "none"}
         >
           {players.map((player) => (
             <option key={player} value={player}>
@@ -117,6 +155,7 @@ const PieChart = ({ width, height }) => {
         <select
           style={{ margin: 10 }}
           onChange={(e) => setNumSims(Number(e.target.value))}
+          disabled={simulationFile === "none"}
         >
           {numSimulations.map((simulation) => (
             <option key={simulation} value={simulation}>
@@ -125,16 +164,18 @@ const PieChart = ({ width, height }) => {
           ))}
         </select>
       </div>
-      <div style={{ overflowX: "scroll", marginTop: 20 }}>
-        {
-          <Pie
-            data={data}
-            width={width}
-            height={height}
-            options={{ maintainAspectRatio: false }}
-          />
-        }
-      </div>
+      {simulationFile !== "none" && (
+        <div style={{ overflowX: "scroll", marginTop: 20 }}>
+          {
+            <Pie
+              data={data}
+              width={width}
+              height={height}
+              options={{ maintainAspectRatio: false }}
+            />
+          }
+        </div>
+      )}
     </div>
   );
 };

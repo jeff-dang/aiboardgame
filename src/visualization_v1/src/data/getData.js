@@ -7,6 +7,10 @@ export default class Data {
     this.allActions = allActions;
   }
 
+  setAllData(data) {
+    this.data = data;
+  }
+
   getAllData() {
     return this.data;
   }

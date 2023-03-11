@@ -6,15 +6,13 @@ import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useSpring, animated } from "@react-spring/web";
 import Data from "../data/getData";
+import { files } from "../data/getFiles";
 
 const bars = [3, 4, 5, 6, 7, 8, 9, 10];
 const axisTextColor = "#000000";
 const verticalMargin = 120;
 
 const dataInit = new Data();
-const allData = dataInit.getAllDataExEnd();
-const players = dataInit.getNumberOfPlayers(allData);
-const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 function getBarGraphData(frequencyMap, numBars) {
   dataInit.sortFrequencyMap(frequencyMap);
@@ -28,6 +26,13 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   const xMax = width;
   const yMax = height - verticalMargin;
 
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
+  const [numSimulations, setNumSimulations] = useState(
+    dataInit.getNumberOfSimulations(allData)
+  );
+
   const [player, setPlayer] = useState(0);
   const [data, setData] = useState([]);
   const [freqMap, setFreqMap] = useState([]);
@@ -39,10 +44,27 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   const getFrequecy = (move) => move.frequency;
 
   useEffect(() => {
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setPlayers(dataInit.getNumberOfPlayers(allData));
+    setNumSimulations(dataInit.getNumberOfSimulations(allData));
+  }, [allData]);
+
+  useEffect(() => {
     const mergedData = dataInit.getDataWithMergedActions(allData);
     setFreqMap(dataInit.getFrequencyMapForPlayer(mergedData, numSims, player));
     setToggle(false);
-  }, [player, numSims, numBars]);
+  }, [allData, player, numSims, numBars]);
 
   useEffect(() => {
     setData(getBarGraphData(freqMap, numBars));
@@ -108,8 +130,8 @@ const FrequentlyUsedMoves = ({ width, height }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        margin: "auto",
       }}
-      className="centering"
     >
       <div>
         <h1> Frequently Used Moves</h1>
@@ -120,10 +142,26 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             alignItems: "center",
           }}
         >
+          <span> Simulation File: </span>
+          <select
+            style={{ margin: 10 }}
+            onChange={(e) => setSimulationFile(e.target.value)}
+            defaultValue={"none"}
+          >
+            <option disabled value={"none"}>
+              None
+            </option>
+            {files.map((filename) => (
+              <option key={filename} value={filename}>
+                {filename}
+              </option>
+            ))}
+          </select>
           <span> Player: </span>
           <select
             style={{ margin: 10 }}
             onChange={(e) => setPlayer(Number(e.target.value))}
+            disabled={simulationFile === "none"}
           >
             {players.map((player) => (
               <option key={player} value={player}>
@@ -135,6 +173,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
           <select
             style={{ margin: 10 }}
             onChange={(e) => setNumSims(Number(e.target.value))}
+            disabled={simulationFile === "none"}
           >
             {numSimulations.map((simulation) => (
               <option key={simulation} value={simulation}>
@@ -143,7 +182,10 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             ))}
           </select>
           <span> Number of Moves: </span>
-          <select onChange={(e) => setNumBars(Number(e.target.value))}>
+          <select
+            onChange={(e) => setNumBars(Number(e.target.value))}
+            disabled={simulationFile === "none"}
+          >
             {bars.map((bar) => (
               <option key={bar} value={bar}>
                 {bar}
@@ -152,55 +194,58 @@ const FrequentlyUsedMoves = ({ width, height }) => {
           </select>
         </div>
       </div>
-      <svg width={width} height={height}>
-        <GradientTealBlue id="teal" />
-        <rect width={width} height={height} fill="url(#teal)" rx={14} />
-        <Group top={verticalMargin / 2}>
-          {data.map((d) => {
-            const move = getMove(d);
-            const barWidth = xScale.bandwidth();
-            const barHeight = yMax - (yScale(getFrequecy(d)) ?? 0);
-            const barX = xScale(move);
-            //const barY = yMax - barHeight;
-            return (
-              <AnimatedBar
-                key={`bar-${move}`}
-                x={barX}
-                y={scale.to((s) => yMax - s * barHeight)}
-                width={barWidth}
-                height={scale.to((s) => s * barHeight)}
-                fill="rgba(30, 105, 98, 0.7)"
-              />
-            );
-          })}
-        </Group>
-        <AxisLeft
-          left={20}
-          top={60}
-          scale={axisLeftScale}
-          stroke={axisTextColor}
-          tickStroke={axisTextColor}
-          tickLabelProps={() => ({
-            fill: axisTextColor,
-            fontSize: 12,
-            textAnchor: "middle",
-            fontWeight: "bold",
-          })}
-        />
-        <AxisBottom
-          top={yMax + 60}
-          scale={axisBottomScale}
-          stroke={axisTextColor}
-          tickStroke={axisTextColor}
-          tickLabelProps={() => ({
-            fill: axisTextColor,
-            fontSize: `${numBars > 5 ? (numBars > 9 ? 6 : 7) : 11}`,
-            textAnchor: "middle",
-            overflow: "hidden",
-            fontWeight: "bold",
-          })}
-        />
-      </svg>
+      {simulationFile !== "none" && (
+        <svg width={width} height={height}>
+          <GradientTealBlue id="teal" />
+          <rect width={width} height={height} fill="url(#teal)" rx={14} />
+          <Group top={verticalMargin / 2}>
+            {data.map((d) => {
+              const move = getMove(d);
+              const barWidth = xScale.bandwidth();
+              const barHeight = yMax - (yScale(getFrequecy(d)) ?? 0);
+              const barX = xScale(move);
+              //const barY = yMax - barHeight;
+              return (
+                <AnimatedBar
+                  key={`bar-${move}`}
+                  x={barX}
+                  y={scale.to((s) => yMax - s * barHeight)}
+                  width={barWidth}
+                  height={scale.to((s) => s * barHeight)}
+                  fill="rgba(30, 105, 98, 0.7)"
+                />
+              );
+            })}
+          </Group>
+          <AxisLeft
+            left={20}
+            top={60}
+            scale={axisLeftScale}
+            stroke={axisTextColor}
+            tickStroke={axisTextColor}
+            tickLabelProps={() => ({
+              fill: axisTextColor,
+              fontSize: 12,
+              textAnchor: "middle",
+              fontWeight: "bold",
+            })}
+          />
+          <AxisBottom
+            top={yMax + 60}
+            scale={axisBottomScale}
+            stroke={axisTextColor}
+            tickStroke={axisTextColor}
+            tickLabelProps={() => ({
+              fill: axisTextColor,
+              fontSize: `${numBars > 5 ? (numBars > 9 ? 7 : 8) : 11}`,
+              textAnchor: "middle",
+              overflow: "break",
+              fontWeight: "bold",
+              width: `${numBars > 4 ? 200 : 250}`,
+            })}
+          />
+        </svg>
+      )}
     </div>
   );
 };

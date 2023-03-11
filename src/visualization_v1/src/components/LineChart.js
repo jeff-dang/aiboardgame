@@ -11,6 +11,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import Data from "../data/getData";
+import { files } from "../data/getFiles";
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +23,8 @@ ChartJS.register(
   Legend
 );
 
+const dataInit = new Data();
+
 export const options = {
   maintainAspectRatio: false,
   responsive: true,
@@ -31,10 +34,6 @@ export const options = {
     },
   },
 };
-
-const dataInit = new Data();
-const allData = dataInit.getAllData();
-const numSimulations = dataInit.getNumberOfSimulations(allData);
 
 const getLabels = (scoreData) => {
   let labels = [];
@@ -81,6 +80,12 @@ const getDataSet = (scoreData, labels) => {
 };
 
 export default function LineChart({ width, height }) {
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [numSimulations, setNumSimulations] = useState(
+    dataInit.getNumberOfSimulations(allData)
+  );
+
   const [numSims, setNumSims] = useState(1);
   const [scoreData, setScoreData] = useState(
     dataInit.getScores(allData, numSims)
@@ -92,8 +97,24 @@ export default function LineChart({ width, height }) {
   });
 
   useEffect(() => {
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setNumSimulations(dataInit.getNumberOfSimulations(allData));
+  }, [allData]);
+
+  useEffect(() => {
     setScoreData(dataInit.getScores(allData, numSims));
-  }, [numSims]);
+  }, [allData, numSims]);
 
   useEffect(() => {
     setData({
@@ -110,6 +131,7 @@ export default function LineChart({ width, height }) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        margin: "auto",
       }}
     >
       <h1>Simulation vs. Scores for All Players</h1>
@@ -120,10 +142,26 @@ export default function LineChart({ width, height }) {
           alignItems: "center",
         }}
       >
+        <span> Simulation File: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setSimulationFile(e.target.value)}
+          defaultValue={"none"}
+        >
+          <option disabled value={"none"}>
+            None
+          </option>
+          {files.map((filename) => (
+            <option key={filename} value={filename}>
+              {filename}
+            </option>
+          ))}
+        </select>
         <span> Simulations: </span>
         <select
           style={{ margin: 10 }}
           onChange={(e) => setNumSims(Number(e.target.value))}
+          disabled={simulationFile === "none"}
         >
           {numSimulations.map((simulation) => (
             <option key={simulation} value={simulation}>
@@ -132,9 +170,11 @@ export default function LineChart({ width, height }) {
           ))}
         </select>
       </div>
-      <div style={{ overflowX: "scroll" }}>
-        <Line options={options} width={width} height={height} data={data} />
-      </div>
+      {simulationFile !== "none" && (
+        <div style={{ overflowX: "scroll" }}>
+          <Line options={options} width={width} height={height} data={data} />
+        </div>
+      )}
     </div>
   );
 }
