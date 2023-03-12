@@ -12,7 +12,6 @@ class Turn():
 
     @staticmethod
     def end_turn(engine):
-        print("End Turn")
         engine.current_player = (engine.current_player+1) % TOTAL_PLAYERS
         engine.turn_counter += 1
         engine.turn.reset()

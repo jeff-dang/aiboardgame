@@ -1,6 +1,7 @@
 from env.helpers.logger import Logger
 from .map_data import map, bridges, areas
 from .bridge import Bridge
+from env.helpers.constants import STARTING_PLAYER_BRIDGES
 
 
 class Map:
@@ -45,8 +46,11 @@ class Map:
         return False
 
     def build_bridge(self, player, reward, location):
-        if(self.check_bridge_exists(location)):
-            Logger.log('BRIDGE ALREADY EXISTS', 'MAP_LOGS')
-            return False
-        b = Bridge(player.agent, reward, location)
+
+        tier = (STARTING_PLAYER_BRIDGES-player.num_bridges_left) + 1
+        b = Bridge(player.agent, reward, location, tier)
+        player.num_bridges_left -= 1
         self.player_bridges.append(b)
+
+    def get_reward_type(self, player, reward):
+        pass

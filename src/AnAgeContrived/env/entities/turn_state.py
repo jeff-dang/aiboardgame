@@ -29,8 +29,6 @@ class TurnState():
         print("Can Convey: ", self.can_convey)
         print("Can Move:", self.can_move)
 
-# TODO: enumerate the turn type
-
 
 class TurnType(Enum):
     CONVEY_TURN = 1
@@ -38,3 +36,4 @@ class TurnType(Enum):
     MOVE_TURN = 3
     END_TURN = 4
     BRIDGE_REWARD_TURN = 5
+    BUILD_BRIDGE_TURN = 6

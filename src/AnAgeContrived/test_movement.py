@@ -59,7 +59,7 @@ class TestMovement:
     def test_player_normal_movement_over_built_bridge(self):
         position = 37
         e = Engine()
-        e.map.build_bridge(e.players[0], BridgeRewardType.PLACE_HOLDER, 3)
+        e.map.build_bridge(e.players[0], BridgeRewardType.BUILD_BRIDGE, 3)
         e.players[0].location = 11
 
         move_pos_index = e.get_action_index("Position "+str(position))
@@ -92,7 +92,7 @@ class TestMovement:
         start_position = 12
         end_position = 13
         e = Engine()
-        e.map.build_bridge(e.players[0], BridgeRewardType.PLACE_HOLDER, 3)
+        e.map.build_bridge(e.players[0], BridgeRewardType.BUILD_BRIDGE, 3)
         e.players[0].location = start_position
 
         move_pos_index = e.get_action_index("Position "+str(end_position))
@@ -119,7 +119,7 @@ class TestMovement:
     def test_player_jump_movement_over_built_bridge(self):
         position = 13
         e = Engine()
-        e.map.build_bridge(e.players[0], BridgeRewardType.PLACE_HOLDER, 4)
+        e.map.build_bridge(e.players[0], BridgeRewardType.BUILD_BRIDGE, 4)
         e.players[0].location = 10
         e.players[1].location = 12
 
