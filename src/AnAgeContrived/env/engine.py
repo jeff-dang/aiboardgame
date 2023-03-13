@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     # from env.entities.energy import EnergyTile
     pass
 
-from env.entities.turn_state import TurnState
+from env.entities.turn_state import TurnState, TurnType
 from env.entities.player import Player
 from env.entities.map import Map
 from env.entities.monument import Monument
@@ -30,9 +30,10 @@ class Engine:
         self.players: list[Player] = []
         self.turn: TurnState = TurnState()
         self.monument_index: int = 0
+        self.is_initialized: bool = False
 
         monument_1 = Monument('THE ANFIRIEN BEACON', Map_Areas.PLAINS, [
-                MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
+                MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE], [
                             Energy.CONSTRUCTIVE, Energy.INVERTIBLE]),
                 MonumentWall([Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE,
                             Energy.GENERATIVE], [Energy.PRIMAL]),
@@ -75,7 +76,7 @@ class Engine:
                 MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ['Any'])
             ])
         
-        monuemnt_5 = Monument('THE FORTRESS OF KOLYM THRIN', Map_Areas.FOREST, [
+        monument_5 = Monument('THE FORTRESS OF KOLYM THRIN', Map_Areas.FOREST, [
                 MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE], [
                             Energy.CONSTRUCTIVE, Energy.PRIMAL]),
                 MonumentWall([Energy.INVERTIBLE, Energy.INVERTIBLE,
@@ -98,7 +99,7 @@ class Engine:
                 MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ['Any'])
             ])
         
-        self.monuments: list[Monument] = [monument_1, monument_2, monument_3, monument_4, monuemnt_5, monument_6]
+        self.monuments: list[Monument] = [monument_1, monument_2, monument_3, monument_4, monument_5, monument_6]
 
         for i in range(len(constants.CHARACTER_NAMES)):
             self.players.append(
@@ -189,6 +190,25 @@ class Engine:
 
     def play_turn(self, agent_name: str, action):
         agent: Player = self.get_agent(agent_name)
+        
+        if not self.is_initialized:
+            self.turn.update_turn_type(TurnType.INITIALIZATION_TURN)
+            agent.check_is_initialized() #TODO: may have to do it differently
+            num_initialized = 0
+            for i in self.players:
+                if i.is_initialized:
+                    num_initialized += 1
+            print(num_initialized, 'turn type:', self.turn.turn_type)
+            if num_initialized == 5:
+                self.is_initialized = True
+                self.turn.update_turn_type(None)
+        
+        # if not agent.check_is_initialized():
+        #     self.turn.update_turn_type(TurnType.INITIALIZATION_TURN)
+        # else: #may not work as expected, might have to change the turn type to None in somewhere else.
+        #     self.turn.update_turn_type(None)
+
+        print('turn type is', self.turn.turn_type)
         if(not self.get_legal_actions(self.get_agents()[self.current_player])[action]):
             Logger.log("ILLEGAL MOVE, is" + str(action), 'GAME_ENGINE_LOGS')
             return
@@ -263,9 +283,9 @@ class Engine:
     def render(self, agent_name):
         agent = self.get_agent(agent_name)
         Logger.log(str(agent.character), 'GAME_ENGINE_LOGS')
-        # agent.get_transmuter().print_transmuter()
+        agent.get_transmuter().print_transmuter()
         Logger.log(str(agent.location) + ' ' + str(agent.initial_location), 'GAME_ENGINE_LOGS')
-        # self.turn.print_turn_state()
+        self.turn.print_turn_state()
 
     #TODO: fix it in a way that players can select from one of the rewards instead of giving both energies automatically
     def give_energy_rewards(self, players_contributed, monument_wall):

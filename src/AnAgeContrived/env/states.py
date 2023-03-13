@@ -56,12 +56,12 @@ class States:
             top = get_state_active_tile_row(tile.top)
             bottom = get_state_active_tile_row(tile.bottom)
             state.append(top[0])
-
-            state.append(top[1])
+            if len(top) > 1:
+                state.append(top[1])
 
             state.append(bottom[0])
-
-            state.append(bottom[1])
+            if len(bottom) > 1:
+                state.append(bottom[1])
 
         for i, tile in enumerate(transmuter.reserved_tiles):
             embedded_array_reserved_tile_top_size = [0]*MAX_SIZE_EMBEDDED_ARRAY

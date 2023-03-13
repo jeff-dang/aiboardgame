@@ -3,17 +3,17 @@ class Logger():
     ALL_LOGS = True
 
     GAME_ENGINE_LOGS = False
-    MONUMENT_LOGS = False
+    MONUMENT_LOGS = True
     ENERGY_LOGS = False
     ACTION_LOGS = False
     HELPER_LOGS = False
     OBSERVATION_SPACE_LOGS = False
-    OTHER_LOGS = True
+    OTHER_LOGS = False
     CONDITION_CHECK_LOGS = False
     FLOW_LOGS = False
     INITIALIZATION_LOGS = False
     TURN_LOGS = False
-    TRANSMUTER_LOGS = False
+    TRANSMUTER_LOGS = True
 
     @staticmethod
     def log(message: str, type: str):
@@ -21,7 +21,7 @@ class Logger():
             pass
         else:
             if type == 'OTHER_LOGS' and Logger.OTHER_LOGS == True:
-                print(message)
+                print('OTHER_LOGS', message)
             elif type == 'GAME_ENGINE_LOGS' and Logger.GAME_ENGINE_LOGS == True:
                 print('GAME_ENGINE_LOGS', message)
             elif type == 'MONUMENT_LOGS' and Logger.MONUMENT_LOGS == True:

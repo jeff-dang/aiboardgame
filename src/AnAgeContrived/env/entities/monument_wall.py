@@ -53,7 +53,7 @@ class MonumentWall():
                 self.filled_sections[index] = energy
                 self.remaining_sections[index] = None
                 self.empty_sections -= 1
-                Logger.log('SECTION FILLED WITH ENERGY: ' + str(energy.energy_type), 'OTHER_LOGS')
+                Logger.log('SECTION FILLED WITH ENERGY: ' + str(energy.energy_type), 'MONUMENT_LOGS')
                 is_successful = True
             elif energy.energy_type in self.remaining_sections:
                 index = self.remaining_sections.index(energy.energy_type)
