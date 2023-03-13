@@ -9,12 +9,18 @@ from env.helpers.logger import Logger
 
 class TransmuterTile:
     def __init__(self, top_size: int, bottom_size: int):
-        self.top: list[EnergyTile] = [0, 0]  # put a max of 2 energies on top
-        self.bottom: list[EnergyTile] = [0, 0]  # put a max of 2 energies on bottom
+        self.top: list[EnergyTile] = [0] * top_size
+        self.bottom: list[EnergyTile] = [0] * bottom_size
         self.top_size: int = top_size
         self.bottom_size: int = bottom_size
         self.available_top_positions: int = top_size
         self.available_bottom_positions: int = bottom_size
+
+    def is_top_empty(self) -> bool:
+        return (not (self.top_size - self.top.count(0)) > 0)
+    
+    def is_bottom_empty(self) -> bool:
+        return (not (self.bottom_size - self.bottom.count(0)) > 0)
 
     # fill the energy at the given position: position: 1 == top, position: 2 == bottom
     def fill_tile(self, energy: EnergyTile, position):

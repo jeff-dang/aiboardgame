@@ -141,7 +141,7 @@ class raw_env(AECEnv):
             "c_w_remaining_section_num": str(current_monument.get_top_wall().empty_sections),
             "c_w_filled_sections": str(current_monument.get_top_wall().filled_sections),
             # "all_actions": action_details
-            "action_mask": action_mask
+            # "action_mask": action_mask
         }
 
         self.simulation_history[str(self.engine.action_counter

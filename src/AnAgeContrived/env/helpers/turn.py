@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from env.engine import Engine
+    from env.entities.player import Player
     # from env.entities.energy import EnergyTile
     pass
 
@@ -15,8 +16,10 @@ TOTAL_PLAYERS: int = 5
 class Turn():
 
     @staticmethod
-    def is_legal_action(agent) -> bool:
+    def is_legal_action(agent: Player, engine: Engine) -> bool:
         # Can always end turn, except when monument building
+        if engine.turn.turn_type == TurnType.INITIALIZATION_TURN:
+            return False
         return True
 
     @staticmethod
@@ -31,7 +34,10 @@ class Turn():
     def end_turn_legal(engine: Engine) -> bool:
         if(engine.turn.turn_type == TurnType.CONVEY_TURN and engine.turn.can_convey == True):
             return False
-        return engine.turn.turn_type != None
+        elif engine.turn.turn_type == TurnType.INITIALIZATION_TURN: 
+            return False
+        # return engine.turn.turn_type != None
+        return True
 
     @staticmethod
     def convey_turn(engine: Engine):
@@ -40,6 +46,8 @@ class Turn():
 
     @staticmethod
     def convey_turn_legal(engine: Engine) -> bool:
+        if engine.turn.turn_type == TurnType.INITIALIZATION_TURN:
+            return False
         return engine.turn.turn_type == None
 
     @staticmethod
@@ -49,4 +57,6 @@ class Turn():
 
     @staticmethod
     def action_turn_legal(engine: Engine) -> bool:
+        if engine.turn.turn_type == TurnType.INITIALIZATION_TURN:
+            return False
         return engine.turn.turn_type == None

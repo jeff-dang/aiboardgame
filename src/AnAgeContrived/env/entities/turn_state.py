@@ -2,6 +2,7 @@ from enum import Enum
 from env.helpers.logger import Logger
 
 class TurnType(Enum):
+    INITIALIZATION_TURN = 0
     CONVEY_TURN = 1
     ACTION_TURN = 2
     MOVE_TURN = 3
