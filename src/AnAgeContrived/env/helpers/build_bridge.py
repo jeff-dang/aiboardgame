@@ -9,7 +9,8 @@ class BuildBridge():
     @staticmethod
     def build_bridge(engine, bridge_location, player, reward):
         bridge_reward = (player.num_bridges_left % 3) + reward
-        engine.map.build_bridge(player, bridge_reward, bridge_location)
+
+        engine.map.build_bridge(player, BridgeRewardType(bridge_reward), bridge_location)
         engine.turn.update_turn_type(TurnType.ACTION_TURN)
 
     @staticmethod

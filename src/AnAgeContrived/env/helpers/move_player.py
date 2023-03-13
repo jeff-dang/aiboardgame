@@ -1,5 +1,6 @@
 import copy
 from env.entities.turn_state import TurnType
+from env.helpers.bridge_rewards import BridgeRewards
 
 
 class MovePlayer():
@@ -20,14 +21,11 @@ class MovePlayer():
 
         if(bridge):
             reward_bridge = engine.map.get_player_bridge(bridge)
-            if(reward_bridge.action_required):
-                engine.turn.turn_type = TurnType.BRIDGE_REWARD_TURN
-            else:
-                print("assigning rewards")
-                engine.turn.turn_type = TurnType.ACTION_TURN
+            print("assigning rewards", reward_bridge.reward)
+            BridgeRewards.give_reward(engine, reward_bridge.reward)
 
         else:
-            engine.turn.turn_type = TurnType.ACTION_TURN
+            engine.turn.update_turn_type(TurnType.ACTION_TURN)
 
     @staticmethod
     def is_legal_move(player, engine, next_location):

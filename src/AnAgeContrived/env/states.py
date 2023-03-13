@@ -1,6 +1,3 @@
-from .entities.energy import Energy
-
-# TODO Make it automatiacally change to max array length
 MAX_SIZE_EMBEDDED_ARRAY = 40  # Size of the biggest entity state
 
 
@@ -11,9 +8,12 @@ class States:
         transumter = States.get_transmuter_state(player.get_transmuter())
         location = States.get_map_state(player)
         monuments = States.get_monument_state(engine, player)
+        bridge = States.get_bridge_state(engine, player)
+
         character_state.extend(transumter)
         character_state.extend(location)
         character_state.extend(monuments)
+        character_state.extend(bridge)
 
         return character_state
 
@@ -162,3 +162,43 @@ class States:
             monument_state.extend(embedded_top_wall_owner)
             monument_state.extend(embedded_wall_rewards)
         return monument_state
+
+    def get_bridge_state(engine, player):
+        # Check if bridge is built and by who 10 arrays of size 6, 0,1,2,3,4 player index and 5 is not built
+        num_players = len(engine.players)
+        embedded_bridge_array = []
+        for i in engine.map.bridge_locations:
+            embedded_bridge_owner_array = [0]*MAX_SIZE_EMBEDDED_ARRAY
+
+            if(engine.map.check_bridge_exists(i)):
+                player_bridge = engine.map.get_player_bridge(i)
+                current_players_index = next(
+                    (index for (index, d) in enumerate(engine.players) if d.agent == player.agent), None)
+
+                owner_index = next(
+                    (index for (index, d) in enumerate(engine.players) if d.agent == player_bridge.owner), None)
+                distance_between = (
+                    owner_index - current_players_index) % 5
+                embedded_bridge_owner_array[distance_between] = 1
+            else:
+                embedded_bridge_owner_array[num_players] = 1
+            embedded_bridge_array.append(embedded_bridge_owner_array)
+
+        # Another 10 arrays with size 7, 0-5 for rewards 6 for no bridge for reward
+        embedded_bridge_all_rewards = []
+        MAX_REWARD_VALUE = 6
+        for i in engine.map.bridge_locations:
+            embedded_bridge_reward = [0]*(MAX_SIZE_EMBEDDED_ARRAY+1)
+
+            if(engine.map.check_bridge_exists(i)):
+                player_bridge = engine.map.get_player_bridge(i)
+                reward_value = player_bridge.reward.value
+                embedded_bridge_reward[reward_value] = 1
+            else:
+                embedded_bridge_reward[MAX_REWARD_VALUE] = 1
+            embedded_bridge_all_rewards.append(embedded_bridge_reward)
+
+        state = []
+        state.extend(embedded_bridge_array)
+        state.extend(embedded_bridge_all_rewards)
+        return state

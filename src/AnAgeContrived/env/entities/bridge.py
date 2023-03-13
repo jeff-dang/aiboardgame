@@ -7,8 +7,9 @@ class Bridge:
         self.owner = owner
         self.reward = reward
         self.location = location
-        self.action_required = False
 
+        # If a reward requires an action add here
+        self.action_required = False
         self.tier = tier
 
     def set_owner(self, player):
@@ -23,8 +24,8 @@ class Bridge:
 
 class BridgeRewardType(Enum):
     BUILD_BRIDGE = 1
-    DIMMENTIONAL_CORRIDOR = 2
-    ADVANCE_SENTIENT = 3
-    ADVANCE_TRANSFORMATIVE = 4
+    PLACE_HOLDER_2 = 2
+    PLACE_HOLDER_3 = 3
+    PLACE_HOLDER_4 = 4
     VP_SCORING_1 = 5
     VP_SCORING_2 = 6
