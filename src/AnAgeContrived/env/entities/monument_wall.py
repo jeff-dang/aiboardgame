@@ -18,8 +18,8 @@ class MonumentWall():
     # monument_benefit_token is the benefit token that is placed on this tile, implementation of this is TBD
     def __init__(self, acceptable_energy_types: list[Energy], rewarded_energy: list[Energy], monument_benefit_token: list = None):
         Logger.log('monument_wall.py - INITIALIZING monuments with list: ' + str(acceptable_energy_types), 'INITIALIZATION_LOGS')
-        self.sections: list[Energy] = acceptable_energy_types
-        self.remaining_sections: list[Energy] = acceptable_energy_types
+        self.sections: list[Energy] = acceptable_energy_types[:]
+        self.remaining_sections: list[Energy] = acceptable_energy_types[:]
         self.num_sections: int = len(acceptable_energy_types)
         self.filled_sections: list[Energy] = [0]*self.num_sections
         self.empty_sections: int = self.num_sections

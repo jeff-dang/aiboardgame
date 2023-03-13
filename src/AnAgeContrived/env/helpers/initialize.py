@@ -25,13 +25,13 @@ def initialize_transmuter(player: Player, energy: EnergyTile):
             break
     
 def is_legal_fill_constructive(player: Player):
-    return TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0
+    return not player.get_is_initialized() and TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0
 
 def is_legal_fill_invertible(player: Player):
-    return TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.INVERTIBLE]) > 0
+    return not player.get_is_initialized() and TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.INVERTIBLE]) > 0
 
 def is_legal_fill_generative(player: Player):
-    return TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.GENERATIVE]) > 0
+    return not player.get_is_initialized() and TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.GENERATIVE]) > 0
 
 def is_legal_fill_primal(player: Player):
-    return TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.PRIMAL]) > 0
+    return not player.get_is_initialized() and TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.PRIMAL]) > 0
