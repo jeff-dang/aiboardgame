@@ -70,7 +70,8 @@ class Player():
             return True
         return False
 
-    def _initiate_fill_tranmuster_tiles(self):
+
+    def _initiate_fill_tranmuster_files(self):
         tile1 = self.transmuter.active_tiles[0]
         tile2 = self.transmuter.active_tiles[1]
         tile3 = self.transmuter.active_tiles[2]
