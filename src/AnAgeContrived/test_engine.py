@@ -17,13 +17,28 @@ import numpy as np
 MAX_SIZE_EMBEDDED_ARRAY = 6
 
 
+def test_movement_action():
+    e = Engine()
+    e.players[0].location = 7
+    e.players[1].location = 6
+
+    e.map.build_bridge(e.players[0], 1, 10)
+    print(e.get_legal_action_names('player_0'))
+    e.play_turn('player_0', 53)
+    print(e.get_legal_action_names('player_0'))
+    e.play_turn('player_0', 44)
+    print(e.get_legal_action_names('player_0'))
+    e.play_turn('player_0', 8)
+    print(e.get_legal_action_names('player_0'))
+    print(e.turn.turn_type)
+
+    print(e.map.check_bridge_exists(10))
+
+
 def test_action_tokens():
     player1 = Player('a', 'c', 1)
     player1.transmuter.print_transmuter()
     TakeAction.take_action(player1, 'engine', 2)
-
-test_action_tokens()
-
 
 
 def build_2_walls(e):
@@ -119,7 +134,6 @@ def test_monument():
 # test_monument()
 
     # build_2_walls(e)
-
 
 
 def get_all_actions():
@@ -226,8 +240,7 @@ def test_conveying():
     t1.print_transmuter()
     print('************* END **************')
 
+
 def test_get_action_names():
     e = Engine()
     print(e.get_action_names())
-
-test_get_action_names()

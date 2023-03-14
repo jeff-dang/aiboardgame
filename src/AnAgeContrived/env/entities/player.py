@@ -1,5 +1,6 @@
 from env.entities.transmuter import Transmuter
 from env.entities.energy import EnergyTile, Energy
+from env.helpers.constants import STARTING_PLAYER_BRIDGES
 
 
 class Player():
@@ -7,6 +8,7 @@ class Player():
     def __init__(self, agent, character, starting_location):
         self.agent = agent
         self.character = character
+        self.num_bridges_left = STARTING_PLAYER_BRIDGES
         # TODO: let the player to fill the transmuter.
         self.transmuter: Transmuter = Transmuter()
         self.is_initialized: bool = False
@@ -16,7 +18,7 @@ class Player():
             Energy.GENERATIVE: [EnergyTile(Energy.GENERATIVE, self), EnergyTile(Energy.GENERATIVE, self), EnergyTile(Energy.GENERATIVE, self), EnergyTile(Energy.GENERATIVE, self)],
             Energy.PRIMAL: [EnergyTile(Energy.PRIMAL, self)]
         }
-        self.energies_released: dict[Energy, list[EnergyTile]] = { #rn, it is being used as anything, might have to separate it to monument vs. other things
+        self.energies_released: dict[Energy, list[EnergyTile]] = {  # rn, it is being used as anything, might have to separate it to monument vs. other things
             Energy.CONSTRUCTIVE: [],
             Energy.INVERTIBLE: [],
             Energy.GENERATIVE: [],
@@ -32,7 +34,9 @@ class Player():
         self.location = starting_location
         self.initial_location = starting_location
         self.previous_location = 0
-        self.channel_marker: bool = False #if it is true, player can convey twice
+        # TODO: need to track the energies on the board, on his hand (done) and the remaining energies
+        self._initiate_fill_tranmuster_files()
+        self.channel_marker: bool = False  # if it is true, player can convey twice
         # self._initiate_fill_tranmuster_tiles()
 
     def set_transmuter(self, transmuter: Transmuter):
@@ -46,11 +50,11 @@ class Player():
 
     def get_is_initialized(self) -> bool:
         return self.is_initialized
-    
+
     def set_is_initialized(self):
         self.is_initialized = True
         print('is initialized set true', self.is_initialized)
-    
+
     def check_is_initialized(self) -> bool:
         tile1 = self.transmuter.active_tiles[0]
         tile2 = self.transmuter.active_tiles[1]
@@ -65,7 +69,6 @@ class Player():
             self.set_is_initialized()
             return True
         return False
-        
 
     def _initiate_fill_tranmuster_tiles(self):
         tile1 = self.transmuter.active_tiles[0]

@@ -27,7 +27,7 @@ class Turn():
     def end_turn_legal(player: Player, engine: Engine) -> bool:
         if(engine.turn.turn_type == TurnType.CONVEY_TURN and engine.turn.can_convey == True):
             return False
-        elif engine.turn.turn_type == TurnType.INITIALIZATION_TURN: 
+        elif engine.turn.turn_type == TurnType.INITIALIZATION_TURN:
             return False
         elif not player.get_is_initialized():
             return False

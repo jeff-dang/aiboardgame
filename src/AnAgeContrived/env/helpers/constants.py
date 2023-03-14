@@ -7,8 +7,8 @@ from env.entities.action_tokens import EnergyActionToken, MoveActionToken, Recha
 
 # ********* GAME ENGINE CONSTANTS ********************
 
-CHARACTER_NAMES: list[str] = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
-AGENT_NAMES: list[str] = ["player_0", "player_1", "player_2", "player_3", "player_4"]
+CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
+AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES: int = len(get_actions('self', 'eng'))
 MAX_TURNS: int = 750
 NUM_AGENTS: int = len(CHARACTER_NAMES)
@@ -167,7 +167,7 @@ RECHARGE = RechargeActionToken()
 MOVE_TWICE = MoveActionToken(2)
 ANY = 'ANY'
 
-INITIAL_ACTION_TOKENS = [FORTH_FIFTH_TILES_ENERGY, RECHARGE ,SECOND_THIRD_TILES_ENERGY, MOVE_TWICE, ANY]
+INITIAL_ACTION_TOKENS = [MOVE_TWICE, FORTH_FIFTH_TILES_ENERGY, RECHARGE, SECOND_THIRD_TILES_ENERGY, ANY]
 
 # --------------- ACTION TOKENS END --------------------------
 
@@ -235,5 +235,4 @@ THE_SHIP_OF_TOLINTHRA = Monument('THE SHIP OF TOLINTHRA', Map_Areas.SEA, [
 ])
 
 MONUMENTS = [THE_ANFIRIEN_BEACON, THE_LIBRARY_OF_VALDUIN, THE_ERIDONIC_GATE,
-                          THE_NAMARILLION_FORGE, THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
-
+             THE_NAMARILLION_FORGE, THE_FORTRESS_OF_KOLYM_THRIN, THE_SHIP_OF_TOLINTHRA]
