@@ -38,15 +38,16 @@ class VictoryPoints:
         monumentList = engine.monuments
         vp_points = 0
         vp_allocation = {
+            0: 0,
             1: 3,
             2: 7,
             3: 12,
             4: 12
         }
-        for i in monumentList:
+        for monument in monumentList:
             num_energy = 0
-            for j in i.get_top_wall().filled_sections:
-                if (j.owner == player):
+            for tile in monument.get_top_wall().filled_sections:
+                if (tile.owner == player):
                     num_energy += 1
             vp_points += vp_allocation.get(num_energy)
         return vp_points
