@@ -12,21 +12,23 @@ class TurnType(Enum):
     BUILD_BRIDGE_TURN = 6
 
 
-class TurnState():
+class TurnState:
     def __init__(self):
         # actionChoice can be convey or action
         self.turn_type: TurnType = None
         self.can_convey: bool = False
         self.can_move: bool = True
+        self.temp_rewards: int = 0
 
     def reset(self):
         self.turn_type = None
         self.can_convey = False
         self.can_move = True
+        self.temp_rewards: int = 0
 
     def update_turn_type(self, turnType: TurnType):
         self.turn_type = turnType
-        if(turnType == TurnType.CONVEY_TURN):
+        if turnType == TurnType.CONVEY_TURN:
             self.can_convey = True
 
     def conveyed(self):
@@ -35,7 +37,12 @@ class TurnState():
     def get_turn_type(self) -> TurnType:
         return self.turn_type
 
+    def get_temp_reward(self):
+        returned_rewards = self.temp_rewards
+        self.temp_rewards = 0
+        return returned_rewards
+
     def print_turn_state(self):
-        Logger.log("Turn Type: " + str(self.turn_type), 'TURN_LOGS')
-        Logger.log("Can Convey: " + str(self.can_convey), 'TURN_LOGS')
-        Logger.log("Can Move: " + str(self.can_move), 'TURN_LOGS')
+        Logger.log("Turn Type: " + str(self.turn_type), "TURN_LOGS")
+        Logger.log("Can Convey: " + str(self.can_convey), "TURN_LOGS")
+        Logger.log("Can Move: " + str(self.can_move), "TURN_LOGS")

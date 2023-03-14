@@ -6,7 +6,10 @@ import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useSpring, animated } from "@react-spring/web";
 import Data from "../data/getData";
-import { files } from "../data/getFiles";
+import SimulationFileSelection from "./Selections/SimulationFileSelection";
+import PlayerSelection from "./Selections/PlayerSelection";
+import SimulationSelection from "./Selections/SimulationSelection";
+import NumMovesSelection from "./Selections/NumMovesSelection";
 
 const bars = [3, 4, 5, 6, 7, 8, 9, 10];
 const axisTextColor = "#000000";
@@ -26,6 +29,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   const xMax = width;
   const yMax = height - verticalMargin;
 
+  const [loading, setLoading] = useState(null);
   const [simulationFile, setSimulationFile] = useState("none");
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
@@ -45,7 +49,10 @@ const FrequentlyUsedMoves = ({ width, height }) => {
 
   useEffect(() => {
     fetch(simulationFile)
-      .then((response) => response.json())
+      .then((response) => {
+        loading !== null && setLoading(true);
+        return response.json();
+      })
       .then((data) => {
         dataInit.setAllData(data);
         setAllData(dataInit.getAllDataExEnd());
@@ -68,6 +75,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
 
   useEffect(() => {
     setData(getBarGraphData(freqMap, numBars));
+    setLoading(false);
     setTimeout(() => {
       setToggle(true);
     }, 400);
@@ -142,59 +150,28 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             alignItems: "center",
           }}
         >
-          <span> Simulation File: </span>
-          <select
-            style={{ margin: 10 }}
-            onChange={(e) => setSimulationFile(e.target.value)}
-            defaultValue={"none"}
-          >
-            <option disabled value={"none"}>
-              None
-            </option>
-            {files.map((filename) => (
-              <option key={filename} value={filename}>
-                {filename}
-              </option>
-            ))}
-          </select>
-          <span> Player: </span>
-          <select
-            style={{ margin: 10 }}
-            onChange={(e) => setPlayer(Number(e.target.value))}
-            disabled={simulationFile === "none"}
-          >
-            {players.map((player) => (
-              <option key={player} value={player}>
-                {player}
-              </option>
-            ))}
-          </select>
-          <span> Simulations: </span>
-          <select
-            style={{ margin: 10 }}
-            onChange={(e) => setNumSims(Number(e.target.value))}
-            disabled={simulationFile === "none"}
-          >
-            {numSimulations.map((simulation) => (
-              <option key={simulation} value={simulation}>
-                {simulation}
-              </option>
-            ))}
-          </select>
-          <span> Number of Moves: </span>
-          <select
-            onChange={(e) => setNumBars(Number(e.target.value))}
-            disabled={simulationFile === "none"}
-          >
-            {bars.map((bar) => (
-              <option key={bar} value={bar}>
-                {bar}
-              </option>
-            ))}
-          </select>
+          <SimulationFileSelection setSimulationFile={setSimulationFile} />
+          <PlayerSelection
+            setPlayer={setPlayer}
+            players={players}
+            simulationFile={simulationFile}
+          />
+          <SimulationSelection
+            setNumSims={setNumSims}
+            numSimulations={numSimulations}
+            simulationFile={simulationFile}
+            value={numSims}
+          />
+          <NumMovesSelection
+            setNumMoves={setNumBars}
+            allMoves={bars}
+            simulationFile={simulationFile}
+            value={numBars}
+          />
         </div>
       </div>
-      {simulationFile !== "none" && (
+      {loading && <h2>Loading...</h2>}
+      {simulationFile !== "none" && !loading && (
         <svg width={width} height={height}>
           <GradientTealBlue id="teal" />
           <rect width={width} height={height} fill="url(#teal)" rx={14} />

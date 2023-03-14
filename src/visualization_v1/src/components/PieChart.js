@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import Data from "../data/getData";
-import { files } from "../data/getFiles";
+import SimulationFileSelection from "./Selections/SimulationFileSelection";
+import PlayerSelection from "./Selections/PlayerSelection";
+import SimulationSelection from "./Selections/SimulationSelection";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -48,6 +50,7 @@ const getBorderColors = (allNonZeroActions) => {
 };
 
 const PieChart = ({ width, height }) => {
+  const [loading, setLoading] = useState(null);
   const [simulationFile, setSimulationFile] = useState("none");
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
@@ -65,7 +68,10 @@ const PieChart = ({ width, height }) => {
 
   useEffect(() => {
     fetch(simulationFile)
-      .then((response) => response.json())
+      .then((response) => {
+        loading !== null && setLoading(true);
+        return response.json();
+      })
       .then((data) => {
         dataInit.setAllData(data);
         setAllData(dataInit.getAllDataExEnd());
@@ -88,6 +94,7 @@ const PieChart = ({ width, height }) => {
 
   useEffect(() => {
     setAllNonZeroActions(dataInit.getAllNonZeroActions(freqMap));
+    setLoading(false);
   }, [allData, freqMap]);
 
   useEffect(() => {
@@ -124,47 +131,21 @@ const PieChart = ({ width, height }) => {
           alignItems: "center",
         }}
       >
-        <span> Simulation File: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setSimulationFile(e.target.value)}
-          defaultValue={"none"}
-        >
-          <option disabled value={"none"}>
-            None
-          </option>
-          {files.map((filename) => (
-            <option key={filename} value={filename}>
-              {filename}
-            </option>
-          ))}
-        </select>
-        <span> Player: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setPlayer(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {players.map((player) => (
-            <option key={player} value={player}>
-              {player}
-            </option>
-          ))}
-        </select>
-        <span> Simulations: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setNumSims(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {numSimulations.map((simulation) => (
-            <option key={simulation} value={simulation}>
-              {simulation}
-            </option>
-          ))}
-        </select>
+        <SimulationFileSelection setSimulationFile={setSimulationFile} />
+        <PlayerSelection
+          setPlayer={setPlayer}
+          players={players}
+          simulationFile={simulationFile}
+        />
+        <SimulationSelection
+          setNumSims={setNumSims}
+          numSimulations={numSimulations}
+          simulationFile={simulationFile}
+          value={numSims}
+        />
       </div>
-      {simulationFile !== "none" && (
+      {loading && <h2>Loading...</h2>}
+      {simulationFile !== "none" && !loading && (
         <div style={{ overflowX: "scroll", marginTop: 20 }}>
           {
             <Pie

@@ -128,8 +128,13 @@ def get_agents(
         else:
             agent_opponent = RandomPolicy()
 
-    agents = [agent_learn, agent_learn, agent_learn,
-              agent_learn, RandomPolicy()]
+    agents = [
+        agent_learn,
+        RandomPolicy(),
+        RandomPolicy(),
+        RandomPolicy(),
+        RandomPolicy(),
+    ]
     policy = MultiAgentPolicyManager(agents, env)
     return policy, optim, env.agents
 
@@ -184,8 +189,7 @@ def train_agent(
                 args.logdir, "AnAgeContrived", "dqn", "policy.pth"
             )
         torch.save(
-            policy.policies[agents[args.agent_id - 1]
-                            ].state_dict(), model_save_path
+            policy.policies[agents[args.agent_id - 1]].state_dict(), model_save_path
         )
 
     def stop_fn(mean_rewards):
@@ -238,8 +242,7 @@ def watch(
     collector = Collector(policy, env, exploration_noise=True)
     result = collector.collect(n_episode=1, render=args.render)
     rews, lens = result["rews"], result["lens"]
-    print(
-        f"Final reward: {rews[:, args.agent_id - 1].mean()}, length: {lens.mean()}")
+    print(f"Final reward: {rews[:, args.agent_id - 1].mean()}, length: {lens.mean()}")
 
 
 def run_default():
