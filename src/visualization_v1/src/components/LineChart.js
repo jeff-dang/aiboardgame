@@ -40,10 +40,12 @@ const getLabels = (scoreData) => {
   scoreData.forEach((sim) => {
     labels.push(Object.keys(sim)[0]);
   });
+
   return labels;
 };
 
 const getPlayerScore = (scoreData, sim, player) => {
+  console.log(scoreData);
   const index = scoreData.findIndex((e) => Object.keys(e)[0] === sim);
 
   const simData = scoreData[index];
@@ -65,7 +67,6 @@ const getDataSet = (scoreData, labels) => {
   let dataSet = [];
 
   const players = getPlayers(scoreData);
-
   players.forEach((player) => {
     const color = getRandomColor();
     const data = {

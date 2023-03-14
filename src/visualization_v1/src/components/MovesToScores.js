@@ -21,7 +21,10 @@ function getMovesScoresData(data, player) {
     const playerData = dataInit.getPlayerData(simulation[1], player);
     const moves = Object.keys(playerData).length;
 
-    const score = simulation[1].meta_data[`player_${player}`];
+    console.log(simulation[1]);
+    const score = simulation[1].meta_data
+      ? simulation[1].meta_data[`player_${player}`]
+      : 0;
     result.push({ x: moves, y: score });
   });
 
