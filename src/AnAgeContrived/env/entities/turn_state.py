@@ -8,6 +8,8 @@ class TurnType(Enum):
     ACTION_TURN = 2
     MOVE_TURN = 3
     END_TURN = 4
+    BRIDGE_REWARD_TURN = 5
+    BUILD_BRIDGE_TURN = 6
 
 
 class TurnState():
