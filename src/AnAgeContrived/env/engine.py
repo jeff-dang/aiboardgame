@@ -232,6 +232,7 @@ class Engine:
             if monument.is_top_wall_completed():
                 filled_wall = monument.get_top_wall()
                 if filled_wall.is_reward_given == False:
+                    self.turn.update_turn_type(TurnType.B)
                     players_contributed = []
                     for i in filled_wall.filled_sections:
                         players_contributed.append(i.owner)
@@ -267,7 +268,7 @@ class Engine:
     def get_reward(self, agent_name):
         agent = self.get_agent(agent_name)
         total_reward = 0
-        total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent)
+        total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent) * 100
         # total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
         # monument_score = Scoring.get_monument_score(self, agent_name)
 
