@@ -122,6 +122,13 @@ class raw_env(AECEnv):
         # print('LEGAL ACTIONS ARE:', legal_actions)
         # print('ACTION MASK is:', action_mask)
         # print('DATA BEOFRE JSON ends')
+        cur_monument_sections = []
+        cur_monument_remaining_sections = []
+        cur_monument_filled_sections = []
+        for i in current_monument.walls:
+            cur_monument_sections.append(i.sections)
+            cur_monument_remaining_sections.append(i.remaining_sections)
+            cur_monument_filled_sections.append(i.filled_sections)
 
         turn_entry = {
             "player": self.engine.current_player,
@@ -136,29 +143,19 @@ class raw_env(AECEnv):
             "player_released_energies": str(self.engine.players[self.engine.current_player].energies_released),
             "monuments": str(self.engine.monuments),
             "current_wall_name": current_monument.name,
-            "c_w_accepted_energies": str(current_monument.get_top_wall().sections),
-            "c_w_remaining_sections": str(current_monument.get_top_wall().remaining_sections),
+            "c_w_accepted_energies": str(cur_monument_sections), #str(current_monument.get_top_wall().sections),
+            "c_w_remaining_sections": str(cur_monument_remaining_sections),  #str(current_monument.get_top_wall().remaining_sections),
             "c_w_remaining_section_num": str(current_monument.get_top_wall().empty_sections),
-            "c_w_filled_sections": str(current_monument.get_top_wall().filled_sections),
+            "c_w_filled_sections": str(cur_monument_filled_sections), #str(current_monument.get_top_wall().filled_sections),
             # "all_actions": action_details
             # "action_mask": action_mask
         }
 
-        self.simulation_history[str(self.engine.action_counter
-                                    )] = turn_entry
-        
-        # print('DATA AFTER JSON starts')
-        # print("player", self.engine.current_player)
-        # print("turn_num", self.engine.turn_counter)       
-        # current_monument = self.engine.monuments[self.engine.monument_index]
-        # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
-        # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)    
-        # print('DATA AFTER JSON ends')
-
+        self.simulation_history[str(self.engine.action_counter)] = turn_entry
         self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players, updates only not incremental
-        self.rewards[self.agent_selection] += -1
+        # self.rewards[self.agent_selection] += -1 # TODO: remove the negative rewards for now
         if(self.engine.check_over()):
             for agent in self.agents:
                 self.rewards[agent] += (self.engine.get_reward(agent))

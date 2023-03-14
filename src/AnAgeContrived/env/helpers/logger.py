@@ -2,10 +2,10 @@ class Logger():
 
     ALL_LOGS = True
 
-    GAME_ENGINE_LOGS = False
+    GAME_ENGINE_LOGS = True
     MONUMENT_LOGS = True
     ENERGY_LOGS = False
-    ACTION_LOGS = False
+    ACTION_LOGS = True
     HELPER_LOGS = False
     OBSERVATION_SPACE_LOGS = False
     OTHER_LOGS = False
@@ -13,7 +13,7 @@ class Logger():
     FLOW_LOGS = False
     INITIALIZATION_LOGS = False
     TURN_LOGS = False
-    TRANSMUTER_LOGS = True
+    TRANSMUTER_LOGS = False
 
     @staticmethod
     def log(message: str, type: str):

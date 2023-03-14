@@ -10,7 +10,7 @@ from env.entities.action_tokens import EnergyActionToken, MoveActionToken, Recha
 CHARACTER_NAMES: list[str] = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES: list[str] = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES: int = len(get_actions('self', 'eng'))
-MAX_TURNS: int = 200
+MAX_TURNS: int = 750
 NUM_AGENTS: int = len(CHARACTER_NAMES)
 
 # ************ MONUMENTS START **************************

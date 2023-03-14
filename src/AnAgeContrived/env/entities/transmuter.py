@@ -43,16 +43,34 @@ class Transmuter:
         new_active_tiles: list[TransmuterTile] = [None, None, None, None, None]
         new_tile: TransmuterTile = self.reserved_tiles[reservedTileIndex]
         #FILL NEW TRANSMUTER TILE
+        is_filled = False
         for i in player.exhausted_energies:
             if len(player.exhausted_energies[i]) > 0:
                 num_empty_top_sections = new_tile.top.count(0)
                 num_empty_bottom_sections = new_tile.bottom.count(0)
                 if  num_empty_bottom_sections > 0:
                     new_tile.fill_tile(player.exhausted_energies[i].pop(), 2)
+                    is_filled = True
                     Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
                 elif num_empty_top_sections > 0:
                     new_tile.fill_tile(player.exhausted_energies[i].pop(), 1)
+                    is_filled = True
                     Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
+        
+        if not is_filled:
+            for i in player.energies_released:
+                if len(player.exhausted_energies[i]) > 0:
+                    num_empty_top_sections = new_tile.top.count(0)
+                    num_empty_bottom_sections = new_tile.bottom.count(0)
+                    if  num_empty_bottom_sections > 0:
+                        new_tile.fill_tile(player.exhausted_energies[i].pop(), 2)
+                        is_filled = True
+                        Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
+                    elif num_empty_top_sections > 0:
+                        new_tile.fill_tile(player.exhausted_energies[i].pop(), 1)
+                        is_filled = True
+                        Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
+                        
         new_active_tiles[0] = new_tile                 
         for i in range(len(self.active_tiles)-1):
             new_active_tiles[i+1] = self.active_tiles[i]
@@ -75,7 +93,7 @@ class Transmuter:
         for index in range(0, len(self.active_tiles)):
             for i in self.active_tiles[index].top:
                 energies['top_energies'][index].append(i)
-            for i in self.active_tiles[index].top:
+            for i in self.active_tiles[index].bottom:
                 energies['bottom_energies'][index].append(i)
         return energies
 

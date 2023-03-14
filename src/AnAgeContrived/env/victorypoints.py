@@ -1,32 +1,38 @@
-from entities.energy import Energy 
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.engine import Engine
+    from env.entities.player import Player
+    # from env.entities.energy import EnergyTile
+    pass
+
+from env.entities.energy import Energy 
 class VictoryPoints:
 
-    CONSTRUCTIVE = 1
-    INVERTIBLE = 2
-    GENERATIVE = 3
-    PRIMAL = 4
-    def calcFullyGainedEnergy(engine,player):
-        gainableEnergyList = []
+    def calcFullyGainedEnergy(engine, player: Player):
+        gainableEnergyList = player.remaining_energies
         fullyGainedEnergy = 0
         vp_allocation = { 
+            0 : 0,
             1: 3,
             2: 6,
             3: 10,
             4: 15
         }
-        if (gainableEnergyList.count(Energy.CONSTRUCTIVE) == 0):
+        if (len(gainableEnergyList[Energy.CONSTRUCTIVE]) == 0):
             fullyGainedEnergy += 1
-        if (gainableEnergyList.count(Energy.INVERTIBLE) == 0):
+        if (len(gainableEnergyList[Energy.INVERTIBLE]) == 0):
             fullyGainedEnergy += 1
-        if (gainableEnergyList.count(Energy.GENERATIVE) == 0):
+        if (len(gainableEnergyList[Energy.GENERATIVE]) == 0):
             fullyGainedEnergy += 1
-        if (gainableEnergyList.count(Energy.PRIMAL) == 0):
+        if (len(gainableEnergyList[Energy.PRIMAL]) == 0):
             fullyGainedEnergy += 1
         vp_points = vp_allocation.get(fullyGainedEnergy)
         return vp_points
     
-    def calcMonumentEnergy(engine,player):
-        monumentList = []
+    def calcMonumentEnergy(engine: Engine, player: Player):
+        monumentList = engine.monuments
         vp_points = 0
         vp_allocation = {
             1: 3,
@@ -34,9 +40,9 @@ class VictoryPoints:
             3: 12,
             4: 12
         }
-        for i in monumentList(engine,player):
+        for i in monumentList:
             num_energy = 0
-            for j in i.energyList:
+            for j in i.get_top_wall().filled_sections:
                 if (j.owner == player):
                     num_energy+= 1
             vp_points += vp_allocation.get(num_energy)

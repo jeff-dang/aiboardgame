@@ -10,10 +10,10 @@ class Monument:
         self.top_wall_index: int = 0
 
     def get_num_walls_completed(self) -> int:
-        return len(self.walls) - (self.top_wall_index + 1)
+        return (self.top_wall_index + 1)
 
     def is_completed(self) -> bool:
-        if self.top_wall_index == 0 and self.is_top_wall_completed():
+        if self.top_wall_index == (len(self.walls) - 1) and self.is_top_wall_completed():
             return True
         else:
             return False
