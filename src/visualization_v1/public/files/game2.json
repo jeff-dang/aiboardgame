@@ -1213,7 +1213,7 @@
       "current_score": 0
     },
     "1": {
-      "player": 0,
+      "player": 4,
       "turn_num": 0,
       "action": "Move Player",
       "action_details": "Position 14",

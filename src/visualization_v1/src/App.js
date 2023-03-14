@@ -14,6 +14,7 @@ import FrequentlyUsedMoves from "./components/BarChart";
 import MovesToScores from "./components/MovesToScores";
 import Comparison from "./components/Comparison";
 import SimpleTreeGraph from "./components/SimpleTreeGraph";
+import SimpleTreeChart from "./components/SimpleTreeChart";
 
 const width = 1100;
 const height = 700;
@@ -49,15 +50,21 @@ function App() {
             path="/tree-graph"
             element={<SimpleTreeGraph width={width} height={height} />}
           />
+          <Route
+            path="/simple-tree-chart"
+            element={<SimpleTreeChart width={width} height={height} />}
+          />
           <Route path="/comparison" element={<Comparison />} />
+          <Route
+            path="/tree-chart"
+            element={<TreeChart width={width} height={height} />}
+          />
           {/* <Route
             path="/tree-graph"
             element={<TreeGraph width={width} height={height} />}
           />
-          <Route
-            path="/tree-chart"
-            element={<TreeChart width={width} height={height} />}
-          /> */}
+          
+           */}
         </Routes>
       </div>
     </div>
