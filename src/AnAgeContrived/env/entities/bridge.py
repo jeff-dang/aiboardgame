@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class Bridge:
-
     def __init__(self, owner, reward, location, tier):
         self.owner = owner
         self.reward = reward

@@ -272,6 +272,9 @@ class Engine:
         for action in actions:
             is_legal = action.check()
             legal_actions.append(is_legal)
+        if sum(legal_actions) == 0:
+            index = self.get_action_index("End Turn")
+            legal_actions[index] = 1
         return legal_actions
 
     def play_turn(self, agent_name: str, action):
@@ -315,7 +318,8 @@ class Engine:
             if monument.is_top_wall_completed():
                 filled_wall = monument.get_top_wall()
                 if filled_wall.is_reward_given == False:
-                    self.turn.update_turn_type(TurnType.B)
+                    self.turn.update_turn_type(TurnType.BUILD_BRIDGE_TURN)
+                    Logger.log("Build Bridge Turn", "GAME_ENGINE_LOGS")
                     players_contributed = []
                     for i in filled_wall.filled_sections:
                         players_contributed.append(i.owner)
@@ -323,6 +327,8 @@ class Engine:
                             players_contributed
                         )  # only rewards once if player contributed multiple times
                     self.give_energy_rewards(unique_players_contributed, filled_wall)
+                    self.turn.temp_rewards += 3000
+
                 # if the current top wall is completed, change the top wall to next wall
                 monument.change_top_wall()
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
@@ -362,6 +368,8 @@ class Engine:
         agent = self.get_agent(agent_name)
         total_reward = 0
         total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent) * 100
+        total_reward += VictoryPoints.calcBridgesBuilt(self, agent) * 100
+
         # total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
         # monument_score = Scoring.get_monument_score(self, agent_name)
 
@@ -428,3 +436,19 @@ class Engine:
         if self.monuments[self.monument_index].is_completed():
             return True
         return False
+
+    def assign_temp_rewards(self, action):
+        action_name = (self.get_action_names()[action])["action"]
+        reward = 0
+        if action_name == "End Turn":
+            reward = -25
+        elif action_name == "Convey 1":
+            reward = +0
+        elif action_name == "Action Tokens":
+            reward = +0
+        elif action_name == "Fill Monument":
+            reward = +0
+        elif action_name == "Build Bridge":
+            reward = +0
+        print(reward)
+        return reward + self.turn.get_temp_reward()

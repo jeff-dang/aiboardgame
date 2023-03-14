@@ -179,28 +179,36 @@ class raw_env(AECEnv):
             # "all_actions": action_details
             # "action_mask": action_mask
         }
-
-        self.simulation_history[str(self.engine.action_counter)] = turn_entry
         self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players, updates only not incremental
-        # self.rewards[self.agent_selection] += -1 # TODO: remove the negative rewards for now
+        temp_reward = self.engine.assign_temp_rewards(action)
+        Logger.log("TEMP REWARDS" + str(temp_reward), "GAME_ENGINE_LOGS")
+        self.rewards[self.agent_selection] += temp_reward
+        turn_entry["current_score"] = self.rewards[self.agent_selection]
+        self.simulation_history[str(self.engine.action_counter)] = turn_entry
+
         if self.engine.check_over():
             for agent in self.agents:
+                Logger.log(
+                    "FINAL REWARDS" + str(self.engine.get_reward(agent)),
+                    "GAME_ENGINE_LOGS",
+                )
                 self.rewards[agent] += self.engine.get_reward(agent)
+                self._cumulative_rewards[agent] = self.rewards[agent]
+
             # If game is over assign termination for all agents
             Logger.log(str(self.rewards), "INITIALIZATION_LOGS")
             self.simulation_history["meta_data"] = self.rewards
             actionList = self.engine.get_action_names()
             history_writer.jsonActionConverter("ai_history", actionList)
             self.terminations = {i: True for i in self.agents}
+            self._accumulate_rewards()
 
         # Assign current players turn
         self.agent_selection = self.engine.get_current_agents_turn()
 
         # Don't know what this does
-        self._cumulative_rewards[self.agent_selection] = 0
-        self._accumulate_rewards()
 
         if self.render_mode == "human":
             self.render()
