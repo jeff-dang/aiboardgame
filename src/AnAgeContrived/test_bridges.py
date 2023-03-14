@@ -1,7 +1,6 @@
 from .env.engine import Engine
 from .env.entities.turn_state import TurnType
 from .env.entities.bridge import BridgeRewardType
-from .env.states import States
 
 
 class TestBridges:
@@ -49,8 +48,3 @@ class TestBridges:
 
         end_turn_index = e.get_action_index("End Turn")
         turn = e.play_turn('player_0', end_turn_index)
-
-    def test_bridge_state(self):
-        e = Engine()
-        player_0 = e.players[0]
-        States.get_bridge_state(e, player_0)

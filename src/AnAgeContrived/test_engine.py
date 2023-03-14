@@ -35,9 +35,6 @@ def test_movement_action():
     print(e.map.check_bridge_exists(10))
 
 
-test_movement_action()
-
-
 def test_action_tokens():
     player1 = Player('a', 'c', 1)
     player1.transmuter.print_transmuter()
