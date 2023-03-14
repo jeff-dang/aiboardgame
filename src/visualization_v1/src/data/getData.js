@@ -199,7 +199,6 @@ export default class Data {
       return sim[1].meta_data !== undefined;
     });
 
-    console.log(simulation[1].meta_data);
     Object.entries(simulation[1]).forEach((turn) => {
       if (turn[0] === "meta_data") {
         Object.keys(turn[1]).forEach((player) => {

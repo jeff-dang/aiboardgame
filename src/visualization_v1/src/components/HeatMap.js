@@ -5,7 +5,9 @@ import { HeatmapCircle } from "@visx/heatmap";
 import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip";
 import Data from "../data/getData";
 import { useSpring, animated } from "@react-spring/web";
-import { files } from "../data/getFiles";
+import SimulationFileSelection from "./Selections/SimulationFileSelection";
+import SimulationSelection from "./Selections/SimulationSelection";
+import PlayerSelection from "./Selections/PlayerSelection";
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -60,6 +62,7 @@ const HeatMap = ({
   const xMax = size;
   const yMax = height - margin.bottom - margin.top;
 
+  const [loading, setLoading] = useState(null);
   const [simulationFile, setSimulationFile] = useState("none");
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
@@ -103,7 +106,10 @@ const HeatMap = ({
 
   useEffect(() => {
     fetch(simulationFile)
-      .then((response) => response.json())
+      .then((response) => {
+        loading !== null && setLoading(true);
+        return response.json();
+      })
       .then((data) => {
         dataInit.setAllData(data);
         setAllData(dataInit.getAllDataExEnd());
@@ -126,6 +132,7 @@ const HeatMap = ({
 
   useEffect(() => {
     setData(getData(freqMap, 6));
+    setLoading(false);
     setTimeout(() => {
       setToggle(true);
     }, 500);
@@ -160,48 +167,22 @@ const HeatMap = ({
             alignItems: "center",
           }}
         >
-          <span> Simulation File: </span>
-          <select
-            style={{ margin: 10 }}
-            onChange={(e) => setSimulationFile(e.target.value)}
-            defaultValue={"none"}
-          >
-            <option disabled value={"none"}>
-              None
-            </option>
-            {files.map((filename) => (
-              <option key={filename} value={filename}>
-                {filename}
-              </option>
-            ))}
-          </select>
-          <span> Player: </span>
-          <select
-            style={{ margin: 10 }}
-            onChange={(e) => setPlayer(Number(e.target.value))}
-            disabled={simulationFile === "none"}
-          >
-            {players.map((player) => (
-              <option key={player} value={player}>
-                {player}
-              </option>
-            ))}
-          </select>
-          <span> Simulations: </span>
-          <select
-            style={{ margin: 10 }}
-            onChange={(e) => setNumSims(Number(e.target.value))}
-            disabled={simulationFile === "none"}
-          >
-            {numSimulations.map((simulation) => (
-              <option key={simulation} value={simulation}>
-                {simulation}
-              </option>
-            ))}
-          </select>
+          <SimulationFileSelection setSimulationFile={setSimulationFile} />
+          <PlayerSelection
+            setPlayer={setPlayer}
+            players={players}
+            simulationFile={simulationFile}
+          />
+          <SimulationSelection
+            setNumSims={setNumSims}
+            numSimulations={numSimulations}
+            simulationFile={simulationFile}
+            value={numSims}
+          />
         </div>
       </div>
-      {simulationFile !== "none" && (
+      {loading && <h2>Loading...</h2>}
+      {simulationFile !== "none" && !loading && (
         <svg width={width} height={height}>
           <rect
             x={0}
