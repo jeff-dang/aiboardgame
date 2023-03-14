@@ -9,7 +9,8 @@ import {
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
 import Data from "../data/getData";
-import { files } from "../data/getFiles";
+import SimulationFileSelection from "./Selections/SimulationFileSelection";
+import PlayerSelection from "./Selections/PlayerSelection";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -61,6 +62,7 @@ const options = {
 };
 
 export default function MovesToScores({ width, height }) {
+  const [loading, setLoading] = useState(null);
   const [simulationFile, setSimulationFile] = useState("none");
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
@@ -78,7 +80,10 @@ export default function MovesToScores({ width, height }) {
 
   useEffect(() => {
     fetch(simulationFile)
-      .then((response) => response.json())
+      .then((response) => {
+        loading !== null && setLoading(true);
+        return response.json();
+      })
       .then((data) => {
         dataInit.setAllData(data);
         setAllData(dataInit.getAllDataExEnd());
@@ -102,6 +107,7 @@ export default function MovesToScores({ width, height }) {
         },
       ],
     });
+    setLoading(false);
   }, [allData, player]);
 
   return (
@@ -123,35 +129,15 @@ export default function MovesToScores({ width, height }) {
           alignItems: "center",
         }}
       >
-        <span> Simulation File: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setSimulationFile(e.target.value)}
-          defaultValue={"none"}
-        >
-          <option disabled value={"none"}>
-            None
-          </option>
-          {files.map((filename) => (
-            <option key={filename} value={filename}>
-              {filename}
-            </option>
-          ))}
-        </select>
-        <span> Player: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setPlayer(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {players.map((player) => (
-            <option key={player} value={player}>
-              {player}
-            </option>
-          ))}
-        </select>
+        <SimulationFileSelection setSimulationFile={setSimulationFile} />
+        <PlayerSelection
+          setPlayer={setPlayer}
+          players={players}
+          simulationFile={simulationFile}
+        />
       </div>
-      {simulationFile !== "none" && (
+      {loading && <h2>Loading...</h2>}
+      {simulationFile !== "none" && !loading && (
         <div style={{ overflowX: "scroll" }}>
           <Scatter
             options={options}

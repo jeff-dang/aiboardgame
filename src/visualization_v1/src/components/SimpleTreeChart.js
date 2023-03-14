@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import EChartsReact from "echarts-for-react";
 import Data from "../data/getData";
-import { files } from "../data/getFiles";
+import SimulationFileSelection from "./Selections/SimulationFileSelection";
+import PlayerSelection from "./Selections/PlayerSelection";
+import SimulationSelection from "./Selections/SimulationSelection";
+import NumMovesSelection from "./Selections/NumMovesSelection";
 
 const dataInit = new Data();
 
@@ -30,55 +33,6 @@ const getCategoryIndex = (action) => {
   });
   return category;
 };
-
-// const generateData = (dataArr, moves) => {
-//   let result = [];
-//   let x = 200;
-//   let y = 100;
-//   const incrementX = 300;
-//   const incrementY = 300;
-//   result.push({
-//     name: "Start",
-//     x,
-//     y: 200,
-//     label: labelOptions,
-//     category: 0,
-//     value: `Category: Start, Simulations: ${dataArr[0].length}`,
-//   });
-//   dataArr.forEach((data, index) => {
-//     if (index >= moves) return;
-//     x += incrementX;
-//     let newY = y;
-//     data.forEach((action, actionIndex) => {
-//       newY = y + actionIndex * incrementY;
-//       const categoryIndex = getCategoryIndex(action);
-//       if (result.findIndex((item) => item.name === action) === -1) {
-//         result.push({
-//           name: action,
-//           x,
-//           y: newY,
-//           label: labelOptions,
-//           category: categoryIndex,
-//           value: `Category: ${categories[categoryIndex].name}, Simulations: 1`,
-//         });
-//       } else {
-//         const index = result.findIndex((item) => item.name === action);
-//         result[index].x = x;
-//         result[index].value = `Category: ${
-//           categories[categoryIndex].name
-//         }, Simulations: ${
-//           Number(
-//             result[result.findIndex((item) => item.name === action)].value
-//               .split(", ")[1]
-//               .split(": ")[1]
-//           ) + 1
-//         }`;
-//       }
-//     });
-//   });
-
-//   return result;
-// };
 
 function generateData(dataMap, dataArr, numMoves) {
   let moves = numMoves;
@@ -118,44 +72,6 @@ function generateData(dataMap, dataArr, numMoves) {
 }
 
 const generateOptions = (dataMap, dataArr, moves) => {
-  //   const option = {
-  //     tooltip: {},
-  //     animationDurationUpdate: 2000,
-  //     animationEasingUpdate: "sinusoidalInOut",
-  //     textStyle: {
-  //       fontSize: 9,
-  //     },
-  //     series: [
-  //       {
-  //         type: "graph",
-  //         layout: "none",
-  //         symbolSize: 70,
-  //         nodeScaleRatio: 0.2,
-  //         itemStyle: {
-  //           color: "#ff7f50",
-  //         },
-  //         autoCurveness: true,
-  //         roam: true,
-  //         scaleLimit: {
-  //           min: 0.7,
-  //           max: 3,
-  //         },
-  //         label: {
-  //           show: true,
-  //         },
-  //         edgeSymbol: ["circle", "arrow"],
-  //         edgeSymbolSize: [4, 10],
-  //         data: generateData(dataArr, moves),
-  //         links: generateLinks(dataArr, moves),
-  //         lineStyle: {
-  //           opacity: 0.9,
-  //           width: 2,
-  //           curveness: 0.1,
-  //         },
-  //         categories,
-  //       },
-  //     ],
-  //   };
   const option = {
     tooltip: {
       trigger: "item",
@@ -198,6 +114,7 @@ const generateOptions = (dataMap, dataArr, moves) => {
 };
 
 const SimpleTreeChart = ({ width, height }) => {
+  const [loading, setLoading] = useState(null);
   const [simulationFile, setSimulationFile] = useState("none");
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
@@ -218,11 +135,13 @@ const SimpleTreeChart = ({ width, height }) => {
   const [option, setOptions] = useState(
     generateOptions(initMap, initArr, numMoves)
   );
-  console.log(option);
 
   useEffect(() => {
     fetch(simulationFile)
-      .then((response) => response.json())
+      .then((response) => {
+        loading !== null && setLoading(true);
+        return response.json();
+      })
       .then((data) => {
         dataInit.setAllData(data);
         setAllData(dataInit.getAllDataExEnd());
@@ -254,6 +173,7 @@ const SimpleTreeChart = ({ width, height }) => {
 
   useEffect(() => {
     setOptions(generateOptions(nextMoveMap, nextMoveArray, numMoves));
+    setLoading(false);
   }, [nextMoveMap, nextMoveArray, numMoves]);
 
   return (
@@ -275,60 +195,27 @@ const SimpleTreeChart = ({ width, height }) => {
           alignItems: "center",
         }}
       >
-        <span> Simulation File: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setSimulationFile(e.target.value)}
-          defaultValue={"none"}
-        >
-          <option disabled value={"none"}>
-            None
-          </option>
-          {files.map((filename) => (
-            <option key={filename} value={filename}>
-              {filename}
-            </option>
-          ))}
-        </select>
-        <span> Player: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setPlayer(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {players.map((player) => (
-            <option key={player} value={player}>
-              {player}
-            </option>
-          ))}
-        </select>
-        <span> Simulations: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setNumSims(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {numSimulations.map((simulation) => (
-            <option key={simulation} value={simulation}>
-              {simulation}
-            </option>
-          ))}
-        </select>
-        <span> Number of Moves: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setNumMoves(Number(e.target.value))}
-          disabled={simulationFile === "none"}
+        <SimulationFileSelection setSimulationFile={setSimulationFile} />
+        <PlayerSelection
+          setPlayer={setPlayer}
+          players={players}
+          simulationFile={simulationFile}
+        />
+        <SimulationSelection
+          setNumSims={setNumSims}
+          numSimulations={numSimulations}
+          simulationFile={simulationFile}
+          value={numSims}
+        />
+        <NumMovesSelection
+          setNumMoves={setNumMoves}
+          allMoves={allMoves}
+          simulationFile={simulationFile}
           value={numMoves}
-        >
-          {allMoves.map((move) => (
-            <option key={move} value={move}>
-              {move}
-            </option>
-          ))}
-        </select>
+        />
       </div>
-      {simulationFile !== "none" && (
+      {loading && <h2>Loading...</h2>}
+      {simulationFile !== "none" && !loading && (
         <EChartsReact
           option={option}
           style={{

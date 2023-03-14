@@ -4,7 +4,10 @@ import styled from "styled-components";
 import { Tree, TreeNode } from "react-organizational-chart";
 import _ from "underscore";
 import Data from "../data/getData";
-import { files } from "../data/getFiles";
+import SimulationFileSelection from "./Selections/SimulationFileSelection";
+import PlayerSelection from "./Selections/PlayerSelection";
+import SimulationSelection from "./Selections/SimulationSelection";
+import NumMovesSelection from "./Selections/NumMovesSelection";
 
 const StyledNode = styled.div`
   padding: 5px;
@@ -183,57 +186,24 @@ export default function TreeChart(props) {
           alignItems: "center",
         }}
       >
-        <span> Simulation File: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setSimulationFile(e.target.value)}
-          defaultValue={"none"}
-        >
-          <option disabled value={"none"}>
-            None
-          </option>
-          {files.map((filename) => (
-            <option key={filename} value={filename}>
-              {filename}
-            </option>
-          ))}
-        </select>
-        <span> Player: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setPlayer(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {players.map((player) => (
-            <option key={player} value={player}>
-              {player}
-            </option>
-          ))}
-        </select>
-        <span> Simulations: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setNumSims(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {numSimulations.map((simulation) => (
-            <option key={simulation} value={simulation}>
-              {simulation}
-            </option>
-          ))}
-        </select>
-        <span> Number of Moves: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setNumMoves(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {allMoves.map((move) => (
-            <option key={move} value={move}>
-              {move}
-            </option>
-          ))}
-        </select>
+        <SimulationFileSelection setSimulationFile={setSimulationFile} />
+        <PlayerSelection
+          setPlayer={setPlayer}
+          players={players}
+          simulationFile={simulationFile}
+        />
+        <SimulationSelection
+          setNumSims={setNumSims}
+          numSimulations={numSimulations}
+          simulationFile={simulationFile}
+          value={numSims}
+        />
+        <NumMovesSelection
+          setNumMoves={setNumMoves}
+          allMoves={allMoves}
+          simulationFile={simulationFile}
+          value={numMoves}
+        />
       </div>
       {simulationFile !== "none" && (
         <Tree

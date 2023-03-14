@@ -11,7 +11,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import Data from "../data/getData";
-import { files } from "../data/getFiles";
+import SimulationFileSelection from "./Selections/SimulationFileSelection";
+import SimulationSelection from "./Selections/SimulationSelection";
 
 ChartJS.register(
   CategoryScale,
@@ -81,6 +82,7 @@ const getDataSet = (scoreData, labels) => {
 };
 
 export default function LineChart({ width, height }) {
+  const [loading, setLoading] = useState(null);
   const [simulationFile, setSimulationFile] = useState("none");
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [numSimulations, setNumSimulations] = useState(
@@ -99,7 +101,10 @@ export default function LineChart({ width, height }) {
 
   useEffect(() => {
     fetch(simulationFile)
-      .then((response) => response.json())
+      .then((response) => {
+        loading !== null && setLoading(true);
+        return response.json();
+      })
       .then((data) => {
         dataInit.setAllData(data);
         setAllData(dataInit.getAllDataExEnd());
@@ -122,6 +127,7 @@ export default function LineChart({ width, height }) {
       labels: labels,
       datasets: getDataSet(scoreData, labels),
     });
+    setLoading(false);
   }, [scoreData]);
 
   return (
@@ -143,35 +149,16 @@ export default function LineChart({ width, height }) {
           alignItems: "center",
         }}
       >
-        <span> Simulation File: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setSimulationFile(e.target.value)}
-          defaultValue={"none"}
-        >
-          <option disabled value={"none"}>
-            None
-          </option>
-          {files.map((filename) => (
-            <option key={filename} value={filename}>
-              {filename}
-            </option>
-          ))}
-        </select>
-        <span> Simulations: </span>
-        <select
-          style={{ margin: 10 }}
-          onChange={(e) => setNumSims(Number(e.target.value))}
-          disabled={simulationFile === "none"}
-        >
-          {numSimulations.map((simulation) => (
-            <option key={simulation} value={simulation}>
-              {simulation}
-            </option>
-          ))}
-        </select>
+        <SimulationFileSelection setSimulationFile={setSimulationFile} />
+        <SimulationSelection
+          setNumSims={setNumSims}
+          numSimulations={numSimulations}
+          simulationFile={simulationFile}
+          value={numSims}
+        />
       </div>
-      {simulationFile !== "none" && (
+      {loading && <h2>Loading...</h2>}
+      {simulationFile !== "none" && !loading && (
         <div style={{ overflowX: "scroll" }}>
           <Line options={options} width={width} height={height} data={data} />
         </div>
