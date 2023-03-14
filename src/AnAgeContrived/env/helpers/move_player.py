@@ -1,19 +1,30 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.entities.player import Player
+    from env.engine import Engine
+    # from env.entities.energy import EnergyTile
+    pass
+
 import copy
 from env.entities.turn_state import TurnType
 from env.helpers.bridge_rewards import BridgeRewards
+from env.helpers.logger import Logger
 
 
 class MovePlayer():
 
     @staticmethod
-    def move_player(engine, player, location):
-
+    def move_player(engine: Engine, player: Player, location):
         # Check if bridge is crossed, get path from player location to where they want to move
         path = engine.map.get_path(player.location, location)
         bridge = engine.map.check_crossed_bridge(path)
-
         if(len(engine.map.map[location]) == 1):  # Check if moving into deadend, if so let them move in any direction after moving into dead end
             player.previous_location = 0
+        if(len(engine.map.map[location]) == 1):
+            player.previous_location = 0
+            Logger.log('moved into dead end', 'ACTION_LOGS')
         else:
             player.previous_location = player.location
         player.location = location
@@ -28,9 +39,7 @@ class MovePlayer():
             engine.turn.update_turn_type(TurnType.ACTION_TURN)
 
     @staticmethod
-    def is_legal_move(player, engine, next_location):
-
-        # TODO Check if a bridge connecting areas hasnt been built if not built cannot move
+    def is_legal_move(player: Player, engine: Engine, next_location) -> bool:
         current_location = player.location
         map = engine.map
 

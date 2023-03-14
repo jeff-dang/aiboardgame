@@ -1,73 +1,85 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.entities.player import Player
+
 from env.entities.energy import EnergyTile
+from env.helpers.logger import Logger
 
 class TransmuterTile:
-    def __init__(self, top_size, bottom_size):
-        self.top = [0, 0]  # put a max of 2 energies on top
-        self.bottom = [0, 0]  # put a max of 2 energies on bottom
-        self.top_size = top_size
-        self.bottom_size = bottom_size
-        self.available_top_positions = top_size
-        self.available_bottom_positions = bottom_size
+    def __init__(self, top_size: int, bottom_size: int):
+        self.top: list[EnergyTile] = [0] * top_size
+        self.bottom: list[EnergyTile] = [0] * bottom_size
+        self.top_size: int = top_size
+        self.bottom_size: int = bottom_size
+        self.available_top_positions: int = top_size
+        self.available_bottom_positions: int = bottom_size
+
+    def is_top_empty(self) -> bool:
+        return (not (self.top_size - self.top.count(0)) > 0)
+    
+    def is_bottom_empty(self) -> bool:
+        return (not (self.bottom_size - self.bottom.count(0)) > 0)
 
     # fill the energy at the given position: position: 1 == top, position: 2 == bottom
-    def fill_tile(self, energy, position):
+    def fill_tile(self, energy: EnergyTile, position):
         if position > 2 or position < 1:
-            print(
-                'Position is wrong. Please enter a correct position between [1, 2]')
+            Logger.log('Position is wrong. Please enter a correct position between [1, 2]', 'TRANSMUTER_LOGS')
         elif position == 1:
             if self.top_size == 0:
-                return print('No tile at the top')
+                return Logger.log('No tile at the top', 'TRANSMUTER_LOGS')
             elif self.top_size == 1:
                 if self.top[0] != 0:
-                    return print('Tile already contains energy. Cannot fill this position')
+                    return Logger.log('Tile already contains energy. Cannot fill this position', 'TRANSMUTER_LOGS')
                 else:
                     self.top[0] = energy
             elif self.top_size == 2:
                 if self.top[0] != 0:
                     if self.top[1] != 0:
-                        return print('Tile already contains energy. Cannot fill this position')
+                        return Logger.log('Tile already contains energy. Cannot fill this position', 'TRANSMUTER_LOGS')
                     else:
                         self.top[1] = energy
                 else:
                     self.top[0] = energy
         elif position == 2:
             if self.bottom_size == 0:
-                return print('No tile at the bottom')
+                return Logger.log('No tile at the bottom', 'TRANSMUTER_LOGS')
             elif self.bottom_size == 1:
                 if self.bottom[0] != 0:
-                    return print('Tile already contains energy. Cannot fill this position')
+                    return Logger.log('Tile already contains energy. Cannot fill this position', 'TRANSMUTER_LOGS')
                 else:
                     self.bottom[0] = energy
             elif self.bottom_size == 2:
                 if self.bottom[0] != 0:
                     if self.bottom[1] != 0:
-                        return print('Tile already contains energy. Cannot fill this position')
+                        return Logger.log('Tile already contains energy. Cannot fill this position', 'TRANSMUTER_LOGS')
                     else:
                         self.bottom[1] = energy
                 else:
                     self.bottom[0] = energy
 
-    def empty_tile(self, player):
+    def empty_tile(self, player: Player):
         for i in self.top:
-            print('i is:', i, 'and condition is:', i != 0)
+            Logger.log('i is: ' + str(i) + ' and condition is: ' + str(i != 0), 'TRANSMUTER_LOGS')
             if i != 0:
                 index = self.top.index(i)
                 energy = self.top[index]
                 self.top[index] = 0
-                print('Energy at the top is:', energy)
+                Logger.log('Energy at the top is: ' +  str(energy), 'TRANSMUTER_LOGS')
                 player.exhausted_energies[energy.energy_type].append(energy)
         for i in self.bottom:
             if i != 0:
                 index = self.bottom.index(i)
                 energy = self.bottom[index]
                 self.bottom[index] = 0
-                print('Energy at the bottom is:', energy)
+                Logger.log('Energy at the bottom is: ' +  str(energy), 'TRANSMUTER_LOGS')
                 player.exhausted_energies[energy.energy_type].append(energy)
         self.top = [0, 0]
         self.bottom = [0, 0]
 
     #TODO: check to see whether the top and bottom has actually energy in them. do not release (pop) the 0s
-    def release_bottom_energy(self):
+    def release_bottom_energy(self) -> EnergyTile:
         num_zeros = self.bottom.count(0)
         if num_zeros > 0:
             index = self.bottom.index(0)
@@ -82,7 +94,7 @@ class TransmuterTile:
             self.bottom.append(0)
         return energy
 
-    def release_top_energy(self):
+    def release_top_energy(self) -> EnergyTile:
         num_zeros = self.top.count(0)
         if num_zeros > 0:
             index = self.top.index(0)
@@ -97,7 +109,7 @@ class TransmuterTile:
             self.top.append(0)
         return energy
 
-    def print_tile(self):
+    def print_tile(self) -> str:
         tile_string = ''
         tile_string += '---------------\n'
         tile_string += '|             |\n'

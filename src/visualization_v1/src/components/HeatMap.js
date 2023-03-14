@@ -3,14 +3,9 @@ import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { HeatmapCircle } from "@visx/heatmap";
 import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip";
-import {
-  getAllDataExEnd,
-  getCountMapForPlayer,
-  getDataWithMergedActions,
-  getNumberOfPlayers,
-  getNumberOfSimulations,
-} from "../data/getData";
+import Data from "../data/getData";
 import { useSpring, animated } from "@react-spring/web";
+import { files } from "../data/getFiles";
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -22,9 +17,7 @@ const hot1 = "#77312f";
 const hot2 = "#f33d15";
 const background = "#9de3d4"; //"#28272c";
 
-const allData = getAllDataExEnd();
-const players = getNumberOfPlayers(allData);
-const numSimulations = getNumberOfSimulations(allData);
+const dataInit = new Data();
 
 const getData = (freqMap, rows) => {
   const newData = [];
@@ -67,6 +60,13 @@ const HeatMap = ({
   const xMax = size;
   const yMax = height - margin.bottom - margin.top;
 
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
+  const [numSimulations, setNumSimulations] = useState(
+    dataInit.getNumberOfSimulations(allData)
+  );
+
   const [numSims, setNumSims] = useState(1);
   const [player, setPlayer] = useState(0);
   const [freqMap, setFreqMap] = useState([]);
@@ -102,10 +102,27 @@ const HeatMap = ({
   });
 
   useEffect(() => {
-    const mergedData = getDataWithMergedActions(allData);
-    setFreqMap(getCountMapForPlayer(mergedData, numSims, player));
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setPlayers(dataInit.getNumberOfPlayers(allData));
+    setNumSimulations(dataInit.getNumberOfSimulations(allData));
+  }, [allData]);
+
+  useEffect(() => {
+    const mergedData = dataInit.getDataWithMergedActions(allData);
+    setFreqMap(dataInit.getCountMapForPlayer(mergedData, numSims, player));
     setToggle(false);
-  }, [player, numSims]);
+  }, [allData, player, numSims]);
 
   useEffect(() => {
     setData(getData(freqMap, 6));
@@ -125,84 +142,121 @@ const HeatMap = ({
   const AnimatedHeatMap = animated(HeatmapCircle);
 
   return (
-    <div className="centering" style={{ marginBottom: 20 }}>
-      <h1>Heat Map of All Moves</h1>
-      <span> Player: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setPlayer(Number(e.target.value))}
-      >
-        {players.map((player) => (
-          <option key={player} value={player}>
-            {player}
-          </option>
-        ))}
-      </select>
-      <span> Simulations: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setNumSims(Number(e.target.value))}
-      >
-        {numSimulations.map((simulation) => (
-          <option key={simulation} value={simulation}>
-            {simulation}
-          </option>
-        ))}
-      </select>
-      <svg width={width} height={height}>
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          rx={14}
-          fill={background}
-        />
-        <Group top={margin.top} left={margin.left}>
-          <AnimatedHeatMap
-            data={data}
-            xScale={(d) => xScale(d) ?? 0}
-            yScale={(d) => yScale(d) ?? 0}
-            colorScale={circleColorScale}
-            opacityScale={opacityScale}
-            radius={scale.to((s) => s * radius)}
-            gap={2}
+    <div
+      style={{
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div>
+        <h1>Heat Map of All Moves</h1>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <span> Simulation File: </span>
+          <select
+            style={{ margin: 10 }}
+            onChange={(e) => setSimulationFile(e.target.value)}
+            defaultValue={"none"}
           >
-            {(heatmap) =>
-              heatmap.map((heatmapBins) =>
-                heatmapBins.map((bin) => (
-                  <>
-                    <circle
-                      key={`heatmap-circle-${bin.row}-${bin.column}`}
-                      className="visx-heatmap-circle"
-                      cx={bin.cx}
-                      cy={bin.cy}
-                      r={bin.r}
-                      fill={bin.color}
-                      fillOpacity={bin.opacity}
-                      onMouseLeave={() => {
-                        tooltipTimeout = window.setTimeout(() => {
-                          hideTooltip();
-                        }, 300);
-                      }}
-                      onMouseMove={() => {
-                        if (tooltipTimeout) clearTimeout(tooltipTimeout);
-                        const top = bin.cy + radius * 2 + margin.top;
-                        const left = bin.cx + margin.left;
-                        showTooltip({
-                          tooltipData: bin.bin,
-                          tooltipTop: top,
-                          tooltipLeft: left,
-                        });
-                      }}
-                    />
-                  </>
-                ))
-              )
-            }
-          </AnimatedHeatMap>
-        </Group>
-      </svg>
+            <option disabled value={"none"}>
+              None
+            </option>
+            {files.map((filename) => (
+              <option key={filename} value={filename}>
+                {filename}
+              </option>
+            ))}
+          </select>
+          <span> Player: </span>
+          <select
+            style={{ margin: 10 }}
+            onChange={(e) => setPlayer(Number(e.target.value))}
+            disabled={simulationFile === "none"}
+          >
+            {players.map((player) => (
+              <option key={player} value={player}>
+                {player}
+              </option>
+            ))}
+          </select>
+          <span> Simulations: </span>
+          <select
+            style={{ margin: 10 }}
+            onChange={(e) => setNumSims(Number(e.target.value))}
+            disabled={simulationFile === "none"}
+          >
+            {numSimulations.map((simulation) => (
+              <option key={simulation} value={simulation}>
+                {simulation}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      {simulationFile !== "none" && (
+        <svg width={width} height={height}>
+          <rect
+            x={0}
+            y={0}
+            width={width}
+            height={height}
+            rx={14}
+            fill={background}
+          />
+          <Group top={margin.top} left={margin.left}>
+            <AnimatedHeatMap
+              data={data}
+              xScale={(d) => xScale(d) ?? 0}
+              yScale={(d) => yScale(d) ?? 0}
+              colorScale={circleColorScale}
+              opacityScale={opacityScale}
+              radius={scale.to((s) => s * radius)}
+              gap={2}
+            >
+              {(heatmap) =>
+                heatmap.map((heatmapBins) =>
+                  heatmapBins.map((bin) => (
+                    <>
+                      <circle
+                        key={`heatmap-circle-${bin.row}-${bin.column}`}
+                        className="visx-heatmap-circle"
+                        cx={bin.cx}
+                        cy={bin.cy}
+                        r={bin.r}
+                        fill={bin.color}
+                        fillOpacity={bin.opacity}
+                        onMouseLeave={() => {
+                          tooltipTimeout = window.setTimeout(() => {
+                            hideTooltip();
+                          }, 300);
+                        }}
+                        onMouseMove={() => {
+                          if (tooltipTimeout) clearTimeout(tooltipTimeout);
+                          const top = bin.cy + radius * 2 + margin.top;
+                          const left = bin.cx + margin.left;
+                          showTooltip({
+                            tooltipData: bin.bin,
+                            tooltipTop: top,
+                            tooltipLeft: left,
+                          });
+                        }}
+                      />
+                    </>
+                  ))
+                )
+              }
+            </AnimatedHeatMap>
+          </Group>
+        </svg>
+      )}
       {tooltipOpen && tooltipData && (
         <Tooltip top={tooltipTop} left={tooltipLeft} style={tooltipStyles}>
           <div>
@@ -215,6 +269,14 @@ const HeatMap = ({
   );
 };
 
-const HeatMapWithTooltip = withTooltip(HeatMap);
+const HeatMapToolTip = withTooltip(HeatMap);
 
-export default HeatMapWithTooltip;
+const HeatMapWithToolTip = ({ width, height }) => {
+  return (
+    <div style={{ margin: "auto" }}>
+      <HeatMapToolTip width={width} height={height} />
+    </div>
+  );
+};
+
+export default HeatMapWithToolTip;

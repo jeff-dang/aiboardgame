@@ -1,9 +1,17 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.entities.player import Player
+    from env.engine import Engine
+    pass
+
 from env.command import Command
 from env.helpers import take_action as TakeAction
 
 class TakeAction1(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = 'Action Tokens'
         self.action_details = "First Transmuter's Action Token"
@@ -16,7 +24,7 @@ class TakeAction1(Command):
 
 class TakeAction2(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = 'Action Tokens'
         self.action_details = "Second Transmuter's Action Token"
@@ -29,7 +37,7 @@ class TakeAction2(Command):
 
 class TakeAction3(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = 'Action Tokens'
         self.action_details = "Third Transmuter's Action Token"
@@ -42,7 +50,7 @@ class TakeAction3(Command):
 
 class TakeAction4(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = 'Action Tokens'
         self.action_details = "Forth Transmuter's Action Token"
@@ -55,7 +63,7 @@ class TakeAction4(Command):
 
 class TakeAction5(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = 'Action Tokens'
         self.action_details = "Fifth Transmuter's Action Token"

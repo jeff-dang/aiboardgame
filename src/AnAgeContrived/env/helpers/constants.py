@@ -5,27 +5,13 @@ from env.action_initiater import get_actions
 from env.entities.map_data import Map_Areas
 from env.entities.action_tokens import EnergyActionToken, MoveActionToken, RechargeActionToken
 
-# *********** Logger Constants ******************
-GAME_ENGINE_LOGS = True
-MONUMENT_LOGS = False
-ENERGY_LOGS = True
-ACTION_LOGS = True
-HELPER_LOGS = True
-OBSERVATION_SPACE_LOGS = True
-OTHER_LOGS = True
-CONDITION_CHECK_LOGS = True
-FLOW_LOGS = True
-INITIALIZATION_LOGS = True
-MAP_LOGS = True
-
 # ********* GAME ENGINE CONSTANTS ********************
 
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
-NUM_MOVES = len(get_actions('self', 'eng'))
-MAX_TURNS = 100
-STARTING_PLAYER_BRIDGES = 3
-NUM_AGENTS = len(CHARACTER_NAMES)
+NUM_MOVES: int = len(get_actions('self', 'eng'))
+MAX_TURNS: int = 750
+NUM_AGENTS: int = len(CHARACTER_NAMES)
 
 # ************ MONUMENTS START **************************
 # Monuments From The Rule Book:

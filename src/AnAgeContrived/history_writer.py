@@ -31,3 +31,20 @@ def jsonDump(simulation_history, json_name):
 
     with open(json_name, "w") as outfile:
         dump(dictObj, outfile, indent=4)
+
+def jsonActionConverter(folder_name,action_list):
+    action_filename = "allActions.json"
+    newActionList = {}
+    for i in action_list:
+        actionName = i.get('action') + ' ' + i.get('action_details')
+        newActionList[actionName] = None
+    json_object = dumps(actionName)  # create list
+    folder_path = jsonDirectory(folder_name)
+    if path.exists(folder_path) != True:
+        mkdir(folder_path)
+    json_object = dumps(newActionList,indent=4)  # create list
+    with open(folder_name+'/'+action_filename, "w") as outfile:
+        outfile.write(json_object)
+   
+    
+

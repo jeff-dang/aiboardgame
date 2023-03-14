@@ -1,3 +1,11 @@
+from __future__ import annotations
+# these imports will not be imported in the runtime, it is just to help coding to do type_checking
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from env.entities.player import Player
+    from env.engine import Engine
+    pass
+
 from env.command import Command
 from env.helpers.move_player import MovePlayer
 
@@ -6,7 +14,7 @@ action_family = "Move Player"
 
 class MovePosition1(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 1
         self.action = action_family
@@ -21,7 +29,7 @@ class MovePosition1(Command):
 
 class MovePosition2(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 2
         self.action = action_family
@@ -36,7 +44,7 @@ class MovePosition2(Command):
 
 class MovePosition3(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 3
         self.action = action_family
@@ -51,7 +59,7 @@ class MovePosition3(Command):
 
 class MovePosition4(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 4
         self.action = action_family
@@ -66,7 +74,7 @@ class MovePosition4(Command):
 
 class MovePosition5(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 5
         self.action = action_family
@@ -81,7 +89,7 @@ class MovePosition5(Command):
 
 class MovePosition6(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 6
         self.action = action_family
@@ -96,7 +104,7 @@ class MovePosition6(Command):
 
 class MovePosition7(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 7
         self.action = action_family
@@ -111,7 +119,7 @@ class MovePosition7(Command):
 
 class MovePosition8(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 8
         self.action = action_family
@@ -126,7 +134,7 @@ class MovePosition8(Command):
 
 class MovePosition9(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 9
         self.action = action_family
@@ -141,7 +149,7 @@ class MovePosition9(Command):
 
 class MovePosition10(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 10
         self.action = action_family
@@ -156,7 +164,7 @@ class MovePosition10(Command):
 
 class MovePosition11(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 11
         self.action = action_family
@@ -171,7 +179,7 @@ class MovePosition11(Command):
 
 class MovePosition12(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 12
         self.action = action_family
@@ -186,7 +194,7 @@ class MovePosition12(Command):
 
 class MovePosition13(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 13
         self.action = action_family
@@ -201,7 +209,7 @@ class MovePosition13(Command):
 
 class MovePosition14(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 14
         self.action = action_family
@@ -216,7 +224,7 @@ class MovePosition14(Command):
 
 class MovePosition15(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 15
         self.action = action_family
@@ -231,7 +239,7 @@ class MovePosition15(Command):
 
 class MovePosition16(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 16
         self.action = action_family
@@ -246,7 +254,7 @@ class MovePosition16(Command):
 
 class MovePosition17(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 17
         self.action = action_family
@@ -261,7 +269,7 @@ class MovePosition17(Command):
 
 class MovePosition18(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 18
         self.action = action_family
@@ -276,7 +284,7 @@ class MovePosition18(Command):
 
 class MovePosition19(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 19
         self.action = action_family
@@ -291,7 +299,7 @@ class MovePosition19(Command):
 
 class MovePosition20(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 20
         self.action = action_family
@@ -306,7 +314,7 @@ class MovePosition20(Command):
 
 class MovePosition21(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 21
         self.action = action_family
@@ -321,7 +329,7 @@ class MovePosition21(Command):
 
 class MovePosition22(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 22
         self.action = action_family
@@ -336,7 +344,7 @@ class MovePosition22(Command):
 
 class MovePosition23(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 23
         self.action = action_family
@@ -351,7 +359,7 @@ class MovePosition23(Command):
 
 class MovePosition24(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 24
         self.action = action_family
@@ -366,7 +374,7 @@ class MovePosition24(Command):
 
 class MovePosition25(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 25
         self.action = action_family
@@ -381,7 +389,7 @@ class MovePosition25(Command):
 
 class MovePosition26(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 26
         self.action = action_family
@@ -396,7 +404,7 @@ class MovePosition26(Command):
 
 class MovePosition27(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 27
         self.action = action_family
@@ -411,7 +419,7 @@ class MovePosition27(Command):
 
 class MovePosition28(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 28
         self.action = action_family
@@ -426,7 +434,7 @@ class MovePosition28(Command):
 
 class MovePosition29(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 29
         self.action = action_family
@@ -441,7 +449,7 @@ class MovePosition29(Command):
 
 class MovePosition30(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 30
         self.action = action_family
@@ -456,7 +464,7 @@ class MovePosition30(Command):
 
 class MovePosition31(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 31
         self.action = action_family
@@ -471,7 +479,7 @@ class MovePosition31(Command):
 
 class MovePosition32(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 32
         self.action = action_family
@@ -486,7 +494,7 @@ class MovePosition32(Command):
 
 class MovePosition33(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 33
         self.action = action_family
@@ -501,7 +509,7 @@ class MovePosition33(Command):
 
 class MovePosition34(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 34
         self.action = action_family
@@ -516,7 +524,7 @@ class MovePosition34(Command):
 
 class MovePosition35(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 35
         self.action = action_family
@@ -531,7 +539,7 @@ class MovePosition35(Command):
 
 class MovePosition36(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 36
         self.action = action_family
@@ -546,7 +554,7 @@ class MovePosition36(Command):
 
 class MovePosition37(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 37
         self.action = action_family
@@ -561,7 +569,7 @@ class MovePosition37(Command):
 
 class MovePosition38(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 38
         self.action = action_family
@@ -576,7 +584,7 @@ class MovePosition38(Command):
 
 class MovePosition39(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 39
         self.action = action_family
@@ -591,7 +599,7 @@ class MovePosition39(Command):
 
 class MovePosition40(Command):
 
-    def __init__(self, player, engine):
+    def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.position = 40
         self.action = action_family

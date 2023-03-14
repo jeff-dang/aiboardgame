@@ -10,7 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { getAllData, getNumberOfSimulations, getScores } from "../data/getData";
+import Data from "../data/getData";
+import { files } from "../data/getFiles";
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +23,8 @@ ChartJS.register(
   Legend
 );
 
+const dataInit = new Data();
+
 export const options = {
   maintainAspectRatio: false,
   responsive: true,
@@ -31,9 +34,6 @@ export const options = {
     },
   },
 };
-
-const allData = getAllData();
-const numSimulations = getNumberOfSimulations(allData);
 
 const getLabels = (scoreData) => {
   let labels = [];
@@ -80,8 +80,16 @@ const getDataSet = (scoreData, labels) => {
 };
 
 export default function LineChart({ width, height }) {
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [numSimulations, setNumSimulations] = useState(
+    dataInit.getNumberOfSimulations(allData)
+  );
+
   const [numSims, setNumSims] = useState(1);
-  const [scoreData, setScoreData] = useState(getScores(allData, numSims));
+  const [scoreData, setScoreData] = useState(
+    dataInit.getScores(allData, numSims)
+  );
   const labels = getLabels(scoreData);
   const [data, setData] = useState({
     labels: labels,
@@ -89,8 +97,24 @@ export default function LineChart({ width, height }) {
   });
 
   useEffect(() => {
-    setScoreData(getScores(allData, numSims));
-  }, [numSims]);
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setNumSimulations(dataInit.getNumberOfSimulations(allData));
+  }, [allData]);
+
+  useEffect(() => {
+    setScoreData(dataInit.getScores(allData, numSims));
+  }, [allData, numSims]);
 
   useEffect(() => {
     setData({
@@ -100,22 +124,57 @@ export default function LineChart({ width, height }) {
   }, [scoreData]);
 
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "auto",
+      }}
+    >
       <h1>Simulation vs. Scores for All Players</h1>
-      <span> Simulations: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setNumSims(Number(e.target.value))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
       >
-        {numSimulations.map((simulation) => (
-          <option key={simulation} value={simulation}>
-            {simulation}
+        <span> Simulation File: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setSimulationFile(e.target.value)}
+          defaultValue={"none"}
+        >
+          <option disabled value={"none"}>
+            None
           </option>
-        ))}
-      </select>
-      <div style={{ overflowX: "scroll" }}>
-        <Line options={options} width={width} height={height} data={data} />
+          {files.map((filename) => (
+            <option key={filename} value={filename}>
+              {filename}
+            </option>
+          ))}
+        </select>
+        <span> Simulations: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setNumSims(Number(e.target.value))}
+          disabled={simulationFile === "none"}
+        >
+          {numSimulations.map((simulation) => (
+            <option key={simulation} value={simulation}>
+              {simulation}
+            </option>
+          ))}
+        </select>
       </div>
+      {simulationFile !== "none" && (
+        <div style={{ overflowX: "scroll" }}>
+          <Line options={options} width={width} height={height} data={data} />
+        </div>
+      )}
     </div>
   );
 }

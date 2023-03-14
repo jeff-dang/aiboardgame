@@ -8,16 +8,25 @@ import {
   Legend,
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
-import {
-  getMovesScoresData,
-  getAllData,
-  getNumberOfPlayers,
-} from "../data/getData";
+import Data from "../data/getData";
+import { files } from "../data/getFiles";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const allData = getAllData();
-const players = getNumberOfPlayers(allData);
+const dataInit = new Data();
+
+function getMovesScoresData(data, player) {
+  let result = [];
+  Object.entries(data).forEach((simulation) => {
+    const playerData = dataInit.getPlayerData(simulation[1], player);
+    const moves = Object.keys(playerData).length;
+
+    const score = simulation[1].meta_data[`player_${player}`];
+    result.push({ x: moves, y: score });
+  });
+
+  return result;
+}
 
 const options = {
   scales: {
@@ -49,6 +58,10 @@ const options = {
 };
 
 export default function MovesToScores({ width, height }) {
+  const [simulationFile, setSimulationFile] = useState("none");
+  const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
+  const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
+
   const [player, setPlayer] = useState(0);
   const [data, setData] = useState({
     datasets: [
@@ -61,6 +74,22 @@ export default function MovesToScores({ width, height }) {
   });
 
   useEffect(() => {
+    fetch(simulationFile)
+      .then((response) => response.json())
+      .then((data) => {
+        dataInit.setAllData(data);
+        setAllData(dataInit.getAllDataExEnd());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [simulationFile]);
+
+  useEffect(() => {
+    setPlayers(dataInit.getNumberOfPlayers(allData));
+  }, [allData]);
+
+  useEffect(() => {
     setData({
       datasets: [
         {
@@ -70,25 +99,65 @@ export default function MovesToScores({ width, height }) {
         },
       ],
     });
-  }, [player]);
+  }, [allData, player]);
 
   return (
-    <div style={{ marginBottom: 20 }}>
+    <div
+      style={{
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "auto",
+      }}
+    >
       <h1>Moves Vs. Scores</h1>
-      <span> Player: </span>
-      <select
-        style={{ margin: 10 }}
-        onChange={(e) => setPlayer(Number(e.target.value))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
       >
-        {players.map((player) => (
-          <option key={player} value={player}>
-            {player}
+        <span> Simulation File: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setSimulationFile(e.target.value)}
+          defaultValue={"none"}
+        >
+          <option disabled value={"none"}>
+            None
           </option>
-        ))}
-      </select>
-      <div style={{ overflowX: "scroll" }}>
-        <Scatter options={options} width={width} height={height} data={data} />
+          {files.map((filename) => (
+            <option key={filename} value={filename}>
+              {filename}
+            </option>
+          ))}
+        </select>
+        <span> Player: </span>
+        <select
+          style={{ margin: 10 }}
+          onChange={(e) => setPlayer(Number(e.target.value))}
+          disabled={simulationFile === "none"}
+        >
+          {players.map((player) => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
+        </select>
       </div>
+      {simulationFile !== "none" && (
+        <div style={{ overflowX: "scroll" }}>
+          <Scatter
+            options={options}
+            width={width}
+            height={height}
+            data={data}
+          />
+        </div>
+      )}
     </div>
   );
 }
