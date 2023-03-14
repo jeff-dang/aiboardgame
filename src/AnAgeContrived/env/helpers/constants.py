@@ -12,6 +12,7 @@ AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES: int = len(get_actions('self', 'eng'))
 MAX_TURNS: int = 750
 NUM_AGENTS: int = len(CHARACTER_NAMES)
+STARTING_PLAYER_BRIDGES = 3
 
 # ************ MONUMENTS START **************************
 # Monuments From The Rule Book:
