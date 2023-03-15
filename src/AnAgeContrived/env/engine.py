@@ -22,6 +22,7 @@ import env.helpers.constants as constants
 from env.entities.energy import EnergyTile, Energy
 from env.entities.map_data import Map_Areas
 from env.helpers.logger import Logger
+from env.entities.transmuter_tile import TransmuterTile
 
 
 class Engine:
@@ -37,6 +38,18 @@ class Engine:
         self.monument_index: int = 0
         self.is_initialized: bool = False
 
+        # ****** Dimensional Corridor Additional Transmuter Tiles ******
+        transmuter_tile1 = TransmuterTile(1, 2)
+        transmuter_tile2 = TransmuterTile(2, 1)
+        transmuter_tile3 = TransmuterTile(1, 2)
+        transmuter_tile4 = TransmuterTile(1, 2)
+        transmuter_tile5 = TransmuterTile(1, 2)
+        transmuter_tile6 = TransmuterTile(2, 1)
+        transmuter_tile7 = TransmuterTile(2, 1)
+
+        self.dimensional_corridor = [transmuter_tile1, transmuter_tile2, transmuter_tile3, transmuter_tile4, transmuter_tile5, transmuter_tile6, transmuter_tile7]
+
+        # ****** Monuments ******
         monument_1 = Monument(
             "THE ANFIRIEN BEACON",
             Map_Areas.PLAINS,
@@ -279,13 +292,13 @@ class Engine:
 
         # checks whether the player transmuters are initialized. Starts initialization if necessary
         if not self.is_initialized:
-            self.turn.update_turn_type(TurnType.INITIALIZATION_TURN)
             if agent.check_is_initialized():
                 self.turn.update_turn_type(TurnType.END_TURN)
                 Turn.end_turn(self)
+            self.turn.update_turn_type(TurnType.INITIALIZATION_TURN)
             num_initialized = 0
             for i in self.players:
-                if i.is_initialized:
+                if i.get_is_initialized():
                     num_initialized += 1
             if num_initialized == 5:
                 self.is_initialized = True
@@ -315,7 +328,7 @@ class Engine:
             if monument.is_top_wall_completed():
                 filled_wall = monument.get_top_wall()
                 if filled_wall.is_reward_given == False:
-                    self.turn.update_turn_type(TurnType.B)
+                    # self.turn.update_turn_type(TurnType.B)
                     players_contributed = []
                     for i in filled_wall.filled_sections:
                         players_contributed.append(i.owner)
@@ -428,3 +441,13 @@ class Engine:
         if self.monuments[self.monument_index].is_completed():
             return True
         return False
+    
+    def get_transmuter_tile(self, player: Player, old_transmuter_tile: TransmuterTile, energy: EnergyTile):
+        new_tile = self.dimensional_corridor.pop()
+        temp = [new_tile]
+        for i in self.dimensional_corridor:
+            temp.append(i)
+        self.dimensional_corridor = temp[:]
+        player.transmuter.reserved_tiles.append(new_tile)
+        player.exhausted_energies[energy.energy_type].append(energy)
+        
