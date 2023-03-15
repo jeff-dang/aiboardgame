@@ -89,7 +89,9 @@ const PieChart = ({ width, height }) => {
   useEffect(() => {
     const mergedData = dataInit.getDataWithMergedActions(allData);
 
-    setFreqMap(dataInit.getFrequencyMapForPlayer(mergedData, numSims, player));
+    setFreqMap(
+      dataInit.getFrequencyMapForPlayer(mergedData, 0, numSims, player)
+    );
   }, [allData, player, numSims]);
 
   useEffect(() => {
