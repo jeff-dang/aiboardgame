@@ -15,17 +15,28 @@ from env.entities.energy import Energy
 
 class VictoryPoints:
     def calcFullyGainedEnergy(engine, player: Player):
-        gainableEnergyList = player.remaining_energies
+        gainableEnergyList = player.remaining_energies[Energy.SINGLE]
         fullyGainedEnergy = 0
         vp_allocation = {0: 0, 1: 3, 2: 6, 3: 10, 4: 15}
-        if len(gainableEnergyList[Energy.CONSTRUCTIVE]) == 0:
+        #single energy type checks
+        if len(gainableEnergyList) > 5 and len(gainableEnergyList) < 8:
             fullyGainedEnergy += 1
-        if len(gainableEnergyList[Energy.INVERTIBLE]) == 0:
+        elif len(gainableEnergyList) > 3 and len(gainableEnergyList) < 6:
             fullyGainedEnergy += 1
-        if len(gainableEnergyList[Energy.GENERATIVE]) == 0:
+        elif len(gainableEnergyList) > 1 and len(gainableEnergyList) < 4:
             fullyGainedEnergy += 1
-        if len(gainableEnergyList[Energy.PRIMAL]) == 0:
+        elif len(gainableEnergyList) >= 0 and len(gainableEnergyList) < 2:
             fullyGainedEnergy += 1
+
+        #original check
+        # if len(gainableEnergyList[Energy.CONSTRUCTIVE]) == 0:
+        #     fullyGainedEnergy += 1
+        # if len(gainableEnergyList[Energy.INVERTIBLE]) == 0:
+        #     fullyGainedEnergy += 1
+        # if len(gainableEnergyList[Energy.GENERATIVE]) == 0:
+        #     fullyGainedEnergy += 1
+        # if len(gainableEnergyList[Energy.PRIMAL]) == 0:
+        #     fullyGainedEnergy += 1
         vp_points = vp_allocation.get(fullyGainedEnergy)
         return vp_points * 1000
 

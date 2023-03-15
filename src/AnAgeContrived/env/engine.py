@@ -37,140 +37,137 @@ class Engine:
         self.monument_index: int = 0
         self.is_initialized: bool = False
 
-        monument_1 = Monument(
+        monument_a = Monument(
             "THE ANFIRIEN BEACON",
             Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.INVERTIBLE],
-                    [Energy.CONSTRUCTIVE, Energy.INVERTIBLE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE, Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE],
-                    [Energy.PRIMAL],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE],
-                    [Energy.GENERATIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
-                # TODO: Need a mechanism to handle any energy reward
-                MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ["Any"]),
+                MonumentWall([Energy.SINGLE, Energy.SINGLE], [Energy.SINGLE]),
             ],
         )
 
-        monument_2 = Monument(
+        monument_b = Monument(
             "THE LIBRARY OF VALDUIN",
             Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE],
-                    [Energy.GENERATIVE, Energy.INVERTIBLE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE, Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.INVERTIBLE],
-                    [Energy.CONSTRUCTIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE],
-                    [Energy.PRIMAL],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
-                # TODO: Need a mechanism to handle any energy reward
-                MonumentWall([Energy.INVERTIBLE, Energy.GENERATIVE], ["Any"]),
+                MonumentWall([Energy.SINGLE, Energy.SINGLE], [Energy.SINGLE]),
             ],
         )
 
-        monument_3 = Monument(
+        monument_c = Monument(
             "THE ERIDONIC GATE",
-            Map_Areas.QUARRY,
+            Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE],
-                    [Energy.CONSTRUCTIVE, Energy.GENERATIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE, Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE],
-                    [Energy.INVERTIBLE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE],
-                    [Energy.GENERATIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
-                # TODO: Need a mechanism to handle any energy reward
-                MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ["Any"]),
+                MonumentWall([Energy.SINGLE, Energy.SINGLE], [Energy.SINGLE]),
             ],
         )
 
-        monument_4 = Monument(
+        monument_d = Monument(
             "THE NAMARILLION FORGE",
-            Map_Areas.MOUNTAIN,
+            Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.GENERATIVE, Energy.GENERATIVE],
-                    [Energy.INVERTIBLE, Energy.GENERATIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE, Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE],
-                    [Energy.PRIMAL],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE],
-                    [Energy.CONSTRUCTIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
-                # TODO: Need a mechanism to handle any energy reward
-                MonumentWall([Energy.CONSTRUCTIVE, Energy.INVERTIBLE], ["Any"]),
+                MonumentWall([Energy.SINGLE, Energy.SINGLE], [Energy.SINGLE]),
             ],
         )
 
-        monument_5 = Monument(
+        monument_e = Monument(
             "THE FORTRESS OF KOLYM THRIN",
-            Map_Areas.FOREST,
+            Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.INVERTIBLE, Energy.GENERATIVE],
-                    [Energy.CONSTRUCTIVE, Energy.PRIMAL],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE, Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.GENERATIVE],
-                    [Energy.GENERATIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
-                # TODO: Need a mechanism to handle any energy reward
-                MonumentWall([Energy.GENERATIVE, Energy.INVERTIBLE], ["Any"]),
                 MonumentWall(
-                    [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE],
-                    [Energy.INVERTIBLE],
+                    [Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
-                MonumentWall([Energy.PRIMAL], []),
+                MonumentWall(
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
+                ),
+                MonumentWall([Energy.SINGLE, Energy.SINGLE], [Energy.SINGLE]),
             ],
         )
 
-        monument_6 = Monument(
+        monument_f = Monument(
             "THE SHIP OF TOLINTHRA",
-            Map_Areas.SEA,
+            Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.GENERATIVE, Energy.GENERATIVE, Energy.INVERTIBLE],
-                    [Energy.CONSTRUCTIVE, Energy.INVERTIBLE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE, Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.GENERATIVE, Energy.CONSTRUCTIVE, Energy.INVERTIBLE],
-                    [Energy.GENERATIVE],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
                 MonumentWall(
-                    [Energy.INVERTIBLE, Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE],
-                    [Energy.PRIMAL],
+                    [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
+                    [Energy.SINGLE],
                 ),
-                # TODO: Need a mechanism to handle any energy reward
-                MonumentWall([Energy.GENERATIVE, Energy.CONSTRUCTIVE], ["Any"]),
+                MonumentWall([Energy.SINGLE, Energy.SINGLE], [Energy.SINGLE]),
             ],
         )
 
         self.monuments: list[Monument] = [
-            monument_1,
-            monument_2,
-            monument_3,
-            monument_4,
-            monument_5,
-            monument_6,
+            monument_a,
+            monument_b,
+            monument_c,
+            monument_d,
+            monument_e,
+            monument_f,
         ]
 
         for i in range(len(constants.CHARACTER_NAMES)):
