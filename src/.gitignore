@@ -1,0 +1,6 @@
+.*pyc
+__pycache__
+simulation_history*
+events.out.*
+venv
+*.pth
