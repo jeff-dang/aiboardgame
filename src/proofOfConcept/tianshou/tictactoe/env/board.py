@@ -41,17 +41,14 @@ class Board:
 
     def calculate_winners(self):
         winning_combinations = []
-        vert = [(0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)]
-        horiz = [(0, 4, 8, 12), (1, 5, 9, 13), (2, 6, 10, 14), (3, 7, 11, 15)]
-        corner = [(0, 3, 12, 15)]
-        diags = [(0, 5, 10, 15), (3, 6, 9, 12)]
+        # 0 1 2
+        # 3 4 5
+        # 6 7 8
+        vert = [(0, 1, 2), (3, 4, 5), (6, 7, 8)]
+        horiz = [(0, 3, 6), (1,4,7), (2,5,8)]
+        diags = [(0, 4, 8), (2,4,6)]
 
-        square1 = [(0, 1, 4, 5), (4, 5, 8, 9), (8, 9, 12, 13)]
-        square2 = [(1, 2, 5, 6), (5, 6, 9, 10), (9, 10, 13, 14)]
-        square3 = [(2, 3, 6, 7), (6, 7, 10, 11), (10, 11, 14, 15)]
-
-        winning_combinations = (
-            vert + horiz + corner + diags + square1 + square2 + square3)
+        winning_combinations = (vert + horiz + diags)
         self.winning_combinations = winning_combinations
 
     # returns:
