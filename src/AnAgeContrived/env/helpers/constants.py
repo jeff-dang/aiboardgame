@@ -14,7 +14,7 @@ from env.entities.action_tokens import (
 CHARACTER_NAMES = ["Freyith", "Ignotas", "Multanec", "Rusne", "Aureon"]
 AGENT_NAMES = ["player_0", "player_1", "player_2", "player_3", "player_4"]
 NUM_MOVES: int = len(get_actions("self", "eng"))
-MAX_TURNS: int = 3000
+MAX_TURNS: int = 5000
 NUM_AGENTS: int = len(CHARACTER_NAMES)
 STARTING_PLAYER_BRIDGES = 3
 

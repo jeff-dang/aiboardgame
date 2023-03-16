@@ -63,7 +63,7 @@ class Player:
         self.initial_location = starting_location
         self.previous_location = 0
         # TODO: need to track the energies on the board, on his hand (done) and the remaining energies
-        self._initiate_fill_tranmuster_files()
+        # self._initiate_fill_tranmuster_files()
         self.channel_marker: bool = False  # if it is true, player can convey twice
         # self._initiate_fill_tranmuster_tiles()
 
@@ -96,13 +96,13 @@ class Player:
             return True
         return False
 
-    def _initiate_fill_tranmuster_files(self):
-        tile1 = self.transmuter.active_tiles[0]
-        tile2 = self.transmuter.active_tiles[1]
-        tile3 = self.transmuter.active_tiles[2]
-        tile1.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
-        tile1.fill_tile(self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)
-        tile2.fill_tile(self.exhausted_energies[Energy.PRIMAL].pop(), 1)
-        tile2.fill_tile(self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 2)
-        tile3.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
-        tile3.fill_tile(self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)
+    # def _initiate_fill_tranmuster_files(self):
+    #     tile1 = self.transmuter.active_tiles[0]
+    #     tile2 = self.transmuter.active_tiles[1]
+    #     tile3 = self.transmuter.active_tiles[2]
+    #     tile1.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
+    #     tile1.fill_tile(self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)
+    #     tile2.fill_tile(self.exhausted_energies[Energy.PRIMAL].pop(), 1)
+    #     tile2.fill_tile(self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 2)
+    #     tile3.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
+    #     tile3.fill_tile(self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)

@@ -10,7 +10,7 @@ class Monument:
         self.top_wall_index: int = 0
 
     def get_num_walls_completed(self) -> int:
-        return (self.top_wall_index + 1)
+        return len(self.completed_walls)
 
     def is_completed(self) -> bool:
         if self.top_wall_index == (len(self.walls) - 1) and self.is_top_wall_completed():
@@ -26,6 +26,7 @@ class Monument:
 
     def change_top_wall(self):
         if self.top_wall_index < len(self.walls) - 1:
+            self.completed_walls.append(self.walls[self.top_wall_index])
             self.top_wall_index += 1
             Logger.log('Index is: ' + str(self.top_wall_index), 'MONUMENT_LOGS')
             Logger.log('TOP WALL SWITCHED', 'MONUMENT_LOGS')
