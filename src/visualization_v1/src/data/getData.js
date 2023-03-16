@@ -51,8 +51,18 @@ export default class Data {
     return allDataMerged;
   }
 
-  getSimulationData(data, numSims) {
-    return Object.fromEntries(Object.entries(data).slice(0, numSims));
+  getSimulationData(data, startIndex = 0, endIndex = 1) {
+    // console.log(Object.entries(data).slice(startIndex, endIndex));
+    console.log(Object.keys(data));
+    return Object.keys(data)
+      .slice(startIndex, endIndex)
+      .reduce((result, key) => {
+        result[key] = data[key];
+
+        return result;
+      }, {});
+
+    //return Object.fromEntries(Object.entries(data).slice(startIndex, endIndex));
   }
 
   getPlayerData(data, player) {
@@ -78,8 +88,8 @@ export default class Data {
     return actions;
   }
 
-  getFrequencyMapForPlayer(data, numSims, player) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getFrequencyMapForPlayer(data, startSim, endSim, player) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
 
     let freqMap = this.getFrequencyMap();
     Object.entries(simulationData).forEach((simulation) => {
@@ -105,8 +115,8 @@ export default class Data {
     return actions;
   }
 
-  getCountMapForPlayer(data, numSims, player) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getCountMapForPlayer(data, startSim, endSim, player) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
 
     let freqMap = this.getCountMap();
     Object.entries(simulationData).forEach((simulation) => {
@@ -141,10 +151,12 @@ export default class Data {
     return filteredMap;
   }
 
-  getMap(data, numSims, player) {
+  getMap(data, startSim, endSim, player) {
     let result = [];
     let map = {};
-    const simulationData = this.getSimulationData(data, numSims);
+    const simulationData = this.getSimulationData(data, startSim, endSim);
+
+    console.log(simulationData);
 
     Object.entries(simulationData).forEach((simulation) => {
       let turnNum = 1;
@@ -173,8 +185,8 @@ export default class Data {
     return [result, map];
   }
 
-  getScores(data, numSims) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getScores(data, startSim, endSim) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
     let result = [];
     Object.entries(simulationData).forEach((simulation, index) => {
       result.push({
@@ -198,7 +210,6 @@ export default class Data {
     const simulation = Object.entries(data).find((sim) => {
       return sim[1].meta_data !== undefined;
     });
-
     Object.entries(simulation[1]).forEach((turn) => {
       if (turn[0] === "meta_data") {
         Object.keys(turn[1]).forEach((player) => {
@@ -220,8 +231,8 @@ export default class Data {
     return result;
   }
 
-  getNumberOfMoves(data, numSims, player) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getNumberOfMoves(data, startSim, endSim, player) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
 
     let result = 2;
     Object.entries(simulationData).forEach((simulation) => {

@@ -6,8 +6,12 @@ import PlayerSelection from "./Selections/PlayerSelection";
 import SimulationSelection from "./Selections/SimulationSelection";
 import NumMovesSelection from "./Selections/NumMovesSelection";
 import SimulationTypeSelection from "./Selections/SimulationTypeSelection";
+import FromSelection from "./Selections/FromSelection";
+import ToSelection from "./Selections/ToSelection";
 
 const dataInit = new Data();
+const res = dataInit.getDataWithMergedActions(dataInit.getAllDataExEnd());
+const initArr = dataInit.getMap(res, 0, 1, 0)[0];
 
 const categories = [
   { name: "Start", itemStyle: { color: "green" } },
@@ -42,7 +46,6 @@ const generateData = (dataArr, moves) => {
   let y = 100;
   const incrementX = 300;
   const incrementY = 300;
-  console.log(dataArr);
   result.push({
     name: "Start",
     x,
@@ -123,6 +126,11 @@ const generateOptions = (dataArr, moves) => {
     textStyle: {
       fontSize: 9,
     },
+    legend: [
+      {
+        data: categories.map((item) => item.name),
+      },
+    ],
     series: [
       {
         type: "graph",
@@ -136,13 +144,13 @@ const generateOptions = (dataArr, moves) => {
         autoCurveness: true,
         scaleLimit: {
           min: 0.7,
-          max: 6,
+          max: 10,
         },
         // label: {
         //   show: true,
         // },
         edgeSymbol: ["circle", "arrow"],
-        edgeSymbolSize: [4, 4],
+        edgeSymbolSize: [4, 5],
         data: generateData(dataArr, moves),
         links: generateLinks(dataArr, moves),
         lineStyle: {
@@ -170,11 +178,15 @@ const SimpleTreeGraph = ({ width, height }) => {
   const [simType, setSimType] = useState("Aggregate");
   const [player, setPlayer] = useState(4);
   const [numSims, setNumSims] = useState(1);
-  const [numMoves, setNumMoves] = useState(3);
-  const [allMoves, setAllMoves] = useState([3]);
+  const [numMoves, setNumMoves] = useState(1);
+  const [allMoves, setAllMoves] = useState([1]);
+  const [startSim, setStartSim] = useState(1);
+  const [endSim, setEndSim] = useState(
+    numSimulations[numSimulations.length - 1]
+  );
+  const [startMove, setStartMove] = useState(3);
+  const [endMove, setEndMove] = useState(3);
 
-  const res = dataInit.getDataWithMergedActions(allData);
-  const initArr = dataInit.getMap(res, numSims, player)[0];
   const [nextMoveArray, setNextMoveArray] = useState(initArr);
   const [option, setOptions] = useState(generateOptions(initArr, numMoves));
 
@@ -199,37 +211,58 @@ const SimpleTreeGraph = ({ width, height }) => {
   }, [allData]);
 
   useEffect(() => {
+    if (startSim > endSim) {
+      setEndSim(startSim);
+    }
+    if (startMove > endMove) {
+      setEndMove(startMove);
+    }
+  }, [startSim, startMove]);
+
+  useEffect(() => {
     let mergedData;
     let maxMoves;
-    let sims = numSims;
+    let start = startSim - 1;
+    let end = endSim;
+
     if (simType === "Aggregate") {
+      start = 0;
+      end = numSims;
       mergedData = dataInit.getDataWithMergedActions(allData);
-      maxMoves = dataInit.getNumberOfMoves(allData, sims, player);
+      maxMoves = dataInit.getNumberOfMoves(allData, start, end, player);
     } else {
-      mergedData = dataInit.getDataWithMergedActions([allData[numSims - 1]]);
-      sims = 1;
-      maxMoves = dataInit.getNumberOfMoves(
-        [allData[numSims - 1]],
-        sims,
-        player
-      );
+      start = startSim - 1;
+      end = endSim;
+
+      mergedData = dataInit.getDataWithMergedActions(allData);
+      maxMoves = dataInit.getNumberOfMoves(allData, start, end, player);
     }
-    const results = dataInit.getMap(mergedData, sims, player);
+    const results = dataInit.getMap(mergedData, start, end, player);
     setNextMoveArray(results[0]);
 
     const newAllMoves = [];
-    for (let i = 3; i <= Math.max(3, maxMoves); i++) {
+    for (let i = 1; i <= Math.max(1, maxMoves); i++) {
       newAllMoves.push(i);
     }
     setAllMoves(newAllMoves);
 
     if (numMoves > maxMoves) setNumMoves(maxMoves);
-  }, [allData, simType, player, numSims]);
+  }, [allData, startSim, endSim, simType, player, numSims]);
 
   useEffect(() => {
-    setOptions(generateOptions(nextMoveArray, numMoves));
+    if (simType === "Aggregate") {
+      setOptions(generateOptions(nextMoveArray, numMoves));
+    } else {
+      console.log(startMove, endMove, nextMoveArray);
+      setOptions(
+        generateOptions(
+          nextMoveArray.slice(startMove - 1, endMove),
+          endMove - startMove + 1
+        )
+      );
+    }
     setLoading(false);
-  }, [nextMoveArray, numMoves]);
+  }, [nextMoveArray, simType, startMove, endMove, numMoves]);
 
   return (
     <div
@@ -248,6 +281,7 @@ const SimpleTreeGraph = ({ width, height }) => {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
         <SimulationFileSelection setSimulationFile={setSimulationFile} />
@@ -261,18 +295,57 @@ const SimpleTreeGraph = ({ width, height }) => {
           players={players}
           simulationFile={simulationFile}
         />
-        <SimulationSelection
-          setNumSims={setNumSims}
-          numSimulations={numSimulations}
-          simulationFile={simulationFile}
-          value={numSims}
-        />
-        <NumMovesSelection
-          setNumMoves={setNumMoves}
-          allMoves={allMoves}
-          simulationFile={simulationFile}
-          value={numMoves}
-        />
+        {simType === "Subset" ? (
+          <>
+            <FromSelection
+              text="Sim From: "
+              setStart={setStartSim}
+              arr={numSimulations}
+              simulationFile={simulationFile}
+              startVal={startSim}
+              endVal={endSim}
+            />
+            <ToSelection
+              text="Sim To: "
+              setEnd={setEndSim}
+              arr={numSimulations}
+              simulationFile={simulationFile}
+              startVal={startSim}
+              endVal={endSim}
+            />
+            <FromSelection
+              text="Moves From: "
+              setStart={setStartMove}
+              arr={allMoves}
+              simulationFile={simulationFile}
+              startVal={startMove}
+              endVal={endMove}
+            />
+            <ToSelection
+              text="Moves To: "
+              setEnd={setEndMove}
+              arr={allMoves}
+              simulationFile={simulationFile}
+              startVal={startMove}
+              endVal={endMove}
+            />
+          </>
+        ) : (
+          <>
+            <SimulationSelection
+              setNumSims={setNumSims}
+              numSimulations={numSimulations}
+              simulationFile={simulationFile}
+              value={numSims}
+            />
+            <NumMovesSelection
+              setNumMoves={setNumMoves}
+              allMoves={allMoves}
+              simulationFile={simulationFile}
+              value={numMoves}
+            />
+          </>
+        )}
       </div>
       {loading && <h2>Loading...</h2>}
       {simulationFile !== "none" && !loading && (

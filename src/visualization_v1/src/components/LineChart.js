@@ -91,7 +91,7 @@ export default function LineChart({ width, height }) {
 
   const [numSims, setNumSims] = useState(1);
   const [scoreData, setScoreData] = useState(
-    dataInit.getScores(allData, numSims)
+    dataInit.getScores(allData, 0, numSims)
   );
   const labels = getLabels(scoreData);
   const [data, setData] = useState({
@@ -119,7 +119,7 @@ export default function LineChart({ width, height }) {
   }, [allData]);
 
   useEffect(() => {
-    setScoreData(dataInit.getScores(allData, numSims));
+    setScoreData(dataInit.getScores(allData, 0, numSims));
   }, [allData, numSims]);
 
   useEffect(() => {

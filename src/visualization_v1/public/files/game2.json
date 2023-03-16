@@ -1152,11 +1152,12 @@
       "action_details": "Action Turn",
       "current_score": 0
     },
+
     "1": {
       "player": 0,
       "turn_num": 0,
-      "action": "End Turn",
-      "action_details": "End Turn",
+      "action": "Move Player",
+      "action_details": "Position 23",
       "current_score": -1
     },
     "2": {
