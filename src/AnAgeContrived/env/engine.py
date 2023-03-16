@@ -202,9 +202,9 @@ class Engine:
         Logger.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "INITIALIZATION_LOGS")
 
     def check_over(self):
-        if self._check_if_current_wall_filled():
-            if self.monument_index < 5:
-                self.monument_index += 1
+        # if self._check_if_current_wall_filled():
+        #     if self.monument_index < 5:
+        #         self.monument_index += 1
         if self._check_if_last_wall_filled():
             Logger.log("MONUMENTS ALL BUILT", "GAME_ENGINE_LOGS")
             return True
@@ -329,9 +329,11 @@ class Engine:
                 # if the current top wall is completed, change the top wall to next wall
                 monument.change_top_wall()
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
-            if monument.is_completed() and self.monument_index < 5:
-                self.monument_index += 1
-                self.num_of_built_monuments += 1
+
+        #check num of built walls    
+        self.num_of_built_monuments = self.check_num_of_build_walls()
+        self.monument_index = self.num_of_built_monuments - 1
+
 
         Logger.log(
             "Current monument is: "
@@ -344,6 +346,14 @@ class Engine:
         )
         self.action_counter += 1
         return True
+
+    def check_num_of_build_walls(self) -> int:
+        total_built = 0
+        for i in self.monuments:
+            if i.is_completed():
+                total_built += 1
+        return total_built
+
 
     def get_current_agents_turn(self) -> str:
         return self.get_agents()[self.current_player]
@@ -438,13 +448,13 @@ class Engine:
         action_name = (self.get_action_names()[action])["action"]
         reward = 0
         if action_name == "End Turn":
-            reward = -25
+            reward = -1
         elif action_name == "Convey 1":
             reward = +0
         elif action_name == "Action Tokens":
-            reward = +0
+            reward = +1
         elif action_name == "Fill Monument":
-            reward = +0
+            reward = +1
         elif action_name == "Build Bridge":
             reward = +0
         print(reward)
