@@ -28,18 +28,18 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--gamma", type=float, default=0.9, help="a smaller gamma favors earlier win"
     )
-    parser.add_argument("--n-step", type=int, default=10)
+    parser.add_argument("--n-step", type=int, default=100)
     parser.add_argument("--target-update-freq", type=int, default=320)
     parser.add_argument("--epoch", type=int, default=1)
     parser.add_argument("--step-per-epoch", type=int, default=10)
     parser.add_argument("--step-per-collect", type=int, default=10)
     parser.add_argument("--update-per-step", type=float, default=0.1)
-    parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--batch-size", type=int, default=5)
     parser.add_argument(
         "--hidden-sizes", type=int, nargs="*", default=[128, 128, 128, 128]
     )
-    parser.add_argument("--training-num", type=int, default=1)
-    parser.add_argument("--test-num", type=int, default=1)
+    parser.add_argument("--training-num", type=int, default=300)
+    parser.add_argument("--test-num", type=int, default=25)
     parser.add_argument("--logdir", type=str, default="log")
     parser.add_argument("--render", type=float, default=0)
     parser.add_argument(
@@ -169,7 +169,7 @@ def train_agent(
     train_collector.collect(n_step=args.batch_size * args.training_num)
 
     # ======== tensorboard logging setup =========
-    log_path = os.path.join(args.logdir, "AnAgeContrived", "dqn")
+    log_path = os.path.join(args.logdir, "tictactoe", "dqn")
     writer = SummaryWriter(log_path)
     writer.add_text("args", str(args))
     logger = TensorboardLogger(writer)
@@ -180,7 +180,7 @@ def train_agent(
             model_save_path = args.model_save_path
         else:
             model_save_path = os.path.join(
-                args.logdir, "AnAgeContrived", "dqn", "policy.pth"
+                args.logdir, "tictactoe", "dqn", "policy.pth"
             )
         torch.save(
             policy.policies[agents[args.agent_id - 1]].state_dict(), model_save_path

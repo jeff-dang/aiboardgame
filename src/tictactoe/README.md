@@ -8,3 +8,5 @@ pip install git+https://github.com/WillDudley/tianshou.git
 
 Run with:
 python main.py --agent-id 1 --resume-path log/AnAgeContrived/dqn/policy.pth --opponent-path log/AnAgeContrived/dqn/policy.pth --seed 3435
+
+python main.py --agent-id 1 --resume-path log/tictactoe/dqn/policy.pth --seed 343543534
