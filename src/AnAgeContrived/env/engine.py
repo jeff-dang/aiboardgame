@@ -311,7 +311,11 @@ class Engine:
                 monument.change_top_wall()
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
 
-        self.monument_index = self.check_num_of_build_walls() - 1
+        num_built = self.check_num_of_build_walls()
+        if num_built == 0:
+            self.monument_index = 0
+        else:
+            self.monument_index = num_built - 1
 
         Logger.log(
             "Current monument is: "
