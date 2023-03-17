@@ -13,4 +13,8 @@ export const files = [
     name: "simulation_history_3",
     filename: "../files/simulation_history_03_13_2023_19_48_18.json",
   },
+  {
+    name: "simulation_history_4",
+    filename: "../files/simulation_history_03_16_2023_20_00_32.json",
+  },
 ];
