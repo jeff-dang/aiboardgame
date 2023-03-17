@@ -29,7 +29,8 @@ class Board:
         elif agent == 1:
             self.squares[action] = 2
 
-        self.currentPlayer = (self.currentPlayer + 1) % 2
+        if(action != 0):
+            self.currentPlayer = (self.currentPlayer + 1) % 2
         
         self.turn_num +=1
         return
