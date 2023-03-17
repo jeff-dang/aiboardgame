@@ -312,10 +312,11 @@ class Engine:
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
 
         num_built = self.check_num_of_build_walls()
-        if num_built == 0:
-            self.monument_index = 0
+        if num_built == 6:
+            self.monument_index = 5
+            self.check_over()
         else:
-            self.monument_index = num_built - 1
+            self.monument_index = num_built
 
         Logger.log(
             "Current monument is: "
