@@ -42,7 +42,7 @@ class Engine:
             Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.INVERTIBLE],
+                    [Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE],
                     [Energy.CONSTRUCTIVE, Energy.INVERTIBLE],
                 ),
                 MonumentWall(
@@ -139,7 +139,7 @@ class Engine:
                     [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE],
                     [Energy.INVERTIBLE],
                 ),
-                MonumentWall([Energy.PRIMAL], ["Any"]),
+                # MonumentWall([Energy.PRIMAL], ["Any"]),
             ],
         )
 
