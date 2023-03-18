@@ -46,12 +46,15 @@ const getLabels = (scoreData) => {
 };
 
 const getPlayerScore = (scoreData, sim, player) => {
-  console.log(scoreData);
-  const index = scoreData.findIndex((e) => Object.keys(e)[0] === sim);
+  if (scoreData) {
+    const index = scoreData.findIndex((e) => Object.keys(e)[0] === sim);
 
-  const simData = scoreData[index];
+    const simData = scoreData[index];
 
-  return Object.values(simData)[0][player];
+    return Object.values(simData)[0][player];
+  } else {
+    return -1;
+  }
 };
 
 const getPlayers = (scoreData) => {
@@ -68,16 +71,18 @@ const getDataSet = (scoreData, labels) => {
   let dataSet = [];
 
   const players = getPlayers(scoreData);
-  players.forEach((player) => {
-    const color = getRandomColor();
-    const data = {
-      label: player,
-      data: labels.map((sim) => getPlayerScore(scoreData, sim, player)),
-      borderColor: color,
-      backgroundColor: color,
-    };
-    dataSet.push(data);
-  });
+  if (players) {
+    players.forEach((player) => {
+      const color = getRandomColor();
+      const data = {
+        label: player,
+        data: labels.map((sim) => getPlayerScore(scoreData, sim, player)),
+        borderColor: color,
+        backgroundColor: color,
+      };
+      dataSet.push(data);
+    });
+  }
   return dataSet;
 };
 
@@ -93,10 +98,10 @@ export default function LineChart({ width, height }) {
   const [scoreData, setScoreData] = useState(
     dataInit.getScores(allData, 0, numSims)
   );
-  const labels = getLabels(scoreData);
+  //const labels = //getLabels(scoreData);
   const [data, setData] = useState({
-    labels: labels,
-    datasets: getDataSet(scoreData, labels),
+    // labels: labels,
+    // datasets: getDataSet(scoreData, labels),
   });
 
   useEffect(() => {
@@ -123,9 +128,11 @@ export default function LineChart({ width, height }) {
   }, [allData, numSims]);
 
   useEffect(() => {
+    const labelsArr = getLabels(scoreData);
+
     setData({
-      labels: labels,
-      datasets: getDataSet(scoreData, labels),
+      labels: labelsArr,
+      datasets: getDataSet(scoreData, labelsArr),
     });
     setLoading(false);
   }, [scoreData]);

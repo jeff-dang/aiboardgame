@@ -42,7 +42,7 @@ class Engine:
             Map_Areas.PLAINS,
             [
                 MonumentWall(
-                    [Energy.INVERTIBLE, Energy.INVERTIBLE, Energy.INVERTIBLE],
+                    [Energy.GENERATIVE, Energy.INVERTIBLE, Energy.INVERTIBLE],
                     [Energy.CONSTRUCTIVE, Energy.INVERTIBLE],
                 ),
                 MonumentWall(
@@ -139,7 +139,7 @@ class Engine:
                     [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE, Energy.GENERATIVE],
                     [Energy.INVERTIBLE],
                 ),
-                MonumentWall([Energy.PRIMAL], ["Any"]),
+                # MonumentWall([Energy.PRIMAL], ["Any"]),
             ],
         )
 
@@ -311,7 +311,12 @@ class Engine:
                 monument.change_top_wall()
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
 
-        self.monument_index = self.check_num_of_build_walls() - 1
+        num_built = self.check_num_of_build_walls()
+        if num_built == 6:
+            self.monument_index = 5
+            self.check_over()
+        else:
+            self.monument_index = num_built
 
         Logger.log(
             "Current monument is: "

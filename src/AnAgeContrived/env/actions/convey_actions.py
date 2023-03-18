@@ -32,7 +32,7 @@ class ConveyOnceFirstCardTopConstructiveBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Constructive, Constructive]"
+        self.action_details = "First Card - [Constructive - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE])
@@ -45,7 +45,7 @@ class ConveyOnceFirstCardTopConstructiveBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Constructive, Invertible]"
+        self.action_details = "First Card - [Constructive - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.INVERTIBLE])
@@ -58,7 +58,7 @@ class ConveyOnceFirstCardTopConstructiveBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Constructive, Generative]"
+        self.action_details = "First Card - [Constructive - Generative]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.GENERATIVE])
@@ -71,7 +71,7 @@ class ConveyOnceFirstCardTopConstructiveBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Constructive, Primal]"
+        self.action_details = "First Card - [Constructive - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.PRIMAL])
@@ -84,7 +84,7 @@ class ConveyOnceFirstCardTopInvertibleBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Invertible, Invertible]"
+        self.action_details = "First Card - [Invertible - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.INVERTIBLE])
@@ -97,7 +97,7 @@ class ConveyOnceFirstCardTopInvertibleBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Invertible, Constructive]"
+        self.action_details = "First Card - [Invertible - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.CONSTRUCTIVE])
@@ -110,7 +110,7 @@ class ConveyOnceFirstCardTopInvertibleBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Invertible, Generative]"
+        self.action_details = "First Card - [Invertible - Generative]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.GENERATIVE])
@@ -123,7 +123,7 @@ class ConveyOnceFirstCardTopInvertibleBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Invertible, Primal]"
+        self.action_details = "First Card - [Invertible - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.PRIMAL])
@@ -136,7 +136,7 @@ class ConveyOnceFirstCardTopGenerativeBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Generative, Generative]"
+        self.action_details = "First Card - [Generative - Generative]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.GENERATIVE])
@@ -149,7 +149,7 @@ class ConveyOnceFirstCardTopGenerativeBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Generative, Constructive]"
+        self.action_details = "First Card - [Generative - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.CONSTRUCTIVE])
@@ -162,7 +162,7 @@ class ConveyOnceFirstCardTopGenerativeBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Generative, Invertible]"
+        self.action_details = "First Card - [Generative - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.INVERTIBLE])
@@ -175,7 +175,7 @@ class ConveyOnceFirstCardTopGenerativeBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Generative, Primal]"
+        self.action_details = "First Card - [Generative - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.PRIMAL])
@@ -188,7 +188,7 @@ class ConveyOnceFirstCardTopPrimalBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Primal, Primal]"
+        self.action_details = "First Card - [Primal - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.PRIMAL])
@@ -201,7 +201,7 @@ class ConveyOnceFirstCardTopPrimalBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Primal, Constructive]"
+        self.action_details = "First Card - [Primal - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.CONSTRUCTIVE])
@@ -214,7 +214,7 @@ class ConveyOnceFirstCardTopPrimalBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Primal, Invertible]"
+        self.action_details = "First Card - [Primal - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.INVERTIBLE])
@@ -227,7 +227,7 @@ class ConveyOnceFirstCardTopPrimalBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Primal, Invertible]"
+        self.action_details = "First Card - [Primal - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.GENERATIVE])
@@ -254,7 +254,7 @@ class ConveyOnceFirstCardTopConstructiveBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Constructive, Constructive]"
+        self.action_details = "Second Card - [Constructive - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE])
@@ -267,7 +267,7 @@ class ConveyOnceFirstCardTopConstructiveBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Constructive, Invertible]"
+        self.action_details = "Second Card - [Constructive - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.INVERTIBLE])
@@ -280,7 +280,7 @@ class ConveyOnceFirstCardTopConstructiveBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Constructive, Generative]"
+        self.action_details = "Second Card - [Constructive - Generative]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.GENERATIVE])
@@ -293,7 +293,7 @@ class ConveyOnceFirstCardTopConstructiveBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Constructive, Primal]"
+        self.action_details = "Second Card - [Constructive - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.PRIMAL])
@@ -306,7 +306,7 @@ class ConveyOnceFirstCardTopInvertibleBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Invertible, Invertible]"
+        self.action_details = "Second Card - [Invertible - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.INVERTIBLE])
@@ -319,7 +319,7 @@ class ConveyOnceFirstCardTopInvertibleBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Invertible, Constructive]"
+        self.action_details = "Second Card - [Invertible - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.CONSTRUCTIVE])
@@ -332,7 +332,7 @@ class ConveyOnceFirstCardTopInvertibleBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Invertible, Generative]"
+        self.action_details = "Second Card - [Invertible - Generative]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.GENERATIVE])
@@ -345,7 +345,7 @@ class ConveyOnceFirstCardTopInvertibleBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Invertible, Primal]"
+        self.action_details = "Second Card - [Invertible - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.PRIMAL])
@@ -358,7 +358,7 @@ class ConveyOnceFirstCardTopGenerativeBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Generative, Generative]"
+        self.action_details = "Second Card - [Generative - Generative]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.GENERATIVE])
@@ -371,7 +371,7 @@ class ConveyOnceFirstCardTopGenerativeBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Generative, Constructive]"
+        self.action_details = "Second Card - [Generative - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.CONSTRUCTIVE])
@@ -384,7 +384,7 @@ class ConveyOnceFirstCardTopGenerativeBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Generative, Invertible]"
+        self.action_details = "Second Card - [Generative - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.INVERTIBLE])
@@ -397,7 +397,7 @@ class ConveyOnceFirstCardTopGenerativeBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Generative, Primal]"
+        self.action_details = "Second Card - [Generative - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.PRIMAL])
@@ -410,7 +410,7 @@ class ConveyOnceFirstCardTopPrimalBottomPrimal(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Primal, Primal]"
+        self.action_details = "Second Card - [Primal - Primal]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.PRIMAL])
@@ -423,7 +423,7 @@ class ConveyOnceFirstCardTopPrimalBottomConstructive(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Primal, Constructive]"
+        self.action_details = "Second Card - [Primal - Constructive]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.CONSTRUCTIVE])
@@ -436,7 +436,7 @@ class ConveyOnceFirstCardTopPrimalBottomInvertible(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Primal, Invertible]"
+        self.action_details = "Second Card - [Primal - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.INVERTIBLE])
@@ -449,7 +449,7 @@ class ConveyOnceFirstCardTopPrimalBottomGenerative(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Primal, Invertible]"
+        self.action_details = "Second Card - [Primal - Invertible]"
 
     def execute(self):
         Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.GENERATIVE])

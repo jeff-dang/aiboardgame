@@ -56,32 +56,27 @@ class Transmuter:
         num_empty_top_sections = new_tile.top.count(0)
         num_empty_bottom_sections = new_tile.bottom.count(0)
 
-        is_filled = False
-
         if energy_type_bottom != None:
             if  num_empty_bottom_sections > 0 and len(player.exhausted_energies[energy_type_bottom]) > 0:
                 new_tile.fill_tile(player.exhausted_energies[energy_type_bottom].pop(), 2)
-                is_filled = True
                 Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
 
         if energy_type_top != None:
             if num_empty_top_sections > 0 and len(player.exhausted_energies[energy_type_top]) > 0:
                 new_tile.fill_tile(player.exhausted_energies[energy_type_top].pop(), 1)
-                is_filled = True
                 Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
 
-        if not is_filled:
-            if energy_type_bottom != None:
-                if  num_empty_bottom_sections > 0 and len(player.energies_released[energy_type_bottom]) > 0:
-                    new_tile.fill_tile(player.energies_released[energy_type_bottom].pop(), 2)
-                    is_filled = True
-                    Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
+        if energy_type_top != None:
+            if num_empty_top_sections > 0 and len(player.energies_released[energy_type_top]) > 0:
+                new_tile.fill_tile(player.energies_released[energy_type_top].pop(), 1)
+                Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
 
-            if energy_type_top != None:
-                if num_empty_top_sections > 0 and len(player.energies_released[energy_type_top]) > 0:
-                    new_tile.fill_tile(player.energies_released[energy_type_top].pop(), 1)
-                    is_filled = True
-                    Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
+        if energy_type_bottom != None:
+            if  num_empty_bottom_sections > 0 and len(player.energies_released[energy_type_bottom]) > 0:
+                new_tile.fill_tile(player.energies_released[energy_type_bottom].pop(), 2)
+                Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
+
+            
 
         # for i in range(0, 3):
         #     rand_index_top = randint(1, 4)
