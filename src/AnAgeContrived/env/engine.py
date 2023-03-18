@@ -179,32 +179,12 @@ class Engine:
                 )
             )
 
-        Logger.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "INITIALIZATION_LOGS")
-        Logger.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "INITIALIZATION_LOGS")
-        Logger.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "INITIALIZATION_LOGS")
-        Logger.log("INITIALIZING THE GAME ENGINE:", "INITIALIZATION_LOGS")
         Logger.log(
             "New monument index is:" + str(self.monument_index), "INITIALIZATION_LOGS"
         )
         current_monument: Monument = self.monuments[self.monument_index]
-        # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
-        # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)
-        Logger.log("-----------------", "INITIALIZATION_LOGS")
-        # print('monuments:', self.monuments)
-        Logger.log("-----------------", "INITIALIZATION_LOGS")
-        Logger.log("-----------------", "INITIALIZATION_LOGS")
-        # print('monument walls:', current_monument.walls)
-        Logger.log("-----------------", "INITIALIZATION_LOGS")
-        # print('eng.legal actions:', self.get_legal_action_names(self.players[self.current_player].agent))
-        # print('eng.action mask:', self.get_legal_actions(self.players[self.current_player].agent))
-        Logger.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "INITIALIZATION_LOGS")
-        Logger.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "INITIALIZATION_LOGS")
-        Logger.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "INITIALIZATION_LOGS")
 
     def check_over(self):
-        # if self._check_if_current_wall_filled():
-        #     if self.monument_index < 5:
-        #         self.monument_index += 1
         if self._check_if_last_wall_filled():
             Logger.log("MONUMENTS ALL BUILT", "GAME_ENGINE_LOGS")
             return True
@@ -308,21 +288,24 @@ class Engine:
         # 1: start a mini turn for players who have energy tiles on the wall or
         # 2: end the game if all the walls of all the monuments are filled
         # for monument in self.monuments: #TODO: Later convert to this condition
-        self.num_of_built_monuments: int = 0
-
         for i in range(0, 6):
             monument = self.monuments[i]
             if monument.is_top_wall_completed():
-                filled_wall = monument.get_top_wall()
+                filled_wall: MonumentWall = monument.get_top_wall()
                 if filled_wall.is_reward_given == False:
-                    self.turn.update_turn_type(TurnType.BUILD_BRIDGE_TURN)
+                    if(self.turn.can_build_bridge):
+                        self.turn.update_turn_type(TurnType.BUILD_BRIDGE_TURN)
+                    else:
+                        self.turn.update_turn_type(TurnType.ACTION_TURN)
                     Logger.log("Build Bridge Turn", "GAME_ENGINE_LOGS")
                     players_contributed = []
-                    for i in filled_wall.filled_sections:
-                        players_contributed.append(i.owner)
+                    for energy in filled_wall.filled_sections:
+                        players_contributed.append(energy.owner)
                         unique_players_contributed = set(
                             players_contributed
                         )  # only rewards once if player contributed multiple times
+                        if energy.owner != filled_wall.owner:
+                            energy.owner.exhausted_energies[energy.energy_type].append(energy) 
                     self.give_energy_rewards(unique_players_contributed, filled_wall)
                     self.turn.temp_rewards += 3000
 
@@ -330,9 +313,12 @@ class Engine:
                 monument.change_top_wall()
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
 
-        #check num of built walls    
-        self.num_of_built_monuments = self.check_num_of_build_walls()
-        self.monument_index = self.num_of_built_monuments - 1
+        num_built = self.check_num_of_build_walls()
+        if num_built == 6:
+            self.monument_index = 5
+            self.check_over()
+        else:
+            self.monument_index = num_built
 
 
         Logger.log(
@@ -374,11 +360,9 @@ class Engine:
     def get_reward(self, agent_name):
         agent = self.get_agent(agent_name)
         total_reward = 0
-        total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent) * 100
-        total_reward += VictoryPoints.calcBridgesBuilt(self, agent) * 100
-
-        # total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
-        # monument_score = Scoring.get_monument_score(self, agent_name)
+        total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent)
+        total_reward += VictoryPoints.calcBridgesBuilt(self, agent) 
+        total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
 
         return total_reward
 
@@ -401,12 +385,13 @@ class Engine:
 
     # TODO: fix it in a way that players can select from one of the rewards instead of giving both energies automatically
     def give_energy_rewards(self, players_contributed: list[Player], monument_wall):
+        monument_wall.is_reward_given = True
         for i in monument_wall.rewarded_energy:
             for j in players_contributed:
                 if i == "Any":
                     for k in j.remaining_energies:
-                        if len(k) > 0:
-                            energy = k.pop()
+                        if len(j.remaining_energies[k]) > 0:
+                            energy = j.remaining_energies[k].pop()
                             Logger.log(
                                 "BEFORE REWARDS energies are: "
                                 + str(j.exhausted_energies),
@@ -431,7 +416,6 @@ class Engine:
                             "AFTER REWARDS energies are: " + str(j.exhausted_energies),
                             "GAME_ENGINE_LOGS",
                         )
-        monument_wall.is_reward_given = True
 
     def _check_if_last_wall_filled(self):
         if self.monument_index == 5:
@@ -452,10 +436,9 @@ class Engine:
         elif action_name == "Convey 1":
             reward = +0
         elif action_name == "Action Tokens":
-            reward = +1
+            reward = +0
         elif action_name == "Fill Monument":
-            reward = +1
+            reward = +0
         elif action_name == "Build Bridge":
             reward = +0
-        print(reward)
         return reward + self.turn.get_temp_reward()

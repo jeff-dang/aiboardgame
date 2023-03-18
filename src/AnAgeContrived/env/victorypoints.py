@@ -28,25 +28,16 @@ class VictoryPoints:
         elif len(gainableEnergyList) >= 0 and len(gainableEnergyList) < 2:
             fullyGainedEnergy += 1
 
-        #original check
-        # if len(gainableEnergyList[Energy.CONSTRUCTIVE]) == 0:
-        #     fullyGainedEnergy += 1
-        # if len(gainableEnergyList[Energy.INVERTIBLE]) == 0:
-        #     fullyGainedEnergy += 1
-        # if len(gainableEnergyList[Energy.GENERATIVE]) == 0:
-        #     fullyGainedEnergy += 1
-        # if len(gainableEnergyList[Energy.PRIMAL]) == 0:
-        #     fullyGainedEnergy += 1
         vp_points = vp_allocation.get(fullyGainedEnergy)
-        return vp_points * 1000
+        return vp_points
 
     def calcBridgesBuilt(engine: Engine, player: Player):
         if player.num_bridges_left == 0:
-            return 500
+            return 30
         if player.num_bridges_left == 1:
-            return 250
+            return 15
         if player.num_bridges_left == 2:
-            return 100
+            return 10
         return 0
 
     # Jeffrey working on this
@@ -61,9 +52,12 @@ class VictoryPoints:
             4: 12
         }
         for monument in monumentList:
-            num_energy = 0
-            for tile in monument.get_top_wall().filled_sections:
-                if (tile.owner == player):
-                    num_energy += 1
-            vp_points += vp_allocation.get(num_energy)
-        return vp_points * 1000
+            # num_energy = 0
+            # for tile in monument.get_top_wall().filled_sections:
+            #     if (tile.owner == player):
+            #         num_energy += 1
+            # vp_points += vp_allocation.get(num_energy)
+            for wall in monument.walls:
+                if (wall.owner == player):
+                    vp_points += 20
+        return vp_points

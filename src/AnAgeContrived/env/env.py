@@ -129,15 +129,7 @@ class raw_env(AECEnv):
                 j += 1
 
             legal_actions = self.engine.get_legal_action_names(self.agent_selection)
-            # print('DATA BEOFRE JSON starts')
-            # print("player", self.engine.current_player)
-            # print("turn_num", self.engine.turn_counter)
             current_monument = self.engine.monuments[self.engine.monument_index]
-            # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
-            # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)
-            # print('LEGAL ACTIONS ARE:', legal_actions)
-            # print('ACTION MASK is:', action_mask)
-            # print('DATA BEOFRE JSON ends')
             cur_monument_sections = []
             cur_monument_remaining_sections = []
             cur_monument_filled_sections = []
@@ -182,6 +174,7 @@ class raw_env(AECEnv):
                 # "all_actions": action_details
                 # "action_mask": action_mask
             }
+        
         self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players, updates only not incremental

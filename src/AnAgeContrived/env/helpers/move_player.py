@@ -37,7 +37,7 @@ class MovePlayer:
         if bridge:
             reward_bridge = engine.map.get_player_bridge(bridge)
             Logger.log("CROSSED BRIDGE YAY", "ACTION_LOGS")
-            engine.turn.temp_rewards += 1
+            engine.turn.temp_rewards += 0
             BridgeRewards.give_reward(engine, reward_bridge.reward)
 
         else:

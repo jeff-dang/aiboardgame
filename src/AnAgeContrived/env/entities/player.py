@@ -8,7 +8,6 @@ class Player:
         self.agent = agent
         self.character = character
         self.num_bridges_left = STARTING_PLAYER_BRIDGES
-        # TODO: let the player to fill the transmuter.
         self.transmuter: Transmuter = Transmuter()
         self.is_initialized: bool = False
         self.exhausted_energies: dict[Energy, list[EnergyTile]] = {
@@ -28,9 +27,7 @@ class Player:
                 EnergyTile(Energy.SINGLE, self),
             ]
         }
-        self.energies_released: dict[
-            Energy, list[EnergyTile]
-        ] = {  # rn, it is being used as anything, might have to separate it to monument vs. other things
+        self.energies_released: dict[Energy, list[EnergyTile]] = {  # rn, it is being used as anything, might have to separate it to monument vs. other things
             Energy.SINGLE: []
         }
         self.remaining_energies: dict[Energy, list[EnergyTile]] = {
@@ -45,14 +42,10 @@ class Player:
                 EnergyTile(Energy.SINGLE, self),
             ]
         }
-        # keep tracks of the player's location on the board
-        self.location = starting_location
+        self.location = starting_location # keep tracks of the player's location on the board
         self.initial_location = starting_location
         self.previous_location = 0
-        # TODO: need to track the energies on the board, on his hand (done) and the remaining energies
-        # self._initiate_fill_tranmuster_files()
         self.channel_marker: bool = False  # if it is true, player can convey twice
-        # self._initiate_fill_tranmuster_tiles()
 
     def set_transmuter(self, transmuter: Transmuter):
         self.transmuter = transmuter
@@ -82,14 +75,3 @@ class Player:
             self.set_is_initialized()
             return True
         return False
-
-    # def _initiate_fill_tranmuster_files(self):
-    #     tile1 = self.transmuter.active_tiles[0]
-    #     tile2 = self.transmuter.active_tiles[1]
-    #     tile3 = self.transmuter.active_tiles[2]
-    #     tile1.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
-    #     tile1.fill_tile(self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)
-    #     tile2.fill_tile(self.exhausted_energies[Energy.PRIMAL].pop(), 1)
-    #     tile2.fill_tile(self.exhausted_energies[Energy.CONSTRUCTIVE].pop(), 2)
-    #     tile3.fill_tile(self.exhausted_energies[Energy.GENERATIVE].pop(), 1)
-    #     tile3.fill_tile(self.exhausted_energies[Energy.INVERTIBLE].pop(), 2)

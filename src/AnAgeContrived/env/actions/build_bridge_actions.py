@@ -17,7 +17,7 @@ class BuildBridge1Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge1Reward2(Command):
@@ -33,7 +33,7 @@ class BuildBridge1Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge2Reward1(Command):
@@ -49,7 +49,7 @@ class BuildBridge2Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge2Reward2(Command):
@@ -65,7 +65,7 @@ class BuildBridge2Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge3Reward1(Command):
@@ -81,7 +81,7 @@ class BuildBridge3Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge3Reward2(Command):
@@ -97,7 +97,7 @@ class BuildBridge3Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge4Reward1(Command):
@@ -113,7 +113,7 @@ class BuildBridge4Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge4Reward2(Command):
@@ -129,7 +129,7 @@ class BuildBridge4Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge5Reward1(Command):
@@ -145,7 +145,7 @@ class BuildBridge5Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge5Reward2(Command):
@@ -161,7 +161,7 @@ class BuildBridge5Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge6Reward1(Command):
@@ -177,7 +177,7 @@ class BuildBridge6Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge6Reward2(Command):
@@ -193,7 +193,7 @@ class BuildBridge6Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge7Reward1(Command):
@@ -209,7 +209,7 @@ class BuildBridge7Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge7Reward2(Command):
@@ -225,7 +225,7 @@ class BuildBridge7Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge8Reward1(Command):
@@ -241,7 +241,7 @@ class BuildBridge8Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge8Reward2(Command):
@@ -257,7 +257,7 @@ class BuildBridge8Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge9Reward1(Command):
@@ -273,7 +273,7 @@ class BuildBridge9Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge9Reward2(Command):
@@ -289,7 +289,7 @@ class BuildBridge9Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge10Reward1(Command):
@@ -305,7 +305,7 @@ class BuildBridge10Reward1(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
 
 
 class BuildBridge10Reward2(Command):
@@ -321,4 +321,4 @@ class BuildBridge10Reward2(Command):
         BuildBridge.build_bridge(self.engine, self.location, self.player, self.reward)
 
     def check(self):
-        return BuildBridge.is_legal_move(self.engine, self.location)
+        return BuildBridge.is_legal_move(self.player, self.engine, self.location)
