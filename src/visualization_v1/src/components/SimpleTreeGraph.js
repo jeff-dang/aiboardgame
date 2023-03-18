@@ -13,30 +13,30 @@ const dataInit = new Data();
 const res = dataInit.getDataWithMergedActions(dataInit.getAllDataExEnd());
 const initArr = dataInit.getMap(res, 0, 1, 0)[0];
 
-// const categories = [
-//   { name: "Start", itemStyle: { color: "green" } },
-//   { name: "End Game", itemStyle: { color: "red" } },
-//   { name: "Fill Monument", itemStyle: { color: "aqua" } },
-//   { name: "Move Player", itemStyle: { color: "yellow" } },
-//   { name: "Convey", itemStyle: { color: "teal" } },
-//   { name: "Action Tokens", itemStyle: { color: "lightgreen" } },
-//   { name: "Initialization Actions", itemStyle: { color: "lightblue" } },
-// ];
-
 const categories = [
   { name: "Start", itemStyle: { color: "green" } },
   { name: "End Game", itemStyle: { color: "red" } },
-  { name: "0", itemStyle: { color: "lightgreen" } },
-  { name: "1", itemStyle: { color: "aqua" } },
-  { name: "2", itemStyle: { color: "yellow" } },
-  { name: "3", itemStyle: { color: "teal" } },
-  { name: "4", itemStyle: { color: "lightgreen" } },
-  { name: "5", itemStyle: { color: "lightblue" } },
-  { name: "6", itemStyle: { color: "lightblue" } },
-  { name: "7", itemStyle: { color: "lightblue" } },
-  { name: "8", itemStyle: { color: "lightblue" } },
-  { name: "9", itemStyle: { color: "lightblue" } },
+  { name: "Fill Monument", itemStyle: { color: "aqua" } },
+  { name: "Move Player", itemStyle: { color: "yellow" } },
+  { name: "Convey", itemStyle: { color: "teal" } },
+  { name: "Action Tokens", itemStyle: { color: "lightgreen" } },
+  { name: "Initialization Actions", itemStyle: { color: "lightblue" } },
 ];
+
+// const categories = [
+//   { name: "Start", itemStyle: { color: "green" } },
+//   { name: "End Game", itemStyle: { color: "red" } },
+//   { name: "0", itemStyle: { color: "lightgreen" } },
+//   { name: "1", itemStyle: { color: "aqua" } },
+//   { name: "2", itemStyle: { color: "yellow" } },
+//   { name: "3", itemStyle: { color: "teal" } },
+//   { name: "4", itemStyle: { color: "lightgreen" } },
+//   { name: "5", itemStyle: { color: "lightblue" } },
+//   { name: "6", itemStyle: { color: "lightblue" } },
+//   { name: "7", itemStyle: { color: "lightblue" } },
+//   { name: "8", itemStyle: { color: "lightblue" } },
+//   { name: "9", itemStyle: { color: "lightblue" } },
+// ];
 
 const labelOptions = {
   width: 60,

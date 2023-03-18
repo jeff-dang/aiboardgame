@@ -1,5 +1,5 @@
 import gameData from "./game2.json";
-import allActions from "./allActions.json";
+import allActions from "./allActionsreal.json";
 
 export default class Data {
   constructor(data = JSON.parse(JSON.stringify(gameData))) {

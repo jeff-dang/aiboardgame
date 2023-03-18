@@ -309,7 +309,7 @@ class Engine:
                         if energy.owner != filled_wall.owner:
                             energy.owner.exhausted_energies[energy.energy_type].append(energy) #give back the energies of the player's who contributed
                     self.give_energy_rewards(unique_players_contributed, filled_wall)
-                    self.turn.temp_rewards += 3000
+                    self.turn.temp_rewards += 0
 
                 # if the current top wall is completed, change the top wall to next wall
                 monument.change_top_wall()
@@ -360,13 +360,11 @@ class Engine:
     def get_reward(self, agent_name):
         agent = self.get_agent(agent_name)
         total_reward = 0
-        total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent) * 100
-        total_reward += VictoryPoints.calcBridgesBuilt(self, agent) * 100
+        total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent)
+        total_reward += VictoryPoints.calcBridgesBuilt(self, agent) 
+        total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
 
-        # total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
-        # monument_score = Scoring.get_monument_score(self, agent_name)
-
-        return total_reward
+        return total_reward *10
 
     def get_winner(self):
         max = 0
@@ -438,9 +436,9 @@ class Engine:
         elif action_name == "Convey 1":
             reward = +0
         elif action_name == "Action Tokens":
-            reward = +1
+            reward = +0
         elif action_name == "Fill Monument":
-            reward = +1
+            reward = +0
         elif action_name == "Build Bridge":
             reward = +0
         return reward + self.turn.get_temp_reward()
