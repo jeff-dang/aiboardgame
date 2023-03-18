@@ -12,6 +12,8 @@ class BuildBridge():
 
         engine.map.build_bridge(player, BridgeRewardType(bridge_reward), bridge_location)
         engine.turn.update_turn_type(TurnType.ACTION_TURN)
+        engine.turn.update_turn_type(TurnType.ACTION_TURN)
+
 
     @staticmethod
     def is_legal_move(engine, bridge_location):
