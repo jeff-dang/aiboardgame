@@ -19,221 +19,52 @@ class ConveyOnceFirstCard(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card"
+        self.action_details = "First Card - Fill None"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0)
+        Convey.convey(self.engine, self.player, 1, 0, [None, None])
 
     def check(self) -> bool:
-        return Convey.convey1Legal(self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomConstructive(Command):
+        return Convey.convey_1_legal(self.engine)
+
+class ConveyOnceFirstCardFillTop(Command):
 
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Constructive - Constructive]"
+        self.action_details = "First Card - Fill Top"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE])
+        Convey.convey(self.engine, self.player, 1, 0, [Energy.SINGLE, None])
 
     def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomInvertible(Command):
+        return Convey.convey_1_fill_1_legal(self.player, self.engine)
+
+class ConveyOnceFirstCardFillBottom(Command):
 
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Constructive - Invertible]"
+        self.action_details = "First Card - Fill Bottom"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.INVERTIBLE])
+        Convey.convey(self.engine, self.player, 1, 0, [None, Energy.SINGLE])
 
     def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomGenerative(Command):
+        return Convey.convey_1_fill_1_legal(self.player, self.engine)
+
+class ConveyOnceFirstCardFillBoth(Command):
 
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "First Card - [Constructive - Generative]"
+        self.action_details = "First Card - Fill Both"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.GENERATIVE])
+        Convey.convey(self.engine, self.player, 1, 0, [Energy.SINGLE, Energy.SINGLE])
 
     def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_generative_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Constructive - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.CONSTRUCTIVE, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomInvertible(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Invertible - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.INVERTIBLE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomConstructive(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Invertible - Constructive]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.CONSTRUCTIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomGenerative(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Invertible - Generative]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.GENERATIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_generative_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Invertible - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.INVERTIBLE, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomGenerative(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Generative - Generative]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.GENERATIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_generative_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomConstructive(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Generative - Constructive]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.CONSTRUCTIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomInvertible(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Generative - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.INVERTIBLE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Generative - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.GENERATIVE, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Primal - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomConstructive(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Primal - Constructive]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.CONSTRUCTIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomInvertible(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Primal - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.INVERTIBLE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomGenerative(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "First Card - [Primal - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 0, [Energy.PRIMAL, Energy.GENERATIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_generative_legal(self.player, self.engine)
+        return Convey.convey_1_fill_2_legal(self.player, self.engine)
 
 
 class ConveyOnceSecondCard(Command):
@@ -241,235 +72,104 @@ class ConveyOnceSecondCard(Command):
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card"
+        self.action_details = "Second Card - Fill None"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1)
+        Convey.convey(self.engine, self.player, 1, 1, [None, None])
 
     def check(self) -> bool:
-        return Convey.convey1Legal(self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomConstructive(Command):
+        return Convey.convey_1_legal(self.engine)
+
+class ConveyOnceSecondCardFillTop(Command):
 
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Constructive - Constructive]"
+        self.action_details = "Second Card - Fill Top"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.CONSTRUCTIVE])
+        Convey.convey(self.engine, self.player, 1, 1, [Energy.SINGLE, None])
 
     def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomInvertible(Command):
+        return Convey.convey_1_fill_1_legal(self.player, self.engine)
+
+class ConveyOnceSecondCardFillBottom(Command):
 
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Constructive - Invertible]"
+        self.action_details = "Second Card - Fill Bottom"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.INVERTIBLE])
+        Convey.convey(self.engine, self.player, 1, 1, [None, Energy.SINGLE])
 
     def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomGenerative(Command):
+        return Convey.convey_1_fill_1_legal(self.player, self.engine)
+
+class ConveyOnceSecondCardFillBoth(Command):
 
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_1
-        self.action_details = "Second Card - [Constructive - Generative]"
+        self.action_details = "Second Card - Fill Both"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.GENERATIVE])
+        Convey.convey(self.engine, self.player, 1, 1, [Energy.SINGLE, Energy.SINGLE])
 
     def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_generative_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopConstructiveBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Constructive - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.CONSTRUCTIVE, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_constructive_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomInvertible(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Invertible - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.INVERTIBLE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomConstructive(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Invertible - Constructive]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.CONSTRUCTIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomGenerative(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Invertible - Generative]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.GENERATIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_generative_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopInvertibleBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Invertible - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.INVERTIBLE, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_invertible_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomGenerative(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Generative - Generative]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.GENERATIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_generative_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomConstructive(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Generative - Constructive]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.CONSTRUCTIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomInvertible(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Generative - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.INVERTIBLE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopGenerativeBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Generative - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.GENERATIVE, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_generative_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomPrimal(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Primal - Primal]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.PRIMAL])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_primal_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomConstructive(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Primal - Constructive]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.CONSTRUCTIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_constructive_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomInvertible(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Primal - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.INVERTIBLE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_invertible_legal(self.player, self.engine)
-    
-class ConveyOnceFirstCardTopPrimalBottomGenerative(Command):
-
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = action_family_1
-        self.action_details = "Second Card - [Primal - Invertible]"
-
-    def execute(self):
-        Convey.convey(self.engine, self.player, 1, 1, [Energy.PRIMAL, Energy.GENERATIVE])
-
-    def check(self) -> bool:
-        return Convey.convey1_top_primal_bottom_generative_legal(self.player, self.engine)
-
+        return Convey.convey_1_fill_2_legal(self.player, self.engine)
 
 class ConveyTwiceFirstOrder(Command):
 
     def __init__(self, player: Player, engine: Engine):
         super().__init__(player, engine)
         self.action = action_family_2
-        self.action_details = "First Order"
+        self.action_details = "First Order - Fill None"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 2, 0)
+        Convey.convey(self.engine, self.player, 2, 0, [None, None])
 
     def check(self) -> bool:
-        return Convey.convey2Legal(self.engine)
+        return Convey.convey_2_legal(self.engine)
+
+class ConveyTwiceFirstOrderFillTop(Command):
+
+    def __init__(self, player: Player, engine: Engine):
+        super().__init__(player, engine)
+        self.action = action_family_2
+        self.action_details = "First Order - Fill Top"
+
+    def execute(self):
+        Convey.convey(self.engine, self.player, 2, 0, [Energy.SINGLE, None])
+
+    def check(self) -> bool:
+        return Convey.convey_2_fill_1_legal(self.player, self.engine)
+
+class ConveyTwiceFirstOrderFillBottom(Command):
+
+    def __init__(self, player: Player, engine: Engine):
+        super().__init__(player, engine)
+        self.action = action_family_2
+        self.action_details = "First Order - Fill Bottom"
+
+    def execute(self):
+        Convey.convey(self.engine, self.player, 2, 0, [None, Energy.SINGLE])
+
+    def check(self) -> bool:
+        return Convey.convey_2_fill_1_legal(self.player, self.engine)
+
+class ConveyTwiceFirstOrderFillBoth(Command):
+
+    def __init__(self, player: Player, engine: Engine):
+        super().__init__(player, engine)
+        self.action = action_family_2
+        self.action_details = "First Order - Fill Both"
+
+    def execute(self):
+        Convey.convey(self.engine, self.player, 2, 0, [Energy.SINGLE, Energy.SINGLE])
+
+    def check(self) -> bool:
+        return Convey.convey_2_fill_2_legal(self.player, self.engine)
 
 
 class ConveyTwiceSecondOrder(Command):
@@ -480,7 +180,46 @@ class ConveyTwiceSecondOrder(Command):
         self.action_details = "Second Order"
 
     def execute(self):
-        Convey.convey(self.engine, self.player, 2, 1)
+        Convey.convey(self.engine, self.player, 2, 1, [None, None])
 
     def check(self) -> bool:
-        return Convey.convey2Legal(self.engine)
+        return Convey.convey_2_legal(self.engine)
+
+class ConveyTwiceSecondOrderFillTop(Command):
+
+    def __init__(self, player: Player, engine: Engine):
+        super().__init__(player, engine)
+        self.action = action_family_2
+        self.action_details = "Second Order - Fill Top"
+
+    def execute(self):
+        Convey.convey(self.engine, self.player, 2, 1, [Energy.SINGLE, None])
+
+    def check(self) -> bool:
+        return Convey.convey_2_fill_1_legal(self.player, self.engine)
+
+class ConveyTwiceSecondOrderFillBottom(Command):
+
+    def __init__(self, player: Player, engine: Engine):
+        super().__init__(player, engine)
+        self.action = action_family_2
+        self.action_details = "Second Order - Fill Bottom"
+
+    def execute(self):
+        Convey.convey(self.engine, self.player, 2, 1, [None, Energy.SINGLE])
+
+    def check(self) -> bool:
+        return Convey.convey_2_fill_1_legal(self.player, self.engine)
+
+class ConveyTwiceSecondOrderFillBoth(Command):
+
+    def __init__(self, player: Player, engine: Engine):
+        super().__init__(player, engine)
+        self.action = action_family_2
+        self.action_details = "Second Order - Fill Both"
+
+    def execute(self):
+        Convey.convey(self.engine, self.player, 2, 1, [Energy.SINGLE, Energy.SINGLE])
+
+    def check(self) -> bool:
+        return Convey.convey_2_fill_2_legal(self.player, self.engine)

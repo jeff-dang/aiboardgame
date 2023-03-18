@@ -30,7 +30,7 @@ class Convey():
         engine.turn.conveyed()
 
     @staticmethod
-    def convey1Legal(engine: Engine) -> bool:
+    def convey_1_legal(engine: Engine) -> bool:
         return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN
     
     @staticmethod
@@ -98,5 +98,21 @@ class Convey():
         return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.PRIMAL]) > 0 or len(player.exhausted_energies[Energy.GENERATIVE]) > 0)
 
     @staticmethod
-    def convey2Legal(engine: Engine) -> bool:
+    def convey_1_fill_1_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and len(player.exhausted_energies[Energy.SINGLE]) > 0
+
+    @staticmethod
+    def convey_1_fill_2_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and len(player.exhausted_energies[Energy.SINGLE]) > 1
+
+    @staticmethod
+    def convey_2_legal(engine: Engine) -> bool:
         return engine.turn.can_convey and False and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and engine.current_player.channel_marker
+
+    @staticmethod
+    def convey_2_fill_1_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and False and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and engine.current_player.channel_marker and len(player.exhausted_energies[Energy.SINGLE]) > 0
+
+    @staticmethod
+    def convey_2_fill_2_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and False and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and engine.current_player.channel_marker and len(player.exhausted_energies[Energy.SINGLE]) > 1

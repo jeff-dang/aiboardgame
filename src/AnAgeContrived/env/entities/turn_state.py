@@ -28,7 +28,6 @@ class TurnState:
         self.temp_rewards: int = 0
         self.can_build_bridge = True
 
-
     def update_turn_type(self, turnType: TurnType):
         self.turn_type = turnType
         if turnType == TurnType.CONVEY_TURN:

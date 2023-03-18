@@ -12,6 +12,7 @@ class Energy(Enum):
     INVERTIBLE = 2
     GENERATIVE = 3
     PRIMAL = 4
+    SINGLE = 5
 
 class EnergyTile():
 

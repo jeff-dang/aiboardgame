@@ -130,7 +130,6 @@ class raw_env(AECEnv):
                 j += 1
 
             legal_actions = self.engine.get_legal_action_names(self.agent_selection)
-
             current_monument = self.engine.monuments[self.engine.monument_index]
             cur_monument_sections = []
             cur_monument_remaining_sections = []
@@ -139,20 +138,6 @@ class raw_env(AECEnv):
                 cur_monument_sections.append(i.sections)
                 cur_monument_remaining_sections.append(i.remaining_sections)
                 cur_monument_filled_sections.append(i.filled_sections)
-
-            exhausted_energies_printed = {Energy.CONSTRUCTIVE: [], Energy.INVERTIBLE: [], Energy.GENERATIVE: [], Energy.PRIMAL: []}            
-            energies_released_printed = {Energy.CONSTRUCTIVE: [], Energy.INVERTIBLE: [], Energy.GENERATIVE: [], Energy.PRIMAL: []}            
-            remaining_energies_printed = {Energy.CONSTRUCTIVE: [], Energy.INVERTIBLE: [], Energy.GENERATIVE: [], Energy.PRIMAL: []}       
-
-            for energy_type in self.engine.players[self.engine.current_player].exhausted_energies:
-                for energy in self.engine.players[self.engine.current_player].exhausted_energies[energy_type]:
-                    exhausted_energies_printed[energy_type].append(energy.energy_type)          
-            for energy_type in self.engine.players[self.engine.current_player].energies_released:
-                for energy in self.engine.players[self.engine.current_player].energies_released[energy_type]:
-                    energies_released_printed[energy_type].append(energy.energy_type)          
-            for energy_type in self.engine.players[self.engine.current_player].remaining_energies:
-                for energy in self.engine.players[self.engine.current_player].remaining_energies[energy_type]:
-                    remaining_energies_printed[energy_type].append(energy.energy_type)                  
 
             turn_entry = {
                 "player": self.engine.current_player,
@@ -168,13 +153,10 @@ class raw_env(AECEnv):
                     ].transmuter.print_energies()
                 ),
                 "player_exhausted_energies": str(
-                    exhausted_energies_printed
+                    self.engine.players[self.engine.current_player].exhausted_energies
                 ),
                 "player_released_energies": str(
-                    energies_released_printed
-                ),
-                "player_remaining_energies": str(
-                    remaining_energies_printed
+                    self.engine.players[self.engine.current_player].energies_released
                 ),
                 "monuments": str(self.engine.monuments),
                 "current_wall_name": current_monument.name,

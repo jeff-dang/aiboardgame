@@ -4,9 +4,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from env.engine import Engine
     from env.entities.player import Player
-    from env.entities.energy import EnergyTile
-
-import copy
 from env.entities.turn_state import TurnType
 from env.entities.bridge import BridgeRewardType
 

@@ -75,54 +75,6 @@ class Transmuter:
             if  num_empty_bottom_sections > 0 and len(player.energies_released[energy_type_bottom]) > 0:
                 new_tile.fill_tile(player.energies_released[energy_type_bottom].pop(), 2)
                 Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
-
-            
-
-        # for i in range(0, 3):
-        #     rand_index_top = randint(1, 4)
-        #     rand_index_bottom = randint(1, 4)
-        #     energy_type_top = Energy(rand_index_top)
-        #     energy_type_bottom = Energy(rand_index_bottom)
-        #     if len(player.exhausted_energies[energy_type_top]) > 0 and len(player.exhausted_energies[energy_type_bottom]) > 0:
-        #             num_empty_top_sections = new_tile.top.count(0)
-        #             num_empty_bottom_sections = new_tile.bottom.count(0)
-        #             if  num_empty_bottom_sections > 0 and len(player.exhausted_energies[energy_type_top]) > 0:
-        #                 new_tile.fill_tile(player.exhausted_energies[energy_type_top].pop(), 2)
-        #                 is_filled = True
-        #                 Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
-        #             if num_empty_top_sections > 0 and len(player.exhausted_energies[energy_type_bottom]) > 0:
-        #                 new_tile.fill_tile(player.exhausted_energies[energy_type_bottom].pop(), 1)
-        #                 is_filled = True
-        #                 Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
-        #                 break
-
-        # if not is_filled:
-        #     for i in player.exhausted_energies:
-        #         if len(player.exhausted_energies[i]) > 0:
-        #             num_empty_top_sections = new_tile.top.count(0)
-        #             num_empty_bottom_sections = new_tile.bottom.count(0)
-        #             if  num_empty_bottom_sections > 0:
-        #                 new_tile.fill_tile(player.exhausted_energies[i].pop(), 2)
-        #                 is_filled = True
-        #                 Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
-        #             if num_empty_top_sections > 0 and len(player.exhausted_energies[i]) > 0:
-        #                 new_tile.fill_tile(player.exhausted_energies[i].pop(), 1)
-        #                 is_filled = True
-        #                 Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
-        
-        # if not is_filled:
-        #     for i in player.energies_released:
-        #         if len(player.energies_released[i]) > 0:
-        #             num_empty_top_sections = new_tile.top.count(0)
-        #             num_empty_bottom_sections = new_tile.bottom.count(0)
-        #             if  num_empty_bottom_sections > 0:
-        #                 new_tile.fill_tile(player.energies_released[i].pop(), 2)
-        #                 is_filled = True
-        #                 Logger.log('NEW TILE BOTTOM FILLED', 'TRANSMUTER_LOGS')
-        #             if num_empty_top_sections > 0 and len(player.energies_released[i]) > 0:
-        #                 new_tile.fill_tile(player.energies_released[i].pop(), 1)
-        #                 is_filled = True
-        #                 Logger.log('NEW TILE TOP FILLED', 'TRANSMUTER_LOGS')
                         
         new_active_tiles[0] = new_tile                 
         for i in range(len(self.active_tiles)-1):
