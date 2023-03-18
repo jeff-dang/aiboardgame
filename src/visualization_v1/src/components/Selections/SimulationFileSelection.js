@@ -7,15 +7,19 @@ const SimulationFileSelection = ({ setSimulationFile }) => {
       <span> Simulation File: </span>
       <select
         style={{ margin: 10 }}
-        onChange={(e) => setSimulationFile(e.target.value)}
+        onChange={(e) => {
+          const file = files.find((file) => file.name === e.target.value);
+
+          setSimulationFile(file.filename);
+        }}
         defaultValue={"none"}
       >
         <option disabled value={"none"}>
           None
         </option>
         {files.map((filename) => (
-          <option key={filename} value={filename}>
-            {filename}
+          <option key={filename.name} value={filename.name}>
+            {filename.name}
           </option>
         ))}
       </select>

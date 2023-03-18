@@ -73,10 +73,10 @@ function generateData(dataMap, dataArr, numMoves) {
 
 const generateOptions = (dataMap, dataArr, moves) => {
   const option = {
-    tooltip: {
-      trigger: "item",
-      triggerOn: "mousemove",
-    },
+    // tooltip: {
+    //   trigger: "item",
+    //   triggerOn: "mousemove",
+    // },
     series: [
       {
         type: "tree",
@@ -85,12 +85,16 @@ const generateOptions = (dataMap, dataArr, moves) => {
         left: "7%",
         bottom: "1%",
         right: "20%",
-        symbolSize: 7,
+        symbolSize: 12,
+        zoom: 1,
         label: {
-          position: "left",
+          position: "bottom",
           verticalAlign: "middle",
-          align: "right",
-          fontSize: 9,
+          align: "middle",
+          fontSize: 10,
+          overflow: "break",
+          width: 60,
+          show: false,
         },
         leaves: {
           label: {
@@ -101,12 +105,15 @@ const generateOptions = (dataMap, dataArr, moves) => {
         },
         emphasis: {
           focus: "descendant",
+          label: {
+            show: true,
+          },
         },
         expandAndCollapse: false,
         animationDuration: 550,
         animationDurationUpdate: 750,
         roam: true,
-        center: [200, "50%"],
+        center: [400, "50%"],
       },
     ],
   };
@@ -128,8 +135,8 @@ const SimpleTreeChart = ({ width, height }) => {
   const [allMoves, setAllMoves] = useState([3]);
 
   const res = dataInit.getDataWithMergedActions(allData);
-  const initArr = dataInit.getMap(res, numSims, player)[0];
-  const initMap = dataInit.getMap(res, numSims, player)[1];
+  const initArr = dataInit.getMap(res, 0, numSims, player)[0];
+  const initMap = dataInit.getMap(res, 0, numSims, player)[1];
   const [nextMoveArray, setNextMoveArray] = useState(initArr);
   const [nextMoveMap, setNextMoveMap] = useState(initMap);
   const [option, setOptions] = useState(
@@ -158,10 +165,10 @@ const SimpleTreeChart = ({ width, height }) => {
 
   useEffect(() => {
     const mergedData = dataInit.getDataWithMergedActions(allData);
-    const results = dataInit.getMap(mergedData, numSims, player);
+    const results = dataInit.getMap(mergedData, 0, numSims, player);
     setNextMoveArray(results[0]);
     setNextMoveMap(results[1]);
-    const maxMoves = dataInit.getNumberOfMoves(allData, numSims, player);
+    const maxMoves = dataInit.getNumberOfMoves(allData, 0, numSims, player);
     const newAllMoves = [];
     for (let i = 3; i <= Math.max(3, maxMoves); i++) {
       newAllMoves.push(i);
@@ -220,7 +227,7 @@ const SimpleTreeChart = ({ width, height }) => {
           option={option}
           style={{
             height: `${height}px`,
-            width: `${numMoves * 300}px`,
+            width: `90vw`,
           }}
         />
       )}

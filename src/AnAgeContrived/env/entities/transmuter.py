@@ -9,6 +9,8 @@ if TYPE_CHECKING:
 from env.entities.transmuter_tile import TransmuterTile
 from env.helpers.constants import INITIAL_ACTION_TOKENS
 from env.helpers.logger import Logger
+from random import randint
+from env.entities.energy import Energy
 
 class Transmuter:
     def __init__(self):

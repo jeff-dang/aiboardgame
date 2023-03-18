@@ -126,7 +126,7 @@ const HeatMap = ({
 
   useEffect(() => {
     const mergedData = dataInit.getDataWithMergedActions(allData);
-    setFreqMap(dataInit.getCountMapForPlayer(mergedData, numSims, player));
+    setFreqMap(dataInit.getCountMapForPlayer(mergedData, 0, numSims, player));
     setToggle(false);
   }, [allData, player, numSims]);
 
