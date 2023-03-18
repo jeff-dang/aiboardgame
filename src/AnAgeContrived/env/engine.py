@@ -294,7 +294,11 @@ class Engine:
             if monument.is_top_wall_completed():
                 filled_wall: MonumentWall = monument.get_top_wall()
                 if filled_wall.is_reward_given == False:
-                    self.turn.update_turn_type(TurnType.BUILD_BRIDGE_TURN)
+                    if(self.turn.can_build_bridge):
+                        self.turn.update_turn_type(TurnType.BUILD_BRIDGE_TURN)
+                    else:
+                        self.turn.update_turn_type(TurnType.ACTION_TURN)
+
                     Logger.log("Build Bridge Turn", "GAME_ENGINE_LOGS")
                     players_contributed = []
                     for energy in filled_wall.filled_sections:
@@ -383,6 +387,7 @@ class Engine:
 
     # TODO: fix it in a way that players can select from one of the rewards instead of giving both energies automatically
     def give_energy_rewards(self, players_contributed: list[Player], monument_wall):
+        monument_wall.is_reward_given = True
         for i in monument_wall.rewarded_energy:
             for j in players_contributed:
                 if i == "Any":
@@ -413,7 +418,6 @@ class Engine:
                             "AFTER REWARDS energies are: " + str(j.exhausted_energies),
                             "GAME_ENGINE_LOGS",
                         )
-        monument_wall.is_reward_given = True
 
     def _check_if_last_wall_filled(self):
         if self.monument_index == 5:

@@ -19,12 +19,15 @@ class TurnState:
         self.can_convey: bool = False
         self.can_move: bool = True
         self.temp_rewards: int = 0
+        self.can_build_bridge = True
 
     def reset(self):
         self.turn_type = None
         self.can_convey = False
         self.can_move = True
         self.temp_rewards: int = 0
+        self.can_build_bridge = True
+
 
     def update_turn_type(self, turnType: TurnType):
         self.turn_type = turnType

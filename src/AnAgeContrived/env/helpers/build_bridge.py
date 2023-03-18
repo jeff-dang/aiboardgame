@@ -22,10 +22,14 @@ class BuildBridge():
         engine.turn.update_turn_type(TurnType.ACTION_TURN)
 
         engine.turn.turn_type = TurnType.ACTION_TURN
+        engine.turn.can_build_bridge = False
 
     @staticmethod
     def is_legal_move(player: Player, engine: Engine, bridge_location):
         # Check if turn type is building a bridge
+        if(not engine.turn.can_build_bridge):
+            return False
+        
         if(engine.turn.get_turn_type() is None):
             return False
 
