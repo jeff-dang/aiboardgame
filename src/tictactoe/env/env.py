@@ -30,7 +30,7 @@ class raw_env(AECEnv):
         super().__init__()
         self.board = Board()
         self.output_json = True
-        self.agents = ["player_1", "player_2"]
+        self.agents = ["player_0", "player_1"]
         self.possible_agents = self.agents[:]
         self.action_spaces = {i: spaces.Discrete(9) for i in self.agents}
         self.observation_spaces = {

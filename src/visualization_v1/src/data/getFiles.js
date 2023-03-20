@@ -35,4 +35,17 @@ export const files = [
     filename: "../files/simulation_history_03_16_2023_20_00_32.json",
     actionFile: "../files/allActionstic.json",
   },
+  {
+    game: "Tic Tac Toe",
+    name: "newest_sim_1",
+    filename: "../files/simulation_history_03_20_2023_18_11_35.json",
+    actionFile: "../files/allActionstic.json",
+  },
+  {
+    game: "Tic Tac Toe",
+    name: "newest_sim_2",
+    filename: "../files/simulation_history_03_20_2023_18_11_33.json",
+    actionFile: "../files/allActionstic.json",
+  },
+  
 ];
