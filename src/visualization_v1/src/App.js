@@ -51,20 +51,14 @@ function App() {
             element={<SimpleTreeGraph width={width} height={height} />}
           />
           <Route
-            path="/simple-tree-chart"
+            path="/tree-chart"
             element={<SimpleTreeChart width={width} height={height} />}
           />
-          <Route path="/comparison" element={<Comparison />} />
-          <Route
+          {/* <Route
             path="/tree-chart"
             element={<TreeChart width={width} height={height} />}
-          />
-          {/* <Route
-            path="/tree-graph"
-            element={<TreeGraph width={width} height={height} />}
-          />
-          
-           */}
+          /> */}
+          <Route path="/comparison" element={<Comparison />} />
         </Routes>
       </div>
     </div>

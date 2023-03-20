@@ -11,6 +11,11 @@ import SimulationFileSelection from "./Selections/SimulationFileSelection";
 import PlayerSelection from "./Selections/PlayerSelection";
 import SimulationSelection from "./Selections/SimulationSelection";
 import NumMovesSelection from "./Selections/NumMovesSelection";
+import GameSelection from "./Selections/GameSelection";
+import axios from "axios";
+import SimulationTypeSelection from "./Selections/SimulationTypeSelection";
+import FromSelection from "./Selections/FromSelection";
+import ToSelection from "./Selections/ToSelection";
 
 const tooltipStyles = {
   ...defaultStyles,
@@ -60,7 +65,10 @@ const BarGraphRaw = ({
   const yMax = height - verticalMargin;
 
   const [loading, setLoading] = useState(null);
+  const [game, setGame] = useState("none");
   const [simulationFile, setSimulationFile] = useState("none");
+  const [actionFile, setActionFile] = useState("none");
+  const [showOptions, setShowOptions] = useState(null);
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
   const [numSimulations, setNumSimulations] = useState(
@@ -72,27 +80,48 @@ const BarGraphRaw = ({
   const [freqMap, setFreqMap] = useState([]);
   const [numBars, setNumBars] = useState(3);
   const [numSims, setNumSims] = useState(1);
+
   const [allNonZeroActions, setAllNonZeroActions] = useState([]);
   const [bars, setBars] = useState([3, 4, 5, 6, 7, 8, 9, 10]);
   const [toggle, setToggle] = useState(true);
+
+  const [simType, setSimType] = useState("Aggregate");
+  const [startSim, setStartSim] = useState(1);
+  const [endSim, setEndSim] = useState(
+    numSimulations[numSimulations.length - 1]
+  );
 
   const getMove = (move) => move.name;
   const getFrequency = (move) => move.frequency;
 
   useEffect(() => {
+    if (game !== "none") {
+      setShowOptions(false);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, [10]);
+      setSimulationFile("none");
+    }
+  }, [game]);
+
+  useEffect(() => {
     if (simulationFile === "none") return;
-    fetch(simulationFile)
-      .then((response) => {
+    const setFile = async () => {
+      try {
         loading !== null && setLoading(true);
-        return response.json();
-      })
-      .then((data) => {
-        dataInit.setAllData(data);
+        const simResponse = await axios.get(simulationFile);
+        const simdata = simResponse.data;
+        const actionsResponse = await axios.get(actionFile);
+        const actions = actionsResponse.data;
+        dataInit.setAllData(simdata);
+        dataInit.setAllActions(actions);
         setAllData(dataInit.getAllDataExEnd());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    setFile();
   }, [simulationFile]);
 
   useEffect(() => {
@@ -101,12 +130,32 @@ const BarGraphRaw = ({
   }, [allData]);
 
   useEffect(() => {
+    setPlayer(players[0]);
+  }, [players]);
+
+  useEffect(() => {
+    if (startSim > endSim) {
+      setEndSim(startSim);
+    }
+  }, [startSim]);
+
+  useEffect(() => {
+    let start = startSim - 1;
+    let end = endSim;
+
+    if (simType === "Aggregate") {
+      start = 0;
+      end = numSims;
+    } else {
+      start = startSim - 1;
+      end = endSim;
+    }
     const mergedData = dataInit.getDataWithMergedActions(allData);
     setFreqMap(
-      dataInit.getFrequencyMapForPlayer(mergedData, 0, numSims, player)
+      dataInit.getFrequencyMapForPlayer(mergedData, start, end, player)
     );
     setToggle(false);
-  }, [allData, player, numSims, numBars]);
+  }, [allData, simType, startSim, endSim, player, numSims, numBars]);
 
   useEffect(() => {
     setAllNonZeroActions(dataInit.getAllNonZeroActions(freqMap));
@@ -197,26 +246,62 @@ const BarGraphRaw = ({
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <SimulationFileSelection setSimulationFile={setSimulationFile} />
-          <PlayerSelection
-            setPlayer={setPlayer}
-            players={players}
-            simulationFile={simulationFile}
-          />
-          <SimulationSelection
-            setNumSims={setNumSims}
-            numSimulations={numSimulations}
-            simulationFile={simulationFile}
-            value={numSims}
-          />
-          <NumMovesSelection
-            setNumMoves={setNumBars}
-            allMoves={bars}
-            simulationFile={simulationFile}
-            value={numBars}
-          />
+          <GameSelection setGame={setGame} />
+          {showOptions && (
+            <>
+              <SimulationFileSelection
+                game={game}
+                setSimulationFile={setSimulationFile}
+                setActionFile={setActionFile}
+              />
+              <SimulationTypeSelection
+                setSimType={setSimType}
+                value={simType}
+                simulationFile={simulationFile}
+              />
+              <PlayerSelection
+                setPlayer={setPlayer}
+                players={players}
+                simulationFile={simulationFile}
+              />
+              {simType === "Subset" ? (
+                <>
+                  <FromSelection
+                    text="Sim From: "
+                    setStart={setStartSim}
+                    arr={numSimulations}
+                    simulationFile={simulationFile}
+                    startVal={startSim}
+                    endVal={endSim}
+                  />
+                  <ToSelection
+                    text="Sim To: "
+                    setEnd={setEndSim}
+                    arr={numSimulations}
+                    simulationFile={simulationFile}
+                    startVal={startSim}
+                    endVal={endSim}
+                  />
+                </>
+              ) : (
+                <SimulationSelection
+                  setNumSims={setNumSims}
+                  numSimulations={numSimulations}
+                  simulationFile={simulationFile}
+                  value={numSims}
+                />
+              )}
+              <NumMovesSelection
+                setNumMoves={setNumBars}
+                allMoves={bars}
+                simulationFile={simulationFile}
+                value={numBars}
+              />
+            </>
+          )}
         </div>
       </div>
       {loading && <h2>Loading...</h2>}

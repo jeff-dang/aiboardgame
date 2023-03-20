@@ -1,5 +1,5 @@
 import gameData from "./game2.json";
-import allActions from "./allActionsreal.json";
+import allActions from "./allActions.json";
 
 export default class Data {
   constructor(data = JSON.parse(JSON.stringify(gameData))) {
@@ -11,8 +11,16 @@ export default class Data {
     this.data = data;
   }
 
+  setAllActions(actions) {
+    this.allActions = actions;
+  }
+
   getAllData() {
     return this.data;
+  }
+
+  getAllActions() {
+    return this.allActions;
   }
 
   getAllDataExEnd() {
@@ -48,13 +56,11 @@ export default class Data {
 
       allDataMerged.push(element);
     });
-    console.log(allDataMerged);
+
     return allDataMerged;
   }
 
   getSimulationData(data, startIndex = 0, endIndex = 1) {
-    // console.log(Object.entries(data).slice(startIndex, endIndex));
-    console.log(Object.keys(data));
     return Object.keys(data)
       .slice(startIndex, endIndex)
       .reduce((result, key) => {
@@ -91,15 +97,14 @@ export default class Data {
 
   getFrequencyMapForPlayer(data, startSim, endSim, player) {
     const simulationData = this.getSimulationData(data, startSim, endSim);
-    console.log(simulationData);
+
     let freqMap = this.getFrequencyMap();
-    console.log(freqMap);
+
     if (simulationData) {
       Object.entries(simulationData).forEach((simulation) => {
         const playerData = this.getPlayerData(simulation[1], player);
 
         Object.entries(playerData).forEach((turn) => {
-          console.log(turn[1].action_details);
           const objIndex = freqMap.findIndex(
             (obj) => obj.name == turn[1].action_details
           );
@@ -159,47 +164,74 @@ export default class Data {
     return filteredMap;
   }
 
+  // getMap(data, startSim, endSim, player) {
+  //   let result = [];
+  //   let map = {};
+  //   const simulationData = this.getSimulationData(data, startSim, endSim);
+
+  //   if (simulationData) {
+  //     Object.entries(simulationData).forEach((simulation) => {
+  //       let turnNum = 1;
+  //       const playerData = this.getPlayerData(simulation[1], player);
+
+  //       const size = Object.keys(playerData).length;
+  //       Object.entries(playerData).forEach((turn, index) => {
+  //         const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
+  //         if (!map.hasOwnProperty(turnStr)) {
+  //           map[turnStr] = turnNum;
+  //           result.push([]);
+  //         }
+
+  //         result[index].push(turnStr);
+  //         turnNum++;
+
+  //         if (index === size - 1) {
+  //           if (!map.hasOwnProperty("End Game")) {
+  //             map["End Game"] = turnNum;
+  //             result.push([]);
+  //           }
+  //           result[turnNum - 1].push("End Game");
+  //         }
+  //       });
+  //     });
+  //   }
+  //   return [result, map];
+  // }
+
   getMap(data, startSim, endSim, player) {
-    console.log(player);
     let result = [];
-    let map = {};
     const simulationData = this.getSimulationData(data, startSim, endSim);
 
     if (simulationData) {
+      let simNum = 0;
       Object.entries(simulationData).forEach((simulation) => {
         let turnNum = 1;
         const playerData = this.getPlayerData(simulation[1], player);
-        console.log(playerData);
+
         const size = Object.keys(playerData).length;
-        Object.entries(playerData).forEach((turn, index) => {
-          const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
-          if (!map.hasOwnProperty(turnStr)) {
-            map[turnStr] = turnNum;
-            result.push([]);
-          }
+        if (size > 0) {
+          result.push([]);
+          Object.entries(playerData).forEach((turn, index) => {
+            const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
 
-          result[index].push(turnStr);
-          turnNum++;
+            result[simNum].push(turnStr);
+            turnNum++;
 
-          if (index === size - 1) {
-            if (!map.hasOwnProperty("End Game")) {
-              map["End Game"] = turnNum;
-              result.push([]);
+            if (index === size - 1) {
+              result[simNum].push("End Game");
             }
-            result[turnNum - 1].push("End Game");
-          }
-        });
+          });
+        }
+        simNum++;
       });
     }
-    console.log(result);
-    return [result, map];
+    return result;
   }
 
   getScores(data, startSim, endSim) {
     const simulationData = this.getSimulationData(data, startSim, endSim);
     let result = [];
     if (simulationData) {
-      console.log(simulationData);
       Object.entries(simulationData).forEach((simulation, index) => {
         result.push({
           [`Sim ${index}`]: simulation[1].meta_data
@@ -214,7 +246,6 @@ export default class Data {
         });
       });
     }
-    console.log(result);
     return result;
   }
 
@@ -234,7 +265,6 @@ export default class Data {
         }
       });
     }
-    console.log(players);
     return players;
   }
 

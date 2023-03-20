@@ -13,6 +13,8 @@ import { Line } from "react-chartjs-2";
 import Data from "../data/getData";
 import SimulationFileSelection from "./Selections/SimulationFileSelection";
 import SimulationSelection from "./Selections/SimulationSelection";
+import GameSelection from "./Selections/GameSelection";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -88,7 +90,10 @@ const getDataSet = (scoreData, labels) => {
 
 export default function LineChart({ width, height }) {
   const [loading, setLoading] = useState(null);
+  const [game, setGame] = useState("none");
   const [simulationFile, setSimulationFile] = useState("none");
+  const [actionFile, setActionFile] = useState("none");
+  const [showOptions, setShowOptions] = useState(null);
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [numSimulations, setNumSimulations] = useState(
     dataInit.getNumberOfSimulations(allData)
@@ -98,25 +103,36 @@ export default function LineChart({ width, height }) {
   const [scoreData, setScoreData] = useState(
     dataInit.getScores(allData, 0, numSims)
   );
-  //const labels = //getLabels(scoreData);
-  const [data, setData] = useState({
-    // labels: labels,
-    // datasets: getDataSet(scoreData, labels),
-  });
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    fetch(simulationFile)
-      .then((response) => {
+    if (game !== "none") {
+      setShowOptions(false);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, [10]);
+      setSimulationFile("none");
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (simulationFile === "none") return;
+    const setFile = async () => {
+      try {
         loading !== null && setLoading(true);
-        return response.json();
-      })
-      .then((data) => {
-        dataInit.setAllData(data);
+        const simResponse = await axios.get(simulationFile);
+        const simdata = simResponse.data;
+        const actionsResponse = await axios.get(actionFile);
+        const actions = actionsResponse.data;
+        dataInit.setAllData(simdata);
+        dataInit.setAllActions(actions);
         setAllData(dataInit.getAllDataExEnd());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    setFile();
   }, [simulationFile]);
 
   useEffect(() => {
@@ -154,15 +170,25 @@ export default function LineChart({ width, height }) {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <SimulationFileSelection setSimulationFile={setSimulationFile} />
-        <SimulationSelection
-          setNumSims={setNumSims}
-          numSimulations={numSimulations}
-          simulationFile={simulationFile}
-          value={numSims}
-        />
+        <GameSelection setGame={setGame} />
+        {showOptions && (
+          <>
+            <SimulationFileSelection
+              game={game}
+              setSimulationFile={setSimulationFile}
+              setActionFile={setActionFile}
+            />
+            <SimulationSelection
+              setNumSims={setNumSims}
+              numSimulations={numSimulations}
+              simulationFile={simulationFile}
+              value={numSims}
+            />
+          </>
+        )}
       </div>
       {loading && <h2>Loading...</h2>}
       {simulationFile !== "none" && !loading && (

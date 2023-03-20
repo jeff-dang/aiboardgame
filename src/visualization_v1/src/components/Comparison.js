@@ -4,10 +4,8 @@ import HeatMapWithTooltip from "./HeatMap";
 import LineChart from "./LineChart";
 import MovesToScores from "./MovesToScores";
 import PieChart from "./PieChart";
-import SimpleTreeChart from "./SimpleTreeChart";
 import SimpleTreeGraph from "./SimpleTreeGraph";
 import TreeChart from "./TreeChart";
-import TreeGraph from "./TreeGraph";
 
 const width = 1100;
 const height = 700;
@@ -18,10 +16,10 @@ const chartOptions = {
   "Heat map": <HeatMapWithTooltip width={width} height={height} />,
   "Line Chart": <LineChart width={width} height={height} />,
   "Pie Chart": <PieChart width={width} height={height} />,
-  "Tree Chart": <TreeChart width={width} height={height} />,
-  "Alt Tree Chart": <SimpleTreeChart width={width} height={height} />,
-  "Tree Graph": <SimpleTreeGraph width={width} height={height} />,
+  "Tree - Individual Paths": <TreeChart width={width} height={height} />,
+  "Tree - Common Paths": <SimpleTreeGraph width={width} height={height} />,
 };
+// "Alt Tree Chart": <SimpleTreeChart width={width} height={height} />,
 
 const Comparison = () => {
   const [firstChart, setFirstChart] = useState(<></>);
