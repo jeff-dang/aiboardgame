@@ -3,6 +3,7 @@ import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
 import { GradientTealBlue } from "@visx/gradient";
 import { scaleBand, scaleLinear } from "@visx/scale";
+import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useSpring, animated } from "@react-spring/web";
 import Data from "../data/getData";
@@ -10,8 +11,19 @@ import SimulationFileSelection from "./Selections/SimulationFileSelection";
 import PlayerSelection from "./Selections/PlayerSelection";
 import SimulationSelection from "./Selections/SimulationSelection";
 import NumMovesSelection from "./Selections/NumMovesSelection";
+import GameSelection from "./Selections/GameSelection";
+import axios from "axios";
+import SimulationTypeSelection from "./Selections/SimulationTypeSelection";
+import FromSelection from "./Selections/FromSelection";
+import ToSelection from "./Selections/ToSelection";
 
-const bars = [3, 4, 5, 6, 7, 8, 9, 10];
+const tooltipStyles = {
+  ...defaultStyles,
+  minWidth: 60,
+  backgroundColor: "rgba(0,0,0,0.9)",
+  color: "white",
+};
+
 const axisTextColor = "#000000";
 const verticalMargin = 120;
 
@@ -25,12 +37,38 @@ function getBarGraphData(frequencyMap, numBars) {
   return sliced;
 }
 
-const FrequentlyUsedMoves = ({ width, height }) => {
+function getMaxBars(allNonZeroActions) {
+  const max =
+    allNonZeroActions.length > 2 ? Math.min(10, allNonZeroActions.length) : 3;
+
+  let bars = [];
+  for (let i = 3; i <= max; i++) {
+    bars.push(i);
+  }
+
+  return bars;
+}
+
+let tooltipTimeout;
+
+const BarGraphRaw = ({
+  width,
+  height,
+  tooltipOpen,
+  tooltipLeft,
+  tooltipTop,
+  tooltipData,
+  hideTooltip,
+  showTooltip,
+}) => {
   const xMax = width;
   const yMax = height - verticalMargin;
 
   const [loading, setLoading] = useState(null);
+  const [game, setGame] = useState("none");
   const [simulationFile, setSimulationFile] = useState("none");
+  const [actionFile, setActionFile] = useState("none");
+  const [showOptions, setShowOptions] = useState(null);
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
   const [numSimulations, setNumSimulations] = useState(
@@ -42,24 +80,48 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   const [freqMap, setFreqMap] = useState([]);
   const [numBars, setNumBars] = useState(3);
   const [numSims, setNumSims] = useState(1);
+
+  const [allNonZeroActions, setAllNonZeroActions] = useState([]);
+  const [bars, setBars] = useState([3, 4, 5, 6, 7, 8, 9, 10]);
   const [toggle, setToggle] = useState(true);
 
+  const [simType, setSimType] = useState("Aggregate");
+  const [startSim, setStartSim] = useState(1);
+  const [endSim, setEndSim] = useState(
+    numSimulations[numSimulations.length - 1]
+  );
+
   const getMove = (move) => move.name;
-  const getFrequecy = (move) => move.frequency;
+  const getFrequency = (move) => move.frequency;
 
   useEffect(() => {
-    fetch(simulationFile)
-      .then((response) => {
+    if (game !== "none") {
+      setShowOptions(false);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, [10]);
+      setSimulationFile("none");
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (simulationFile === "none") return;
+    const setFile = async () => {
+      try {
         loading !== null && setLoading(true);
-        return response.json();
-      })
-      .then((data) => {
-        dataInit.setAllData(data);
+        const simResponse = await axios.get(simulationFile);
+        const simdata = simResponse.data;
+        const actionsResponse = await axios.get(actionFile);
+        const actions = actionsResponse.data;
+        dataInit.setAllData(simdata);
+        dataInit.setAllActions(actions);
         setAllData(dataInit.getAllDataExEnd());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    setFile();
   }, [simulationFile]);
 
   useEffect(() => {
@@ -68,10 +130,46 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   }, [allData]);
 
   useEffect(() => {
+    setPlayer(players[0]);
+  }, [players]);
+
+  useEffect(() => {
+    if (startSim > endSim) {
+      setEndSim(startSim);
+    }
+  }, [startSim]);
+
+  useEffect(() => {
+    let start = startSim - 1;
+    let end = endSim;
+
+    if (simType === "Aggregate") {
+      start = 0;
+      end = numSims;
+    } else {
+      start = startSim - 1;
+      end = endSim;
+    }
     const mergedData = dataInit.getDataWithMergedActions(allData);
-    setFreqMap(dataInit.getFrequencyMapForPlayer(mergedData, numSims, player));
+    setFreqMap(
+      dataInit.getFrequencyMapForPlayer(mergedData, start, end, player)
+    );
     setToggle(false);
-  }, [allData, player, numSims, numBars]);
+  }, [allData, simType, startSim, endSim, player, numSims, numBars]);
+
+  useEffect(() => {
+    setAllNonZeroActions(dataInit.getAllNonZeroActions(freqMap));
+  }, [freqMap]);
+
+  useEffect(() => {
+    setBars(getMaxBars(allNonZeroActions));
+  }, [allNonZeroActions]);
+
+  useEffect(() => {
+    if (numBars > bars[bars.length - 1]) {
+      setNumBars(bars[bars.length - 1]);
+    }
+  }, [bars]);
 
   useEffect(() => {
     setData(getBarGraphData(freqMap, numBars));
@@ -79,7 +177,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
     setTimeout(() => {
       setToggle(true);
     }, 400);
-  }, [freqMap]);
+  }, [freqMap, numBars]);
 
   const axisBottomScale = useMemo(
     () =>
@@ -93,7 +191,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
   const axisLeftScale = useMemo(
     () =>
       scaleLinear({
-        domain: [0, Math.max(...data.map(getFrequecy))],
+        domain: [0, Math.max(...data.map(getFrequency))],
         nice: true,
         padding: 0.2,
       }),
@@ -115,7 +213,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
       scaleLinear({
         range: [yMax, 0],
         round: true,
-        domain: [0, Math.max(...data.map(getFrequecy))],
+        domain: [0, Math.max(...data.map(getFrequency))],
       }),
     [yMax, data]
   );
@@ -148,26 +246,62 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <SimulationFileSelection setSimulationFile={setSimulationFile} />
-          <PlayerSelection
-            setPlayer={setPlayer}
-            players={players}
-            simulationFile={simulationFile}
-          />
-          <SimulationSelection
-            setNumSims={setNumSims}
-            numSimulations={numSimulations}
-            simulationFile={simulationFile}
-            value={numSims}
-          />
-          <NumMovesSelection
-            setNumMoves={setNumBars}
-            allMoves={bars}
-            simulationFile={simulationFile}
-            value={numBars}
-          />
+          <GameSelection setGame={setGame} />
+          {showOptions && (
+            <>
+              <SimulationFileSelection
+                game={game}
+                setSimulationFile={setSimulationFile}
+                setActionFile={setActionFile}
+              />
+              <SimulationTypeSelection
+                setSimType={setSimType}
+                value={simType}
+                simulationFile={simulationFile}
+              />
+              <PlayerSelection
+                setPlayer={setPlayer}
+                players={players}
+                simulationFile={simulationFile}
+              />
+              {simType === "Subset" ? (
+                <>
+                  <FromSelection
+                    text="Sim From: "
+                    setStart={setStartSim}
+                    arr={numSimulations}
+                    simulationFile={simulationFile}
+                    startVal={startSim}
+                    endVal={endSim}
+                  />
+                  <ToSelection
+                    text="Sim To: "
+                    setEnd={setEndSim}
+                    arr={numSimulations}
+                    simulationFile={simulationFile}
+                    startVal={startSim}
+                    endVal={endSim}
+                  />
+                </>
+              ) : (
+                <SimulationSelection
+                  setNumSims={setNumSims}
+                  numSimulations={numSimulations}
+                  simulationFile={simulationFile}
+                  value={numSims}
+                />
+              )}
+              <NumMovesSelection
+                setNumMoves={setNumBars}
+                allMoves={bars}
+                simulationFile={simulationFile}
+                value={numBars}
+              />
+            </>
+          )}
         </div>
       </div>
       {loading && <h2>Loading...</h2>}
@@ -179,7 +313,7 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             {data.map((d) => {
               const move = getMove(d);
               const barWidth = xScale.bandwidth();
-              const barHeight = yMax - (yScale(getFrequecy(d)) ?? 0);
+              const barHeight = yMax - (yScale(getFrequency(d)) ?? 0);
               const barX = xScale(move);
               //const barY = yMax - barHeight;
               return (
@@ -190,20 +324,36 @@ const FrequentlyUsedMoves = ({ width, height }) => {
                   width={barWidth}
                   height={scale.to((s) => s * barHeight)}
                   fill="rgba(30, 105, 98, 0.7)"
+                  onMouseLeave={() => {
+                    tooltipTimeout = window.setTimeout(() => {
+                      hideTooltip();
+                    }, 200);
+                  }}
+                  onMouseMove={() => {
+                    if (tooltipTimeout) clearTimeout(tooltipTimeout);
+                    const top = yMax - barHeight + verticalMargin + 20;
+                    const left = barX - 10;
+                    showTooltip({
+                      tooltipData: getFrequency(d),
+                      tooltipTop: top,
+                      tooltipLeft: left,
+                    });
+                  }}
                 />
               );
             })}
           </Group>
           <AxisLeft
-            left={20}
+            left={40}
             top={60}
             scale={axisLeftScale}
             stroke={axisTextColor}
             tickStroke={axisTextColor}
             tickLabelProps={() => ({
               fill: axisTextColor,
-              fontSize: 12,
-              textAnchor: "middle",
+              fontSize: `${numSims > 20 ? 8 : 10}`,
+              overflow: "break",
+              textAnchor: "end",
               fontWeight: "bold",
             })}
           />
@@ -214,15 +364,31 @@ const FrequentlyUsedMoves = ({ width, height }) => {
             tickStroke={axisTextColor}
             tickLabelProps={() => ({
               fill: axisTextColor,
-              fontSize: `${numBars > 5 ? (numBars > 9 ? 7 : 8) : 11}`,
+              fontSize: `${numBars > 5 ? (numBars > 9 ? 7 : 8) : 10}`,
               textAnchor: "middle",
               overflow: "break",
               fontWeight: "bold",
-              width: `${numBars > 4 ? 200 : 250}`,
+              width: `${numBars > 4 ? 200 : 300}`,
+              dy: "1.25em",
             })}
           />
         </svg>
       )}
+      {tooltipOpen && tooltipData && (
+        <Tooltip top={tooltipTop} left={tooltipLeft} style={tooltipStyles}>
+          <div>{tooltipData}</div>
+        </Tooltip>
+      )}
+    </div>
+  );
+};
+
+const BarGraphToolTip = withTooltip(BarGraphRaw);
+
+const FrequentlyUsedMoves = ({ width, height }) => {
+  return (
+    <div style={{ margin: "auto" }}>
+      <BarGraphToolTip width={width} height={height} />
     </div>
   );
 };

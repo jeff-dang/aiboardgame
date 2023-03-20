@@ -13,6 +13,8 @@ import { Line } from "react-chartjs-2";
 import Data from "../data/getData";
 import SimulationFileSelection from "./Selections/SimulationFileSelection";
 import SimulationSelection from "./Selections/SimulationSelection";
+import GameSelection from "./Selections/GameSelection";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -46,12 +48,15 @@ const getLabels = (scoreData) => {
 };
 
 const getPlayerScore = (scoreData, sim, player) => {
-  console.log(scoreData);
-  const index = scoreData.findIndex((e) => Object.keys(e)[0] === sim);
+  if (scoreData) {
+    const index = scoreData.findIndex((e) => Object.keys(e)[0] === sim);
 
-  const simData = scoreData[index];
+    const simData = scoreData[index];
 
-  return Object.values(simData)[0][player];
+    return Object.values(simData)[0][player];
+  } else {
+    return -1;
+  }
 };
 
 const getPlayers = (scoreData) => {
@@ -68,22 +73,27 @@ const getDataSet = (scoreData, labels) => {
   let dataSet = [];
 
   const players = getPlayers(scoreData);
-  players.forEach((player) => {
-    const color = getRandomColor();
-    const data = {
-      label: player,
-      data: labels.map((sim) => getPlayerScore(scoreData, sim, player)),
-      borderColor: color,
-      backgroundColor: color,
-    };
-    dataSet.push(data);
-  });
+  if (players) {
+    players.forEach((player) => {
+      const color = getRandomColor();
+      const data = {
+        label: player,
+        data: labels.map((sim) => getPlayerScore(scoreData, sim, player)),
+        borderColor: color,
+        backgroundColor: color,
+      };
+      dataSet.push(data);
+    });
+  }
   return dataSet;
 };
 
 export default function LineChart({ width, height }) {
   const [loading, setLoading] = useState(null);
+  const [game, setGame] = useState("none");
   const [simulationFile, setSimulationFile] = useState("none");
+  const [actionFile, setActionFile] = useState("none");
+  const [showOptions, setShowOptions] = useState(null);
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [numSimulations, setNumSimulations] = useState(
     dataInit.getNumberOfSimulations(allData)
@@ -91,27 +101,38 @@ export default function LineChart({ width, height }) {
 
   const [numSims, setNumSims] = useState(1);
   const [scoreData, setScoreData] = useState(
-    dataInit.getScores(allData, numSims)
+    dataInit.getScores(allData, 0, numSims)
   );
-  const labels = getLabels(scoreData);
-  const [data, setData] = useState({
-    labels: labels,
-    datasets: getDataSet(scoreData, labels),
-  });
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    fetch(simulationFile)
-      .then((response) => {
+    if (game !== "none") {
+      setShowOptions(false);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, [10]);
+      setSimulationFile("none");
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (simulationFile === "none") return;
+    const setFile = async () => {
+      try {
         loading !== null && setLoading(true);
-        return response.json();
-      })
-      .then((data) => {
-        dataInit.setAllData(data);
+        const simResponse = await axios.get(simulationFile);
+        const simdata = simResponse.data;
+        const actionsResponse = await axios.get(actionFile);
+        const actions = actionsResponse.data;
+        dataInit.setAllData(simdata);
+        dataInit.setAllActions(actions);
         setAllData(dataInit.getAllDataExEnd());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    setFile();
   }, [simulationFile]);
 
   useEffect(() => {
@@ -119,13 +140,15 @@ export default function LineChart({ width, height }) {
   }, [allData]);
 
   useEffect(() => {
-    setScoreData(dataInit.getScores(allData, numSims));
+    setScoreData(dataInit.getScores(allData, 0, numSims));
   }, [allData, numSims]);
 
   useEffect(() => {
+    const labelsArr = getLabels(scoreData);
+
     setData({
-      labels: labels,
-      datasets: getDataSet(scoreData, labels),
+      labels: labelsArr,
+      datasets: getDataSet(scoreData, labelsArr),
     });
     setLoading(false);
   }, [scoreData]);
@@ -147,15 +170,25 @@ export default function LineChart({ width, height }) {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <SimulationFileSelection setSimulationFile={setSimulationFile} />
-        <SimulationSelection
-          setNumSims={setNumSims}
-          numSimulations={numSimulations}
-          simulationFile={simulationFile}
-          value={numSims}
-        />
+        <GameSelection setGame={setGame} />
+        {showOptions && (
+          <>
+            <SimulationFileSelection
+              game={game}
+              setSimulationFile={setSimulationFile}
+              setActionFile={setActionFile}
+            />
+            <SimulationSelection
+              setNumSims={setNumSims}
+              numSimulations={numSimulations}
+              simulationFile={simulationFile}
+              value={numSims}
+            />
+          </>
+        )}
       </div>
       {loading && <h2>Loading...</h2>}
       {simulationFile !== "none" && !loading && (

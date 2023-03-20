@@ -209,7 +209,7 @@ class raw_env(AECEnv):
                 # "all_actions": action_details
                 # "action_mask": action_mask
             }
-        
+
         self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players, updates only not incremental

@@ -5,17 +5,15 @@ import SimulationFileSelection from "./Selections/SimulationFileSelection";
 import PlayerSelection from "./Selections/PlayerSelection";
 import SimulationSelection from "./Selections/SimulationSelection";
 import NumMovesSelection from "./Selections/NumMovesSelection";
+import GameSelection from "./Selections/GameSelection";
+import axios from "axios";
+import SimulationTypeSelection from "./Selections/SimulationTypeSelection";
+import FromSelection from "./Selections/FromSelection";
+import ToSelection from "./Selections/ToSelection";
 
 const dataInit = new Data();
-
-const categories = [
-  { name: "Start", itemStyle: { color: "green" } },
-  { name: "End Game", itemStyle: { color: "red" } },
-  { name: "Fill Monument", itemStyle: { color: "aqua" } },
-  { name: "Move Player", itemStyle: { color: "yellow" } },
-  { name: "Convey", itemStyle: { color: "teal" } },
-  { name: "Action Tokens", itemStyle: { color: "lightgreen" } },
-];
+const res = dataInit.getDataWithMergedActions(dataInit.getAllDataExEnd());
+const initArr = dataInit.getMap(res, 0, 1, 0);
 
 const labelOptions = {
   width: 60,
@@ -24,54 +22,75 @@ const labelOptions = {
   fontWeight: "bold",
 };
 
-const getCategoryIndex = (action) => {
-  const category = categories.findIndex((item) => {
-    const name = action !== "End Game" ? action.split(", ")[1] : action;
+// function generateData(dataMap, dataArr, numMoves) {
+//   let moves = numMoves;
+//   let arr = JSON.parse(JSON.stringify(dataArr));
+//   let map = JSON.parse(JSON.stringify(dataMap));
+//   let data = { name: "Start", children: [] };
+//   if (dataArr.length === 0) return data;
 
-    if (name.length < item.name.length) return false;
-    return name.substring(0, item.name.length) === item.name;
-  });
-  return category;
-};
+//   const currLevel = data.children;
+//   const queue = [];
+//   let visited = new Array(arr.length);
 
-function generateData(dataMap, dataArr, numMoves) {
+//   for (let i = 0; i < visited.length; i++) {
+//     visited[i] = false;
+//   }
+
+//   for (let i = 0; i < arr[0].length; i++) {
+//     queue.push({ currLevel, index: 0 });
+//   }
+
+//   while (queue.length && moves > 0) {
+//     let { currLevel, index } = queue.shift();
+//     let turnName = arr[index].shift();
+//     if (turnName in map) {
+//       const ind = map[turnName];
+//       if (arr[index].length >= 0) {
+//         currLevel.push({ name: turnName, children: [] });
+//         queue.push({
+//           currLevel: currLevel[currLevel.length - 1].children,
+//           index: ind,
+//         });
+//       }
+//       if (arr[index].length === 0) moves--;
+//     }
+//   }
+//   return data;
+// }
+
+function generateData(dataArr, numMoves) {
   let moves = numMoves;
   let arr = JSON.parse(JSON.stringify(dataArr));
-  let map = JSON.parse(JSON.stringify(dataMap));
   let data = { name: "Start", children: [] };
   if (dataArr.length === 0) return data;
 
   const currLevel = data.children;
   const queue = [];
-  let visited = new Array(arr.length);
 
-  for (let i = 0; i < visited.length; i++) {
-    visited[i] = false;
+  for (let i = 0; i < arr.length; i++) {
+    queue.push({ currLevel, arrIndex: i, index: 0 });
   }
 
-  for (let i = 0; i < arr[0].length; i++) {
-    queue.push({ currLevel, index: 0 });
-  }
+  while (queue.length) {
+    let { currLevel, arrIndex, index } = queue.shift();
+    if (index >= moves) continue;
+    let turnName = arr[arrIndex][index];
 
-  while (queue.length && moves > 0) {
-    let { currLevel, index } = queue.shift();
-    let turnName = arr[index].shift();
-    if (turnName in map) {
-      const ind = map[turnName];
-      if (arr[index].length >= 0) {
-        currLevel.push({ name: turnName, children: [] });
-        queue.push({
-          currLevel: currLevel[currLevel.length - 1].children,
-          index: ind,
-        });
-      }
-      if (arr[index].length === 0) moves--;
+    currLevel.push({ name: turnName, children: [] });
+    if (turnName !== "End Game") {
+      queue.push({
+        currLevel: currLevel[currLevel.length - 1].children,
+        index: index + 1,
+        arrIndex,
+      });
     }
   }
+  console.log(data);
   return data;
 }
 
-const generateOptions = (dataMap, dataArr, moves) => {
+const generateOptions = (dataArr, moves) => {
   const option = {
     tooltip: {
       trigger: "item",
@@ -80,17 +99,21 @@ const generateOptions = (dataMap, dataArr, moves) => {
     series: [
       {
         type: "tree",
-        data: [generateData(dataMap, dataArr, moves)],
+        data: [generateData(dataArr, moves)],
         top: "1%",
         left: "7%",
         bottom: "1%",
         right: "20%",
-        symbolSize: 7,
+        symbolSize: 12,
+        zoom: 1,
         label: {
-          position: "left",
+          position: "bottom",
           verticalAlign: "middle",
-          align: "right",
-          fontSize: 9,
+          align: "middle",
+          fontSize: 10,
+          overflow: "break",
+          width: 60,
+          show: false,
         },
         leaves: {
           label: {
@@ -101,12 +124,15 @@ const generateOptions = (dataMap, dataArr, moves) => {
         },
         emphasis: {
           focus: "descendant",
+          label: {
+            show: true,
+          },
         },
         expandAndCollapse: false,
         animationDuration: 550,
         animationDurationUpdate: 750,
         roam: true,
-        center: [200, "50%"],
+        center: [400, "50%"],
       },
     ],
   };
@@ -115,7 +141,10 @@ const generateOptions = (dataMap, dataArr, moves) => {
 
 const SimpleTreeChart = ({ width, height }) => {
   const [loading, setLoading] = useState(null);
+  const [game, setGame] = useState("none");
   const [simulationFile, setSimulationFile] = useState("none");
+  const [actionFile, setActionFile] = useState("none");
+  const [showOptions, setShowOptions] = useState(null);
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
   const [numSimulations, setNumSimulations] = useState(
@@ -126,29 +155,45 @@ const SimpleTreeChart = ({ width, height }) => {
   const [numSims, setNumSims] = useState(1);
   const [numMoves, setNumMoves] = useState(3);
   const [allMoves, setAllMoves] = useState([3]);
-
-  const res = dataInit.getDataWithMergedActions(allData);
-  const initArr = dataInit.getMap(res, numSims, player)[0];
-  const initMap = dataInit.getMap(res, numSims, player)[1];
   const [nextMoveArray, setNextMoveArray] = useState(initArr);
-  const [nextMoveMap, setNextMoveMap] = useState(initMap);
-  const [option, setOptions] = useState(
-    generateOptions(initMap, initArr, numMoves)
+  const [option, setOptions] = useState({});
+
+  const [simType, setSimType] = useState("Aggregate");
+  const [startSim, setStartSim] = useState(1);
+  const [endSim, setEndSim] = useState(
+    numSimulations[numSimulations.length - 1]
   );
+  const [startMove, setStartMove] = useState(3);
+  const [endMove, setEndMove] = useState(3);
 
   useEffect(() => {
-    fetch(simulationFile)
-      .then((response) => {
+    if (game !== "none") {
+      setShowOptions(false);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, [10]);
+      setSimulationFile("none");
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (simulationFile === "none") return;
+    const setFile = async () => {
+      try {
         loading !== null && setLoading(true);
-        return response.json();
-      })
-      .then((data) => {
-        dataInit.setAllData(data);
+        const simResponse = await axios.get(simulationFile);
+        const simdata = simResponse.data;
+        const actionsResponse = await axios.get(actionFile);
+        const actions = actionsResponse.data;
+        dataInit.setAllData(simdata);
+        dataInit.setAllActions(actions);
         setAllData(dataInit.getAllDataExEnd());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    setFile();
   }, [simulationFile]);
 
   useEffect(() => {
@@ -157,11 +202,35 @@ const SimpleTreeChart = ({ width, height }) => {
   }, [allData]);
 
   useEffect(() => {
+    setPlayer(players[0]);
+  }, [players]);
+
+  useEffect(() => {
+    if (startSim > endSim) {
+      setEndSim(startSim);
+    }
+    if (startMove > endMove) {
+      setEndMove(startMove);
+    }
+  }, [startSim, startMove]);
+
+  useEffect(() => {
+    let start = startSim - 1;
+    let end = endSim;
+
+    if (simType === "Aggregate") {
+      start = 0;
+      end = numSims;
+    } else {
+      start = startSim - 1;
+      end = endSim;
+    }
+
     const mergedData = dataInit.getDataWithMergedActions(allData);
-    const results = dataInit.getMap(mergedData, numSims, player);
-    setNextMoveArray(results[0]);
-    setNextMoveMap(results[1]);
-    const maxMoves = dataInit.getNumberOfMoves(allData, numSims, player);
+    const results = dataInit.getMap(mergedData, start, end, player);
+    setNextMoveArray(results);
+    //setNextMoveMap(results[1]);
+    const maxMoves = dataInit.getNumberOfMoves(allData, start, end, player);
     const newAllMoves = [];
     for (let i = 3; i <= Math.max(3, maxMoves); i++) {
       newAllMoves.push(i);
@@ -169,12 +238,22 @@ const SimpleTreeChart = ({ width, height }) => {
     setAllMoves(newAllMoves);
 
     if (numMoves > maxMoves) setNumMoves(maxMoves);
-  }, [allData, player, numSims]);
+  }, [allData, simType, startSim, endSim, player, numSims]);
 
   useEffect(() => {
-    setOptions(generateOptions(nextMoveMap, nextMoveArray, numMoves));
+    if (simType === "Aggregate") {
+      setOptions(generateOptions(nextMoveArray, numMoves));
+    } else {
+      setOptions(
+        generateOptions(
+          nextMoveArray.map((sim) => sim.slice(startMove - 1, endMove)),
+          endMove - startMove + 1
+        )
+      );
+    }
+
     setLoading(false);
-  }, [nextMoveMap, nextMoveArray, numMoves]);
+  }, [nextMoveArray, simType, startMove, endMove, numMoves]);
 
   return (
     <div
@@ -193,26 +272,80 @@ const SimpleTreeChart = ({ width, height }) => {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <SimulationFileSelection setSimulationFile={setSimulationFile} />
-        <PlayerSelection
-          setPlayer={setPlayer}
-          players={players}
-          simulationFile={simulationFile}
-        />
-        <SimulationSelection
-          setNumSims={setNumSims}
-          numSimulations={numSimulations}
-          simulationFile={simulationFile}
-          value={numSims}
-        />
-        <NumMovesSelection
-          setNumMoves={setNumMoves}
-          allMoves={allMoves}
-          simulationFile={simulationFile}
-          value={numMoves}
-        />
+        <GameSelection setGame={setGame} />
+        {showOptions && (
+          <>
+            <SimulationFileSelection
+              game={game}
+              setSimulationFile={setSimulationFile}
+              setActionFile={setActionFile}
+            />
+            <SimulationTypeSelection
+              setSimType={setSimType}
+              value={simType}
+              simulationFile={simulationFile}
+            />
+            <PlayerSelection
+              setPlayer={setPlayer}
+              players={players}
+              simulationFile={simulationFile}
+            />
+            {simType === "Subset" ? (
+              <>
+                <FromSelection
+                  text="Sim From: "
+                  setStart={setStartSim}
+                  arr={numSimulations}
+                  simulationFile={simulationFile}
+                  startVal={startSim}
+                  endVal={endSim}
+                />
+                <ToSelection
+                  text="Sim To: "
+                  setEnd={setEndSim}
+                  arr={numSimulations}
+                  simulationFile={simulationFile}
+                  startVal={startSim}
+                  endVal={endSim}
+                />
+                <FromSelection
+                  text="Moves From: "
+                  setStart={setStartMove}
+                  arr={allMoves}
+                  simulationFile={simulationFile}
+                  startVal={startMove}
+                  endVal={endMove}
+                />
+                <ToSelection
+                  text="Moves To: "
+                  setEnd={setEndMove}
+                  arr={allMoves}
+                  simulationFile={simulationFile}
+                  startVal={startMove}
+                  endVal={endMove}
+                />
+              </>
+            ) : (
+              <>
+                <SimulationSelection
+                  setNumSims={setNumSims}
+                  numSimulations={numSimulations}
+                  simulationFile={simulationFile}
+                  value={numSims}
+                />
+                <NumMovesSelection
+                  setNumMoves={setNumMoves}
+                  allMoves={allMoves}
+                  simulationFile={simulationFile}
+                  value={numMoves}
+                />
+              </>
+            )}
+          </>
+        )}
       </div>
       {loading && <h2>Loading...</h2>}
       {simulationFile !== "none" && !loading && (
@@ -220,7 +353,7 @@ const SimpleTreeChart = ({ width, height }) => {
           option={option}
           style={{
             height: `${height}px`,
-            width: `${numMoves * 300}px`,
+            width: `90vw`,
           }}
         />
       )}

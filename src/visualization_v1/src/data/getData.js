@@ -11,8 +11,16 @@ export default class Data {
     this.data = data;
   }
 
+  setAllActions(actions) {
+    this.allActions = actions;
+  }
+
   getAllData() {
     return this.data;
+  }
+
+  getAllActions() {
+    return this.allActions;
   }
 
   getAllDataExEnd() {
@@ -48,11 +56,20 @@ export default class Data {
 
       allDataMerged.push(element);
     });
+
     return allDataMerged;
   }
 
-  getSimulationData(data, numSims) {
-    return Object.fromEntries(Object.entries(data).slice(0, numSims));
+  getSimulationData(data, startIndex = 0, endIndex = 1) {
+    return Object.keys(data)
+      .slice(startIndex, endIndex)
+      .reduce((result, key) => {
+        result[key] = data[key];
+
+        return result;
+      }, {});
+
+    //return Object.fromEntries(Object.entries(data).slice(startIndex, endIndex));
   }
 
   getPlayerData(data, player) {
@@ -60,7 +77,7 @@ export default class Data {
 
     Object.entries(data).forEach((turn) => {
       if (turn[0] !== "meta_data") {
-        if (turn[1].player === player) {
+        if (turn[1].player == player) {
           playerData[turn[0]] = turn[1];
         }
       }
@@ -78,20 +95,25 @@ export default class Data {
     return actions;
   }
 
-  getFrequencyMapForPlayer(data, numSims, player) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getFrequencyMapForPlayer(data, startSim, endSim, player) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
 
     let freqMap = this.getFrequencyMap();
-    Object.entries(simulationData).forEach((simulation) => {
-      const playerData = this.getPlayerData(simulation[1], player);
 
-      Object.entries(playerData).forEach((turn) => {
-        const objIndex = freqMap.findIndex(
-          (obj) => obj.name === turn[1].action_details
-        );
-        freqMap[objIndex].frequency++;
+    if (simulationData) {
+      Object.entries(simulationData).forEach((simulation) => {
+        const playerData = this.getPlayerData(simulation[1], player);
+
+        Object.entries(playerData).forEach((turn) => {
+          const objIndex = freqMap.findIndex(
+            (obj) => obj.name == turn[1].action_details
+          );
+          if (objIndex !== -1) {
+            freqMap[objIndex].frequency++;
+          }
+        });
       });
-    });
+    }
 
     return freqMap;
   }
@@ -105,21 +127,22 @@ export default class Data {
     return actions;
   }
 
-  getCountMapForPlayer(data, numSims, player) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getCountMapForPlayer(data, startSim, endSim, player) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
 
     let freqMap = this.getCountMap();
-    Object.entries(simulationData).forEach((simulation) => {
-      const playerData = this.getPlayerData(simulation[1], player);
+    if (simulationData) {
+      Object.entries(simulationData).forEach((simulation) => {
+        const playerData = this.getPlayerData(simulation[1], player);
 
-      Object.entries(playerData).forEach((turn) => {
-        const objIndex = freqMap.findIndex(
-          (obj) => obj.name === turn[1].action_details
-        );
-        freqMap[objIndex].count++;
+        Object.entries(playerData).forEach((turn) => {
+          const objIndex = freqMap.findIndex(
+            (obj) => obj.name == turn[1].action_details
+          );
+          freqMap[objIndex].count++;
+        });
       });
-    });
-
+    }
     return freqMap;
   }
 
@@ -141,55 +164,88 @@ export default class Data {
     return filteredMap;
   }
 
-  getMap(data, numSims, player) {
+  // getMap(data, startSim, endSim, player) {
+  //   let result = [];
+  //   let map = {};
+  //   const simulationData = this.getSimulationData(data, startSim, endSim);
+
+  //   if (simulationData) {
+  //     Object.entries(simulationData).forEach((simulation) => {
+  //       let turnNum = 1;
+  //       const playerData = this.getPlayerData(simulation[1], player);
+
+  //       const size = Object.keys(playerData).length;
+  //       Object.entries(playerData).forEach((turn, index) => {
+  //         const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
+  //         if (!map.hasOwnProperty(turnStr)) {
+  //           map[turnStr] = turnNum;
+  //           result.push([]);
+  //         }
+
+  //         result[index].push(turnStr);
+  //         turnNum++;
+
+  //         if (index === size - 1) {
+  //           if (!map.hasOwnProperty("End Game")) {
+  //             map["End Game"] = turnNum;
+  //             result.push([]);
+  //           }
+  //           result[turnNum - 1].push("End Game");
+  //         }
+  //       });
+  //     });
+  //   }
+  //   return [result, map];
+  // }
+
+  getMap(data, startSim, endSim, player) {
     let result = [];
-    let map = {};
-    const simulationData = this.getSimulationData(data, numSims);
+    const simulationData = this.getSimulationData(data, startSim, endSim);
 
-    Object.entries(simulationData).forEach((simulation) => {
-      let turnNum = 1;
-      const playerData = this.getPlayerData(simulation[1], player);
-      const size = Object.keys(playerData).length;
-      Object.entries(playerData).forEach((turn, index) => {
-        const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
-        if (!map.hasOwnProperty(turnStr)) {
-          map[turnStr] = turnNum;
+    if (simulationData) {
+      let simNum = 0;
+      Object.entries(simulationData).forEach((simulation) => {
+        let turnNum = 1;
+        const playerData = this.getPlayerData(simulation[1], player);
+
+        const size = Object.keys(playerData).length;
+        if (size > 0) {
           result.push([]);
-        }
+          Object.entries(playerData).forEach((turn, index) => {
+            const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
 
-        result[index].push(turnStr);
-        turnNum++;
+            result[simNum].push(turnStr);
+            turnNum++;
 
-        if (index === size - 1) {
-          if (!map.hasOwnProperty("End Game")) {
-            map["End Game"] = turnNum;
-            result.push([]);
-          }
-          result[turnNum - 1].push("End Game");
+            if (index === size - 1) {
+              result[simNum].push("End Game");
+            }
+          });
         }
+        simNum++;
       });
-    });
-
-    return [result, map];
+    }
+    return result;
   }
 
-  getScores(data, numSims) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getScores(data, startSim, endSim) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
     let result = [];
-    Object.entries(simulationData).forEach((simulation, index) => {
-      result.push({
-        [`Sim ${index}`]: simulation[1].meta_data
-          ? simulation[1].meta_data
-          : {
-              player_0: 0,
-              player_1: 0,
-              player_2: 0,
-              player_3: 0,
-              player_4: 0,
-            },
+    if (simulationData) {
+      Object.entries(simulationData).forEach((simulation, index) => {
+        result.push({
+          [`Sim ${index}`]: simulation[1].meta_data
+            ? simulation[1].meta_data
+            : {
+                player_0: 0,
+                player_1: 0,
+                player_2: 0,
+                player_3: 0,
+                player_4: 0,
+              },
+        });
       });
-    });
-
+    }
     return result;
   }
 
@@ -198,17 +254,17 @@ export default class Data {
     const simulation = Object.entries(data).find((sim) => {
       return sim[1].meta_data !== undefined;
     });
+    if (simulation) {
+      Object.entries(simulation[1]).forEach((turn) => {
+        if (turn[0] === "meta_data") {
+          Object.keys(turn[1]).forEach((player) => {
+            const playerNum = Number(player.split("_")[1]);
 
-    Object.entries(simulation[1]).forEach((turn) => {
-      if (turn[0] === "meta_data") {
-        Object.keys(turn[1]).forEach((player) => {
-          const playerNum = Number(player.split("_")[1]);
-
-          players.push(playerNum);
-        });
-      }
-    });
-
+            players.push(playerNum);
+          });
+        }
+      });
+    }
     return players;
   }
 
@@ -220,18 +276,20 @@ export default class Data {
     return result;
   }
 
-  getNumberOfMoves(data, numSims, player) {
-    const simulationData = this.getSimulationData(data, numSims);
+  getNumberOfMoves(data, startSim, endSim, player) {
+    const simulationData = this.getSimulationData(data, startSim, endSim);
 
     let result = 2;
-    Object.entries(simulationData).forEach((simulation) => {
-      const playerData = this.getPlayerData(simulation[1], player);
-      const moves = Object.keys(playerData).length;
+    if (simulationData) {
+      Object.entries(simulationData).forEach((simulation) => {
+        const playerData = this.getPlayerData(simulation[1], player);
+        const moves = Object.keys(playerData).length;
 
-      if (moves > result) {
-        result = moves;
-      }
-    });
+        if (moves > result) {
+          result = moves;
+        }
+      });
+    }
     return result + 1;
   }
 }

@@ -39,7 +39,7 @@ describe("getDataWithMergedActions", () => {
 
 describe("getSimulationData", () => {
   it("should return first 2 simulations", () => {
-    expect(data.getSimulationData(mockDataMerged, 2)).toEqual(
+    expect(data.getSimulationData(mockDataMerged, 0, 2)).toEqual(
       mockSimulationData
     );
   });
@@ -67,7 +67,7 @@ describe("getCountMap", () => {
 
 describe("getFrequencyMapForPlayer", () => {
   it("should return only player 0's Frequency Map for actions", () => {
-    expect(data.getFrequencyMapForPlayer(mockDataMerged, 2, 0)).toEqual(
+    expect(data.getFrequencyMapForPlayer(mockDataMerged, 0, 2, 0)).toEqual(
       mockFrequencyMapForPlayer0
     );
   });
@@ -75,7 +75,7 @@ describe("getFrequencyMapForPlayer", () => {
 
 describe("getCountMapForPlayer", () => {
   it("should return only player 0's Count Map for actions", () => {
-    expect(data.getCountMapForPlayer(mockDataMerged, 2, 0)).toEqual(
+    expect(data.getCountMapForPlayer(mockDataMerged, 0, 2, 0)).toEqual(
       mockCountMapForPlayer0
     );
   });
@@ -91,7 +91,7 @@ describe("getAllNonZeroActions", () => {
 
 describe("getScores", () => {
   it("should return scores data for simulations", () => {
-    expect(data.getScores(mockDataMerged, 2)).toEqual(mockScoresData);
+    expect(data.getScores(mockDataMerged, 0, 2)).toEqual(mockScoresData);
   });
 });
 
@@ -109,12 +109,12 @@ describe("getNumberOfSimulations", () => {
 
 describe("getNumberOfMoves", () => {
   it("should return number of moves for player 0 for 2 simulations", () => {
-    expect(data.getNumberOfMoves(mockDataMerged, 2, 0)).toEqual(4);
+    expect(data.getNumberOfMoves(mockDataMerged, 0, 2, 0)).toEqual(4);
   });
 });
 
 describe("getMap", () => {
-  const [result, map] = data.getMap(mockDataMerged, 2, 0);
+  const [result, map] = data.getMap(mockDataMerged, 0, 2, 0);
   it("should return a frequency map for player 0's actions with 2 simulations", () => {
     expect(map).toEqual(mockMapData);
   });

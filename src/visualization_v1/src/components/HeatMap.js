@@ -8,6 +8,11 @@ import { useSpring, animated } from "@react-spring/web";
 import SimulationFileSelection from "./Selections/SimulationFileSelection";
 import SimulationSelection from "./Selections/SimulationSelection";
 import PlayerSelection from "./Selections/PlayerSelection";
+import axios from "axios";
+import GameSelection from "./Selections/GameSelection";
+import SimulationTypeSelection from "./Selections/SimulationTypeSelection";
+import FromSelection from "./Selections/FromSelection";
+import ToSelection from "./Selections/ToSelection";
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -63,7 +68,11 @@ const HeatMap = ({
   const yMax = height - margin.bottom - margin.top;
 
   const [loading, setLoading] = useState(null);
+  const [game, setGame] = useState("none");
   const [simulationFile, setSimulationFile] = useState("none");
+  const [actionFile, setActionFile] = useState("none");
+  const [showOptions, setShowOptions] = useState(null);
+
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
   const [numSimulations, setNumSimulations] = useState(
@@ -75,6 +84,12 @@ const HeatMap = ({
   const [freqMap, setFreqMap] = useState([]);
   const [data, setData] = useState([]);
   const [toggle, setToggle] = useState(true);
+
+  const [simType, setSimType] = useState("Aggregate");
+  const [startSim, setStartSim] = useState(1);
+  const [endSim, setEndSim] = useState(
+    numSimulations[numSimulations.length - 1]
+  );
 
   // accessors
   const bins = (d) => d.bins;
@@ -105,18 +120,33 @@ const HeatMap = ({
   });
 
   useEffect(() => {
-    fetch(simulationFile)
-      .then((response) => {
+    if (game !== "none") {
+      setShowOptions(false);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, [10]);
+      setSimulationFile("none");
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (simulationFile === "none") return;
+    const setFile = async () => {
+      try {
         loading !== null && setLoading(true);
-        return response.json();
-      })
-      .then((data) => {
-        dataInit.setAllData(data);
+        const simResponse = await axios.get(simulationFile);
+        const simdata = simResponse.data;
+        const actionsResponse = await axios.get(actionFile);
+        const actions = actionsResponse.data;
+        dataInit.setAllData(simdata);
+        dataInit.setAllActions(actions);
         setAllData(dataInit.getAllDataExEnd());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    setFile();
   }, [simulationFile]);
 
   useEffect(() => {
@@ -125,10 +155,30 @@ const HeatMap = ({
   }, [allData]);
 
   useEffect(() => {
+    setPlayer(players[0]);
+  }, [players]);
+
+  useEffect(() => {
+    if (startSim > endSim) {
+      setEndSim(startSim);
+    }
+  }, [startSim]);
+
+  useEffect(() => {
+    let start = startSim - 1;
+    let end = endSim;
+
+    if (simType === "Aggregate") {
+      start = 0;
+      end = numSims;
+    } else {
+      start = startSim - 1;
+      end = endSim;
+    }
     const mergedData = dataInit.getDataWithMergedActions(allData);
-    setFreqMap(dataInit.getCountMapForPlayer(mergedData, numSims, player));
+    setFreqMap(dataInit.getCountMapForPlayer(mergedData, start, end, player));
     setToggle(false);
-  }, [allData, player, numSims]);
+  }, [allData, simType, startSim, endSim, player, numSims]);
 
   useEffect(() => {
     setData(getData(freqMap, 6));
@@ -165,20 +215,56 @@ const HeatMap = ({
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <SimulationFileSelection setSimulationFile={setSimulationFile} />
-          <PlayerSelection
-            setPlayer={setPlayer}
-            players={players}
-            simulationFile={simulationFile}
-          />
-          <SimulationSelection
-            setNumSims={setNumSims}
-            numSimulations={numSimulations}
-            simulationFile={simulationFile}
-            value={numSims}
-          />
+          <GameSelection setGame={setGame} />
+          {showOptions && (
+            <>
+              <SimulationFileSelection
+                game={game}
+                setSimulationFile={setSimulationFile}
+                setActionFile={setActionFile}
+              />
+              <SimulationTypeSelection
+                setSimType={setSimType}
+                value={simType}
+                simulationFile={simulationFile}
+              />
+              <PlayerSelection
+                setPlayer={setPlayer}
+                players={players}
+                simulationFile={simulationFile}
+              />
+              {simType === "Subset" ? (
+                <>
+                  <FromSelection
+                    text="Sim From: "
+                    setStart={setStartSim}
+                    arr={numSimulations}
+                    simulationFile={simulationFile}
+                    startVal={startSim}
+                    endVal={endSim}
+                  />
+                  <ToSelection
+                    text="Sim To: "
+                    setEnd={setEndSim}
+                    arr={numSimulations}
+                    simulationFile={simulationFile}
+                    startVal={startSim}
+                    endVal={endSim}
+                  />
+                </>
+              ) : (
+                <SimulationSelection
+                  setNumSims={setNumSims}
+                  numSimulations={numSimulations}
+                  simulationFile={simulationFile}
+                  value={numSims}
+                />
+              )}
+            </>
+          )}
         </div>
       </div>
       {loading && <h2>Loading...</h2>}

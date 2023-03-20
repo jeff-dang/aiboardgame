@@ -13,7 +13,6 @@ from env.entities.energy import Energy
 
 MAX_STEP_SIZE = 2
 
-
 class Convey():
 
     @staticmethod
@@ -33,6 +32,70 @@ class Convey():
     @staticmethod
     def convey_1_legal(engine: Engine) -> bool:
         return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN
+    
+    @staticmethod
+    def convey1_top_constructive_bottom_constructive_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0
+
+    @staticmethod
+    def convey1_top_constructive_bottom_invertible_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0 or len(player.exhausted_energies[Energy.INVERTIBLE]) > 0)
+
+    @staticmethod
+    def convey1_top_constructive_bottom_generative_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0 or len(player.exhausted_energies[Energy.GENERATIVE]) > 0)
+
+    @staticmethod
+    def convey1_top_constructive_bottom_primal_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0 or len(player.exhausted_energies[Energy.PRIMAL]) > 0)
+
+    @staticmethod
+    def convey1_top_invertible_bottom_invertible_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.INVERTIBLE]) > 0)
+
+    @staticmethod
+    def convey1_top_invertible_bottom_constructive_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.INVERTIBLE]) > 0 or len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0)
+
+    @staticmethod
+    def convey1_top_invertible_bottom_generative_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.INVERTIBLE]) > 0 or len(player.exhausted_energies[Energy.GENERATIVE]) > 0)
+
+    @staticmethod
+    def convey1_top_invertible_bottom_primal_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.INVERTIBLE]) > 0 or len(player.exhausted_energies[Energy.PRIMAL]) > 0)
+    
+    @staticmethod
+    def convey1_top_generative_bottom_generative_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.GENERATIVE]) > 0)
+
+    @staticmethod
+    def convey1_top_generative_bottom_constructive_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.GENERATIVE]) > 0 or len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0)
+
+    @staticmethod
+    def convey1_top_generative_bottom_invertible_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.GENERATIVE]) > 0 or len(player.exhausted_energies[Energy.INVERTIBLE]) > 0)
+
+    @staticmethod
+    def convey1_top_generative_bottom_primal_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.GENERATIVE]) > 0 or len(player.exhausted_energies[Energy.PRIMAL]) > 0)
+
+    @staticmethod
+    def convey1_top_primal_bottom_primal_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.PRIMAL]) > 0)
+
+    @staticmethod
+    def convey1_top_primal_bottom_constructive_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.PRIMAL]) > 0 or len(player.exhausted_energies[Energy.CONSTRUCTIVE]) > 0)
+
+    @staticmethod
+    def convey1_top_primal_bottom_invertible_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.PRIMAL]) > 0 or len(player.exhausted_energies[Energy.INVERTIBLE]) > 0)
+
+    @staticmethod
+    def convey1_top_primal_bottom_generative_legal(player: Player, engine: Engine) -> bool:
+        return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN and (len(player.exhausted_energies[Energy.PRIMAL]) > 0 or len(player.exhausted_energies[Energy.GENERATIVE]) > 0)
 
     @staticmethod
     def convey_1_fill_1_legal(player: Player, engine: Engine) -> bool:

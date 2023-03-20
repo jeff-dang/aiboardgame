@@ -176,7 +176,6 @@ class Engine:
                     self.map.starting_positions[i],
                 )
             )
-
         Logger.log(
             "New monument index is:" + str(self.monument_index), "INITIALIZATION_LOGS"
         )
@@ -304,7 +303,7 @@ class Engine:
                         )  # only rewards once if player contributed multiple times
                         energy.owner.exhausted_energies[energy.energy_type].append(energy) 
                     self.give_energy_rewards(unique_players_contributed, filled_wall)
-                    self.turn.temp_rewards += 3000
+                    self.turn.temp_rewards += 0
 
                 # if the current top wall is completed, change the top wall to next wall
                 monument.change_top_wall(filled_wall.owner)
@@ -316,7 +315,6 @@ class Engine:
             self.check_over()
         else:
             self.monument_index = num_built
-
 
         Logger.log(
             "Current monument is: "
@@ -336,7 +334,6 @@ class Engine:
             if i.is_completed():
                 total_built += 1
         return total_built
-
 
     def get_current_agents_turn(self) -> str:
         return self.get_agents()[self.current_player]
@@ -362,7 +359,7 @@ class Engine:
         total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
         total_reward += VictoryPoints.calcPillarsOfCivilization(self, agent)
 
-        return total_reward
+        return total_reward *10
 
     def get_winner(self):
         max = 0

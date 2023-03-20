@@ -1,4 +1,4 @@
-import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
 import React from "react";
@@ -24,11 +24,15 @@ const SideMenu = () => {
           Simulation vs. Scores
         </MenuItem>
         {/* <MenuItem component={<Link to="/tree-graph" />}> Tree Graph</MenuItem>*/}
-        <MenuItem component={<Link to="/tree-chart" />}> Tree Chart</MenuItem>
-        <MenuItem component={<Link to="/simple-tree-chart" />}>
-          Alt Tree Chart
+        <MenuItem component={<Link to="/tree-chart" />}>
+          Tree - Individual Paths
         </MenuItem>
-        <MenuItem component={<Link to="/tree-graph" />}> Tree Graph</MenuItem>
+        {/* <MenuItem component={<Link to="/tree-chart" />}>
+          Alt Tree Chart
+        </MenuItem> */}
+        <MenuItem component={<Link to="/tree-graph" />}>
+          Tree - Common Paths
+        </MenuItem>
         <MenuItem component={<Link to="/comparison" />}>Comparison</MenuItem>
       </Menu>
     </Sidebar>
