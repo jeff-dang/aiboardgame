@@ -24,10 +24,12 @@ class States:
         location = States.get_map_state(player)
         monuments = States.get_monument_state(engine, player)
         bridge = States.get_bridge_state(engine, player)
+        energies = States.get_energies_state(engine, player)
         character_state.extend(transumter)
         character_state.extend(location)
         character_state.extend(monuments)
         character_state.extend(bridge)
+        character_state.extend(energies)
 
         return character_state
 
