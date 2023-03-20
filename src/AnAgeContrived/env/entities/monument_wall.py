@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from env.entities.player import Player
+    from env.entities.energy import EnergyTile
 
 from env.entities.energy import Energy
 from env.helpers.logger import Logger
@@ -21,7 +22,7 @@ class MonumentWall():
         self.sections: list[Energy] = acceptable_energy_types[:]
         self.remaining_sections: list[Energy] = acceptable_energy_types[:]
         self.num_sections: int = len(acceptable_energy_types)
-        self.filled_sections: list[Energy] = [0]*self.num_sections
+        self.filled_sections: list[EnergyTile] = [0]*self.num_sections
         self.empty_sections: int = self.num_sections
         # TODO: need to change it to one benefit token & one energy type
         self.monument_benefit_token: list = monument_benefit_token

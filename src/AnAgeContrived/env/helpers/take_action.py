@@ -24,6 +24,7 @@ def take_action(player: Player, engine: Engine, index: int):
     if num_energies > 0:
         energy = transmuter_tile.release_bottom_energy()
         player.exhausted_energies[energy.energy_type].append(energy)
+        
         action_token = player.transmuter.get_action_token(index)
         if action_token == 'ANY':
             new_index = _get_random_token()
@@ -34,6 +35,20 @@ def take_action(player: Player, engine: Engine, index: int):
                 return True
             else:
                 Logger.log('Move action could NOT be completed', 'ACTION_LOGS')
+                return False
+        elif action_token.type == ActionType.FILL_TRANSFORMATIVE:
+            if _take_transformative_action(player):
+                Logger.log('Transformative action completed successfuly', 'ACTION_LOGS')
+                return True
+            else:
+                Logger.log('Transformative action could NOT be completed', 'ACTION_LOGS')
+                return False
+        elif action_token.type == ActionType.FILL_SENTINENT:
+            if _take_sentient_action(player):
+                Logger.log('Sentient action completed successfuly', 'ACTION_LOGS')
+                return True
+            else:
+                Logger.log('Sentient action could NOT be completed', 'ACTION_LOGS')
                 return False
         elif action_token.type == ActionType.RELEASE_ENERGY:
             if _take_release_energy_action(player, action_token):
@@ -85,6 +100,12 @@ def _take_move_action(engine: Engine, action_token):
     # move_times = action_token.move_times
     engine.turn.turn_type = TurnType.MOVE_TURN
     return True
+
+def _take_transformative_action(player: Player):
+    player.transformative_track.is_token_enable = True
+
+def _take_sentient_action(player: Player):
+    player.sentient_track.is_token_enable = True
 
 
 def _take_release_energy_action(player: Player, action_token):

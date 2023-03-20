@@ -7,6 +7,7 @@ from .engine import Engine
 import history_writer
 from env.action_initiater import get_actions
 from env.helpers.logger import Logger
+from env.entities.energy import Energy
 
 
 def env(render_mode=None):
@@ -99,86 +100,116 @@ class raw_env(AECEnv):
         ):
             return self._was_dead_step(action)
 
-        # Check if action is a legal move
-        # Get index of current agent self.agents.index(self.agent_selection)
-        # Get name of current agent self.agent_selection
+        turn_entry = {}
 
-        # Play turn, pass in agent name, add some extra details
-        actions = get_actions(self.engine.current_player, self.engine)
+        if self.output_json:
+            # Check if action is a legal move
+            # Get index of current agent self.agents.index(self.agent_selection)
+            # Get name of current agent self.agent_selection
 
-        action_mask = self.engine.get_legal_actions(self.agent_selection)
+            # Play turn, pass in agent name, add some extra details
+            actions = get_actions(self.engine.current_player, self.engine)
 
-        action_details = []
-        a_list = self.engine.get_action_names()
-        j = 0
-        for i in a_list:
-            action_s = (
-                "is_legal: "
-                + str(action_mask[j])
-                + " "
-                + str(i["index"])
-                + " "
-                + i["action"]
-                + " "
-                + i["action_details"]
-            )
-            action_details.append(action_s)
-            j += 1
+            action_mask = self.engine.get_legal_actions(self.agent_selection)
 
-        legal_actions = self.engine.get_legal_action_names(self.agent_selection)
-        # print('DATA BEOFRE JSON starts')
-        # print("player", self.engine.current_player)
-        # print("turn_num", self.engine.turn_counter)
-        current_monument = self.engine.monuments[self.engine.monument_index]
-        # print('remaining sections:', current_monument.get_top_wall().remaining_sections, 'filled energies:', current_monument.get_top_wall().filled_sections, 'num of empty spaces:', current_monument.get_top_wall().empty_sections)
-        # print('current monument is:', current_monument.name, 'monument wall starting accepted:', current_monument.get_top_wall().sections)
-        # print('LEGAL ACTIONS ARE:', legal_actions)
-        # print('ACTION MASK is:', action_mask)
-        # print('DATA BEOFRE JSON ends')
-        cur_monument_sections = []
-        cur_monument_remaining_sections = []
-        cur_monument_filled_sections = []
-        for i in current_monument.walls:
-            cur_monument_sections.append(i.sections)
-            cur_monument_remaining_sections.append(i.remaining_sections)
-            cur_monument_filled_sections.append(i.filled_sections)
+            action_details = []
+            a_list = self.engine.get_action_names()
+            j = 0
+            for i in a_list:
+                action_s = (
+                    "is_legal: "
+                    + str(action_mask[j])
+                    + " "
+                    + str(i["index"])
+                    + " "
+                    + i["action"]
+                    + " "
+                    + i["action_details"]
+                )
+                action_details.append(action_s)
+                j += 1
 
-        turn_entry = {
-            "player": self.engine.current_player,
-            "turn_num": self.engine.turn_counter,
-            "turn_type": str(self.engine.turn.turn_type),
-            "action": actions[action.item(0)].action,
-            "action_details": actions[action.item(0)].action_details,
-            "current_score": self.rewards[self.agent_selection],
-            "legal_actions": legal_actions,
-            "player_transmuter_energies": str(
-                self.engine.players[
-                    self.engine.current_player
-                ].transmuter.print_energies()
-            ),
-            "player_exhausted_energies": str(
-                self.engine.players[self.engine.current_player].exhausted_energies
-            ),
-            "player_released_energies": str(
-                self.engine.players[self.engine.current_player].energies_released
-            ),
-            "monuments": str(self.engine.monuments),
-            "current_wall_name": current_monument.name,
-            "c_w_accepted_energies": str(
-                cur_monument_sections
-            ),  # str(current_monument.get_top_wall().sections),
-            "c_w_remaining_sections": str(
-                cur_monument_remaining_sections
-            ),  # str(current_monument.get_top_wall().remaining_sections),
-            "c_w_remaining_section_num": str(
-                current_monument.get_top_wall().empty_sections
-            ),
-            "c_w_filled_sections": str(
-                cur_monument_filled_sections
-            ),  # str(current_monument.get_top_wall().filled_sections),
-            # "all_actions": action_details
-            # "action_mask": action_mask
-        }
+            legal_actions = self.engine.get_legal_action_names(self.agent_selection)
+            current_monument = self.engine.monuments[self.engine.monument_index]
+            cur_monument_sections = []
+            cur_monument_remaining_sections = []
+            cur_monument_filled_sections = []
+            for i in current_monument.walls:
+                cur_monument_sections.append(i.sections)
+                cur_monument_remaining_sections.append(i.remaining_sections)
+                cur_monument_filled_sections.append(i.filled_sections)
+            energies_on_poc = []
+            te_in_poc = 0
+            for i in self.engine.pillars_of_civilization:
+                poc = str(i.name) + ": " + str(i.binded_energies)
+                energies_on_poc.append(poc)
+                te_in_poc += len(i.binded_energies) - i.binded_energies.count(None)
+            energies_on_monuments = []
+            te_in_monuments = 0
+            for i in self.engine.monuments:
+                binded = str(i.name) + ": " + str(i.binded_energies)
+                energies_on_monuments.append(binded)
+                te_in_monuments += len(i.binded_energies)
+            te_total = te_in_poc
+            te_total += te_in_monuments
+            te_exhaust = len(self.engine.players[self.engine.current_player].exhausted_energies[Energy.SINGLE])
+            te_released = len(self.engine.players[self.engine.current_player].energies_released[Energy.SINGLE])
+            te_remaining = len(self.engine.players[self.engine.current_player].remaining_energies[Energy.SINGLE])
+            te_transmuter = 0
+            for tile in self.engine.players[self.engine.current_player].transmuter.active_tiles:
+                te_transmuter += (tile.top_size - tile.top.count(0))
+                te_transmuter += (tile.bottom_size - tile.bottom.count(0))
+            te_total += te_exhaust
+            te_total += te_released
+            te_total += te_remaining
+            te_total += te_transmuter
+            total_energy_number = ["te_in_poc: " + str(te_in_poc), "te_in_monuments: " + str(te_in_monuments), "te_exhaust: " + str(te_exhaust), "te_released: " + str(te_released), "te_remaining: " + str(te_remaining), "te_transmuter: " + str(te_transmuter), "te_total: " + str(te_total)]
+
+            turn_entry = {
+                "player": self.engine.current_player,
+                "turn_num": self.engine.turn_counter,
+                "turn_type": str(self.engine.turn.turn_type),
+                "action": actions[action.item(0)].action,
+                "action_details": actions[action.item(0)].action_details,
+                "current_score": self.rewards[self.agent_selection],
+                "legal_actions": legal_actions,
+                "player_transmuter_energies": str(
+                    self.engine.players[
+                        self.engine.current_player
+                    ].transmuter.print_energies()
+                ),
+                "player_exhausted_energies": str(
+                    self.engine.players[self.engine.current_player].exhausted_energies
+                ),
+                "player_released_energies": str(
+                    self.engine.players[self.engine.current_player].energies_released
+                ),
+                "player_remaining_energies": str(
+                    self.engine.players[self.engine.current_player].remaining_energies
+                ),
+                "energies_on_poc": str(energies_on_poc),
+                "energies_on_monuments": str(energies_on_monuments),
+                "total_energy_number": str(total_energy_number),
+                "player_sentient_track": str(self.engine.players[self.engine.current_player].sentient_track.track),
+                "player_transformative_track": str(self.engine.players[self.engine.current_player].transformative_track.track),
+                # "monuments": str(self.engine.monuments),
+                "current_wall_name": current_monument.name,
+                # "c_w_accepted_energies": str(
+                #     cur_monument_sections
+                # ),  # str(current_monument.get_top_wall().sections),
+                "c_w_remaining_sections": str(
+                    cur_monument_remaining_sections
+                ),  # str(current_monument.get_top_wall().remaining_sections),
+                "c_w_remaining_section_num": str(
+                    current_monument.get_top_wall().empty_sections
+                ),
+                "c_w_filled_sections": str(
+                    cur_monument_filled_sections
+                ),  # str(current_monument.get_top_wall().filled_sections),
+                # "all_actions": action_details
+                # "action_mask": action_mask
+            }
+
         self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players, updates only not incremental

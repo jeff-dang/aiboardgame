@@ -12,13 +12,14 @@ class Energy(Enum):
     INVERTIBLE = 2
     GENERATIVE = 3
     PRIMAL = 4
+    SINGLE = 5
 
 class EnergyTile():
 
     def __init__(self, energy_type: Energy, player: Player):
         if energy_type not in Energy:
             Logger.log('Wrong energy_type. Please enter a correct energy type', 'ENERGY_LOGS')
-            self.energy_type: str = 'INVALID'
+            self.energy_type: str = 'N/A'
         else:
             self.energy_type: str = energy_type
         self.owner: Player = player #initiate the energy with the correct player

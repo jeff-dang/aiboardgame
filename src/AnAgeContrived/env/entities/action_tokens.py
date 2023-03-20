@@ -14,15 +14,13 @@ class MoveActionToken():
         self.move_times = times
 
 class FillTransformativeActionToken():
-    def __init__(self, times: int) -> None:
+    def __init__(self) -> None:
         self.type = ActionType.FILL_TRANSFORMATIVE
-        self.transformative_times = times
 
 class FillSentinentActionToken():
     
-    def __init__(self, times: int) -> None:
+    def __init__(self) -> None:
         self.type = ActionType.FILL_SENTINENT
-        self.sentinent_times = times
 
 #recharge let's you convey twice in the next turn
 class RechargeActionToken():

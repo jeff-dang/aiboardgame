@@ -1,3596 +1,1238 @@
 [
 	{
+		"0": {
+			"player": 0,
+			"turn_num": 0,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
+		},
 		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
+			"player": 0,
+			"turn_num": 0,
+			"action": "Move Player",
+			"action_details": "Position 14",
+			"current_score": -1
 		},
 		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "3",
-			"action_details": "3"
+			"player": 0,
+			"turn_num": 0,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -2
 		},
 		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
+			"player": 1,
+			"turn_num": 1,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
 		},
 		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
+			"player": 1,
+			"turn_num": 1,
+			"action": "Move Player",
+			"action_details": "Position 21",
+			"current_score": -1
 		},
 		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
+			"player": 1,
+			"turn_num": 1,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -2
 		},
 		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "5",
-			"action_details": "5"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
+			"player": 2,
+			"turn_num": 2,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
 		},
 		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "5",
-			"action_details": "5"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "2",
-			"action_details": "2"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "5",
-			"action_details": "5"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "5",
-			"action_details": "5"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "3",
-			"action_details": "3"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "3",
-			"action_details": "3"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "3",
-			"action_details": "3"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "5",
-			"action_details": "5"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "3",
-			"action_details": "3"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "5",
-			"action_details": "5"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "3",
-			"action_details": "3"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
+			"player": 2,
+			"turn_num": 2,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -1
 		},
 		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "5",
-			"action_details": "5"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "3",
-			"action_details": "3"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "8",
-			"action_details": "8"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "8",
-			"action_details": "8"
+			"player": 3,
+			"turn_num": 3,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
 		},
 		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "7",
-			"action_details": "7"
+			"player": 3,
+			"turn_num": 3,
+			"action": "Move Player",
+			"action_details": "Position 27",
+			"current_score": -1
+		},
+		"10": {
+			"player": 3,
+			"turn_num": 3,
+			"action": "Fill Monument",
+			"action_details": "Primal Energy",
+			"current_score": -2
+		},
+		"11": {
+			"player": 3,
+			"turn_num": 3,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -3
+		},
+		"12": {
+			"player": 3,
+			"turn_num": 3,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -4
+		},
+		"13": {
+			"player": 3,
+			"turn_num": 3,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"14": {
+			"player": 4,
+			"turn_num": 4,
+			"action": "Convey Turn",
+			"action_details": "Convey Turn",
+			"current_score": 0
+		},
+		"15": {
+			"player": 4,
+			"turn_num": 4,
+			"action": "Convey 1",
+			"action_details": "Second Card",
+			"current_score": -1
+		},
+		"16": {
+			"player": 4,
+			"turn_num": 4,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -2
+		},
+		"17": {
+			"player": 0,
+			"turn_num": 5,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -3
+		},
+		"18": {
+			"player": 0,
+			"turn_num": 5,
+			"action": "Fill Monument",
+			"action_details": "Generative Energy",
+			"current_score": -4
+		},
+		"19": {
+			"player": 0,
+			"turn_num": 5,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"20": {
+			"player": 1,
+			"turn_num": 6,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -3
+		},
+		"21": {
+			"player": 1,
+			"turn_num": 6,
+			"action": "Move Player",
+			"action_details": "Position 20",
+			"current_score": -4
+		},
+		"22": {
+			"player": 1,
+			"turn_num": 6,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"23": {
+			"player": 2,
+			"turn_num": 7,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -2
+		},
+		"24": {
+			"player": 2,
+			"turn_num": 7,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -3
+		},
+		"25": {
+			"player": 3,
+			"turn_num": 8,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -6
+		},
+		"26": {
+			"player": 3,
+			"turn_num": 8,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -7
+		},
+		"27": {
+			"player": 4,
+			"turn_num": 9,
+			"action": "Convey Turn",
+			"action_details": "Convey Turn",
+			"current_score": -3
+		},
+		"28": {
+			"player": 4,
+			"turn_num": 9,
+			"action": "Convey 1",
+			"action_details": "First Card",
+			"current_score": -4
+		},
+		"29": {
+			"player": 4,
+			"turn_num": 9,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"30": {
+			"player": 0,
+			"turn_num": 10,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -6
+		},
+		"31": {
+			"player": 0,
+			"turn_num": 10,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -7
+		},
+		"32": {
+			"player": 1,
+			"turn_num": 11,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -6
+		},
+		"33": {
+			"player": 1,
+			"turn_num": 11,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -7
+		},
+		"34": {
+			"player": 2,
+			"turn_num": 12,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -4
+		},
+		"35": {
+			"player": 2,
+			"turn_num": 12,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"36": {
+			"player": 3,
+			"turn_num": 13,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -8
+		},
+		"37": {
+			"player": 3,
+			"turn_num": 13,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -9
+		},
+		"38": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "Convey Turn",
+			"action_details": "Convey Turn",
+			"current_score": -6
+		},
+		"39": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "Convey 1",
+			"action_details": "First Card",
+			"current_score": -7
+		},
+		"40": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -8
+		},
+		"41": {
+			"player": 0,
+			"turn_num": 15,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -8
+		},
+		"42": {
+			"player": 0,
+			"turn_num": 15,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -9
+		},
+		"43": {
+			"player": 1,
+			"turn_num": 16,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -8
+		},
+		"44": {
+			"player": 1,
+			"turn_num": 16,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -9
+		},
+		"45": {
+			"player": 2,
+			"turn_num": 17,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -6
+		},
+		"46": {
+			"player": 2,
+			"turn_num": 17,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -7
+		},
+		"47": {
+			"player": 3,
+			"turn_num": 18,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -10
+		},
+		"48": {
+			"player": 3,
+			"turn_num": 18,
+			"action": "Fill Monument",
+			"action_details": "Primal Energy",
+			"current_score": -11
+		},
+		"49": {
+			"player": 3,
+			"turn_num": 18,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -12
+		},
+		"50": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "Convey Turn",
+			"action_details": "Convey Turn",
+			"current_score": -9
+		},
+		"51": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "Convey 1",
+			"action_details": "Second Card",
+			"current_score": -10
+		},
+		"52": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -11
+		},
+		"53": {
+			"player": 0,
+			"turn_num": 20,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -10
+		},
+		"54": {
+			"player": 0,
+			"turn_num": 20,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -11
+		},
+		"55": {
+			"player": 0,
+			"turn_num": 20,
+			"action": "Move Player",
+			"action_details": "Position 13",
+			"current_score": -12
+		},
+		"56": {
+			"player": 0,
+			"turn_num": 20,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -13
+		},
+		"57": {
+			"player": 1,
+			"turn_num": 21,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -10
+		},
+		"58": {
+			"player": 1,
+			"turn_num": 21,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -11
+		},
+		"59": {
+			"player": 2,
+			"turn_num": 22,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -8
+		},
+		"60": {
+			"player": 2,
+			"turn_num": 22,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -9
+		},
+		"61": {
+			"player": 3,
+			"turn_num": 23,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -13
+		},
+		"62": {
+			"player": 3,
+			"turn_num": 23,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -14
+		},
+		"63": {
+			"player": 4,
+			"turn_num": 24,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -12
+		},
+		"64": {
+			"player": 4,
+			"turn_num": 24,
+			"action": "Move Player",
+			"action_details": "Position 7",
+			"current_score": -13
+		},
+		"65": {
+			"player": 4,
+			"turn_num": 24,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -14
+		},
+		"66": {
+			"player": 0,
+			"turn_num": 25,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -14
+		},
+		"67": {
+			"player": 0,
+			"turn_num": 25,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -15
+		},
+		"68": {
+			"player": 1,
+			"turn_num": 26,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -12
+		},
+		"69": {
+			"player": 1,
+			"turn_num": 26,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -13
+		},
+		"70": {
+			"player": 2,
+			"turn_num": 27,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -10
+		},
+		"71": {
+			"player": 2,
+			"turn_num": 27,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -11
+		},
+		"72": {
+			"player": 3,
+			"turn_num": 28,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -15
+		},
+		"73": {
+			"player": 3,
+			"turn_num": 28,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -16
+		},
+		"74": {
+			"player": 4,
+			"turn_num": 29,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -15
+		},
+		"75": {
+			"player": 4,
+			"turn_num": 29,
+			"action": "Fill Monument",
+			"action_details": "Primal Energy",
+			"current_score": -16
+		},
+		"76": {
+			"player": 4,
+			"turn_num": 29,
+			"action": "Fill Monument",
+			"action_details": "Constructive Energy",
+			"current_score": -17
+		},
+		"77": {
+			"player": 4,
+			"turn_num": 29,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -18
+		},
+		"78": {
+			"player": 0,
+			"turn_num": 30,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -16
+		},
+		"79": {
+			"player": 0,
+			"turn_num": 30,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -17
+		},
+		"80": {
+			"player": 0,
+			"turn_num": 30,
+			"action": "Fill Monument",
+			"action_details": "Generative Energy",
+			"current_score": -18
+		},
+		"81": {
+			"player": 0,
+			"turn_num": 30,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -19
+		},
+		"82": {
+			"player": 1,
+			"turn_num": 31,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -14
+		},
+		"83": {
+			"player": 1,
+			"turn_num": 31,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -15
+		},
+		"84": {
+			"player": 2,
+			"turn_num": 32,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -12
+		},
+		"85": {
+			"player": 2,
+			"turn_num": 32,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -13
+		},
+		"86": {
+			"player": 3,
+			"turn_num": 33,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -17
+		},
+		"87": {
+			"player": 3,
+			"turn_num": 33,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -18
+		},
+		"88": {
+			"player": 4,
+			"turn_num": 34,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -19
+		},
+		"89": {
+			"player": 4,
+			"turn_num": 34,
+			"action": "Fill Monument",
+			"action_details": "Constructive Energy",
+			"current_score": -20
+		},
+		"90": {
+			"player": 4,
+			"turn_num": 34,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -21
+		},
+		"91": {
+			"player": 4,
+			"turn_num": 34,
+			"action": "Move Player",
+			"action_details": "Position 6",
+			"current_score": -22
+		},
+		"92": {
+			"player": 4,
+			"turn_num": 34,
+			"action": "Fill Monument",
+			"action_details": "Primal Energy",
+			"current_score": -23
+		},
+		"93": {
+			"player": 4,
+			"turn_num": 34,
+			"action": "Fill Monument",
+			"action_details": "Generative Energy",
+			"current_score": -24
+		},
+		"94": {
+			"player": 4,
+			"turn_num": 35,
+			"action": "Action Tokens",
+			"action_details": "First Transmuter's Action Token",
+			"current_score": -24
 		},
 		"meta_data": {
-			"player_1": -1,
-			"player_2": 1
+			"player_0": 180,
+			"player_1": 184,
+			"player_2": -14,
+			"player_3": 81,
+			"player_4": 175
 		}
 	},
 	{
+		"0": {
+			"player": 0,
+			"turn_num": 0,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
+		},
 		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
+			"player": 0,
+			"turn_num": 0,
+			"action": "Fill Monument",
+			"action_details": "Generative Energy",
+			"current_score": -1
 		},
 		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
+			"player": 0,
+			"turn_num": 0,
+			"action": "Move Player",
+			"action_details": "Position 21",
+			"current_score": -2
 		},
 		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
+			"player": 0,
+			"turn_num": 0,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -3
 		},
 		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
+			"player": 1,
+			"turn_num": 1,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
 		},
 		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
+			"player": 1,
+			"turn_num": 1,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -1
 		},
 		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
+			"player": 2,
+			"turn_num": 2,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
 		},
 		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
+			"player": 2,
+			"turn_num": 2,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -1
 		},
 		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "3",
-			"action_details": "3"
+			"player": 3,
+			"turn_num": 3,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
 		},
 		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "6",
-			"action_details": "6"
+			"player": 3,
+			"turn_num": 3,
+			"action": "Move Player",
+			"action_details": "Position 14",
+			"current_score": -1
+		},
+		"10": {
+			"player": 3,
+			"turn_num": 3,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -2
+		},
+		"11": {
+			"player": 4,
+			"turn_num": 4,
+			"action": "Convey Turn",
+			"action_details": "Convey Turn",
+			"current_score": 0
+		},
+		"12": {
+			"player": 4,
+			"turn_num": 4,
+			"action": "Convey 1",
+			"action_details": "Second Card",
+			"current_score": -1
+		},
+		"13": {
+			"player": 4,
+			"turn_num": 4,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -2
+		},
+		"14": {
+			"player": 0,
+			"turn_num": 5,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -4
+		},
+		"15": {
+			"player": 0,
+			"turn_num": 5,
+			"action": "Move Player",
+			"action_details": "Position 20",
+			"current_score": -5
+		},
+		"16": {
+			"player": 0,
+			"turn_num": 5,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -6
+		},
+		"17": {
+			"player": 1,
+			"turn_num": 6,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -2
+		},
+		"18": {
+			"player": 1,
+			"turn_num": 6,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -3
+		},
+		"19": {
+			"player": 2,
+			"turn_num": 7,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -2
+		},
+		"20": {
+			"player": 2,
+			"turn_num": 7,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -3
+		},
+		"21": {
+			"player": 3,
+			"turn_num": 8,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -3
+		},
+		"22": {
+			"player": 3,
+			"turn_num": 8,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -4
+		},
+		"23": {
+			"player": 4,
+			"turn_num": 9,
+			"action": "Convey Turn",
+			"action_details": "Convey Turn",
+			"current_score": -3
+		},
+		"24": {
+			"player": 4,
+			"turn_num": 9,
+			"action": "Convey 1",
+			"action_details": "First Card",
+			"current_score": -4
+		},
+		"25": {
+			"player": 4,
+			"turn_num": 9,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"26": {
+			"player": 0,
+			"turn_num": 10,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -7
+		},
+		"27": {
+			"player": 0,
+			"turn_num": 10,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -8
+		},
+		"28": {
+			"player": 1,
+			"turn_num": 11,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -4
+		},
+		"29": {
+			"player": 1,
+			"turn_num": 11,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"30": {
+			"player": 2,
+			"turn_num": 12,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -4
+		},
+		"31": {
+			"player": 2,
+			"turn_num": 12,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -5
+		},
+		"32": {
+			"player": 3,
+			"turn_num": 13,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -5
+		},
+		"33": {
+			"player": 3,
+			"turn_num": 13,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -6
+		},
+		"34": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -6
+		},
+		"35": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "Fill Monument",
+			"action_details": "Constructive Energy",
+			"current_score": -7
+		},
+		"36": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "Fill Monument",
+			"action_details": "Primal Energy",
+			"current_score": -8
+		},
+		"37": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -9
+		},
+		"38": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "Move Player",
+			"action_details": "Position 27",
+			"current_score": -10
+		},
+		"39": {
+			"player": 4,
+			"turn_num": 14,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -11
+		},
+		"40": {
+			"player": 0,
+			"turn_num": 15,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -9
+		},
+		"41": {
+			"player": 0,
+			"turn_num": 15,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -10
+		},
+		"42": {
+			"player": 0,
+			"turn_num": 15,
+			"action": "Fill Monument",
+			"action_details": "Generative Energy",
+			"current_score": -11
+		},
+		"43": {
+			"player": 0,
+			"turn_num": 15,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -12
+		},
+		"44": {
+			"player": 1,
+			"turn_num": 16,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -6
+		},
+		"45": {
+			"player": 1,
+			"turn_num": 16,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -7
+		},
+		"46": {
+			"player": 2,
+			"turn_num": 17,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -6
+		},
+		"47": {
+			"player": 2,
+			"turn_num": 17,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -7
+		},
+		"48": {
+			"player": 3,
+			"turn_num": 18,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -7
+		},
+		"49": {
+			"player": 3,
+			"turn_num": 18,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -8
+		},
+		"50": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -12
+		},
+		"51": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "Fill Monument",
+			"action_details": "Constructive Energy",
+			"current_score": -13
+		},
+		"52": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "Move Player",
+			"action_details": "Position 29",
+			"current_score": -14
+		},
+		"53": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "Fill Monument",
+			"action_details": "Primal Energy",
+			"current_score": -15
+		},
+		"54": {
+			"player": 4,
+			"turn_num": 19,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -16
+		},
+		"55": {
+			"player": 0,
+			"turn_num": 20,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -13
+		},
+		"56": {
+			"player": 0,
+			"turn_num": 20,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -14
+		},
+		"57": {
+			"player": 0,
+			"turn_num": 20,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -15
+		},
+		"58": {
+			"player": 1,
+			"turn_num": 21,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -8
+		},
+		"59": {
+			"player": 1,
+			"turn_num": 21,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -9
+		},
+		"60": {
+			"player": 1,
+			"turn_num": 21,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -10
+		},
+		"61": {
+			"player": 2,
+			"turn_num": 22,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -8
+		},
+		"62": {
+			"player": 2,
+			"turn_num": 22,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -9
+		},
+		"63": {
+			"player": 3,
+			"turn_num": 23,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": -9
+		},
+		"64": {
+			"player": 3,
+			"turn_num": 23,
+			"action": "Fill Monument",
+			"action_details": "Generative Energy",
+			"current_score": -11
+		},
+		"65": {
+			"player": 3,
+			"turn_num": 23,
+			"action": "Fill Monument",
+			"action_details": "Invertible Energy",
+			"current_score": -12
 		},
 		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
+			"player_0": 184,
+			"player_1": -11,
+			"player_2": -10,
+			"player_3": 87,
+			"player_4": 83
 		}
 	},
 	{
+		"0": {
+			"player": 0,
+			"turn_num": 0,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
+		},
+
 		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
+			"player": 0,
+			"turn_num": 0,
+			"action": "Move Player",
+			"action_details": "Position 23",
+			"current_score": -1
 		},
 		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "3",
-			"action_details": "3"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "6",
-			"action_details": "6"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "8",
-			"action_details": "8"
+			"player": 1,
+			"turn_num": 1,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
 		},
 		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "3",
-			"action_details": "3"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "8",
-			"action_details": "8"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "3",
-			"action_details": "3"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
+			"player_0": -2,
 			"player_1": -1,
-			"player_2": 1
+			"player_2": 0,
+			"player_3": 0,
+			"player_4": 0
 		}
 	},
 	{
+		"0": {
+			"player": 0,
+			"turn_num": 0,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
+		},
 		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
+			"player": 0,
+			"turn_num": 0,
+			"action": "Move Player",
+			"action_details": "Position 14",
+			"current_score": -1
 		},
 		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "6",
-			"action_details": "6"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "8",
-			"action_details": "8"
+			"player": 0,
+			"turn_num": 0,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -2
 		},
 		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
+			"player_0": 97,
+			"player_1": 0,
+			"player_2": 0,
+			"player_3": 0,
+			"player_4": 0
 		}
 	},
 	{
+		"0": {
+			"player": 0,
+			"turn_num": 0,
+			"action": "Action Turn",
+			"action_details": "Action Turn",
+			"current_score": 0
+		},
 		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
+			"player": 4,
+			"turn_num": 0,
+			"action": "Move Player",
+			"action_details": "Position 14",
+			"current_score": -1
 		},
 		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "2",
-			"action_details": "2"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "5",
-			"action_details": "5"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "3",
-			"action_details": "3"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "8",
-			"action_details": "8"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "1",
-			"action_details": "1"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "6",
-			"action_details": "6"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "7",
-			"action_details": "7"
+			"player": 0,
+			"turn_num": 0,
+			"action": "End Turn",
+			"action_details": "End Turn",
+			"current_score": -2
 		},
 		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "2",
-			"action_details": "2"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "5",
-			"action_details": "5"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "3",
-			"action_details": "3"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "0",
-			"action_details": "0"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "3",
-			"action_details": "3"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "5",
-			"action_details": "5"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "5",
-			"action_details": "5"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "5",
-			"action_details": "5"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "5",
-			"action_details": "5"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "2",
-			"action_details": "2"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "5",
-			"action_details": "5"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "4",
-			"action_details": "4"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "6",
-			"action_details": "6"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "8",
-			"action_details": "8"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "5",
-			"action_details": "5"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "8",
-			"action_details": "8"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "7",
-			"action_details": "7"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "8",
-			"action_details": "8"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "7",
-			"action_details": "7"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "6",
-			"action_details": "6"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "4",
-			"action_details": "4"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "5",
-			"action_details": "5"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "1",
-			"action_details": "1"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "2",
-			"action_details": "2"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "5",
-			"action_details": "5"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "8",
-			"action_details": "8"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "8",
-			"action_details": "8"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 2
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "4",
-			"action_details": "4"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "1",
-			"action_details": "1"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "8",
-			"action_details": "8"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "6",
-			"action_details": "6"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "8",
-			"action_details": "8"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "1",
-			"action_details": "1"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "3",
-			"action_details": "3"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "6",
-			"action_details": "6"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "7",
-			"action_details": "7"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "5",
-			"action_details": "5"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "4",
-			"action_details": "4"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "8",
-			"action_details": "8"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "6",
-			"action_details": "6"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "4",
-			"action_details": "4"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "8",
-			"action_details": "8"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "3",
-			"action_details": "3"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "1",
-			"action_details": "1"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "7",
-			"action_details": "7"
-		},
-		"meta_data": {
-			"player_1": -1,
-			"player_2": 1
-		}
-	},
-	{
-		"1": {
-			"player": "0",
-			"turn_num": "0",
-			"action": "0",
-			"action_details": "0"
-		},
-		"2": {
-			"player": "1",
-			"turn_num": "1",
-			"action": "1",
-			"action_details": "1"
-		},
-		"3": {
-			"player": "0",
-			"turn_num": "2",
-			"action": "2",
-			"action_details": "2"
-		},
-		"4": {
-			"player": "1",
-			"turn_num": "3",
-			"action": "7",
-			"action_details": "7"
-		},
-		"5": {
-			"player": "0",
-			"turn_num": "4",
-			"action": "5",
-			"action_details": "5"
-		},
-		"6": {
-			"player": "1",
-			"turn_num": "5",
-			"action": "3",
-			"action_details": "3"
-		},
-		"7": {
-			"player": "0",
-			"turn_num": "6",
-			"action": "4",
-			"action_details": "4"
-		},
-		"8": {
-			"player": "1",
-			"turn_num": "7",
-			"action": "8",
-			"action_details": "8"
-		},
-		"9": {
-			"player": "0",
-			"turn_num": "8",
-			"action": "6",
-			"action_details": "6"
-		},
-		"meta_data": {
-			"player_1": 2,
-			"player_2": -1
+			"player_0": 97,
+			"player_1": 0,
+			"player_2": 0,
+			"player_3": 0,
+			"player_4": 0
 		}
 	}
 ]

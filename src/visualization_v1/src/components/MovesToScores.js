@@ -11,6 +11,8 @@ import { Scatter } from "react-chartjs-2";
 import Data from "../data/getData";
 import SimulationFileSelection from "./Selections/SimulationFileSelection";
 import PlayerSelection from "./Selections/PlayerSelection";
+import axios from "axios";
+import GameSelection from "./Selections/GameSelection";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -63,7 +65,10 @@ const options = {
 
 export default function MovesToScores({ width, height }) {
   const [loading, setLoading] = useState(null);
+  const [game, setGame] = useState("none");
   const [simulationFile, setSimulationFile] = useState("none");
+  const [actionFile, setActionFile] = useState("none");
+  const [showOptions, setShowOptions] = useState(null);
   const [allData, setAllData] = useState(dataInit.getAllDataExEnd());
   const [players, setPlayers] = useState(dataInit.getNumberOfPlayers(allData));
 
@@ -79,23 +84,42 @@ export default function MovesToScores({ width, height }) {
   });
 
   useEffect(() => {
-    fetch(simulationFile)
-      .then((response) => {
+    if (game !== "none") {
+      setShowOptions(false);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, [10]);
+      setSimulationFile("none");
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (simulationFile === "none") return;
+    const setFile = async () => {
+      try {
         loading !== null && setLoading(true);
-        return response.json();
-      })
-      .then((data) => {
-        dataInit.setAllData(data);
+        const simResponse = await axios.get(simulationFile);
+        const simdata = simResponse.data;
+        const actionsResponse = await axios.get(actionFile);
+        const actions = actionsResponse.data;
+        dataInit.setAllData(simdata);
+        dataInit.setAllActions(actions);
         setAllData(dataInit.getAllDataExEnd());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    setFile();
   }, [simulationFile]);
 
   useEffect(() => {
     setPlayers(dataInit.getNumberOfPlayers(allData));
   }, [allData]);
+
+  useEffect(() => {
+    setPlayer(players[0]);
+  }, [players]);
 
   useEffect(() => {
     setData({
@@ -127,14 +151,24 @@ export default function MovesToScores({ width, height }) {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <SimulationFileSelection setSimulationFile={setSimulationFile} />
-        <PlayerSelection
-          setPlayer={setPlayer}
-          players={players}
-          simulationFile={simulationFile}
-        />
+        <GameSelection setGame={setGame} />
+        {showOptions && (
+          <>
+            <SimulationFileSelection
+              game={game}
+              setSimulationFile={setSimulationFile}
+              setActionFile={setActionFile}
+            />
+            <PlayerSelection
+              setPlayer={setPlayer}
+              players={players}
+              simulationFile={simulationFile}
+            />
+          </>
+        )}
       </div>
       {loading && <h2>Loading...</h2>}
       {simulationFile !== "none" && !loading && (
