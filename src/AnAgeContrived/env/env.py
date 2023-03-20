@@ -31,7 +31,7 @@ class raw_env(AECEnv):
 
     def __init__(self, render_mode=None):
         super().__init__()
-        self.output_json = True
+        self.output_json = False
         self.engine = Engine()
         self.agents = self.engine.get_agents()
         self.possible_agents = self.agents[:]
