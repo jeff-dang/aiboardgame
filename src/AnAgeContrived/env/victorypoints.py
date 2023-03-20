@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from env.engine import Engine
     from env.entities.player import Player
-
     # from env.entities.energy import EnergyTile
     pass
 
@@ -43,21 +42,25 @@ class VictoryPoints:
     # Jeffrey working on this
     def calcMonumentEnergy(engine: Engine, player: Player):
         monumentList = engine.monuments
-        vp_points = 0
         vp_allocation = {
             0: 0,
             1: 3,
             2: 7,
-            3: 12,
-            4: 12
+            3: 12
         }
+        total_energies_binded = 0
         for monument in monumentList:
-            # num_energy = 0
-            # for tile in monument.get_top_wall().filled_sections:
-            #     if (tile.owner == player):
-            #         num_energy += 1
-            # vp_points += vp_allocation.get(num_energy)
-            for wall in monument.walls:
-                if (wall.owner == player):
-                    vp_points += 20
-        return vp_points
+            for energy in monument.binded_energies:
+                if (energy.owner == player):
+                    total_energies_binded += 1
+        if total_energies_binded > 3:
+            total_energies_binded = 3
+        return vp_allocation.get(total_energies_binded)
+
+    def calcPillarsOfCivilization(engine: Engine, player: Player):
+        filled_pillars = 0
+        vp_allocation = {0: 0, 1: 3, 2: 8, 3: 14, 4: 21, 5: 29, 6: 38}
+        for pillar in engine.pillars_of_civilization:
+            if pillar.is_player_present(player):
+                filled_pillars += 1
+        return vp_allocation.get(filled_pillars)

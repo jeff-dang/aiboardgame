@@ -1,10 +1,6 @@
 from __future__ import annotations
-from .victorypoints import VictoryPoints
-from env.helpers.turn import Turn
-
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
-
 if TYPE_CHECKING:
     # from env.entities.player import Player
     # from env.entities.energy import EnergyTile
@@ -17,11 +13,12 @@ from env.entities.monument import Monument
 from env.entities.monument_wall import MonumentWall
 from env.action_initiater import get_actions
 from env.states import States
-from env.scoring import Scoring
 import env.helpers.constants as constants
 from env.entities.energy import EnergyTile, Energy
-from env.entities.map_data import Map_Areas
+from env.entities.map_data import MapAreas
 from env.helpers.logger import Logger
+from env.victorypoints import VictoryPoints
+from env.helpers.turn import Turn
 
 
 class Engine:
@@ -36,10 +33,11 @@ class Engine:
         self.turn: TurnState = TurnState()
         self.monument_index: int = 0
         self.is_initialized: bool = False
+        self.pillars_of_civilization = constants.PILLARS_OF_CIVILIZATION
 
         monument_a = Monument(
             "THE ANFIRIEN BEACON",
-            Map_Areas.PLAINS,
+            MapAreas.PLAINS,
             [
                 MonumentWall(
                     [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
@@ -59,7 +57,7 @@ class Engine:
 
         monument_b = Monument(
             "THE LIBRARY OF VALDUIN",
-            Map_Areas.PLAINS,
+            MapAreas.PLAINS,
             [
                 MonumentWall(
                     [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
@@ -79,7 +77,7 @@ class Engine:
 
         monument_c = Monument(
             "THE ERIDONIC GATE",
-            Map_Areas.PLAINS,
+            MapAreas.PLAINS,
             [
                 MonumentWall(
                     [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
@@ -99,7 +97,7 @@ class Engine:
 
         monument_d = Monument(
             "THE NAMARILLION FORGE",
-            Map_Areas.PLAINS,
+            MapAreas.PLAINS,
             [
                 MonumentWall(
                     [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
@@ -119,7 +117,7 @@ class Engine:
 
         monument_e = Monument(
             "THE FORTRESS OF KOLYM THRIN",
-            Map_Areas.PLAINS,
+            MapAreas.PLAINS,
             [
                 MonumentWall(
                     [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
@@ -143,7 +141,7 @@ class Engine:
 
         monument_f = Monument(
             "THE SHIP OF TOLINTHRA",
-            Map_Areas.PLAINS,
+            MapAreas.PLAINS,
             [
                 MonumentWall(
                     [Energy.SINGLE, Energy.SINGLE, Energy.SINGLE],
@@ -303,13 +301,12 @@ class Engine:
                         unique_players_contributed = set(
                             players_contributed
                         )  # only rewards once if player contributed multiple times
-                        if energy.owner != filled_wall.owner:
-                            energy.owner.exhausted_energies[energy.energy_type].append(energy) #give back the energies of the player's who contributed
+                        energy.owner.exhausted_energies[energy.energy_type].append(energy) 
                     self.give_energy_rewards(unique_players_contributed, filled_wall)
                     self.turn.temp_rewards += 0
 
                 # if the current top wall is completed, change the top wall to next wall
-                monument.change_top_wall()
+                monument.change_top_wall(filled_wall.owner)
                 # TODO: start mini turn here, use filled_wall to get the energy and the owner's of the energy to know which players will be part of the mini turn
 
         num_built = self.check_num_of_build_walls()
@@ -360,6 +357,7 @@ class Engine:
         total_reward += VictoryPoints.calcFullyGainedEnergy(self, agent)
         total_reward += VictoryPoints.calcBridgesBuilt(self, agent) 
         total_reward += VictoryPoints.calcMonumentEnergy(self, agent)
+        total_reward += VictoryPoints.calcPillarsOfCivilization(self, agent)
 
         return total_reward *10
 
@@ -372,15 +370,15 @@ class Engine:
         return winner
 
     def render(self, agent_name):
-        agent = self.get_agent(agent_name)
-        Logger.log(str(agent.character), "GAME_ENGINE_LOGS")
-        agent.get_transmuter().print_transmuter()
-        Logger.log(
-            str(agent.location) + " " + str(agent.initial_location), "GAME_ENGINE_LOGS"
-        )
-        self.turn.print_turn_state()
+        # agent = self.get_agent(agent_name)
+        # Logger.log(str(agent.character), "GAME_ENGINE_LOGS")
+        # agent.get_transmuter().print_transmuter()
+        # Logger.log(
+        #     str(agent.location) + " " + str(agent.initial_location), "GAME_ENGINE_LOGS"
+        # )
+        # self.turn.print_turn_state()
+        pass
 
-    # TODO: fix it in a way that players can select from one of the rewards instead of giving both energies automatically
     def give_energy_rewards(self, players_contributed: list[Player], monument_wall):
         monument_wall.is_reward_given = True
         for i in monument_wall.rewarded_energy:
