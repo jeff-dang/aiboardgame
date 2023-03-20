@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 
 # TODO Make it automatiacally change to max array length
 MAX_SIZE_EMBEDDED_ARRAY = 40  # Size of the biggest entity state
+from env.entities.energy import Energy
 
 
 class States:
@@ -260,4 +261,25 @@ class States:
         state = []
         state.extend(embedded_bridge_array)
         state.extend(embedded_bridge_all_rewards)
+        return state
+
+    def get_energies_state(engine, player):
+        embedded_exhausted_energies = [0]*MAX_SIZE_EMBEDDED_ARRAY
+        embedded_energies_released = [0]*MAX_SIZE_EMBEDDED_ARRAY
+        embedded_remaining_energies = [0]*MAX_SIZE_EMBEDDED_ARRAY
+
+        
+        num_exausted_energies = len(player.exhausted_energies[Energy.SINGLE])
+        num_energies_released = len(player.energies_released[Energy.SINGLE])
+        num_remaining_energies = len(player.remaining_energies[Energy.SINGLE])
+
+        embedded_exhausted_energies[num_exausted_energies] = 1
+        embedded_energies_released[num_energies_released] = 1
+        embedded_remaining_energies[num_remaining_energies] = 1
+
+        state = []
+        state.append(embedded_exhausted_energies)
+        state.append(embedded_energies_released)
+        state.append(embedded_remaining_energies)
+
         return state
