@@ -1,18 +1,19 @@
 class Logger:
-    ALL_LOGS = True
+    ALL_LOGS = False
 
     GAME_ENGINE_LOGS = True
-    MONUMENT_LOGS = False
-    ENERGY_LOGS = False
-    ACTION_LOGS = False
-    HELPER_LOGS = False
-    OBSERVATION_SPACE_LOGS = False
-    OTHER_LOGS = False
-    CONDITION_CHECK_LOGS = False
-    FLOW_LOGS = False
-    INITIALIZATION_LOGS = False
-    TURN_LOGS = False
-    TRANSMUTER_LOGS = False
+    MONUMENT_LOGS = True
+    ENERGY_LOGS = True
+    ACTION_LOGS = True
+    HELPER_LOGS = True
+    OBSERVATION_SPACE_LOGS = True
+    OTHER_LOGS = True
+    CONDITION_CHECK_LOGS = True
+    FLOW_LOGS = True
+    INITIALIZATION_LOGS = True
+    TURN_LOGS = True
+    TRANSMUTER_LOGS = True
+    PILLARS_OF_CIVILIZATION_LOGS = True
 
     @staticmethod
     def log(message: str, type: str):
@@ -46,3 +47,5 @@ class Logger:
                 print("TURN_LOGS", message)
             elif type == "TRANSMUTER_LOGS" and Logger.TRANSMUTER_LOGS == True:
                 print("TRANSMUTER_LOGS", message)
+            elif type == "PILLARS_OF_CIVILIZATION_LOGS" and Logger.PILLARS_OF_CIVILIZATION_LOGS == True:
+                print("PILLARS_OF_CIVILIZATION_LOGS", message)

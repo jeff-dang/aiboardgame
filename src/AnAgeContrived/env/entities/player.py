@@ -1,6 +1,8 @@
 from env.entities.transmuter import Transmuter
 from env.entities.energy import EnergyTile, Energy
 from env.helpers.constants import STARTING_PLAYER_BRIDGES
+from env.entities.sentient_track import SentientTrack
+from env.entities.transformative_track import TransformativeTrack
 
 
 class Player:
@@ -46,6 +48,8 @@ class Player:
         self.initial_location = starting_location
         self.previous_location = 0
         self.channel_marker: bool = False  # if it is true, player can convey twice
+        self.transformative_track = TransformativeTrack(self)
+        self.sentient_track = SentientTrack(self)
 
     def set_transmuter(self, transmuter: Transmuter):
         self.transmuter = transmuter
@@ -63,9 +67,6 @@ class Player:
         self.is_initialized = True
 
     def check_is_initialized(self) -> bool:
-        tile1 = self.transmuter.active_tiles[0]
-        tile2 = self.transmuter.active_tiles[1]
-        tile3 = self.transmuter.active_tiles[2]
         total_filled_size = 0
         for i in range(0, 3):
             tile = self.transmuter.active_tiles[i]
