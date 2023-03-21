@@ -66,9 +66,10 @@ class raw_env(AECEnv):
         self.render_mode = render_mode
 
         self.simulation_history = {}
-        self.json_name = history_writer.jsonNamer("ai_history")
-        folder_path = history_writer.jsonDirectory("ai_history")
-        history_writer.jsonWriter(folder_path, self.json_name)
+        if self.output_json:
+            self.json_name = history_writer.jsonNamer("ai_history")
+            folder_path = history_writer.jsonDirectory("ai_history")
+            history_writer.jsonWriter(folder_path, self.json_name)
 
     def observe(self, agent):
         # Get Action Space Vector and check legal moves
@@ -172,42 +173,42 @@ class raw_env(AECEnv):
                 "action": actions[action.item(0)].action,
                 "action_details": actions[action.item(0)].action_details,
                 "current_score": self.rewards[self.agent_selection],
-                "legal_actions": legal_actions,
-                "player_transmuter_energies": str(
-                    self.engine.players[
-                        self.engine.current_player
-                    ].transmuter.print_energies()
-                ),
-                "player_exhausted_energies": str(
-                    self.engine.players[self.engine.current_player].exhausted_energies
-                ),
-                "player_released_energies": str(
-                    self.engine.players[self.engine.current_player].energies_released
-                ),
-                "player_remaining_energies": str(
-                    self.engine.players[self.engine.current_player].remaining_energies
-                ),
-                "energies_on_poc": str(energies_on_poc),
-                "energies_on_monuments": str(energies_on_monuments),
-                "total_energy_number": str(total_energy_number),
-                "player_sentient_track": str(self.engine.players[self.engine.current_player].sentient_track.track),
-                "player_transformative_track": str(self.engine.players[self.engine.current_player].transformative_track.track),
-                # "monuments": str(self.engine.monuments),
-                "current_wall_name": current_monument.name,
-                # "c_w_accepted_energies": str(
-                #     cur_monument_sections
-                # ),  # str(current_monument.get_top_wall().sections),
-                "c_w_remaining_sections": str(
-                    cur_monument_remaining_sections
-                ),  # str(current_monument.get_top_wall().remaining_sections),
-                "c_w_remaining_section_num": str(
-                    current_monument.get_top_wall().empty_sections
-                ),
-                "c_w_filled_sections": str(
-                    cur_monument_filled_sections
-                ),  # str(current_monument.get_top_wall().filled_sections),
-                # "all_actions": action_details
-                # "action_mask": action_mask
+                # "legal_actions": legal_actions,
+                # "player_transmuter_energies": str(
+                #     self.engine.players[
+                #         self.engine.current_player
+                #     ].transmuter.print_energies()
+                # ),
+                # "player_exhausted_energies": str(
+                #     self.engine.players[self.engine.current_player].exhausted_energies
+                # ),
+                # "player_released_energies": str(
+                #     self.engine.players[self.engine.current_player].energies_released
+                # ),
+                # "player_remaining_energies": str(
+                #     self.engine.players[self.engine.current_player].remaining_energies
+                # ),
+                # "energies_on_poc": str(energies_on_poc),
+                # "energies_on_monuments": str(energies_on_monuments),
+                # "total_energy_number": str(total_energy_number),
+                # "player_sentient_track": str(self.engine.players[self.engine.current_player].sentient_track.track),
+                # "player_transformative_track": str(self.engine.players[self.engine.current_player].transformative_track.track),
+                # # "monuments": str(self.engine.monuments),
+                # "current_wall_name": current_monument.name,
+                # # "c_w_accepted_energies": str(
+                # #     cur_monument_sections
+                # # ),  # str(current_monument.get_top_wall().sections),
+                # "c_w_remaining_sections": str(
+                #     cur_monument_remaining_sections
+                # ),  # str(current_monument.get_top_wall().remaining_sections),
+                # "c_w_remaining_section_num": str(
+                #     current_monument.get_top_wall().empty_sections
+                # ),
+                # "c_w_filled_sections": str(
+                #     cur_monument_filled_sections
+                # ),  # str(current_monument.get_top_wall().filled_sections),
+                # # "all_actions": action_details
+                # # "action_mask": action_mask
             }
 
         self.engine.play_turn(self.agent_selection, action)
@@ -232,7 +233,8 @@ class raw_env(AECEnv):
             Logger.log(str(self.rewards), "INITIALIZATION_LOGS")
             self.simulation_history["meta_data"] = self.rewards
             actionList = self.engine.get_action_names()
-            history_writer.jsonActionConverter("ai_history", actionList)
+            if self.output_json:
+                history_writer.jsonActionConverter("ai_history", actionList)
             self.terminations = {i: True for i in self.agents}
             self._accumulate_rewards()
 

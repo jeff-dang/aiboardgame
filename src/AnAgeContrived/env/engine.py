@@ -365,7 +365,8 @@ class Engine:
         max = 0
         winner = ""
         for agent in constants.AGENT_NAMES:
-            if self.get_agent(agent).get_transmuter().get_total_empty_cells() > max:
+            reward = self.get_reward(agent)
+            if reward > max:
                 winner = agent
         return winner
 

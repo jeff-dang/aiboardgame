@@ -28,7 +28,7 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--gamma", type=float, default=0.9, help="a smaller gamma favors earlier win"
     )
-    parser.add_argument("--n-step", type=int, default=10)
+    parser.add_argument("--n-step", type=int, default=100)
     parser.add_argument("--target-update-freq", type=int, default=320)
     parser.add_argument("--epoch", type=int, default=1)
     parser.add_argument("--step-per-epoch", type=int, default=10)
