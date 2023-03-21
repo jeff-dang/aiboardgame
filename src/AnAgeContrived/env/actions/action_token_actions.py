@@ -22,31 +22,31 @@ class TakeAction1Move(Command):
     def check(self):
         return TakeAction.is_take_action_legal(self.player, self.engine, 0)
     
-class TakeAction1Transformative(Command):
+# class TakeAction1Transformative(Command):
 
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = 'Action Tokens'
-        self.action_details = "First Transmuter's Action Token - Transformative"
+#     def __init__(self, player: Player, engine: Engine):
+#         super().__init__(player, engine)
+#         self.action = 'Action Tokens'
+#         self.action_details = "First Transmuter's Action Token - Transformative"
 
-    def execute(self):
-        TakeAction.take_action(self.player, self.engine, 1)
+#     def execute(self):
+#         TakeAction.take_action(self.player, self.engine, 1)
 
-    def check(self):
-        return TakeAction.is_take_action_legal(self.player, self.engine, 0)
+#     def check(self):
+#         return TakeAction.is_take_action_legal(self.player, self.engine, 0)
     
-class TakeAction1Sentient(Command):
+# class TakeAction1Sentient(Command):
 
-    def __init__(self, player: Player, engine: Engine):
-        super().__init__(player, engine)
-        self.action = 'Action Tokens'
-        self.action_details = "First Transmuter's Action Token - Sentient"
+#     def __init__(self, player: Player, engine: Engine):
+#         super().__init__(player, engine)
+#         self.action = 'Action Tokens'
+#         self.action_details = "First Transmuter's Action Token - Sentient"
 
-    def execute(self):
-        TakeAction.take_action(self.player, self.engine, 2)
+#     def execute(self):
+#         TakeAction.take_action(self.player, self.engine, 2)
 
-    def check(self):
-        return TakeAction.is_take_action_legal(self.player, self.engine, 0)
+#     def check(self):
+#         return TakeAction.is_take_action_legal(self.player, self.engine, 0)
 
 class TakeAction2(Command):
 
