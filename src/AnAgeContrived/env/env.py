@@ -214,9 +214,9 @@ class raw_env(AECEnv):
         self.engine.play_turn(self.agent_selection, action)
 
         # Assign rewards for players, updates only not incremental
-        temp_reward = self.engine.assign_temp_rewards(action)
-        Logger.log("TEMP REWARDS" + str(temp_reward), "GAME_ENGINE_LOGS")
-        self.rewards[self.agent_selection] += temp_reward
+        # temp_reward = self.engine.assign_temp_rewards(action)
+        # Logger.log("TEMP REWARDS" + str(temp_reward), "GAME_ENGINE_LOGS")
+        # self.rewards[self.agent_selection] += temp_reward
         turn_entry["current_score"] = self.rewards[self.agent_selection]
         self.simulation_history[str(self.engine.action_counter)] = turn_entry
 

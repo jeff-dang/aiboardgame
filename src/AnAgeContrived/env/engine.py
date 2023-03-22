@@ -428,7 +428,7 @@ class Engine:
         action_name = (self.get_action_names()[action])["action"]
         reward = 0
         if action_name == "End Turn":
-            reward = -1
+            reward = 0
         elif action_name == "Convey 1":
             reward = +0
         elif action_name == "Action Tokens":
