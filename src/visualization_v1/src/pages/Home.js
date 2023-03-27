@@ -9,7 +9,7 @@ const Home = () => {
     >
       <div className="page-content">
         <div>
-          <h1 style={{ fontSize: "3em" }}>An Age Contrived</h1>
+          <h1 style={{ fontSize: "3em" }}>Data Visualizer</h1>
         </div>
       </div>
     </div>

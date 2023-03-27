@@ -74,7 +74,7 @@ function generateData(dataArr, numMoves) {
 
   while (queue.length) {
     let { currLevel, arrIndex, index } = queue.shift();
-    if (index >= moves) continue;
+    if (index >= moves || arr[arrIndex].length == 0) continue;
     let turnName = arr[arrIndex][index];
 
     currLevel.push({ name: turnName, children: [] });
@@ -154,7 +154,7 @@ const SimpleTreeChart = ({ width, height }) => {
   const [player, setPlayer] = useState(0);
   const [numSims, setNumSims] = useState(1);
   const [numMoves, setNumMoves] = useState(3);
-  const [allMoves, setAllMoves] = useState([3]);
+  const [allMoves, setAllMoves] = useState([1]);
   const [nextMoveArray, setNextMoveArray] = useState(initArr);
   const [option, setOptions] = useState({});
 
@@ -232,7 +232,7 @@ const SimpleTreeChart = ({ width, height }) => {
     //setNextMoveMap(results[1]);
     const maxMoves = dataInit.getNumberOfMoves(allData, start, end, player);
     const newAllMoves = [];
-    for (let i = 3; i <= Math.max(3, maxMoves); i++) {
+    for (let i = 1; i <= Math.max(1, maxMoves); i++) {
       newAllMoves.push(i);
     }
     setAllMoves(newAllMoves);

@@ -139,7 +139,9 @@ export default class Data {
           const objIndex = freqMap.findIndex(
             (obj) => obj.name == turn[1].action_details
           );
-          freqMap[objIndex].count++;
+          if (objIndex !== -1) {
+            freqMap[objIndex].count++;
+          }
         });
       });
     }

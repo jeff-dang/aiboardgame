@@ -115,7 +115,7 @@ const HeatMap = ({
   });
 
   const opacityScale = scaleLinear({
-    range: [0.1, 1],
+    range: [0.06, 1],
     domain: [0, colorMax],
   });
 

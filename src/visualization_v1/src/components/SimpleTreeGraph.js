@@ -22,24 +22,25 @@ const getCategories = (name) => {
       { name: "End Game", itemStyle: { color: "red" } },
       { name: "0", itemStyle: { color: "lightgreen" } },
       { name: "1", itemStyle: { color: "aqua" } },
-      { name: "2", itemStyle: { color: "yellow" } },
-      { name: "3", itemStyle: { color: "teal" } },
-      { name: "4", itemStyle: { color: "lightgreen" } },
+      { name: "2", itemStyle: { color: "gold" } },
+      { name: "3", itemStyle: { color: "plum" } },
+      { name: "4", itemStyle: { color: "purple" } },
       { name: "5", itemStyle: { color: "lightblue" } },
-      { name: "6", itemStyle: { color: "lightblue" } },
-      { name: "7", itemStyle: { color: "lightblue" } },
-      { name: "8", itemStyle: { color: "lightblue" } },
-      { name: "9", itemStyle: { color: "lightblue" } },
+      { name: "6", itemStyle: { color: "orange" } },
+      { name: "7", itemStyle: { color: "lightsteelblue" } },
+      { name: "8", itemStyle: { color: "gray" } },
+      { name: "9", itemStyle: { color: "paleturquoise" } },
     ];
   } else {
     return [
       { name: "Start", itemStyle: { color: "green" } },
       { name: "End Game", itemStyle: { color: "red" } },
       { name: "Fill Monument", itemStyle: { color: "aqua" } },
-      { name: "Move Player", itemStyle: { color: "yellow" } },
+      { name: "Move Player", itemStyle: { color: "gold" } },
       { name: "Convey", itemStyle: { color: "teal" } },
       { name: "Action Tokens", itemStyle: { color: "lightgreen" } },
       { name: "Initialization Actions", itemStyle: { color: "lightblue" } },
+      { name: "Build Bridge", itemStyle: { color: "purple" } },
     ];
   }
 };
@@ -123,11 +124,21 @@ const generateData = (categories, dataArr, moves) => {
   let result = [];
   let x = 200;
   let y = 100;
-  const incrementX = 100;
-  const incrementY = 100;
+  const incrementX = 500;
+  // moves <= 50 ? 200 : moves <= 150 ? 300 : moves <= 250 ? 400 : 500;
+  const incrementY = //dataArr.length * 400 + moves * 200;
+    moves <= 15
+      ? 500
+      : moves <= 50
+      ? 2500
+      : moves <= 150
+      ? 10000
+      : moves <= 250
+      ? 20000
+      : 40000;
   result.push({
     name: "Start",
-    x,
+    x: x - moves * 100,
     y: 200,
     label: labelOptions,
     category: 0,
@@ -139,7 +150,7 @@ const generateData = (categories, dataArr, moves) => {
   if (dataArr.length === 0) return result;
 
   dataArr.forEach((data) => {
-    let newX = x + 500;
+    let newX = x + 200;
     data.forEach((action, actionIndex) => {
       if (actionIndex >= moves) return;
       newX = newX + actionIndex * incrementX;
@@ -254,7 +265,7 @@ const generateOptions = (categories, dataArr, moves) => {
         roam: true,
         autoCurveness: true,
         scaleLimit: {
-          min: 0.7,
+          min: 0.3,
           max: 20,
         },
         // label: {
@@ -272,6 +283,11 @@ const generateOptions = (categories, dataArr, moves) => {
         categories,
         center: moves > 2 ? ["50%", "25%"] : [],
         zoom: 1,
+        // emphasis: {
+        //   focus: "adjacency",
+        //   scale: 2,
+        // },
+        // width: moves <= 200 ? 2000 : 5000,
       },
     ],
   };
@@ -493,7 +509,7 @@ const SimpleTreeGraph = ({ width, height }) => {
         <EChartsReact
           option={option}
           style={{
-            height: `90vh`,
+            height: `${height}px`,
             width: `90vw`,
           }}
         />
