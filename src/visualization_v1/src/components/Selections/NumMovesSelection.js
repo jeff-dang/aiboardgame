@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Component for displaying the number of moves selection
+ */
 const NumMovesSelection = ({
   setNumMoves,
   allMoves,

@@ -63,6 +63,9 @@ const options = {
   },
 };
 
+/**
+ * Component to display the moves to scores chart
+ */
 export default function MovesToScores({ width, height }) {
   const [loading, setLoading] = useState(null);
   const [game, setGame] = useState("none");

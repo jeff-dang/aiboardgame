@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Component for displaying the player selection
+ */
 const PlayerSelection = ({ setPlayer, players, simulationFile }) => {
   return (
     <>

@@ -88,6 +88,9 @@ const getDataSet = (scoreData, labels) => {
   return dataSet;
 };
 
+/**
+ * LineChart component - displays a line chart of the scores of the players in a simulation
+ */
 export default function LineChart({ width, height }) {
   const [loading, setLoading] = useState(null);
   const [game, setGame] = useState("none");

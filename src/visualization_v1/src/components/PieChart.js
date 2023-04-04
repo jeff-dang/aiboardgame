@@ -54,6 +54,9 @@ const getBorderColors = (allNonZeroActions) => {
   return borderColors;
 };
 
+/**
+ * Component for displaying a pie chart of the frequency of actions taken by a player
+ */
 const PieChart = ({ width, height }) => {
   const [loading, setLoading] = useState(null);
   const [game, setGame] = useState("none");

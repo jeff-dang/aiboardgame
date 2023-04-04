@@ -1,12 +1,24 @@
 import gameData from "./game2.json";
 import allActions from "./allActions.json";
 
+/**
+ * Class representing Data from JSON file of game data
+ * Author: Hargun
+ * Date: 03/03/2021
+ */
 export default class Data {
+  /**
+   * Create a Data object.
+   * Default data value is the game data from the game2.json file. AllActions value also initialized to allActions.json file
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   constructor(data = JSON.parse(JSON.stringify(gameData))) {
     this.data = data;
     this.allActions = allActions;
   }
 
+  // Setters
   setAllData(data) {
     this.data = data;
   }
@@ -15,6 +27,7 @@ export default class Data {
     this.allActions = actions;
   }
 
+  // Getters
   getAllData() {
     return this.data;
   }
@@ -23,6 +36,11 @@ export default class Data {
     return this.allActions;
   }
 
+  /**
+   * This method returns an array of all actions in the game excluding unnecessary actions
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   getAllDataExEnd() {
     let allDataExEnd = [];
     this.data.forEach((element) => {
@@ -42,6 +60,11 @@ export default class Data {
     return allDataExEnd;
   }
 
+  /**
+   * This method returns an array of all actions merged with action and action_details into action field
+   * Author: Hargun
+   * Date: 03/03/2021
+   * */
   getDataWithMergedActions(data) {
     let newData = JSON.parse(JSON.stringify(data));
     let allDataMerged = [];
@@ -60,6 +83,11 @@ export default class Data {
     return allDataMerged;
   }
 
+  /**
+   * This method return simulation data from start index to end index
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   getSimulationData(data, startIndex = 0, endIndex = 1) {
     return Object.keys(data)
       .slice(startIndex, endIndex)
@@ -68,10 +96,13 @@ export default class Data {
 
         return result;
       }, {});
-
-    //return Object.fromEntries(Object.entries(data).slice(startIndex, endIndex));
   }
 
+  /**
+   * This method returns an object of all actions a player has taken in the data provided
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   getPlayerData(data, player) {
     let playerData = {};
 
@@ -86,6 +117,11 @@ export default class Data {
     return playerData;
   }
 
+  /**
+   * This method returns an array of objects with action and frequency as keys. Frequency is set to 0.
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   getFrequencyMap() {
     let actions = [];
     Object.entries(this.allActions).forEach((action) => {
@@ -95,6 +131,11 @@ export default class Data {
     return actions;
   }
 
+  /**
+   * This method fills the frequency map with the frequency of each action in the data provided, for the player provided, from start index to end index of the data
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   getFrequencyMapForPlayer(data, startSim, endSim, player) {
     const simulationData = this.getSimulationData(data, startSim, endSim);
 
@@ -118,6 +159,11 @@ export default class Data {
     return freqMap;
   }
 
+  /**
+   * This method returns an array of objects with action and count as keys. Count is set to 0.
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   getCountMap() {
     let actions = [];
     Object.entries(this.allActions).forEach((action) => {
@@ -127,6 +173,11 @@ export default class Data {
     return actions;
   }
 
+  /**
+   * This method fills the Count map with the count of each action in the data provided, for the player provided, from start index to end index of the data
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   getCountMapForPlayer(data, startSim, endSim, player) {
     const simulationData = this.getSimulationData(data, startSim, endSim);
 
@@ -148,6 +199,11 @@ export default class Data {
     return freqMap;
   }
 
+  /**
+   * This method returns a sorted frequency map in descending order
+   * Author: Hargun
+   * Date: 03/03/2021
+   */
   sortFrequencyMap(freqMap) {
     freqMap.sort((a, b) => {
       if (a.frequency !== b.frequency) {
@@ -157,6 +213,11 @@ export default class Data {
     });
   }
 
+  /**
+   * This method takes in a frequency map and returns a new map with only non-zero frequency actions
+   * Author: Hargun
+   * Date: 03/05/2021
+   */
   getAllNonZeroActions(frequencyMap) {
     let newMap = JSON.parse(JSON.stringify(frequencyMap));
     this.sortFrequencyMap(newMap);
@@ -166,40 +227,12 @@ export default class Data {
     return filteredMap;
   }
 
-  // getMap(data, startSim, endSim, player) {
-  //   let result = [];
-  //   let map = {};
-  //   const simulationData = this.getSimulationData(data, startSim, endSim);
-
-  //   if (simulationData) {
-  //     Object.entries(simulationData).forEach((simulation) => {
-  //       let turnNum = 1;
-  //       const playerData = this.getPlayerData(simulation[1], player);
-
-  //       const size = Object.keys(playerData).length;
-  //       Object.entries(playerData).forEach((turn, index) => {
-  //         const turnStr = `Turn ${turnNum}, ${turn[1].action_details}`;
-  //         if (!map.hasOwnProperty(turnStr)) {
-  //           map[turnStr] = turnNum;
-  //           result.push([]);
-  //         }
-
-  //         result[index].push(turnStr);
-  //         turnNum++;
-
-  //         if (index === size - 1) {
-  //           if (!map.hasOwnProperty("End Game")) {
-  //             map["End Game"] = turnNum;
-  //             result.push([]);
-  //           }
-  //           result[turnNum - 1].push("End Game");
-  //         }
-  //       });
-  //     });
-  //   }
-  //   return [result, map];
-  // }
-
+  /**
+   * This method returns an array of strings with the actions taken by the player in the data provided.
+   * Each index contains the sequence of actions taken in a specific simulation.
+   * Author: Hargun
+   * Date: 03/05/2021
+   */
   getMap(data, startSim, endSim, player) {
     let result = [];
     const simulationData = this.getSimulationData(data, startSim, endSim);
@@ -230,6 +263,11 @@ export default class Data {
     return result;
   }
 
+  /**
+   * This method return an array of objects with the scores of each player in each simulation
+   * Author: Hargun
+   * Date: 03/06/2021
+   */
   getScores(data, startSim, endSim) {
     const simulationData = this.getSimulationData(data, startSim, endSim);
     let result = [];
@@ -251,6 +289,11 @@ export default class Data {
     return result;
   }
 
+  /**
+   * This method returns an array of all player ids in the data provided
+   * Author: Hargun
+   * Date: 03/06/2021
+   */
   getNumberOfPlayers(data) {
     let players = [];
     const simulation = Object.entries(data).find((sim) => {
@@ -270,6 +313,11 @@ export default class Data {
     return players;
   }
 
+  /**
+   * This method returns total number of simulations in the data provided
+   * Author: Hargun
+   * Date: 03/06/2021
+   */
   getNumberOfSimulations(data) {
     let result = Array(Object.keys(data).length)
       .fill()
@@ -278,6 +326,11 @@ export default class Data {
     return result;
   }
 
+  /**
+   * This method returns the number of moves taken by the player in the data provided
+   * Author: Hargun
+   * Date: 03/06/2021
+   */
   getNumberOfMoves(data, startSim, endSim, player) {
     const simulationData = this.getSimulationData(data, startSim, endSim);
 

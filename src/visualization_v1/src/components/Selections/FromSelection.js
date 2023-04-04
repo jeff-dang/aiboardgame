@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Component for displaying the from selection
+ */
 const FromSelection = ({
   text,
   setStart,

@@ -13,6 +13,7 @@ import GameSelection from "./Selections/GameSelection";
 import SimulationTypeSelection from "./Selections/SimulationTypeSelection";
 import FromSelection from "./Selections/FromSelection";
 import ToSelection from "./Selections/ToSelection";
+
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -22,7 +23,7 @@ const tooltipStyles = {
 
 const hot1 = "#77312f";
 const hot2 = "#f33d15";
-const background = "#9de3d4"; //"#28272c";
+const background = "#9de3d4";
 
 const dataInit = new Data();
 
@@ -48,6 +49,9 @@ let tooltipTimeout;
 
 const defaultMargin = { top: 10, left: 40, right: 20, bottom: 10 };
 
+/**
+ * Component for rendering a heatmap.
+ */
 const HeatMap = ({
   width,
   height,
@@ -336,8 +340,14 @@ const HeatMap = ({
   );
 };
 
+/**
+ * Component to display the heatmap with tooltip
+ */
 const HeatMapToolTip = withTooltip(HeatMap);
 
+/**
+ * Component that renders the HeatMapWithToolTip
+ */
 const HeatMapWithToolTip = ({ width, height }) => {
   return (
     <div style={{ margin: "auto" }}>

@@ -1,6 +1,9 @@
 import React from "react";
 import { files } from "../../data/getFiles";
 
+/**
+ * Component for displaying the game selection
+ */
 const GameSelection = ({ setGame }) => {
   const games = [...new Set(files.map((item) => item.game))];
   return (

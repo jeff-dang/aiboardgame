@@ -22,43 +22,6 @@ const labelOptions = {
   fontWeight: "bold",
 };
 
-// function generateData(dataMap, dataArr, numMoves) {
-//   let moves = numMoves;
-//   let arr = JSON.parse(JSON.stringify(dataArr));
-//   let map = JSON.parse(JSON.stringify(dataMap));
-//   let data = { name: "Start", children: [] };
-//   if (dataArr.length === 0) return data;
-
-//   const currLevel = data.children;
-//   const queue = [];
-//   let visited = new Array(arr.length);
-
-//   for (let i = 0; i < visited.length; i++) {
-//     visited[i] = false;
-//   }
-
-//   for (let i = 0; i < arr[0].length; i++) {
-//     queue.push({ currLevel, index: 0 });
-//   }
-
-//   while (queue.length && moves > 0) {
-//     let { currLevel, index } = queue.shift();
-//     let turnName = arr[index].shift();
-//     if (turnName in map) {
-//       const ind = map[turnName];
-//       if (arr[index].length >= 0) {
-//         currLevel.push({ name: turnName, children: [] });
-//         queue.push({
-//           currLevel: currLevel[currLevel.length - 1].children,
-//           index: ind,
-//         });
-//       }
-//       if (arr[index].length === 0) moves--;
-//     }
-//   }
-//   return data;
-// }
-
 function generateData(dataArr, numMoves) {
   let moves = numMoves;
   let arr = JSON.parse(JSON.stringify(dataArr));
@@ -139,6 +102,9 @@ const generateOptions = (dataArr, moves) => {
   return option;
 };
 
+/**
+ * Component for displaying a the tree graph of individual simulations
+ */
 const SimpleTreeChart = ({ width, height }) => {
   const [loading, setLoading] = useState(null);
   const [game, setGame] = useState("none");

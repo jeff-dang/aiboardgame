@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Component for displaying the to selection
+ */
 const ToSelection = ({
   text,
   setEnd,
