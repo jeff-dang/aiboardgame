@@ -1,3 +1,8 @@
+# Author: Michael Ilao & Jonah Ada
+# Date: December 13th, 2022
+# Description: 
+# Module for defining the details of the core game engine
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -20,8 +25,9 @@ from env.helpers.logger import Logger
 from env.victorypoints import VictoryPoints
 from env.helpers.turn import Turn
 
-
+# Defines a game engine module required by Tianshou AI library
 class Engine:
+    # defines & initializes the variables rquired by the AI library & game rules
     def __init__(self):
         self.turn_counter: int = 0
         self.action_counter: int = 0
@@ -181,7 +187,8 @@ class Engine:
         )
         current_monument: Monument = self.monuments[self.monument_index]
 
-    def check_over(self):
+    # checks whether the game is finished by looking at the win conditions
+    def check_over(self) -> bool:
         if self._check_if_last_wall_filled():
             Logger.log("MONUMENTS ALL BUILT", "GAME_ENGINE_LOGS")
             return True
@@ -194,12 +201,15 @@ class Engine:
 
         return False
 
+    # resets all the variables to start a new game
     def reset(self):
         self.__init__()
 
+    # getter for AI Agents
     def get_agents(self) -> list[str]:
         return constants.AGENT_NAMES
 
+    # getter for action space
     def get_action_names(self) -> list[dict[str, str]]:
         actions = get_actions(self.players[self.current_player], self)
         action_names: list[dict[str, str]] = []
@@ -209,6 +219,7 @@ class Engine:
             )
         return action_names
 
+    # returns the index of the action given the English description of the action
     def get_action_index(self, name):
         list = self.get_action_names()
         index = -1
@@ -218,6 +229,7 @@ class Engine:
                 break
         return index
 
+    # getter for all legal actions in plain English
     def get_legal_action_names(self, agent_name: str) -> list[str]:
         actions = get_actions(self.get_agent(agent_name), self)
         legal_actions: list[str] = []
@@ -228,9 +240,11 @@ class Engine:
                 )
         return legal_actions
 
+    # returns the names of all the players
     def get_characters(self) -> list[str]:
         return constants.CHARACTER_NAMES
 
+    # given the name, returns the player
     def get_agent(self, name: str) -> Player:
         for player in self.players:
             if player.get_player_name() == name:
@@ -240,6 +254,7 @@ class Engine:
     def get_action_space(self) -> int:
         return constants.NUM_MOVES
 
+    # gets the action mask that defines the available actions AI Agents can take
     def get_legal_actions(self, agent_name: str):
         actions = get_actions(self.get_agent(agent_name), self)
         legal_actions = []
@@ -251,6 +266,7 @@ class Engine:
             legal_actions[index] = 1
         return legal_actions
 
+    # defines the logic of a single turn in the game
     def play_turn(self, agent_name: str, action):
         agent: Player = self.get_agent(agent_name)
 
@@ -328,6 +344,7 @@ class Engine:
         self.action_counter += 1
         return True
 
+    # calculates how many monuments' all walls are completed
     def check_num_of_build_walls(self) -> int:
         total_built = 0
         for i in self.monuments:
@@ -335,12 +352,15 @@ class Engine:
                 total_built += 1
         return total_built
 
+    # getter for returning the player who has the turn order
     def get_current_agents_turn(self) -> str:
         return self.get_agents()[self.current_player]
 
+    # getter for returning the player's character who has the turn order
     def get_current_characters_turn(self) -> str:
         return constants.CHARACTER_NAMES[self.current_player]
 
+    # gets the observation space
     def get_game_state(self):
         index_of_agent = self.current_player
         all_character_states = []
@@ -351,6 +371,7 @@ class Engine:
 
         return all_character_states
 
+    # calls the VictoryPoints module to calculate the player scores
     def get_reward(self, agent_name):
         agent = self.get_agent(agent_name)
         total_reward = 0
@@ -361,6 +382,7 @@ class Engine:
 
         return total_reward *10
 
+    # based on the victory points, finds which player won the game
     def get_winner(self):
         max = 0
         winner = ""
@@ -370,6 +392,7 @@ class Engine:
                 winner = agent
         return winner
 
+    # renders the visual elements of the game. Commented out for faster AI training process
     def render(self, agent_name):
         # agent = self.get_agent(agent_name)
         # Logger.log(str(agent.character), "GAME_ENGINE_LOGS")
@@ -380,6 +403,7 @@ class Engine:
         # self.turn.print_turn_state()
         pass
 
+    # starts a sequence for AI Agents to earn energy & other in game resources when they complete a monument wall
     def give_energy_rewards(self, players_contributed: list[Player], monument_wall):
         monument_wall.is_reward_given = True
         for i in monument_wall.rewarded_energy:
@@ -413,17 +437,20 @@ class Engine:
                             "GAME_ENGINE_LOGS",
                         )
 
+    # helper function to check whether the last wall of the last monument is finished - one of the main game ending conditions
     def _check_if_last_wall_filled(self):
         if self.monument_index == 5:
             if self.monuments[self.monument_index].is_completed():
                 return True
         return False
-
+    
+    # helper function to check whether the current wall is filled by AI Agents
     def _check_if_current_wall_filled(self):
         if self.monuments[self.monument_index].is_completed():
             return True
         return False
 
+    # assigns temperary rewards - only needed to train the AI when the original reward system of the game is not defined
     def assign_temp_rewards(self, action):
         action_name = (self.get_action_names()[action])["action"]
         reward = 0

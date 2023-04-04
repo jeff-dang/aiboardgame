@@ -1,3 +1,7 @@
+# Author: Jeffrey Dang
+# Date: November 13th, 2022
+# Description: 
+# Module defining the victory points of An Age Contrived game
 from __future__ import annotations
 
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking

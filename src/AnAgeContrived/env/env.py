@@ -1,3 +1,8 @@
+# Author: Michael Ilao
+# Date: November 29th, 2022
+# Description: 
+# Module for defining the details of the game environment for given game
+
 import gymnasium
 import numpy as np
 from gymnasium import spaces
@@ -9,7 +14,7 @@ from env.action_initiater import get_actions
 from env.helpers.logger import Logger
 from env.entities.energy import Energy
 
-
+# defines the environment rendering modes and wrappers for the env from the PettingZoo AI library
 def env(render_mode=None):
     internal_render_mode = render_mode if render_mode != "ansi" else "human"
     env = raw_env(render_mode=internal_render_mode)
@@ -20,7 +25,7 @@ def env(render_mode=None):
     env = wrappers.OrderEnforcingWrapper(env)
     return env
 
-
+# defines a new custom environment as a child class of the AECEnv parent class from the OpenAI's Gymnasium library
 class raw_env(AECEnv):
     metadata = {
         "render_modes": ["human"],
@@ -29,6 +34,7 @@ class raw_env(AECEnv):
         "render_fps": 1,
     }
 
+    # initializes the environment with the required variables and game engine variables
     def __init__(self, render_mode=None):
         super().__init__()
         self.output_json = True
@@ -71,23 +77,28 @@ class raw_env(AECEnv):
             folder_path = history_writer.jsonDirectory("ai_history")
             history_writer.jsonWriter(folder_path, self.json_name)
 
+    # calls the observation space from Game Engine to feed into the AI Agents
     def observe(self, agent):
         # Get Action Space Vector and check legal moves
         action_mask = np.array(self.engine.get_legal_actions(agent), dtype="int8")
-
         observation = np.array(self.engine.get_game_state())
         observation = np.stack(observation, axis=1).astype(np.int8)
         return {"observation": observation, "action_mask": action_mask}
 
+    # getter for observation space of a specific AI Agent
     def observation_space(self, agent):
         return self.observation_spaces[agent]
 
+    # getter for action space of a specific AI Agent
     def action_space(self, agent):
         return self.action_spaces[agent]
 
+    # helper function to get the action mask (i.e. legal actions)
     def _legal_moves(self, agent):
         return self.engine.get_legal_actions(agent)
 
+    # step function that defines what happens in each turn and facilitates the data exchange between AI & Game Engine subsystems during each game turn
+    # also outputs the logs to JSON file
     def step(self, action):
         Logger.log(
             "env.py - @@@@@@@@@@@@@@@@@@@@ START STEP FUNCTION @@@@@@@@@@@@@@@@@@@@@@@@@",
@@ -251,6 +262,7 @@ class raw_env(AECEnv):
             "INITIALIZATION_LOGS",
         )
 
+    # resets the game engine to start a new simulation
     def reset(self, seed=None, return_info=False, options=None):
         # reset environment
         self.engine.reset()
@@ -271,6 +283,7 @@ class raw_env(AECEnv):
             history_writer.jsonDump(self.simulation_history, self.json_name)
         self.simulation_history = {}
 
+    # renders any visual elements of the game engine
     def render(self):
         if self.render_mode is None:
             gymnasium.logger.warn(
@@ -279,10 +292,7 @@ class raw_env(AECEnv):
             return
         self.engine.render(self.agent_selection)
 
-    def close(self):
-        pass
-
-
+# main loop
 if __name__ == "__main__":
     from pettingzoo.test import api_test  # noqa: E402
 

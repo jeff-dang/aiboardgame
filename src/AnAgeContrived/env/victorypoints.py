@@ -1,3 +1,8 @@
+# Author: Jeffrey Dang
+# Date: November 13th, 2022
+# Description: 
+# Module defining the victory points of An Age Contrived game
+
 from __future__ import annotations
 
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
@@ -13,6 +18,7 @@ from env.entities.energy import Energy
 
 
 class VictoryPoints:
+    # calculates the victory points that the player earned by gaining energy types
     def calcFullyGainedEnergy(engine, player: Player):
         gainableEnergyList = player.remaining_energies[Energy.SINGLE]
         fullyGainedEnergy = 0
@@ -30,6 +36,7 @@ class VictoryPoints:
         vp_points = vp_allocation.get(fullyGainedEnergy)
         return vp_points
 
+    # calculates the victory points the player earned by building bridges
     def calcBridgesBuilt(engine: Engine, player: Player):
         if player.num_bridges_left == 0:
             return 30
@@ -39,7 +46,7 @@ class VictoryPoints:
             return 10
         return 0
 
-    # Jeffrey working on this
+    # calculates the victory points the player earned by building monuments with energies
     def calcMonumentEnergy(engine: Engine, player: Player):
         monumentList = engine.monuments
         vp_allocation = {
@@ -57,6 +64,7 @@ class VictoryPoints:
             total_energies_binded = 3
         return vp_allocation.get(total_energies_binded)
 
+    # calculates the victory points the player earned by building pillars of civilization
     def calcPillarsOfCivilization(engine: Engine, player: Player):
         filled_pillars = 0
         vp_allocation = {0: 0, 1: 3, 2: 8, 3: 14, 4: 21, 5: 29, 6: 38}
