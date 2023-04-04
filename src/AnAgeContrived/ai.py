@@ -1,3 +1,8 @@
+# Author: Michael Illao
+# Date: November 29th, 2022
+# Description: 
+# Scripts for defining the key variables AI agents will use and getting them as CLI arguments
+
 import argparse
 import os
 from copy import deepcopy
@@ -17,7 +22,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import an_age_contrived_v0
 
-
+# defines a parser for CLI arguments, mostly taken from the Tianshou libarary's default ai module and just changed the default values
 def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", type=int, default=1200)
@@ -79,12 +84,12 @@ def get_parser() -> argparse.ArgumentParser:
     )
     return parser
 
-
+# getter for arguments
 def get_args() -> argparse.Namespace:
     parser = get_parser()
     return parser.parse_known_args()[0]
 
-
+# getter for AI agents
 def get_agents(
     args: argparse.Namespace = get_args(),
     agent_learn: Optional[BasePolicy] = None,
@@ -138,11 +143,11 @@ def get_agents(
     policy = MultiAgentPolicyManager(agents, env)
     return policy, optim, env.agents
 
-
+# getter for custom defined game environment
 def get_env(render_mode=None):
     return PettingZooEnv(an_age_contrived_v0.env(render_mode=render_mode))
 
-
+# trains the agent and writes it to a policy file under the env/log folder
 def train_agent(
     args: argparse.Namespace = get_args(),
     agent_learn: Optional[BasePolicy] = None,
@@ -250,7 +255,7 @@ def run_default():
     result, agent = train_agent(args)
     watch(args, agent)
 
-
+# main loop for ai agent training
 if __name__ == "__main__":
     # train the agent and watch its performance in a match!
     run_default()
