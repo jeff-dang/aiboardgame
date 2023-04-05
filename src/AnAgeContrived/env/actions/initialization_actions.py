@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: March 12th, 2023
+# Description: 
+# Modules to convert entity & helper module funtions into a Command objects to utilize the Command design pattern
+# the actions in this file are related to the transmuter initialization
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING

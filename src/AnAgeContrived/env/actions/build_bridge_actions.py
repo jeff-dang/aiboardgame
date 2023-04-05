@@ -1,3 +1,9 @@
+# Author: Michael Ilao
+# Date: March 12th, 2023
+# Description: 
+# Modules to convert entity & helper module funtions into a Command objects to utilize the Command design pattern
+# the actions in this file are related to building bridges
+
 from env.command import Command
 from env.helpers.build_bridge import BuildBridge
 

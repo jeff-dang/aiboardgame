@@ -1,3 +1,11 @@
+# Author: Jonah Ada
+# Date: March 20th, 2023
+# Description: 
+# Modules to convert entity & helper module funtions into a Command objects to utilize the Command design pattern
+# the actions in this file are related to the sentient & transformative track actions
+# the file is commented out in an effort to simplfy the game to more fundemental functions
+# to reduce the AI training time. Can be uncommented anytime and all the actions will be automatically added to the action list
+
 # from __future__ import annotations
 # # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 # from typing import TYPE_CHECKING
