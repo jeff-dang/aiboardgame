@@ -6,11 +6,18 @@
 \usepackage{array,ragged2e}
 \usepackage[super]{nth}
 \usepackage[hmargin=2cm, vmargin=2cm]{geometry}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage[normalem]{ulem}
 
 \newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
 
-\title{Hazard Analysis for SE 4G06 \\ An AI-based Approach to Designing Board Games}
-
+\title{Hazard Analysis\\}
 
 
 \author{Team \#6, Board Gamers
@@ -23,10 +30,14 @@
 
 
 
-\input{../Comments}
-\input{../Common}
+%\input{../Comments}
+%\input{../Common}
 
 \begin{document}
+\tableofcontents
+
+\listoftables
+\newpage
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
@@ -34,8 +45,8 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-October $19^{th}$ & All & Initial Draft\\
-... & ... & ...\\
+October $19^{th}$ & All & Rev 0\\
+April $5^{th}$ & All & Rev 1\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -43,11 +54,7 @@ October $19^{th}$ & All & Initial Draft\\
 \newpage
 
 \maketitle
-\newpage
-\tableofcontents
 
-
-\newpage
 \section{Introduction and Purpose of Hazard Analysis}
 This document aims to analyze, assess, and find ways to eliminate or mitigate potential safety and security hazards that are applicable to our project. Hazard analysis will highlight the various types of hazards, the likelihood of encountering these hazards, and their severity and will try to outline potential actions upon encountering those hazards. The analysis will further help us specify new, and update existing safety and security requirements for our project. 
 
@@ -60,10 +67,10 @@ Hazard analysis will be conducted on the following components of our project:
     \item AI Agent
     \item Game Engine
     \item Data Visualization
-    \item Physical Computer
+    \item \textcolor{blue}{\sout{Physical Computer}}
 \end{itemize}
 
-The physical computer being used to run our system and the reliability of the AI agent are not controlled by Board Gamers. They are an essential part of our system which is why they are included in the hazard analysis.
+\textcolor{blue}{\sout{The physical computer being used to run our system and the reliability of the AI agent are not controlled by Board Gamers. They are an essential part of our system which is why they are included in the hazard analysis.}}
 
 \section{Critical Assumptions}
 There are no critical assumptions being made.
@@ -84,52 +91,80 @@ Board Gamers will not be responsible for the hazards listed above as they are ei
 \begin{center}
     \caption{Failure Modes}
 \end{center}
-\begin{tabular}{| P{7em} | P{7em} | P{7em} | P{7em} | P{7em} | P{7em} |}
+\begin{tabular}{| P{7em}| P{2em} | P{7em} | P{7em} | P{7em} | P{7em} | P{7em} |}
 \hline
-\textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of \mbox{Failure}} & \textbf{Causes of \mbox{Failure}} & \textbf{Recommended Action} & \textbf{Requirements}\\
+\textbf{Component} & \textbf{\textcolor{red}{ID}} & \textbf{Failure Modes} & \textbf{Effects of \mbox{Failure}} & \textbf{Causes of \mbox{Failure}} & \textbf{Recommended Action} & \textbf{Requirements}\\
 \hline
- Training Model & Training data is deleted & Valuable training model is lost and model training cannot progress effectively & Destination folder is not found by the system, Deletion by user & Validate folder destination before training model is saved & AR4 \\
+ Training Model & \textcolor{red}{FM1} & Training data is deleted & Valuable training model is lost and model training cannot progress effectively & Destination folder is not found by the system. \textcolor{blue}{\sout{Deletion by user}} & Validate folder destination before training model is saved. \textcolor{red}{Create the folder if not present.} & \textcolor{blue}{\sout{AR4}} \textcolor{red}{AR2} \\
  \hline
- Simulation Logs & Simulation logs are deleted & Valuable simulation data that is needed for game balancing is lost & Logs deleted by users or errors in the system & Automatically save simulation logs after every completed iteration & IR4\\
+ Simulation Logs & \textcolor{red}{FM2} & Simulation logs are deleted & Valuable simulation data that is needed for game balancing is lost & Logs deleted by users or errors in the system & Automatically save simulation logs after every completed iteration & IR4\\
  \hline
- Simulation Runtime & Bad state in simulation causing infinite loop & Computer resources will be heavily used for incorrect output & Errors in code in Simulation, AI Game Agents, or Game Engine Rules & Adjust a capped number of simulation moves and time for simulation runtime & IR5\\
- \cline{2-6}
- & Simulation is not compatible on the computer cluster & Cannot run the simulation for a long period of time on an efficient computer & Mismatch in versioning or compatibility on the computer cluster & Ensure versions are compatible or create a standalone executable & IR5 \\
+ Simulation Runtime & \textcolor{red}{FM3} & Bad state in simulation causing infinite loop & Computer resources will be heavily used for incorrect output & Errors in code in Simulation, AI Game Agents, or Game Engine Rules & \textcolor{blue}{\sout{Adjust a capped number of simulation moves and time for simulation runtime.}} \textcolor{red}{Warn the user if the simulation is not ending in an appropriate timeframe.} & IR5\\
+ \cline{2-7}
+ & \textcolor{red}{FM4} & Simulation is not compatible on the computer cluster & Cannot run the simulation for a long period of time on an efficient computer & Mismatch in versioning or compatibility on the computer cluster & Ensure versions are compatible or create a standalone executable & \textcolor{blue}{\sout{IR5}} \textcolor{red}{IR6} \\
  \hline
- General & Simulation closes unexpectedly& Lost data on that simulation& Runtime errors, OS errors or User accidents (Can be many different causes) & Write logs as simulation progresses, if simulation crashes, there is an event log up until the crash & IR1 \& IR4\\
+ General & \textcolor{red}{FM5} & Simulation closes unexpectedly & Lost data on that simulation& Runtime errors, OS errors or User accidents (Can be many different causes) & Write logs as simulation progresses, if simulation crashes, there is an event log up until the crash & IR1 \& IR4\\
  \hline
- Data Visualization & Visualization does not render properly& Game designer and other users cannot understand the data & Errors in logs or errors in visualization system. Edge cases that are not properly checked& Check each log on the visualization system to see if the system renders or crashes, if so check what edge case caused it & IR4\\
+ Data Visualization & \textcolor{red}{FM6} & Visualization does not render properly & Game designer and other users cannot understand the data & Errors in logs or errors in visualization system. Edge cases that are not properly checked& 1. Check each log on the visualization system to see if the system renders or crashes, if so check what edge case caused it & IR4\\
  \hline
 
 \end{tabular}
 \end{table}
 
-
+\newpage
 \section{Safety and Security Requirements}
 \subsection{Access Requirements}
 
-\textbf{AR1}: Only admins can access and modify the product's source code. \\\\
-\textbf{AR2}: Users will be able to install and access the software in the required systems\\\\
-\textbf{AR3}: Only the admins will be able to release a new version of the product.\\\\ 
-\textbf{AR4}: The system should be able to check if a file location exists.
+\textcolor{blue}{\sout{\textbf{AR1}: Only admins can access and modify the product's source code.}}\\\\
+\textcolor{blue}{\sout{\textbf{AR2}}} \textcolor{red}{\textbf{AR1}}: Users will be able to install and access the software in the required systems.
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
+\textcolor{blue}{\sout{\textbf{AR3}: Only the admins will be able to release a new version of the product.}\\\\
+\textcolor{blue}{\sout{\textbf{AR4}}} \textcolor{red}{\textbf{AR2}}: The system should be able to check if a file location exists.
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
 
 \subsection{Integrity Requirements}
 
-\textbf{IR1}: The execution of the product will not damage the users' operating systems.\\\\
-\textbf{IR2}: The game engine will not modify the game state data unnecessarily. \\\\
-\textbf{IR3}: The AI agent will not make changes to game engine data unrelated to its execution.  \\\\
-\textbf{IR4}: The data visualization chart will only be able to create if the game engine and AI agent successfully output the information log.\\\\
-\textbf{IR5}: The system will not harm the device it runs on nor it will cause any resource locks for more than 10 minutes per simulation.
+\textbf{IR1}: The execution of the product will not damage the users' operating systems.
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
+\textbf{IR2}: The game engine will not modify the game state data unnecessarily.
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
+\textbf{IR3}: The AI agent will not make changes to game engine data unrelated to its execution.
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
+\textbf{IR4}: The data visualization chart will only be able to create if the game engine and AI agent successfully output the information log.
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
+\textbf{IR5}: \textcolor{blue}{\sout{The system will not harm the device it runs on nor it will cause any resource locks for more than 10 minutes per simulation.}} \textcolor{red}{The system will warn the user if a simulation takes longer than 10 minutes.}
+\begin{itemize}
+    \item \textcolor{red}{Priority: Low}
+\end{itemize}
+\textcolor{red}{\textbf{IR6}: The system will clearly outline the names and versions of all external dependancies.}
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
 
 \subsection{Privacy Requirements}
 
-\textbf{PR1}: The software will not expose users' confidential information.\\\\
-\textbf{PR2}: Only authorized users can obtain the installer to install the product in their systems.
+\textbf{PR1}: The \textcolor{blue}{\sout{software}} \textcolor{red}{system} will not expose users' confidential information.
+\begin{itemize}
+    \item \textcolor{red}{Priority: High}
+\end{itemize}
+\textcolor{blue}{\sout{\textbf{PR2}: Only authorized users can obtain the installer to install the product in their systems.}}
 
 \subsection{Audit Requirements}
 N/A
 \subsection{Immunity Requirements}
 N/A
 \section{Roadmap}
-The hazard analysis has concluded a number of new safety and security requirements. Sufficient crucial requirements will be implemented in the finished application. However, some of them with low priority may not be implemented due to the hard project deadline constraints. The hazard analysis will efficiently help us keep track and find out what risks need to be solved during the development process.
+The hazard analysis has concluded a number of new safety and security requirements. \textcolor{blue}{\sout{Sufficient crucial requirements will be implemented in the finished application.}} \textcolor{red}{All high priority requirements will be implemented prior to Revision 1 submission deadline.} However, the low priority requirements may not be implemented due to the hard project deadline constraints. The hazard analysis will efficiently help us keep track and find out what risks need to be solved during the development process.
 \end{document}
