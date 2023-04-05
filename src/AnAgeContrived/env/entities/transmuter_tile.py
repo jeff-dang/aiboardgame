@@ -1,3 +1,7 @@
+# Author: Jonah Ada
+# Date: December 12th, 2022
+# Description: 
+# Module to define the "transmuter tile" entity of the game
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -7,6 +11,7 @@ if TYPE_CHECKING:
 from env.entities.energy import EnergyTile
 from env.helpers.logger import Logger
 
+# defines transmuter tile as an object
 class TransmuterTile:
     def __init__(self, top_size: int, bottom_size: int):
         self.top: list[EnergyTile] = [0] * top_size
@@ -16,9 +21,11 @@ class TransmuterTile:
         self.available_top_positions: int = top_size
         self.available_bottom_positions: int = bottom_size
 
+    # checks whether the top tiles are empty
     def is_top_empty(self) -> bool:
         return (not (self.top_size - self.top.count(0)) > 0)
     
+    # checks whether the bottom tiles are empty
     def is_bottom_empty(self) -> bool:
         return (not (self.bottom_size - self.bottom.count(0)) > 0)
 
@@ -59,6 +66,7 @@ class TransmuterTile:
                 else:
                     self.bottom[0] = energy
 
+    # empties the tiles of the transmuter tile object
     def empty_tile(self, player: Player):
         for i in self.top:
             Logger.log('i is: ' + str(i) + ' and condition is: ' + str(i != 0), 'TRANSMUTER_LOGS')
@@ -78,7 +86,7 @@ class TransmuterTile:
         self.top = [0, 0]
         self.bottom = [0, 0]
 
-    #TODO: check to see whether the top and bottom has actually energy in them. do not release (pop) the 0s
+    # releases the energies binded in the bottom tile of the transmuter tile
     def release_bottom_energy(self) -> EnergyTile:
         num_zeros = self.bottom.count(0)
         if num_zeros > 0:
@@ -94,6 +102,7 @@ class TransmuterTile:
             self.bottom.append(0)
         return energy
 
+    # releases the energies binded in the top tile of the transmtuer tile
     def release_top_energy(self) -> EnergyTile:
         num_zeros = self.top.count(0)
         if num_zeros > 0:
@@ -109,6 +118,7 @@ class TransmuterTile:
             self.top.append(0)
         return energy
 
+    # prints the transmuter tile and the energies binded to it in a human readable way to be used in the game engine's render method
     def print_tile(self) -> str:
         tile_string = ''
         tile_string += '---------------\n'

@@ -1,6 +1,11 @@
+# Author: Michael Ilao
+# Date: January 28th, 2023
+# Description: 
+# data that defines the game map in AI agent usable way
+
 from enum import Enum
 
-
+# Enum for different map areas on the map
 class MapAreas(Enum):
     PLAINS = 0
     QUARRY = 1
@@ -9,7 +14,7 @@ class MapAreas(Enum):
     FOREST = 4
     SWAMP = 5
 
-
+# encodes the map as dictionary where keys are places on map and values are permissable places to move from that location
 map = {
     1: [2],
     2: [1, 3, 32],
@@ -53,6 +58,7 @@ map = {
     40: [23, 24, 39]
 }
 
+# encodes the bridge spaces as dictionary where the keys are the bridge number and values are which map location they are connecting
 bridges = {
     1: [31, 32],
     2: [35, 36],
@@ -66,6 +72,7 @@ bridges = {
     10: [5, 6]
 }
 
+# assignes the map locations to map areas
 areas = {
     MapAreas.PLAINS: [26, 27, 28, 29, 30, 31, 33],  # Library, Beacon
     MapAreas.QUARRY: [1, 2, 3, 4, 5, 36, 32],  # Edrondic Gate

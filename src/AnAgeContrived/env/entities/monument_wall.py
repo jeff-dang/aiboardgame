@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: January 10th, 2023
+# Description: 
+# Module to define the monument wall object
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -8,7 +13,7 @@ if TYPE_CHECKING:
 from env.entities.energy import Energy
 from env.helpers.logger import Logger
 
-
+# defines the logic for monument walls
 class MonumentWall():
 
     # acceptable_energy_types is a list of energy types that can be placed on this tile
@@ -29,8 +34,8 @@ class MonumentWall():
         self.rewarded_energy: list[Energy] = rewarded_energy
         self.is_reward_given: bool = False
         self.owner: Player = None
-    # fills the section at the given energy_type by macthing the first available matching section
-
+    
+    # checks whether the monumen wall excepts the given energy_type
     def check_accept(self, energy_type: Energy) -> bool:
         is_successful: bool = False
         if(self.empty_sections != 0):
@@ -42,7 +47,8 @@ class MonumentWall():
 
         return is_successful
 
-    def fill_section(self, energy: Energy) -> bool:
+    # fills the section at the given energy_type by macthing the first available matching section
+    def fill_section(self, energy: EnergyTile) -> bool:
         is_successful = False
         if(self.empty_sections != 0):
             Logger.log('e type is: ' + str(energy.energy_type), 'MONUMENT_LOGS')

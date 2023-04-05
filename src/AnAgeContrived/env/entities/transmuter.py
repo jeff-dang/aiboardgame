@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: December 12th, 2022
+# Description: 
+# Module to define the "transmtuer device" entity of the game
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -12,6 +17,7 @@ from env.helpers.logger import Logger
 from random import randint
 from env.entities.energy import Energy
 
+# defines the transmuter as an object
 class Transmuter:
     def __init__(self):
 
@@ -28,19 +34,11 @@ class Transmuter:
         self.reserved_tiles: list[TransmuterTile] = [t6, t7]
         self.action_tokens: list = INITIAL_ACTION_TOKENS
 
-    # gets all the tiles currently on the transmuter
-    def get_all_tiles(self):
-        pass
-
-    # returns the tile at the given position
-    def get_tile(self, position):
-        pass
-
+    # returns theaction tokens associated with the transmtuer device
     def get_action_token(self, index):
         return self.action_tokens[index]
 
     # conveys the transmuter tiles only once, if convey 2 call method twice
-    # Upgrade performance here
     def convey(self, player: Player, reservedTileIndex: int, fill_energies: list[EnergyTile] = [None, None]):
         new_active_tiles: list[TransmuterTile] = [None, None, None, None, None]
         new_tile: TransmuterTile = self.reserved_tiles[reservedTileIndex]
@@ -83,16 +81,12 @@ class Transmuter:
         self.reserved_tiles[reservedTileIndex] = self.active_tiles[4]
         self.active_tiles = new_active_tiles
 
-    def _move_all_tiles_ahead(self):
-        pass
-
-    def is_full(self):
-        pass
-
+    # prints all transmuter tiles of the transmuter in human readable way to be used in the game engine's render method
     def print_transmuter(self):
         for lines in zip(*map(TransmuterTile.print_tile, self.active_tiles)):
             print(*lines)
 
+    # for JSON logging purposes, prints the top and bottom energies binded to the transmuter
     def print_energies(self):
         energies = {'top_energies': {0: [], 1: [], 2: [], 3: [], 4: []}, 'bottom_energies': {0: [], 1: [], 2: [], 3: [], 4: []}}
         for index in range(0, len(self.active_tiles)):
@@ -102,6 +96,7 @@ class Transmuter:
                 energies['bottom_energies'][index].append(i)
         return energies
 
+    # finds the number of energies binded to the transmuter
     def get_total_energy_cells(self) -> int:
         sum = 0
         for tile in self.active_tiles:
@@ -109,6 +104,7 @@ class Transmuter:
             sum += tile.bottom.count(1)
         return sum
 
+    # finds the number of total spaces empty (not binded any energy) on the transmuter
     def get_total_empty_cells(self) -> int:
         sum = 0
         for tile in self.active_tiles:
