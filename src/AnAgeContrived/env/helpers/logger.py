@@ -1,4 +1,9 @@
+# Author: Jonah Ada
+# Date: February 19th, 2023
+# Description: 
+# Custom logger function to manage the terminal outputs of print statements on specific sub-systems of the game
 class Logger:
+    #constants for different sub-systems of the game
     ALL_LOGS = False
 
     GAME_ENGINE_LOGS = True
@@ -15,6 +20,7 @@ class Logger:
     TRANSMUTER_LOGS = True
     PILLARS_OF_CIVILIZATION_LOGS = True
 
+    # logic to determine which parts of the game will be logged to the terminal
     @staticmethod
     def log(message: str, type: str):
         if Logger.ALL_LOGS == False:

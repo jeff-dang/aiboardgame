@@ -1,3 +1,8 @@
+# Author: Michael Ilao
+# Date: March 12nd, 2023
+# Description: 
+# Helper module for build bridge action
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -7,10 +12,11 @@ if TYPE_CHECKING:
 from env.entities.turn_state import TurnType
 from env.entities.bridge import BridgeRewardType
 
-
+# Defines helper functions to build bridges
 class BuildBridge():
 
     # 2 types per tier of bridges and 10 spots
+    # builds the bridge given the necessary resources by the player
     @staticmethod
     def build_bridge(engine, bridge_location, player, reward):
         bridge_reward = (player.num_bridges_left % 3) + reward
@@ -21,6 +27,7 @@ class BuildBridge():
         engine.turn.turn_type = TurnType.ACTION_TURN
         engine.turn.can_build_bridge = False
 
+    # implements the game rules on when this action is legal to be taken
     @staticmethod
     def is_legal_move(player: Player, engine: Engine, bridge_location):
         # Check if turn type is building a bridge

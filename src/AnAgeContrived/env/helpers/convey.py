@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: December 13th, 2022
+# Description: 
+# Helper module to define convey actions
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -13,14 +18,16 @@ from env.entities.energy import Energy
 
 MAX_STEP_SIZE = 2
 
+# defines the helper functions for convey actions and action mask
 class Convey():
 
+    # checks the different scenarios of conveying a new transmuter tile in the transmuter device for the current player
     @staticmethod
     def convey(engine: Engine, player: Player, stepSize: int, order: int, fill_energies: list[EnergyTile] = [None, None]):
         Logger.log('Convey ' + str(stepSize), 'ACTION_LOGS')
-        if stepSize == 1:
+        if stepSize != MAX_STEP_SIZE:
             player.transmuter.convey(player, order, fill_energies)
-        elif stepSize == 2:
+        elif stepSize == MAX_STEP_SIZE:
             if order == 0:
                 player.transmuter.convey(player, 0, fill_energies)
                 player.transmuter.convey(player, 1, fill_energies)
@@ -29,6 +36,7 @@ class Convey():
                 player.transmuter.convey(player, 0, fill_energies)
         engine.turn.conveyed()
 
+    # following functions implements the game rules for all available combinations of filling the new transmuter tile when conveyed
     @staticmethod
     def convey_1_legal(engine: Engine) -> bool:
         return engine.turn.can_convey and engine.turn.get_turn_type() == TurnType.CONVEY_TURN

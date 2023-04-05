@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: February 6th, 2023
+# Description: 
+# Helper module to define fill monument actions
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -11,9 +16,10 @@ from env.entities.energy import Energy
 from env.entities.turn_state import TurnType
 from env.helpers.logger import Logger
 
+# Defines functions for fill monument actions
 class FillMonument():
 
-    # TODO: need to check the player location and get the closest monument to fill ,instead of currently just filling the monuments[0]
+    # given the energy and the player, it will fill monument and update the state in the game engine
     @staticmethod
     def fill_monument_tile(player: Player, engine: Engine, energy: EnergyTile):
         if len(player.energies_released[energy.energy_type]) > 0:
@@ -28,6 +34,7 @@ class FillMonument():
                 Logger.log(str(len(player.energies_released[energy.energy_type])), 'ACTION_LOGS')
                 Logger.log('Remaining sections:' + str(monument_wall.remaining_sections), 'ACTION_LOGS')
 
+    # next two functions define the game rules for action mask on whether the fill monument action is actually available to be taken
     @staticmethod
     def is_legal_to_fill_monument_tile(engine: Engine, energy_type: Energy) -> bool:
         # Check turn is type action

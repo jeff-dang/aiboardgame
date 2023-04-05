@@ -1,3 +1,8 @@
+# Author: Michael Ilao
+# Date: January 30th, 2023
+# Description: 
+# Helper module to define move player actions
+
 from __future__ import annotations
 
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
@@ -7,15 +12,12 @@ if TYPE_CHECKING:
     from env.entities.player import Player
     from env.engine import Engine
 
-    # from env.entities.energy import EnergyTile
-    pass
-
 import copy
 from env.entities.turn_state import TurnType
 from env.helpers.bridge_rewards import BridgeRewards
 from env.helpers.logger import Logger
 
-
+# defines player movement action and its action mask in the is_legal_move function
 class MovePlayer:
     @staticmethod
     def move_player(engine: Engine, player: Player, location):

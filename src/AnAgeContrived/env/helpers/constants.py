@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: January 29th, 2023
+# Description: 
+# File that contains most constants used in the system (some constants are not here to avoid circular dependencies)
+
 from env.action_initiater import get_actions
 from env.entities.action_tokens import (
     EnergyActionToken,

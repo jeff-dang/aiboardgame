@@ -1,3 +1,8 @@
+# Author: Michael Ilao
+# Date: December 17th, 2022
+# Description: 
+# Helper module to define turn types
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -14,7 +19,7 @@ TOTAL_PLAYERS: int = 5
 
 
 class Turn():
-
+    # changes the turn type to end turn
     @staticmethod
     def end_turn(engine: Engine):
         Logger.log('End Turn', 'TURN_LOGS')
@@ -23,6 +28,7 @@ class Turn():
         engine.turn.reset()
         # Check for queued players before progressing in case of monument building
 
+    # action mask for checking whether the turn can be ended
     @staticmethod
     def end_turn_legal(player: Player, engine: Engine) -> bool:
         if(engine.turn.turn_type == TurnType.CONVEY_TURN and engine.turn.can_convey == True):
@@ -33,11 +39,13 @@ class Turn():
             return False
         return engine.turn.turn_type == TurnType.CONVEY_TURN or engine.turn.turn_type == TurnType.ACTION_TURN
 
+    # changes the turn type to convey actions turn
     @staticmethod
     def convey_turn(engine: Engine):
         Logger.log('Choose Convey Turn', 'TURN_LOGS')
         engine.turn.update_turn_type(TurnType.CONVEY_TURN)
 
+    # action mask for checking whether the turn type can be convey turn
     @staticmethod
     def convey_turn_legal(player: Player, engine: Engine) -> bool:
         if engine.turn.turn_type == TurnType.INITIALIZATION_TURN:
@@ -46,11 +54,13 @@ class Turn():
             return False
         return engine.turn.turn_type == None
 
+    # changes the turn type to action turn
     @staticmethod
     def action_turn(engine: Engine):
         Logger.log('Choose Action Turn', 'TURN_LOGS')
         engine.turn.update_turn_type(TurnType.ACTION_TURN)
 
+    #action mask for checking whether the turn type can be action turn
     @staticmethod
     def action_turn_legal(player: Player, engine: Engine) -> bool:
         if engine.turn.turn_type == TurnType.INITIALIZATION_TURN:

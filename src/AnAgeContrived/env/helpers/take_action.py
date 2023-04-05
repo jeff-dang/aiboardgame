@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: February 5th, 2023
+# Description: 
+# Helper module to define action token actions in transmuter device
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -14,6 +19,7 @@ from env.helpers.logger import Logger
 
 
 # index is the index of the transmuter tile that you want to take action on
+# main game rules that defines how to get an action token given resources
 def take_action(player: Player, engine: Engine, index: int):
     if index < 0 or index > 4:
         Logger.log('index is suppose to be between [0, 4]. Current index is not valid: ' + str(index), 'ACTION_LOGS')
@@ -66,7 +72,7 @@ def take_action(player: Player, engine: Engine, index: int):
         Logger.log('No energy in the bottom tiles', 'ACTION_LOGS')
         return False
 
-
+# defines game rules to implement the action mask
 def is_take_action_legal(player: Player, engine: Engine, index: int):
     is_legal = False
     if(not engine.turn.get_turn_type() == TurnType.ACTION_TURN):
@@ -94,20 +100,22 @@ def is_take_action_legal(player: Player, engine: Engine, index: int):
                 is_legal = True
     return is_legal
 
-
+# helper function for movement action tokens
 def _take_move_action(engine: Engine, action_token):
     # TODO: discuss how to implement this
     # move_times = action_token.move_times
     engine.turn.turn_type = TurnType.MOVE_TURN
     return True
 
+# helper function to take transformative track action token
 def _take_transformative_action(player: Player):
     player.transformative_track.is_token_enable = True
 
+# helper function to take sentient track action token
 def _take_sentient_action(player: Player):
     player.sentient_track.is_token_enable = True
 
-
+# helper function to take release energy action token
 def _take_release_energy_action(player: Player, action_token):
     available_tiles = []
     for i in range(0, len(action_token.transmuter_tiles)):
@@ -131,10 +139,10 @@ def _take_release_energy_action(player: Player, action_token):
         Logger.log('energies AFTER: ' + str(player.energies_released), 'ACTION_LOGS')
         return True
 
-
+# helper function to recharge player's channel marker action token
 def _take_recharge_action(player: Player):
     player.channel_marker = True
 
-
+# helper function to generate random integer within token indexes
 def _get_random_token() -> int:
     return randint(0, 3)

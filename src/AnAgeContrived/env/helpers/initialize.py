@@ -1,3 +1,8 @@
+# Author: Jonah Ada
+# Date: March 12th, 2023
+# Description: 
+# Helper functions defining actions for initialization of transmuter device
+
 from __future__ import annotations
 # these imports will not be imported in the runtime, it is just to help coding to do type_checking
 from typing import TYPE_CHECKING
@@ -13,6 +18,7 @@ from random import randint
 from env.helpers.logger import Logger
 from env.entities.energy import Energy
 
+# modifier that actually initializes individual transmuter tiles of the transmuter device
 def initialize_transmuter(player: Player, energy: EnergyTile):
     tile = ''
     for i in range(0, 3):
@@ -24,6 +30,9 @@ def initialize_transmuter(player: Player, energy: EnergyTile):
             tile.fill_tile(energy, 2)
             break
 
+# remaining functions defines the game rules for action mask,
+#  current version is a simplified version of the game and only runs on a single energy type
+#  but original game has 4 energy types thus the commented out functions
 def is_legal_fill_single(player: Player):
     return not player.get_is_initialized() and TurnType.INITIALIZATION_TURN and len(player.exhausted_energies[Energy.SINGLE]) > 0 
 
