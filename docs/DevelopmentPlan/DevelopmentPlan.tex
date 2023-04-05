@@ -1,4 +1,7 @@
 \documentclass{article}
+%DIF LATEXDIFF DIFFERENCE FILE
+
+
 
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -8,9 +11,27 @@
 \author{\authname}
 
 \date{}
-
-\input{../Comments}
-\input{../Common}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
@@ -24,7 +45,8 @@ Sept $18^{th}$ & Michael Ilao & Tech Stack, POC, Coding Standard\\
 Sept $22^{nd}$ & Hargun Bedi & Team Meeting Plan, Team Communication Plan, Workflow Plan\\
 Sept $24^{th}$ & Michael Ilao & Project Schedule and Member Roles\\
 Sept $25^{th}$ & Jeffrey Dang & Revisions on Development Plan\\
-\bottomrule
+\DIFaddbeginFL \DIFaddFL{Apr $3^{rd}$ }& \DIFaddFL{Tianzheng Mai }& \DIFaddFL{Closed issues and final revised}\\
+\DIFaddendFL \bottomrule
 \end{tabularx}
 \end{table}
 
@@ -51,14 +73,21 @@ The team has decided to have weekly meetings on Fridays, from 11:30am to 12:30pm
 The team’s communication will be done virtually, primarily on our Microsoft Team’s group chat. Any questions, concerns, requests to change deadlines, or general discussions will be done on the Team’s group chat. If necessary, we will also be meeting in-person, at the team’s decided location prior to the meeting. 
 Additionally, all emails sent to our supervisors, professor, or TA’s must have all team members CC’d on it.
 \section{Team Member Roles}
-As the architecture will require two main parts of development, our developers' effort will be focused so they can understand their specific system on a deeper level.
-The two roles will be AI Game Agent developers, who will work on the Artificial Intelligence (AI) Game Agent and the Simulation Structure developers will focus on the architecture of the game engine and how it connects to the AI Game Agent.
-\begin{itemize}
+As the architecture will require \DIFdelbegin \DIFdel{two }\DIFdelend \DIFaddbegin \DIFadd{three }\DIFaddend main parts of development, our developers\DIFdelbegin \DIFdel{' effort }\DIFdelend \DIFaddbegin \DIFadd{’
+efforts }\DIFaddend will be focused so they can understand their specific system on a deeper
+level. The \DIFdelbegin \DIFdel{two }\DIFdelend \DIFaddbegin \DIFadd{three }\DIFaddend roles will be AI Game Agent developers, who will work on the
+Artificial Intelligence (AI) Game Agent\DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend the Simulation Structure developers \DIFaddbegin \DIFadd{who
+}\DIFaddend will focus on the architecture of the game engine and how it connects to the AI
+Game Agent\DIFdelbegin \DIFdel{.
+}\DIFdelend \DIFaddbegin \DIFadd{, and the Data Visualization Developer who will work on the data visualizer user interface to communicate complex data in different charts and identify key insights to the users.  
+}
+
+\DIFaddend \begin{itemize}
 	\item Jonah: AI Game Agent -\ Developer
 	\item Jeffrey: AI Game Agent -\ Developer
-	\item Hargun: Simulation Agent -\ Developer
+	\item Hargun: \DIFdelbegin \DIFdel{Simulation Agent }\DIFdelend \DIFaddbegin \DIFadd{Data Visualization }\DIFaddend -\ Developer
 	\item Michael: Simulation Structure -\ Developer
-	\item Tianzheng: Simulation Structure -\ Developer
+	\item Tianzheng: \DIFdelbegin \DIFdel{Simulation Structure }\DIFdelend \DIFaddbegin \DIFadd{Data Visualization }\DIFaddend -\ Developer
 \end{itemize}
 All the developers will be required to understand the system at a high-level on both parts. They will also be required to work on documentation, testing, requirements and actively attend all meetings with the Stakeholders.
 \section{Workflow Plan}
@@ -88,7 +117,7 @@ Tags will be used to mark milestones in the development of the project. Major mi
 For a proof of concept demonstration, the base architecture must be working and implemented properly. This means that the simulation and AI Game Agent are fully
 modular and can be swapped with different AI Agents or even a different simulation engine. The simulation engine to be implemented will be a simple game of Tic-Tac-Toe.
 If the integration of AI Game Agents can play on the simulation of Tic-Tac-Toe, the project has a great chance of success as we will know the architecture is able to support
-more complex game agents and a more complex simulation engine. These two systems will be developed in parallel to maximize our time constraints.
+more complex game agents and a more complex simulation engine. \DIFdelbegin \DIFdel{These }\DIFdelend \DIFaddbegin \DIFadd{After the implementation of Tic-Tac-Toe, the frontend data visualizer should utilize the AI Game Agents' data for different chart modules. The users can customize different data points, and view and compare the data and information in various charts. These three systems will be developed in parallel to maximize our time constraints.  These }\DIFaddend two systems will be developed in parallel to maximize our time constraints.
 The major risk of this project is how to create a modular architecture and able to integrate a simulation engine that can be played by real players as well as AI players. Testing this will not be difficult for the POC as the game chosen Tic-Tac-Toe is a simple game and we can test the success of our AI's quickly as many simulations can be ran quickly.
 
 In our demonstration we will be able to show that are architecture is modular enough to support different kinds of AI Game Agents and that they are seamlessly able to integrate into the simulation (by swapping different AI Game Agents in/out).
@@ -101,7 +130,8 @@ The choice of this language is due to Python's Machine Learning/Artificial Intel
 \item Object Oriented Programming will be used as the design methodology as to allow multiple developer to work seamlessly 
 on the same project and for extensibility to other possible board games/simulations. 
 \item To ensure common programming standards, developers will use pylint to maintain the same coding style across files. 
-VSCode and prettier will be used for automatic formatting and linting.
+VSCode and prettier will be used for automatic formatting and linting\DIFaddbegin \DIFadd{.
+}\item \DIFadd{JavaScript, HTML, CSS, and ReactJS will be used to develop a data visualization interface that can fetch the output log file in the game engine backend to the frontend. React is a component-based frontend framework that breaks down complex UIs into smaller and reusable components and has a large ecosystem of libraries, tools, and resources that support the implementation of different charts}\DIFaddend . 
 \item Pytest will be used for integration and unit testing for the Simulation Engine. For testing the AI Game engine, developers will need to build custom test to verify they are working to an acceptable degree.
 \item Coverage.py will be used for code coverage as it integrates easily with pytest.
 \item There are no immediate plans for Continuous Integration/Continuous Deployment as the project will be used for testing by the 
