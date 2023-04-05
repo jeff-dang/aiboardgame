@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Component for displaying the simulation selection
+ */
 const SimulationSelection = ({
   setNumSims,
   numSimulations,

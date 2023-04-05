@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import React from "react";
 
+/**
+ * Component for displaying the side menu
+ */
 const SideMenu = () => {
   return (
     <Sidebar className="sidebar">

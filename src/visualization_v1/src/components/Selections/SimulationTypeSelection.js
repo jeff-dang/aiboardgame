@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Component for displaying the simulation type selection
+ */
 const SimulationTypeSelection = ({ setSimType, simulationFile, value }) => {
   return (
     <>

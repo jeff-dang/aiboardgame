@@ -51,6 +51,9 @@ function getMaxBars(allNonZeroActions) {
 
 let tooltipTimeout;
 
+/**
+ * BarGraphRaw is a component that renders a bar chart.
+ */
 const BarGraphRaw = ({
   width,
   height,
@@ -383,8 +386,14 @@ const BarGraphRaw = ({
   );
 };
 
+/**
+ * Component that renders the BarGraphRaw with tooltip
+ */
 const BarGraphToolTip = withTooltip(BarGraphRaw);
 
+/**
+ * Component that renders the BarGraphToolTip
+ */
 const FrequentlyUsedMoves = ({ width, height }) => {
   return (
     <div style={{ margin: "auto" }}>

@@ -4,9 +4,12 @@ import HeatMapWithTooltip from "./HeatMap";
 import LineChart from "./LineChart";
 import MovesToScores from "./MovesToScores";
 import PieChart from "./PieChart";
+import SimpleTreeChart from "./SimpleTreeChart";
 import SimpleTreeGraph from "./SimpleTreeGraph";
-import TreeChart from "./TreeChart";
 
+/**
+ * Constants for the width and height of the charts.
+ */
 const width = 1100;
 const height = 700;
 
@@ -16,11 +19,13 @@ const chartOptions = {
   "Heat map": <HeatMapWithTooltip width={width} height={height} />,
   "Line Chart": <LineChart width={width} height={height} />,
   "Pie Chart": <PieChart width={width} height={height} />,
-  "Tree - Individual Paths": <TreeChart width={width} height={height} />,
+  "Tree - Individual Paths": <SimpleTreeChart width={width} height={height} />,
   "Tree - Common Paths": <SimpleTreeGraph width={width} height={height} />,
 };
-// "Alt Tree Chart": <SimpleTreeChart width={width} height={height} />,
 
+/**
+ * This component is used to compare different charts.
+ */
 const Comparison = () => {
   const [firstChart, setFirstChart] = useState(<></>);
   const [secondChart, setSecondChart] = useState(<></>);

@@ -62,71 +62,13 @@ const getCategoryIndex = (categories, action) => {
   return category;
 };
 
-// const generateData = (categories, dataArr, moves) => {
-//   let result = [];
-//   let x = 200;
-//   let y = 100;
-//   const incrementX = 300;
-//   const incrementY = 300;
-//   result.push({
-//     name: "Start",
-//     x,
-//     y: 200,
-//     label: labelOptions,
-//     category: 0,
-//     value: `Category: Start, Simulations: ${
-//       dataArr.length > 0 ? dataArr[0].length : 0
-//     }`,
-//   });
-
-//   if (dataArr.length === 0) return result;
-
-//   dataArr.forEach((data, index) => {
-//     if (index > moves) return;
-//     x += incrementX;
-//     let newY = y;
-//     data.forEach((action, actionIndex) => {
-//       newY = y + actionIndex * incrementY;
-//       const categoryIndex = getCategoryIndex(categories, action);
-//       if (result.findIndex((item) => item.name === action) === -1) {
-//         result.push({
-//           name: action,
-//           x,
-//           y: newY,
-//           label: labelOptions,
-//           category: categoryIndex,
-//           value:
-//             categoryIndex !== -1
-//               ? `Category: ${categories[categoryIndex].name}, Simulations: 1`
-//               : "None",
-//         });
-//       } else {
-//         const index = result.findIndex((item) => item.name === action);
-//         result[index].x = x;
-//         result[index].value =
-//           result[index].value !== "None"
-//             ? `Category: ${categories[categoryIndex].name}, Simulations: ${
-//                 Number(
-//                   result[result.findIndex((item) => item.name === action)].value
-//                     .split(", ")[1]
-//                     .split(": ")[1]
-//                 ) + 1
-//               }`
-//             : result[index].value;
-//       }
-//     });
-//   });
-
-//   return result;
-// };
-
 const generateData = (categories, dataArr, moves) => {
   let result = [];
   let x = 200;
   let y = 100;
-  const incrementX = 500;
-  // moves <= 50 ? 200 : moves <= 150 ? 300 : moves <= 250 ? 400 : 500;
-  const incrementY = //dataArr.length * 400 + moves * 200;
+  const incrementX =
+    moves <= 50 ? 200 : moves <= 150 ? 300 : moves <= 250 ? 400 : 500;
+  const incrementY =
     moves <= 15
       ? 500
       : moves <= 50
@@ -188,30 +130,6 @@ const generateData = (categories, dataArr, moves) => {
   return result;
 };
 
-// const generateLinks = (dataArr, moves) => {
-//   let result = [];
-//   if (dataArr.length === 0) return result;
-
-//   dataArr[0].forEach((_, index) => {
-//     result.push({
-//       source: "Start",
-//       target: dataArr[0][index],
-//     });
-//   });
-
-//   for (let i = 0; i < dataArr.length - 1 && i < moves; i++) {
-//     dataArr[i].forEach((action, index) => {
-//       if (action !== "End Game") {
-//         result.push({
-//           source: action,
-//           target: dataArr[i + 1][index],
-//         });
-//       }
-//     });
-//   }
-//   return result;
-// };
-
 const generateLinks = (dataArr, moves) => {
   let result = [];
   if (dataArr.length === 0) return result;
@@ -232,13 +150,6 @@ const generateLinks = (dataArr, moves) => {
 
   return result;
 };
-
-// const arr1 = dataInit.getMap(res, 0, 3, 0)[0];
-// const arr2 = dataInit.getMap2(res, 0, 3, 0);
-// console.log(generateData(getCategories("An Age Contrived"), arr1, 3));
-// console.log(generateData2(getCategories("An Age Contrived"), arr2, 3));
-// console.log(generateLinks(arr1, 3));
-// console.log(generateLinks2(arr2, 3));
 
 const generateOptions = (categories, dataArr, moves) => {
   const option = {
@@ -283,17 +194,15 @@ const generateOptions = (categories, dataArr, moves) => {
         categories,
         center: moves > 2 ? ["50%", "25%"] : [],
         zoom: 1,
-        // emphasis: {
-        //   focus: "adjacency",
-        //   scale: 2,
-        // },
-        // width: moves <= 200 ? 2000 : 5000,
       },
     ],
   };
   return option;
 };
 
+/**
+ * Component for displaying a the tree graph of common paths between simulations
+ */
 const SimpleTreeGraph = ({ width, height }) => {
   const [loading, setLoading] = useState(null);
   const [game, setGame] = useState("none");

@@ -1,6 +1,9 @@
 import React from "react";
 import { files } from "../../data/getFiles";
 
+/**
+ * Component for displaying the simulation file selection
+ */
 const SimulationFileSelection = ({
   game,
   setSimulationFile,
