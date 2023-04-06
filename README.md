@@ -1,8 +1,11 @@
 # An AI-based Approach to Designing Board Games
 
 Developer Names: Michael Ilao, Hargun Bedi, Jeffrey Dang, Jonah Ada, Tiangzheng Mai
+
 Supervisors: Dr. Sébastien Mosser, Dr. Vladimir Reinharz
+
 Date of project start: September 2022
+
 
 This project is An AI Based Approach to Designing Board Games
 
