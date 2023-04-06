@@ -1,4 +1,7 @@
 \documentclass[12pt, titlepage]{article}
+%DIF LATEXDIFF DIFFERENCE FILE
+
+
 
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -48,13 +51,53 @@
 \tikzexternalize
 \input{Comments}
 \input{Common}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
 \title{Verification and Validation Report \\ An AI-based Approach to Designing Board Games \\ SE 4G06} 
 \author{\authname{}}
 \date{\today}
-	
+
 \maketitle
 
 \pagenumbering{roman}
@@ -67,30 +110,66 @@
 March 5th & 1.0 & Initial Division of Work\\
 March 6th & 1.1 & NFR Eval finished\\
 March 7th & 1.2 & Traceability Matricies finished\\
-\bottomrule
+\DIFaddbegin \DIFadd{April 4th }& \DIFadd{1.3 }& \DIFadd{Rev 1 based on feedback \& GitHub issues}\\
+\DIFaddend \bottomrule
 \end{tabularx}
 
-~\newpage
+\DIFdelbegin \DIFdel{~}\DIFdelend \newpage
 
-\section{Symbols, Abbreviations and Acronyms}
+\DIFaddbegin \tableofcontents
+
+
+\listoffigures
+
+\newpage
+
+\DIFaddend \section{Symbols, Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l} 
   \toprule		
-  \textbf{symbol} & \textbf{description}\\
+  \textbf{\DIFdelbegin \DIFdel{symbol}\DIFdelend \DIFaddbegin \DIFadd{Symbol}\DIFaddend } & \textbf{\DIFdelbegin \DIFdel{description}\DIFdelend \DIFaddbegin \DIFadd{Description}\DIFaddend }\\
   \midrule 
   VnV & Verification and Validation \\
-  \bottomrule
+  \DIFaddbegin \DIFadd{AI }& \DIFadd{Artificial Intelligence}\\
+  \DIFaddend \bottomrule
 \end{tabular}\\
 
+\DIFaddbegin \section{\DIFadd{Terminology and  Definitions}}
+\DIFadd{This section is expressed in words, not with equations.  It provides the meaning of the different words and phrases used in the domain of the problem.
+The terminology is used to introduce concepts from the world outside of the
+mathematical model. The terminology provides a real-world connection to give the
+mathematical model meaning.
+}
 
-\newpage
+\DIFadd{This subsection provides a list of terms that are used in the subsequent
+sections and their meaning, with the purpose of reducing ambiguity and making it easier to correctly understand the requirements:
+}
 
-\tableofcontents
+\begin{itemize}
 
-\listoftables %if appropriate
+\item \textbf{\DIFadd{AI Agent}}\DIFadd{: Refers to the subsystem that has an AI model trained to play the game at hand acting as one of the players of the game.
+}
 
-\listoffigures %if appropriate
+\item \textbf{\DIFadd{Game Engine}}\DIFadd{: Refers to the subsystem that is an abstract representation of the actual game as software.
+}
+
+\item \textbf{\DIFadd{Data Visualization}}\DIFadd{: Refers to the subsystem that visualizes Game Engine and AI Agent logs.
+}
+
+\item \textbf{\DIFadd{Game State}}\DIFadd{: Refers to the state of the game, which could include player attributes, player score, and game layout. All attributes and characteristics that change throughout a game simulation are stored here.
+}
+
+\item \textbf{\DIFadd{Observation Space}}\DIFadd{: Refers to the state of the game that is observable to a Game Agent. (Not all information is available to the Game Agents and can vary from agent to agent)
+}
+
+\item \textbf{\DIFadd{Action Space}}\DIFadd{: Refers to the set of moves an AI Agent can take in a particular Game Engine.
+}
+
+\item \textbf{\DIFadd{Game Designer}}\DIFadd{: The game designer is the person who is creating the game by coming up with the rules and writing a scenario for the game. The game designer will be the end user of the system to balance the game and improve the design of the game.
+}
+
+\end{itemize}
 
 \newpage
 
@@ -98,8 +177,8 @@ March 7th & 1.2 & Traceability Matricies finished\\
 
 \section{Functional Requirements Evaluation}
 \subsection{AI Agents Module}
-\subsection{FR Test 1}
-\subsubsection{Test Requirements}
+\subsection{FR Test 1}\DIFaddbegin \label{FRT1} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item AI Agent responds to the game state 
     \item Display error message
@@ -122,8 +201,8 @@ March 7th & 1.2 & Traceability Matricies finished\\
 \subsubsection{Results Analysis}
 \item Both test cases passed as expected. 
 
-\subsection{FR Test 2}
-\subsubsection{Test Requirements}
+\subsection{FR Test 2}\DIFaddbegin \label{FRT2} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item AI Agent is exchangable
     \item Display error message
@@ -146,8 +225,8 @@ March 7th & 1.2 & Traceability Matricies finished\\
 \subsubsection{Results Analysis}
 \item Both test cases passed as expected.
 
-\subsection{FR Test 3}
-\subsubsection{Test Requirements}
+\subsection{FR Test 3}\DIFaddbegin \label{FRT3} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item AI Agent's moves are observable in the environment
 \end{itemize}
@@ -166,8 +245,8 @@ March 7th & 1.2 & Traceability Matricies finished\\
 \subsubsection{Results Analysis}
 \item The test case has passed as expected.
 
-\subsection{FR Test 4}
-\subsubsection{Test Requirements}
+\subsection{FR Test 4}\DIFaddbegin \label{FRT4} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item AI Agent makes valid moves.
     \item The system checks the validity of the move.
@@ -185,8 +264,8 @@ March 7th & 1.2 & Traceability Matricies finished\\
     \item \textbf{Positive Test Case:} Simulation ran accordingly, results of the simulation were displayed in the terminal and a logs file was produced in the logs folder.
 \end{itemize}
 
-\subsection{FR Test 5}
-\subsubsection{Test Requirements}
+\subsection{FR Test 5}\DIFaddbegin \label{FRT5} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item AI Agent takes observation space as input
 \end{itemize}
@@ -208,8 +287,8 @@ March 7th & 1.2 & Traceability Matricies finished\\
 \subsubsection{Results Analysis}
 The test case has passed as expected.
 
-\subsection{FR Test 6}
-\subsubsection{Test Requirements}
+\subsection{FR Test 6}\DIFaddbegin \label{FRT6} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item The simulation is continuous and does not stall on any AI agents' turn
 \end{itemize}
@@ -231,8 +310,8 @@ test-num 1} in the terminal through \textit{main.py}.
 The test case passed as the simulation finished within the expected time limit.
 \subsection{Game Engine Module}
 
-\subsection{FR Test 7}
-\subsubsection{Test Requirements}
+\subsection{FR Test 7} \DIFaddbegin \label{FRT7}
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item Game engine is properly initialized
 \end{itemize}
@@ -252,8 +331,8 @@ The test case passed as the simulation finished within the expected time limit.
 \subsubsection{Results Analysis}
 The test case has passed.
 
-\subsection{FR Test 8}
-\subsubsection{Test Requirements}
+\subsection{FR Test 8}\DIFaddbegin \label{FRT8} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item AI Agent makes progress towards an end-game state
 \end{itemize}
@@ -274,16 +353,16 @@ The test case has passed.
 \subsubsection{Results Analysis}
 The test case has passed.
 
-\subsection{FR Test 9}
-\subsubsection{Test Requirements}
+\subsection{FR Test 9}\DIFaddbegin \label{FRT9} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item Game state changes accordingly to AI Agent moves
 \end{itemize}
 \subsubsection{Testing Process}
 \begin{enumerate}
     \item Initialize a game engine with a game state and an AI Agent in the \textit{test\_engine.py}. 
-    \item Initialize a game turn on the AI Agent. (energy fill in the case of An Age Contrived)
-    \item Assess the game state of the game engine after the move has been completed. (see if the first monument was filled by the AI agent's action)
+    \item Initialize a game turn on the AI Agent \DIFdelbegin \DIFdel{. }\DIFdelend (energy fill in the case of An Age Contrived)\DIFaddbegin \DIFadd{.
+    }\DIFaddend \item Assess the game state of the game engine after the move has been completed. (see if the first monument was filled by the AI agent's action)
 \end{enumerate}
 \subsubsection{Expected Results}
 \begin{itemize}
@@ -296,8 +375,8 @@ The test case has passed.
 \subsubsection{Results Analysis}
 The test case has passed.
 
-\subsection{FR Test 10}
-\subsubsection{Test Requirements}
+\subsection{FR Test 10}\DIFaddbegin \label{FRT10} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item Action list should be consistent throughout the simulation
 \end{itemize}
@@ -317,8 +396,8 @@ The test case has passed.
 \subsubsection{Results Analysis}
 The test case has passed.
 
-\subsection{FR Test 11}
-\subsubsection{Test Requirements}
+\subsection{FR Test 11}\DIFaddbegin \label{FRT11} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item AI Agent and Engine are consistent with each other
 \end{itemize}
@@ -340,8 +419,8 @@ The test case has passed.
 \subsubsection{Results Analysis}
 The test case has passed.
 
-\subsection{FR Test 12}
-\subsubsection{Test Requirements}
+\subsection{FR Test 12}\DIFaddbegin \label{FRT12} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item Game engine error handles incorrect data types correctly
 \end{itemize}
@@ -361,8 +440,8 @@ The test case has passed.
 \subsubsection{Results Analysis}
 The test case has passed.
 
-\subsection{FR Test 13}
-\subsubsection{Test Requirements}
+\subsection{FR Test 13}\DIFaddbegin \label{FRT13} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item Game engine error handles illegal moves correctly
 \end{itemize}
@@ -383,11 +462,11 @@ The test case has passed.
 The test case has passed.
 
 \subsection{Data Visualizer Module}
-\subsection{FR Test 14}
-\subsubsection{Test Requirements}
+\subsection{FR Test 14}\DIFaddbegin \label{FRT14} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item The data visualizer is able to read the JSON log file
-    
+
 \end{itemize}
 \subsubsection{Testing Process}
 \begin{enumerate}
@@ -405,8 +484,10 @@ The test case has passed.
 \end{itemize}
 \subsubsection{Results Analysis}
 The test case has passed.
-\subsection{FR Test 15}
-\subsubsection{Test Requirements}
+\DIFaddbegin 
+
+\DIFaddend \subsection{FR Test 15}\DIFaddbegin \label{FRT15} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item The data visualizer is able to read the JSON log file
 \end{itemize}
@@ -428,8 +509,8 @@ The test case has passed.
 \subsubsection{Results Analysis}
 The test case has passed.
 
-\subsection{FR Test 16}
-\subsubsection{Test Requirements}
+\subsection{FR Test 16}\DIFaddbegin \label{FRT16} 
+\DIFaddend \subsubsection{Test Requirements}
 \begin{itemize}
     \item Data visualizer about to select specific data points
 \end{itemize}
@@ -451,10 +532,12 @@ The test case has passed.
 \end{itemize}
 \subsubsection{Results Analysis}
 The test case has passed.
-\section{Nonfunctional Requirements Evaluation}
+\DIFaddbegin 
+
+\DIFaddend \section{Nonfunctional Requirements Evaluation}
 
 \subsection{Accuracy}
-To test accuracy of the system, win rates were compared between AI's using models from that had different levels of training, and checking how their win rates compared (against an AI that only takes random moves) and how long the model was trained for. The expected conclusion was that the longer the model was trained for the higher win rate it would have. The simulation was ran for a total of 200 times, comparing win rates at intervals of 50 simulations. The higher the AI reward, the more points the AI scored during the game. After running these simulations the AI's rewards and improved after each interval of training, so we can draw the conclusion that the system became more accurate with more training.
+To test accuracy of the system, win rates were compared between AI's using models from that had different levels of training, and checking how their win rates compared (against an AI that only takes random moves) and how long the model was trained for. The expected conclusion was that the longer the model was trained for the higher win rate it would have. The simulation was \DIFdelbegin \DIFdel{ran }\DIFdelend \DIFaddbegin \DIFadd{run }\DIFaddend for a total of 200 times, comparing win rates at intervals of 50 simulations. The higher the AI reward, the more points the AI scored during the game. After running these simulations\DIFaddbegin \DIFadd{, }\DIFaddend the AI's rewards and improved after each interval of training, so we can draw the conclusion that the system became more accurate with more training.
 \begin{itemize}
     \item NFR Test 1: \textbf{Pass}
 \end{itemize}
@@ -492,7 +575,7 @@ To test the usability of the system, we invited the AI Research Professors and G
 \end{itemize}
 
 \subsection{Modularity}
-To test the modularity of the system, AI Agents should be able to be swapped with ease and the system should function correctly. AI Agents policies (IE. strategies), are generated as files after a successful execution of the system, the system was ran twice with different parameters and saved each policy separately. Then the policies were then given as input to the system and was able to function correctly.
+To test the modularity of the system, AI Agents should be able to be swapped with ease and the system should function correctly. AI Agents policies (IE. strategies), are generated as files after a successful execution of the system, the system was \DIFdelbegin \DIFdel{ran }\DIFdelend \DIFaddbegin \DIFadd{run }\DIFaddend twice with different parameters and saved each policy separately. Then the policies were then given as input to the system and was able to function correctly.
 \begin{itemize}
     \item NFR Test 2: \textbf{Pass}
 \end{itemize}
@@ -594,72 +677,79 @@ To test the look and feel of the data visualizer, we invited the game designers 
 \subsection{AI & Game Engine Unit Tests}
 These functions are under a test class, so self refers to a child of a TestCase class. They use PyTest libraries to run the unit tests and automate them to a degree.
 \begin{itemize}
-    \item \textbf{Unit Test 1 - FR 7 Test}: Check whether the game engine initialized correctly. 
-    
+    \item \textbf{Unit Test 1 - FR 7 Test \DIFaddbegin \DIFadd{(\ref{FRT7})}\DIFaddend }: Check whether the game engine initialized correctly. 
+
  Engine has multiple functions that initializes it and goes back and forth between the AI module and game engine to make sure the AI agents makes choices to initialize the game board. If there is any errors in the initialization, this variable remains False and appropriate exceptions are raised by the game engine.
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
             self.assertTrue(engine.is_initialed)
-    \end{lstlisting}
-
-    \item \textbf{Unit Test 2 - FR 7 Test}: Check whether the AI agents are initialized correctly in the game engine.
     
+\end{lstlisting}
+
+    \item \textbf{Unit Test 2 - FR 7 Test \DIFaddbegin \DIFadd{(\ref{FRT7})}\DIFaddend }: Check whether the AI agents are initialized correctly in the game engine.
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
             NUM_PLAYERS = 5 #different games can have different players
             self.assertTrue(len(engine.agents) == NUM_PLAYERS)
-    \end{lstlisting}
-
-    \item \textbf{Unit Test 3 - FR1 Test}: Check whether the AI agents respond to game engine with correct turn type.
     
+\end{lstlisting}
+
+    \item \textbf{Unit Test 3 - FR1 Test \DIFaddbegin \DIFadd{(\ref{FRT1})}\DIFaddend }: Check whether the AI agents respond to game engine with correct turn type.
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
             current_agent = engine.get_current_agent()
             self.assertTrue(current_agent.turn.turn_type == engine.turn.turn_type)
-    \end{lstlisting}
-
-    \item \textbf{Unit Test 4 - FR2 Test}: Check whether the new AI agent respond to game engine with correct turn type.
     
+\end{lstlisting}
+
+    \item \textbf{Unit Test 4 - FR2 Test \DIFaddbegin \DIFadd{(\ref{FRT2})}\DIFaddend }: Check whether the new AI agent respond to game engine with correct turn type.
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
             new_agent = Player("agent_name", "default_ai_policy")
             engine.agents[5] = new_agent
             self.assertTrue(engine.agents[5].turn.turn_type == engine.turn.turn_type)
-    \end{lstlisting}
-
-    \item \textbf{Unit Test 5 - FR3 Test}: Check whether the AI Agent’s moves are observable in the environment. We do this by checking the action\_list in the game engine has action objects inside which are logged to JSON with their English explanations.
     
+\end{lstlisting}
+
+    \item \textbf{Unit Test 5 - FR3 Test \DIFaddbegin \DIFadd{(\ref{FRT3})}\DIFaddend }: Check whether the AI Agent’s moves are observable in the environment. We do this by checking the action\_list in the game engine has action objects inside which are logged to JSON with their English explanations.
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
             current_agent = engine.get_current_agent()
             self.assertTrue(len(engine.get_action_list(current_agent)) > 0)
-    \end{lstlisting}
-
-    \item \textbf{Unit Test 6 - FR5 Test}: Check whether the AI Agent takes observation space as input. Unit test cannot 100\% test this due to the AI library's input system. However, we can check whether the observation space object is initialized and can check a few key variables to see whether the game engine actually creates a observation space.
     
+\end{lstlisting}
+
+    \item \textbf{Unit Test 6 - FR5 Test \DIFaddbegin \DIFadd{(\ref{FRT5})}\DIFaddend }: Check whether the AI Agent takes observation space as input. Unit test cannot 100\% test this due to the AI library's input system. However, we can check whether the observation space object is initialized and can check a few key variables to see whether the game engine actually creates a observation space.
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
             observation_space = engine.get_observation_state()
             self.assertTrue(observation_space != None and len(observation_space.map) > 0)
-    \end{lstlisting}
-
-    \item \textbf{Unit Test 7 - FR8 Test}: Check whether the AI Agent makes progress towards an end-game state. We can check this by looking at the AI agent's reward function and see whether it is greater than 0. Which indicates that the AI actually did moves to earn points to end the game eventually.
     
+\end{lstlisting}
+
+    \item \textbf{Unit Test 7 - FR8 Test \DIFaddbegin \DIFadd{(\ref{FRT8})}\DIFaddend }: Check whether the AI Agent makes progress towards an end-game state. We can check this by looking at the AI agent's reward function and see whether it is greater than 0. Which indicates that the AI actually did moves to earn points to end the game eventually.
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
             current_agent = engine.get_current_agent()
             self.assertTrue(current_agent.reward > 0)
-    \end{lstlisting}
-
-    \item \textbf{Unit Test 8 - FR9 Test}: Check whether the Game state changes accordingly to AI Agent moves. This is hard to check in unit test level since multiple major sub-systems are involved in changing the game state with the actions. But we can check the AI Agent's observation space is different after the action to infer that there was a change in the game state. 
     
+\end{lstlisting}
+
+    \item \textbf{Unit Test 8 - FR9 Test \DIFaddbegin \DIFadd{(\ref{FRT9})}\DIFaddend }: Check whether the Game state changes accordingly to AI Agent moves. This is hard to check in unit test level since multiple major sub-systems are involved in changing the game state with the actions. But we can check the AI Agent's observation space is different after the action to infer that there was a change in the game state. 
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
@@ -668,10 +758,11 @@ These functions are under a test class, so self refers to a child of a TestCase 
             engine.play_turn() #agent takes action here
             new_observation_space = current_agent.get_observation_space()
             self.assertTrue(initial_observation_space != new_observation_space)
-    \end{lstlisting}    
-
-    \item \textbf{Unit Test 9 - FR10 Test}: Check whether the  Action list should be consistent throughout the simulation. We can check this by comparing the action list between different turns.
     
+\end{lstlisting}    
+
+    \item \textbf{Unit Test 9 - FR10 Test \DIFaddbegin \DIFadd{(\ref{FRT10})}\DIFaddend }: Check whether the  Action list should be consistent throughout the simulation. We can check this by comparing the action list between different turns.
+
     \begin{lstlisting}[language=Python]
         def check_engine_initilization(self):
             engine = Engine()
@@ -679,8 +770,9 @@ These functions are under a test class, so self refers to a child of a TestCase 
             engine.play_turn() #a turn played
             new_action_list = engine.get_action_list()
             self.assertTrue(initial_action_list == new_action_list)
-    \end{lstlisting}  
-  
+    
+\end{lstlisting}  
+
 \end{itemize}
 \newpage
 \subsection{Data Visualization Unit Tests}
@@ -694,13 +786,13 @@ Note: JSON Object array refers to an object array with all data from input file,
     \begin{tabular}{| P{7em} | P{7em} | P{7em} | P{7em} | P{7em} |}
     \hline
         \textbf{Test ID} & \textbf{Function Name} & \textbf{Inputs} & \textbf{Output} & \textbf{Result} \\ \hline
-        DV1 - maps to \textbf{FR14 Test}\te & getAllData & None & JSON object array of the file generated from the Game Engine module & \textcolor{green}{Pass}\\ \hline
+        DV1 - maps to \textbf{FR14 Test \DIFaddbeginFL \DIFaddFL{(\ref{FRT14})}\DIFaddendFL }\te & getAllData & None & JSON object array of the file generated from the Game Engine module & \textcolor{green}{Pass}\\ \hline
         DV2 & getAllData- ExEnd & None & JSON object array with only the data needed for the graphs & \textcolor{green}{Pass} \\ \hline
         DV3 & getDataWith- MergedActions & None & JSON object array that merges the action and action\_details fields into one & \textcolor{green}{Pass} \\ \hline
         DV4 & getSimulation- Data & JSON Object Array, Number of Simulations & Array of Simulations & \textcolor{green}{Pass} \\ \hline
         DV5 & getPlayerData & Object with 1 Simulation data, Player ID  & Object with Simulation data for the specified player & \textcolor{green}{Pass} \\ \hline
         DV6 & getFrequency- Map & None & Object Array with each object having action name and frequency set to 0 & \textcolor{green}{Pass} \\ \hline
-        
+
         
     \end{tabular}
 \end{table}
@@ -730,7 +822,8 @@ Note: JSON Object array refers to an object array with all data from input file,
 
 \clearpage
 \section{Changes Due to Testing}
-\begin{itemize}
+\DIFaddbegin \DIFadd{Based on the testing, many small bugs and edge cases were discovered in the game engine modules and were fixed. Also, the AI training parameters were improved to meet requirements of runtime and efficiency. Apart from the automated and unit testing, we have also had feedback from our supervisors on data visualizer and training process. Before talking to our supervisors to strategies on AI training, we were using the Apple M1 Pro MacBooks to train the AI agent and we weren't meeting the required training levels. We have tried to improve the training parameters using the manual tests results but weren't able to reach our target goals. Then after discussing it with our supervisors, we got access to Compute Canada supercomputer through their sponsorship and increase the training speed. Then our NFR performance tests started to pass and our system started to show more logical outputs since the AI Agents were smart enough to take logical actions. For data visualizer, we have started with python libraries but after getting supervisor and other user feedback, we have quickly realized that the python did not provide enough graph types to provide meaningful tools to analyze the data generated through our system. So, we have decided to build a web app using React and Apache graphing libraries. At the end, users and supervisor feedback indicated that the visualizer version 1 (React version) was more aligned with our NFRs than visualizer version 0 (python version). Also, based on the feedback, we have made our action space human readable by including English descriptions and tags to them. We have categorized actions which helped with the folder structure in the code and also assigning categories to colour code each action category on the visualizer which improved the usability of our system significantly.
+}\DIFaddend \begin{itemize}
     \item \textbf{NFR Test 1}: Changed total simulations to 200, due to length of runtime for 1000 simulations after game engine grew more complex (each simulation took longer to run)
     \item \textbf{NFR Test 6}: Test was not completed as the system was able to be ran on developer's PC's and the computing cluster was not needed.
     \item \textbf{NFR Test 7}: Test was changed to also measure performance against more than 1 simulation and ensuring that the average was less than 1 simulation per 5 minutes
@@ -793,7 +886,7 @@ With our unit testing, we were able to get 100\% statement and function coverage
 \newpage
 \section{Reflection}
 As a team, we noticed the changes in our verification and validation plan (VnV) and the report had changed in major and minor ways as there was a major difference between writing the plan and report, which would be the finishing of the implementation of our project. Before, planning the verification and validation of our system was very abstract as we were not entirely sure how we would end up implementing the whole system. Currently, we finished the implementation and are able to test directly and have solid test cases to demonstrate the feasible system. The concreteness of the project demonstrates how we have to critically think about what portion of the system we either missed completely in our code coverage or spent too many test cases when it is an obvious piece of code that will self-facilitate itself after implementation on our VnV plan. Furthermore, the focus of the project is the structure of an AI simulation of ANY board game, so many of our test cases are generalized for all board games applied to the system and any unit tests directly related to the game we specifically worked with (An Age Contrived) are omitted from this document. Any specific examples of An Age Contrived for testing are described in brackets in the documents. Another change between the VnV Plan and the VnV Report is the metrics used for testing the Non-Functional Requirements, initially we did not know the performance of our system, so we had a low threshold for how well we wanted it to perform. After building the system, our system performed way higher than expected due to not knowing how the system will run with the given resources. 
-    
+
     For next time, when writing our VnV plan we will consider of the possible implementation of the system, rather than abstracting some of the tests. This would result in fewer changes for us during the VnV report portion and lead to greater consistency in the report.
 
 \bibliographystyle{plainnat}

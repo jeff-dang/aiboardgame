@@ -1,4 +1,7 @@
 \documentclass[12pt, titlepage]{article}
+%DIF LATEXDIFF DIFFERENCE FILE
+
+
 
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -12,15 +15,101 @@
 }
 \usepackage[round]{natbib}
 \usepackage{graphicx}
+%DIF 15a15-17
+\usepackage{pgfplots} %DIF > 
+\usepackage{listings} %DIF > 
+\usepackage{xcolor} %DIF > 
+%DIF -------
 \newcounter{frtestid}
 \setcounter{frtestid}{1}
 \newcounter{nfrtestid}
 \setcounter{nfrtestid}{1}
 % % 
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
-\title{System Verification and Validation Plan for SE 4G06 \\ An AI-based Approach to Designing Board Games} 
+\title{System Verification and Validation Plan for \DIFaddbegin {\DIFaddend SE 4G06 \\ An AI-based Approach to Designing Board Games\DIFaddbegin }\DIFaddend } 
 \author{Team \#6, Board Gamers
 \\ Ilao Michael, ilaom
 \\ Bedi Hargun, bedih
@@ -28,7 +117,7 @@
 \\ Ada Jonah, karaatan
 \\ Mai Tianzheng, mait6}
 \date{\today}
-	
+
 \maketitle
 
 \pagenumbering{roman}
@@ -38,7 +127,8 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 November 2nd, 2022 & 1.0 & All Team Members Contributed\\
-\bottomrule
+\DIFaddbegin \DIFadd{April 5th, 2023 }& \DIFadd{2.0 }& \DIFadd{Jeffrey Dang - Final Revision}\\
+\DIFaddend \bottomrule
 \end{tabularx}
 
 \newpage
@@ -74,16 +164,16 @@ This document will provide a road map of the Verification and Validation plan fo
 BoardGamers are developing an AI-based, game simulation engine that can help identify pitfalls in a game's mechanics and find imbalances in the game's scoring system. The three main sub-systems in our system are:
 \begin{itemize}
     \item \textbf{AI Agent:} An AI model trained to play the game at hand acting as one of the players of the game to give insights into the possible paths to be taken. It would analyze all possible paths that a player can take at any point in the game. It would take as input the Game State information (current state and available moves for the player) and output the next move that the player will take. 
-    
+
     \item \textbf{Game Engine:} Abstract representation of the actual game as software. Contains all the game rules, Observation Space (state of the game), and Action Space (possible moves and commands that a player can choose from). It is also responsible for validating input from the AI Agent and outputting the Game State with the moves available for the player. 
-    
+
     \item \textbf{Data Visualizer:} Read the Game Engine and AI Agent log, and provide diverse graphic representations of data and information of moves to Game State transitions. It will take the output from both the AI Agent and Game Engine to provide a way for the user to decipher imbalances in the game.
 
 \end{itemize}
 
 \subsection{Objectives}
 
-The primary objectives for this project will be:
+The primary objectives for this \DIFdelbegin \DIFdel{project }\DIFdelend \DIFaddbegin \DIFadd{document }\DIFaddend will be:
 
 \begin{itemize}
     \item \textbf{Demonstrate software correctness}: A focus on software correctness is important as the stakeholders expect to be able to use AI for prototyping the board games, thus it is important to provide accurate data as it can have a dramatic outcome on the final product of the board game if stakeholders make a crucial decision based on the information produced by the system.
@@ -94,7 +184,7 @@ The primary objectives for this project will be:
 
 
 \subsection{Relevant Documentation}
-  
+
 The relevant documentations for this report are our SRS, MIS, MG and Hazard Analysis documents. We will be using these documents as a reference for planning and executing the plan specified in this report. 
 \\\\
 \textbf{Relevant Links}:
@@ -130,6 +220,8 @@ Dr. Sebastien Mosser & Supervisor & \begin{tabular}[c]{@{}l@{}}Responsible for f
 \end{tabular}
 \end{table}
 
+\DIFaddbegin \parindent0pt{{Roles are subject to change based on the development progress and developers are able to swap to assist in development in other components of the project as see fit.}}
+\DIFaddend 
 \subsection{SRS Verification Plan}
 
 \begin{itemize}
@@ -169,7 +261,7 @@ There will be multiple verification sources to verify the correctness of the imp
 \textbf{4th Stage - Code Reviews:} There will be two types of code reviews:
 \begin{itemize}
     \item \textbf{Peer Review:} Team members will provide feedback to each others code after each module is being completed. This will ensure consistency throughout the code base and will catch errors that the author of the code may have missed.
-    \item \textbf{Review From Supervisors:} The group will also have code review sessions with supervisors to verify the implementation. These code reviews can be formal meetings or informal quick question and answers through communication channels such as Discord and Microsoft Teams.
+    \item \textbf{Review From Supervisors:} The group will also have code review sessions with supervisors to verify the implementation. These code reviews can be formal meetings or informal quick \DIFdelbegin \DIFdel{question }\DIFdelend \DIFaddbegin \DIFadd{questions }\DIFaddend and answers through communication channels such as Discord and Microsoft Teams.
 \end{itemize}
 
 
@@ -184,42 +276,50 @@ The main tool that will be used to automated testing will be PyTest and unnittes
 
 
 \section{System Test Description}
-	
-\subsection{Tests for Functional Requirements}
+\DIFdelbegin %DIFDELCMD < 
 
-\subsubsection{Area of Testing AI Agents}
-AI Agent is one of the three main subsystems of the software system and its correctness is crucial to success of the system. Thus, there will be extensive testing to verify the AI Agent modules. The tests in this subsection will verify the AI Agent's functional requirements FR1 to FR6.\\\\
-	
-{\parindent0pt \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
+%DIFDELCMD < %%%
+\DIFdelend \subsection{Tests for \DIFaddbegin \DIFadd{Generalized }\DIFaddend Functional Requirements}
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{This section will be for the generalized version of the tests as this architecture can be applied to any general board game.
+}\DIFaddend \subsubsection{Area of Testing AI Agents}
+AI Agent is one of the three main subsystems of the software system and its correctness is crucial to \DIFaddbegin \DIFadd{the }\DIFaddend success of the system. Thus, there will be extensive testing to verify the AI Agent modules. The tests in this subsection will verify the AI Agent's functional requirements FR1 to FR6.\\\\
+
+\DIFaddbegin \DIFadd{Please refer to the traceability matrix to see which tests are related to which functional requirements. }\\\\
+
+\DIFaddend {\parindent0pt \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 %FR1
 
 \textbf{Control}: Manual
-					
+
 \textbf{\textbf{Initial State:}} It is AI's turn and AI Agent has no information about the state of the game.
-					
+
 \textbf{\textbf{Input:}} State of the game is passed from the Game Engine.
-					
+
 \textbf{\textbf{Output:}} The AI Agent should not output anything if there is no error. Should output an error message if the input type is not as expected.
 
 \textbf{\textbf{Test Case Derivation:}} Passing the Game State is not a request from the Game Engine but rather a response to AI Agent's request for Game State. Thus, there shouldn't be any output except for the case that there is a mismatch between the expected input format and the actual input (input format is not specified here because it will change based on the game that is being balanced and the AI library used to develop that particular AI Agent).
-					
-\textbf{\textbf{How test will be performed:}} Start the simulation and make sure the right of play is on AI Agent for that round. When passed the state look for the response and make sure response code is true.\\\\
+
+\textbf{\DIFdelbegin \textbf{\DIFdel{How test will be performed:}}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \textbf{\DIFadd{How the test will be performed:}}\DIFaddend } Start the simulation and make sure the right of play is on AI Agent for that round. When passed the state look for the response and make sure \DIFaddbegin \DIFadd{the }\DIFaddend response code is true.\\\\
 }
 
 {\parindent0pt\textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 %FR2
 
 \textbf{Control:} Manual
-					
+
 \textbf{Initial State:} There is an AI Agent in the system that can play the game.
-					
+
 \textbf{Input:} New AI model to replace the existing AI Agent.
-					
+
 \textbf{Output:} When the AI Agent is swapped, there is no specific output expected.
 
 \textbf{Test Case Derivation:} Replacing the code for two AI Agents will not produce any output without running the simulation first.
 
-\textbf{How test will be performed:} However, to check whether the new AI Agent is compatible with the system, run the
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} However, to check whether the new AI Agent is compatible with the system, run the
 simulation and check whether the new AI Agent outputs an action from the Action Space or gives an error to finalize the test and determine the whether the requirement is met or not.\\\\
 
 
@@ -227,61 +327,63 @@ simulation and check whether the new AI Agent outputs an action from the Action 
 %FR3
 
 \textbf{Control:} Manual
-					
+
 \textbf{Initial State:} The simulation is running and it is AI Agent's turn to play.
-					
+
 \textbf{Input:} AI Agent takes the Game State as an input.
-					
+
 \textbf{Output:} AI Agent outputs an action from the Action Space and logs its decision.
 
 \textbf{Test Case Derivation:} The AI Agent needs to be observable, so it should always outputs the logs of its decision.
 
-\textbf{How test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then check the data visualization manual to see whether the AI Agent output any decision logs. If yes, the test passes, if not test fails.\\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then check the data visualization manual to see whether the AI Agent output any decision logs. If yes, the test passes, if not test fails.\\\\
 
 \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 %FR4
 
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} The simulation is running and it is AI Agent's turn to play.
-					
+
 \textbf{Input:} AI Agent takes the Game State as an input.
-					
+
 \textbf{Output:} AI Agent outputs an action from the Action Space.
 
 \textbf{Test Case Derivation:} The AI Agent always needs to output a valid action from the Action Space.
 
-\textbf{How test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then system automatically checks the AI Agents output. If the output is from the Action Space then the test passes, if not test fails.\\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then system automatically checks the AI Agents output. If the output is from the Action Space then the test passes, if not test fails.\\\\
 
 \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 %FR5
 
 \textbf{Control:} Manual
-					
+
 \textbf{Initial State:} The simulation is running and it is AI Agent's turn to play.
-					
+
 \textbf{Input:} AI Agent takes its Observation Space as an input.
-					
+
 \textbf{Output:} AI Agent outputs an action from the Action Space with only the information that the AI Agent's Observation Space and not with the information from the global Game State.
 
 \textbf{Test Case Derivation:} The AI Agent always needs to output a valid action from the Action Space but AI Agent should have limited knowledge of the Game State based on its Observation Space to ensure the fact that AI Agent will replicate a human player.
 
-\textbf{How test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then check the Observation Space that the AI Agent receives and make sure it is the Observation Space that is specific to the AI Agent and not the global Game State.\\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then check the Observation Space that the AI Agent receives and make sure it is the Observation Space that is specific to the AI Agent and not the global Game State.\\\\
 
 \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 %FR4
 
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} The simulation is running and it is AI Agent's turn to play.
-					
+
 \textbf{Input:} AI Agent takes the Game State as an input.
-					
+
 \textbf{Output:} AI Agent outputs an action from the Action Space.
 
 \textbf{Test Case Derivation:} The AI Agent always needs to output a valid action from the Action Space to make sure that the simulation can keep going and not be stuck waiting AI Agent to output an action.
 
-\textbf{How test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then system automatically checks the AI Agents output. If the output is from the Action Space then the test passes, if there is no action in the output then the test fails.
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Run the simulation and wait AI Agent to play at least one turn. Then system automatically checks the AI Agents output. If the output is from the Action Space then the test passes, if there is no action in the output then the test fails.
+
+
 
 \subsubsection{Area of Testing Game Engine}
 The bulk of unit tests will be to ensure the Game Engine is working correctly. If the Game Engine is not working as intended and there are bugs and errors in the logic, the AI Agents will not be able to learn efficiently and correctly. This subsection will cover all the functional requirements related to the Game Engine that is functional requirements FR7 to FR11.\\\\
@@ -291,17 +393,17 @@ The bulk of unit tests will be to ensure the Game Engine is working correctly. I
 %FR10
 
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} Game has not been initialized
-					
+
 \textbf{Input:} Initialize (Start) the game
-					
+
 \textbf{Output:} Start of Game State is initialized (ex: Board is created, cards are distributed to players,  etc...) will vary based on Game Engine currently in system
 
 \textbf{Test Case Derivation:} Before a game can be played by the AI Agents (or human players), some setup is required to properly play the game.
-					
-\textbf{How test will be performed:} Test will be performed by initializing the game and before any players can make their turn, the Game State is checked to ensure all conditions are met for the specific game.\\\\
-					
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Test will be performed by initializing the game and before any players can make their turn, the Game State is checked to ensure all conditions are met for the specific game.\\\\
+
 
 \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 %FR8 FR10
@@ -313,7 +415,7 @@ The bulk of unit tests will be to ensure the Game Engine is working correctly. I
 
 					
 \textbf{Input:} AI Agent makes a move to progress the game into an end state.
-	
+
 					
 \textbf{Output:} The expected result is that the game should end and players are unable to make any more moves.
 
@@ -321,23 +423,23 @@ The bulk of unit tests will be to ensure the Game Engine is working correctly. I
 \textbf{Test Case Derivation:} A game should be complete-able or the AI Agents will play forever, also the AI Agents learn from a reward given for certain moves, if they are unable to reach the winning/end state they cannot learn. This test will need to be performed on all actions that can lead to an end state, if there are 9 different ways to win a test will be provided for each one.
 
 
-\textbf{How test will be performed:} The game will initialized with a modified state, that where taking a certain move will end the game and having the player win. The AI does not specifically need to make that move right away, but when they do the test needs to check if the Game Engine is in the end state and no moves are able to be played.\\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} The game will initialized with a modified state, that where taking a certain move will end the game and having the player win. The AI does not specifically need to make that move right away, but when they do the test needs to check if the Game Engine is in the end state and no moves are able to be played.\\\\
 
 
 \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 %FR10
 
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} Game is in any state after starting the game
-					
+
 \textbf{Input:} AI Agent makes a specific move to progress the game into a new state.
-					
+
 \textbf{Output:} After receiving input from the AI Agent for a specific move, the Game State should change accordingly.
 
 \textbf{Test Case Derivation:} Each different move a AI Agent can make should modify the Game State accordingly. The Game Engine must ensure that each move works as expected. 
 
-\textbf{How test will be performed:} The test will be performed by having the AI Agent performing all moves given a certain state and verifying that the Game State changes accordingly. \\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} The test will be performed by having the AI Agent performing all moves given a certain state and verifying that the Game State changes accordingly. \\\\
 
 
 
@@ -345,16 +447,16 @@ The bulk of unit tests will be to ensure the Game Engine is working correctly. I
 %FR11
 
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} Game is in any state after being initialized
-					
+
 \textbf{Input:} AI Agent requests the action state (move list).
-					
+
 \textbf{Output:} The move list must be consistent throughout the simulation and not change depending on the Game State.
 
 \textbf{Test Case Derivation:} For the AI Agent's to learn their output actions must be the same throughout the simulation or there will be inconsistencies in their learning.
 
-\textbf{How test will be performed:} The test will be performed by requesting the move list, making a move, getting the new state, then requesting the move list again. The two lists should be the exact same.\\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} The test will be performed by requesting the move list, making a move, getting the new state, then requesting the move list again. The two lists should be the exact same.\\\\
 
 
 
@@ -362,32 +464,32 @@ The bulk of unit tests will be to ensure the Game Engine is working correctly. I
 %FR11
 
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} Game is in a specific single state 
-					
+
 \textbf{Input:} AI Agent makes a move from the Action Space, that has no random component to it. 
-					
+
 \textbf{Output:} The Game State must change accordingly to the move given. This will be repeated multiple times and the Game State must be the same after each move given the same starting state.
 
 \textbf{Test Case Derivation:} This test is to ensure the Action Space is consistent across moves given the same move and same state must progress the state to a new state, that is the same every time where the action has no randomness to it.
 
-\textbf{How test will be performed:} The test will be run multiple times on a single specific given state, the same action will be taken and the new resulting Game State must be the same across all tests.\\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} The test will be run multiple times on a single specific given state, the same action will be taken and the new resulting Game State must be the same across all tests.\\\\
 
 
 \textbf{FR Test \thefrtestid\addtocounter{frtestid}{1}}
 
 %FR7
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} Game is in any state after being initialized
 
 \textbf{Input:} AI Agent provides an invalid input to the Game Engine. 
-					
+
 \textbf{Output:} The Game Engine must validate the input and output the appropriate error.
 
 \textbf{Test Case Derivation:} This test case is used to validate the Game Engine's and AI Agent's ability to communicate with each other. It is essential for the two system to talk to each other in a standardized and predictable manner and any invalid input must be checked.
 
-\textbf{How test will be performed:} The test will be performed by having the
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} The test will be performed by having the
 AI Agent give invalid input (e.g, incorrect arguments or incorrect types) and the Game Engine must validate and output an appropriate error (different errors will be shown for different types of invalid inputs).\\\\
 
 
@@ -395,16 +497,16 @@ AI Agent give invalid input (e.g, incorrect arguments or incorrect types) and th
 %FR7
 
 \textbf{Control:} Automatic
-					
+
 \textbf{Initial State:} Game is in any state after being initialized
-					
+
 \textbf{Input:} AI Agent provides an illegal move.
-					
+
 \textbf{Output:} The Game Engine must move to the end state.
 
 \textbf{Test Case Derivation:} This test case is used to validate the Game Engine's ability to discourage invalid moves for the AI Agent. It is essential for the AI Agent to learn to give only legal moves to the Game Engine such that the game can move forward.
 
-\textbf{How test will be performed:} The test will be performed by having the
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} The test will be performed by having the
 AI Agent input illegal moves that lead the game to the end state given a certain state where the game is not near the end state. All the illegal moves must move the game directly to the end state without executing any part of the move.
 
 
@@ -472,102 +574,394 @@ The tests in this subsection tend to ensure the system can obtain correct data p
 
 \textbf{Test Case Derivation:} The system will compare different data points and analyze an optimal solution for the user. 
 
-\textbf{How the test will be performed:} The test will be performed by comparing multiple data points input and return an optimal solution to the users. The test will be run multiple times to verify if the evaluation output is the most optimal solution. 
+\textbf{How the test will be performed:} The test will be performed by comparing multiple data points input and \DIFdelbegin \DIFdel{return }\DIFdelend \DIFaddbegin \DIFadd{returning }\DIFaddend an optimal solution to the users. The test will be run multiple times to verify if the evaluation output is the most optimal solution. 
 
-\subsection{Tests for Nonfunctional Requirements}
+\DIFaddbegin \subsection{\DIFadd{Tests for Tic-Tac-Toe Functional Requirements}}
+\textit{\DIFadd{This section is an example of how these tests can be specified under a specific board game, in this case, it is demonstrated on Tic-Tac-Toe. Area of Testing Data Visualizer will be redundant and is not included in this section.}}
+\subsubsection{\DIFadd{Area of Testing AI Agents}}
+\DIFadd{Please refer to the traceability matrix to see which tests are related to which functional requirements. }\\\\
+
+{\parindent0pt \textbf{\DIFadd{FR Test 1}}}
+%DIF > FR1
+
+\textbf{\DIFadd{Control}}\DIFadd{: Manual
+					}
+
+\textbf{\textbf{\DIFadd{Initial State:}}} \DIFadd{It is AI's turn and AI Agent has no information about the state of the game.
+					}
+
+\textbf{\textbf{\DIFadd{Input:}}} \DIFadd{State of the game is passed from the Game Engine.
+					}
+
+\textbf{\textbf{\DIFadd{Output:}}} \DIFadd{The AI Agent should not output anything if there is no error. Should output an error message if the input type is not as expected.
+}
+
+\textbf{\textbf{\DIFadd{Test Case Derivation:}}} \DIFadd{Passing the Game State is not a request from the Game Engine but rather a response to AI Agent's request for Game State. Thus, there shouldn't be any output except for the case that there is a mismatch between the expected input format and the actual input (input format is not specified here because it will change based on the game that is being balanced and the AI library used to develop that particular AI Agent).
+					}
+
+\textbf{\textbf{\DIFadd{How the test will be performed:}}} \DIFadd{Start the simulation and ensure the right of play is on AI Agent for that round. When passed the state looks for the response and make sure the response code is true.}\\\\
+}
+
+{\parindent0pt\textbf{\DIFadd{FR Test 2}}
+%DIF > FR2
+
+\textbf{\DIFadd{Control:}} \DIFadd{Manual
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{There is an AI Agent in the system that can play the game.
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{New AI model to replace the existing AI Agent.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{When the AI Agent is swapped, there is no specific output expected.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{Replacing the code for two AI Agents will not produce any output without running the simulation first.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{However, to check whether the new AI Agent is compatible with the system, run the
+simulation and check whether the new AI Agent outputs an action on to the tic-tac-toe board or gives an error to finalize the test and determine the whether the requirement is met or not.}\\\\
+
+
+\textbf{\DIFadd{FR Test 3}}
+%DIF > FR3
+
+\textbf{\DIFadd{Control:}} \DIFadd{Manual
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{The simulation is running and it is AI Agent's turn to play.
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent takes the tic-tac-toe game environment as an input.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{AI Agent outputs an action on an existing Tic-Tac-Toe space and logs its decision.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{The AI Agent needs to be observable, so it should always outputs the logs of its decision.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{Run the simulation and wait AI Agent to play at least one turn. Then check the data visualization manual to see whether the AI Agent output valid moves on the Tic-Tac-Toe board. If yes, the test passes, if not test fails.}\\\\
+
+\textbf{\DIFadd{FR Test 4}}
+%DIF > FR4
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{The simulation is running and it is AI Agent's turn to play.
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent takes the Game State as an input.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{AI Agent outputs an action from the Action Space.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{The AI Agent always needs to output a valid action from the Action Space.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{Run the simulation and wait AI Agent to play at least one turn. Then system automatically checks the AI Agents output. If the output is valid in the context of Tic-Tac-Toe (no previously marked squares, within the 3x3 board, etc.) then the test passes, if not test fails.}\\\\
+
+\textbf{\DIFadd{FR Test 5}}
+
+\textit{\DIFadd{This test is redundant in the game of Tic-Tac-Toe, but can apply to board games with hidden information between players.}}
+%DIF > FR5
+
+\textbf{\DIFadd{Control:}} \DIFadd{Manual
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{The simulation is running and it is AI Agent's turn to play.
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent takes its Observation Space as an input.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{AI Agent outputs an action from the Action Space with only the information that the AI Agent's Observation Space and not with the information from the global Game State.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{The AI Agent always needs to output a valid action from the Action Space but AI Agent should have limited knowledge of the Game State based on its Observation Space to ensure the fact that AI Agent will replicate a human player.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{Run the simulation and wait AI Agent to play at least one turn. Then check the Observation Space that the AI Agent receives and make sure it is the Observation Space that is specific to the AI Agent and not the global Game State.}\\\\
+
+\textbf{\DIFadd{FR Test 6}}
+%DIF > FR4
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{The simulation is running and it is AI Agent's turn to play.
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent takes the Tic-Tac-Toe environment as an input.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{AI Agent outputs an action valid in the context of Tic-Tac-Toe.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{The AI Agent always needs to output a legal move to make sure that the simulation can keep going and not be stuck waiting for AI Agent or looping in Tic-Tac-Toe as the game can go on forever if players are able to play moves on already marked squares.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{Run the simulation and wait AI Agent to play at least one turn. Then system automatically checks the AI Agents output. If the output is valid in the context of Tic-Tac-Toe then the test passes, if there is no action in the output then the test fails.
+}
+
+
+
+\subsubsection{\DIFadd{Area of Testing Game Engine}}
+
+
+\textbf{\DIFadd{FR Test 7}}
+%DIF > FR10
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{Game has not been initialized
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{Initialize Tic-Tac-Toe game environment
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{Tic-Tac-Toe board has been initialized with all positions empty
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{Before a game can be played by the AI Agents (or human players), some setup is required to properly play the game.
+					}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{Test will be performed by initializing the Tic-Tac-Toe board and then checking if all positions are available to be filled by the AI Agents.}\\\\
+
+
+\textbf{\DIFadd{FR Test 8}}
+%DIF > FR8 FR10
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+}
+
+					
+\textbf{\DIFadd{Initial State:}} \DIFadd{Tic-Tac-Toe game state is left where there's only one legal move left on the board
+}
+
+					
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent makes the final legal move left on the Tic-Tac-Toe board.
+	}
+
+					
+\textbf{\DIFadd{Output:}} \DIFadd{The expected result is that the game should end and players are unable to make any more moves afterwardss.
+}
+
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{A game should be complete-able or the AI Agents will play forever, also the AI Agents learn from a reward given for certain moves, if they are unable to reach the winning/end state they cannot learn. This test will need to be performed on all actions that can lead to an end state.
+}
+
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{The game will be initialized with state where all but one position on the grid is marked, that where taking the last move will end the game. The AI does not specifically need to make that move right away, but when they do the test needs to check if the Game Engine is in the end state and no moves are able to be played.}\\\\
+
+
+\textbf{\DIFadd{FR Test 9}}
+%DIF > FR10
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{Game is in any state after starting the game
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent makes a specific move to progress the game into a new state.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{After receiving input from the AI Agent for a position on the Tic-Tac-Toe board, the board should fill up the same position and modify the board
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{Each different move an AI Agent can make should modify the Tic-Tac-Toe board accordingly. The Game Engine must ensure that each move works as expected. 
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{The test will be performed by having the AI Agent perform all moves on an empty board space at least once. }\\\\
+
+
+
+\textbf{\DIFadd{FR Test 10}}
+%DIF > FR11
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{Game is in any state after being initialized
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent requests the possible positions to be played.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{The possible positions to be played must be consistent throughout the simulation and not change depending on the board state.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{For the AI Agent's to learn their available output actions must be the same throughout the simulation or there will be inconsistencies in their learning.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{The test will be performed by requesting the possible positions list, making a move, getting the new state, then requesting the possible positions lists. The two lists should be the exact same.}\\\\
+
+
+
+\textbf{\DIFadd{FR Test 11}}
+%DIF > FR11
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{Game is in a specific single state 
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent plays a legal position on the Tic-Tac-Toe baord 
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{The Game State should be filled with the legal position played This will be repeated multiple times and the board must be the same after each move given the same starting state.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{This test is to ensure the Action Space is consistent across moves given the same move and same state must progress the state to a new state, that is the same every time where the action has no randomness to it.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{The test will be run multiple times on a single specific given state, the same action will be taken and the new resulting Game State must be the same across all tests.}\\\\
+
+
+\textbf{\DIFadd{FR Test 12}}
+
+%DIF > FR7
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{Tic-Tac-Toe board game environment is initialized
+}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent plays a position non-existent on the Tic-Tac-Toe board.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{The Game Engine must validate the input and output the appropriate error.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{This test case is used to validate the Game Engine's and AI Agent's ability to communicate with each other. It is essential for the two system to talk to each other in a standardized and predictable manner and any invalid input must be checked.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{The test will be performed by having the
+AI Agent give invalid input (e.g, incorrect arguments or incorrect types) and the Game Engine must validate and output an appropriate error (different errors will be shown for different types of invalid inputs).}\\\\
+
+
+\textbf{\DIFadd{FR Test 13}}
+%DIF > FR7
+
+\textbf{\DIFadd{Control:}} \DIFadd{Automatic
+					}
+
+\textbf{\DIFadd{Initial State:}} \DIFadd{Tic-Tac-Toe board game environment is initialized
+					}
+
+\textbf{\DIFadd{Input:}} \DIFadd{AI Agent plays a position non-existent on the Tic-Tac-Toe board.
+					}
+
+\textbf{\DIFadd{Output:}} \DIFadd{The Game Engine must move to the end state.
+}
+
+\textbf{\DIFadd{Test Case Derivation:}} \DIFadd{This test case is used to validate the Game Engine's ability to discourage invalid moves for the AI Agent. It is essential for the AI Agent to learn to give only legal moves to the Game Engine such that the game can move forward.
+}
+
+\textbf{\DIFadd{How the test will be performed:}} \DIFadd{The test will be performed by having the AI Agent input illegal position moves on the board that lead the game to the end state given a certain state where the game is not near the end state. All the illegal moves must move the game directly to the end state without executing any part of the move.
+}
+
+
+\DIFaddend \subsection{Tests for Nonfunctional Requirements}
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.1
 
 \textbf{Type:} Manual
-					
+
 \textbf{Initial State:} AI model is untrained.
-					
+
 \textbf{Input:} Learning data from running the simulation at least 1000 times.
-					
+
 \textbf{Output:} After each 100 times of running the simulation, AI model should improve its win rate.
-					
-\textbf{How test will be performed:} Run the simulation at least 1000 times with an untrained AI model. After each 100 simulation, record the win rate of the AI model and compare them to other data points. At the end of the 1000 simulation, AI model should improve its win rate.\\\\
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Run the simulation at least 1000 times with an untrained AI model. After each 100 simulation, record the win rate of the AI model and compare them to other data points. At the end of the 1000 simulation, AI model should improve its win rate.\\\\
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.2
 
 \textbf{Type:} Manual
-					
+
 \textbf{Initial State:} AI Agent is trained and system is ready to be used for a new user.
-					
+
 \textbf{Input:} Start command for a new simulation.
-					
+
 \textbf{Output:} An entire logs of AI Agent outputs for a full game simulation.
-					
-\textbf{How test will be performed:} After explaining the system in 30 minutes or less to a new user, user should be able to run the simulation by himself and get the entire output log for a full game simulation.\\\\
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} After explaining the system in 30 minutes or less to a new user, user should be able to run the simulation by himself and get the entire output log for a full game simulation.\\\\
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.3
 
 \textbf{Type:} Manual
-					
+
 \textbf{Initial State:} Game Engine is implemented and AI Agents are trained.
-					
+
 \textbf{Input:} A trained new AI Agent replaced with one of the pre-existing AI Agents in the system. 
-					
+
 \textbf{Output:} The system should generate logs of AI Agent and be able to run the simulation the same as it would have with the pre-existing AI Agents integrated into the system.
-					
-\textbf{How test will be performed:} Run the simulation with the pre-existing AI Agents and keep AI logs, then replace the pre-existing AI with the newly trained AI Agent and rerun the simulation. Compare the logs and the run times for both simulations to determine any oddities in the newly trained data to determine if it has been a successful replacement. \\\\
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Run the simulation with the pre-existing AI Agents and keep AI logs, then replace the pre-existing AI with the newly trained AI Agent and rerun the simulation. Compare the logs and the run times for both simulations to determine any oddities in the newly trained data to determine if it has been a successful replacement. \\\\
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.4
 
 \textbf{Type:} Manual
-					
+
 \textbf{Initial State:} Our system has never been installed on a machine running macOS Monterey and newer.
-					
+
 \textbf{Input:} N/A
-					
+
 \textbf{Output:} Our system installs properly and atleast 1 simulation is correctly executed on the machine.
-					
-\textbf{How test will be performed:} We will try installing all our files necessary for the system on a machine with macOS Monterey and newer installed on it. If the installation is successful and at least 1 simulation is able to run on it then we treat this test case as passed, otherwise it will fail.\\\\
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} We will try installing all our files necessary for the system on a machine with macOS Monterey and newer installed on it. If the installation is successful and at least 1 simulation is able to run on it then we treat this test case as passed, otherwise it will fail.\\\\
 
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.4
 
 \textbf{Type:} Manual
-					
+
 \textbf{Initial State:} Our system has never been installed on a machine running Windows 10 and newer.
-					
+
 \textbf{Input:} N/A
-					
-\textbf{Output:} Our system installs properly and atleast 1 simulation is correctly executed on the machine.
-					
-\textbf{How test will be performed:} We will try installing all our files necessary for the system on a machine with Windows 10 and newer installed on it. If the installation is successful and at least 1 simulation is able to run on it then we treat this test case as passed, otherwise it will fail.\\\\
+
+\textbf{Output:} Our system installs properly and \DIFdelbegin \DIFdel{atleast }\DIFdelend \DIFaddbegin \DIFadd{at least }\DIFaddend 1 simulation is correctly executed on the machine.
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} We will try installing all our files necessary for the system on a machine with Windows 10 and newer installed on it. If the installation is successful and at least 1 simulation is able to run on it then we treat this test case as passed, otherwise\DIFaddbegin \DIFadd{, }\DIFaddend it will fail.\\\\
 
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.4
 
 \textbf{Type:} Manual
-					
+
 \textbf{Initial State:} Our system has never been installed on one of Aliance Canada's Computer Cluster machines.
-					
+
 \textbf{Input:} N/A
-					
-\textbf{Output:} Our system installs properly and atleast 1 simulation is correctly executed on the machine.
-					
-\textbf{How test will be performed:} We will try installing all our files necessary for the system on one of Aliance Canada's Computer Cluster machines. If the installation is successful and at least 1 simulation is able to run on it then we treat this test case as passed, otherwise it will fail.\\\\
+
+\textbf{Output:} Our system installs properly and \DIFdelbegin \DIFdel{atleast }\DIFdelend \DIFaddbegin \DIFadd{at least }\DIFaddend 1 simulation is correctly executed on the machine.
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} We will try installing all our files necessary for the system on one of \DIFdelbegin \DIFdel{Aliance }\DIFdelend \DIFaddbegin \DIFadd{Alliance }\DIFaddend Canada's Computer Cluster machines. If the installation is successful and at least 1 simulation is able to run on it then we treat this test case as passed, otherwise\DIFaddbegin \DIFadd{, }\DIFaddend it will fail.\\\\
 
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.5
 
 \textbf{Type:} Automatic
-					
+
 \textbf{Initial State:} Game is initialized with maximum number of players
-					
+
 \textbf{Input:} N/A
-					
+
 \textbf{Expected \textbf{Output:}} The simulation takes less than 5 minutes.
-					
-\textbf{How test will be performed:} Hypothetically, the simulation with maximum number of players should take the longest as there will be many more aspects that the AI Agent will need to consider for every decision when compared to the minimum number of players required. If the simulation takes more than 5 minutes then this test case is a fail, otherwise it will be marked as a pass.\\\\
+
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} Hypothetically, the simulation with maximum number of players should take the longest as there will be many more aspects that the AI Agent will need to consider for every decision when compared to the minimum number of players required. If the simulation takes more than 5 minutes then this test case is a fail, otherwise it will be marked as a pass.\\\\
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.6 Extensibility
@@ -580,7 +974,7 @@ The tests in this subsection tend to ensure the system can obtain correct data p
 
 \textbf{Expected \textbf{Output:}} The system extends additional rules and mechanics after 2 days of development time
 
-\textbf{How test will be performed:} We will try to implement new features and change our algorithms that extends additional rules and mechanics in two days of development time. If all additional rules and mechanics are successfully implemented into our software within these 2 day, we will treat this test case as passed, otherwise it will fail. \\\\
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} We will try to implement new features and change our algorithms that extends additional rules and mechanics in two days of development time. If all additional rules and mechanics are successfully implemented into our software within these 2 day, we will treat this test case as passed, otherwise it will fail. \\\\
 
 \textbf{NFR Test \thenfrtestid\addtocounter{nfrtestid}{1}}
 %NFR 6.7 Look and Feel 
@@ -593,7 +987,7 @@ The tests in this subsection tend to ensure the system can obtain correct data p
 
 \textbf{Expected \textbf{Output:}} Clear visualization charts in different colors, lines, and shapes.
 
-\textbf{How test will be performed:} We will manually run the system multiple times and observe whether the Data Visualizer outputs clear graphic representation of data in different colors, lines and shapes. If the output charts are clear in different colors, lines, and shapes, we will treat this test case as passed, otherwise it will fail.\\\\ 
+\textbf{How \DIFaddbegin \DIFadd{the }\DIFaddend test will be performed:} We will manually run the system multiple times and observe whether the Data Visualizer outputs clear graphic representation of data in different colors, lines and shapes. \DIFdelbegin \DIFdel{If the output charts are clear in different colors, lines, and shapes, }\DIFdelend \DIFaddbegin \DIFadd{Using the survey in the Appendix, if the user rates readable of the data above a 3, }\DIFaddend we will treat this test case as passed, otherwise it will fail.\\\\ 
 }
 \newpage
 \subsection{Traceability Between Test Cases and Requirements}
@@ -614,8 +1008,66 @@ The tests in this subsection tend to ensure the system can obtain correct data p
 \newpage
 
 \section{Unit Test Description}
-\textbf{Unit tests will be filled after the system design phase is complete. Please ignore the entire section 6 until the design phase is complete and V\&V plan is revised.}
-% \subsection{Unit Testing Scope}
+\DIFdelbegin %DIFDELCMD < \textbf{%%%
+\DIFdel{Unit tests will be filled after the system design phase is complete}\DIFdelend
+\DIFdel{Please ignore the entire section 6 until the design phase is complete and V\&V plan is revised.}\DIFdelend 
+\DIFadd{Note: JSON Object array refers to an object array with all data from input file, or any modified object array that is return from the the following functions: getAllData, getAllDataExEnd, getDataWithMergedActions. Excluding the first test, all other functions help with }\textbf{\DIFadd{FR15 Test}}\DIFadd{, and }\textbf{\DIFadd{FR16 Test}}\DIFaddend .
+\DIFdelbegin \DIFaddbegin 
+\begin{table}
+\centering
+\begin{tabular}{|l|l|p{1.5in}|p{1.5in}|} 
+\hline
+\textbf{\DIFaddFL{Test ID}} & \textbf{\DIFaddFL{Function Name}}     & \textbf{\DIFaddFL{Inputs}}                          & \textbf{\DIFaddFL{Output}\DIFaddendFL }                                                               \DIFaddbeginFL \\ 
+\hline
+\DIFaddFL{DV1              }& \DIFaddFL{getAllData                 }& \DIFaddFL{None                                     }& \DIFaddFL{JSON object array of the file generated from the Game Engine module           }\\ 
+\hline
+\DIFaddFL{DV2              }& \DIFaddFL{getAllData- ExEnd          }& \DIFaddFL{None                                     }& \DIFaddFL{JSON object array with only the data needed for the graphs                    }\\ 
+\hline
+\DIFaddFL{DV3              }& \DIFaddFL{getDataWith- MergedActions }& \DIFaddFL{None                                     }& \DIFaddFL{JSON object array that merges the action and action\_details fields into one  }\\ 
+\hline
+\DIFaddFL{DV4              }& \DIFaddFL{getSimulation- Data        }& \DIFaddFL{JSON Object Array, Number of Simulations }& \DIFaddFL{Array of Simulations                                                          }\\ 
+\hline
+\DIFaddFL{DV5              }& \DIFaddFL{getPlayerData              }& \DIFaddFL{Object with 1 Simulation data, Player ID }& \DIFaddFL{Object with Simulation data for the specified player                          }\\ 
+\hline
+\DIFaddFL{DV6              }& \DIFaddFL{getFrequency- Map          }& \DIFaddFL{None                                     }& \DIFaddFL{Object Array with each object having action name and frequency set to 0       }\\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|p{1.5in}|p{1.5in}|} 
+\hline
+\DIFaddFL{DV7  }& \DIFaddFL{getCountMap                }& \DIFaddFL{None                                                                    }& \DIFaddFL{Object Array with each object having action name and count set to 0          }\\ 
+\hline
+\DIFaddFL{DV8  }& \DIFaddFL{getFrequencyMapFor- Player }& \DIFaddFL{JSON Object Array with merged actions, Number of Simulations, Player ID }& \DIFaddFL{Frequency Map Object for the specified player for the specified simulations  }\\ 
+\hline
+\DIFaddFL{DV9  }& \DIFaddFL{getCountMapFor- Player     }& \DIFaddFL{JSON Object Array with merged actions, Number of Simulations, Player ID }& \DIFaddFL{Count Map Object for the specified player for the specified simulations      }\\ 
+\hline
+\DIFaddFL{DV10 }& \DIFaddFL{getAllNonZeroAct- ions     }& \DIFaddFL{Frequency/Count Map of a Player                                         }& \DIFaddFL{Frequency/Count Map that only has non-zero frequencies/counts                }\\ 
+\hline
+\DIFaddFL{DV11 }& \DIFaddFL{getScores                  }& \DIFaddFL{JSON Object Array with merged actions, Number of Simulations            }& \DIFaddFL{Object with final scores data for the number simulations specified           }\\ 
+\hline
+\DIFaddFL{DV12 }& \DIFaddFL{getPlayers                 }& \DIFaddFL{JSON Object Array                                                       }& \DIFaddFL{Array with sequence of Player IDs                                            }\\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|p{1.5in}|p{1.5in}|} 
+\hline
+\DIFaddFL{DV13 }& \DIFaddFL{getSimulations   }& \DIFaddFL{JSON Object Array                                                       }& \DIFaddFL{Array with sequence of simulation IDs                                                                                                               }\\ 
+\hline
+\DIFaddFL{DV14 }& \DIFaddFL{getNumberOfMoves }& \DIFaddFL{JSON Object Array with merged actions, Number of Simulations, Player ID }& \DIFaddFL{Number of moves for the player specified for the number of simulations specified                                                                    }\\ 
+\hline
+\DIFaddFL{DV15 }& \DIFaddFL{getMap           }& \DIFaddFL{JSON Object Array with merged actions, Number of Simulations, Player ID }& \DIFaddFL{Frequency map for specified player's actions for the number of simulations specified, 2D array of action names where each index is the move number  }\\
+\hline
+\end{tabular}
+\end{table}
+\DIFaddend % \subsection{Unit Testing Scope}
 % \subsection{Tests for Functional Requirements}
 % \subsubsection{Module 1}
 % \subsubsection{Module 2}
@@ -635,7 +1087,6 @@ The tests in this subsection tend to ensure the system can obtain correct data p
 
 \bibliography{../../refs/References}
 
-\newpage
 
 \section{Appendix}
 

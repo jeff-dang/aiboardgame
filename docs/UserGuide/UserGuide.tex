@@ -1,39 +1,169 @@
 \documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
 
-\usepackage{booktabs}
-\usepackage{tabularx}
 
-\title{User Guide\\\progname}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\input{Comments}
+\input{Common}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\title{User Guide for SE 4G06 \\ An AI-based Approach to Designing Board Games} 
+\author{\authname{}}
+\date{\today}
+\author{\authname}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
 }
-
-\date{}
-
-\input{../Comments}
-\input{../Common}
+\lstset{style=mystyle}
 
 \begin{document}
 
-\begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\newpage
-
 \maketitle
+
+\section{Game Engine}
+\subsection{Installation}
+It is required that the user has Python 3.9 installed. 
+Navigate to the src folder and install the Python requirements
+\begin{lstlisting}
+cd src
+\end{lstlisting}
+\begin{lstlisting}
+pip install -r requirements.txt
+\end{lstlisting}
+\subsection{Run}
+The game engines are in the following folders for An Age Contrived and tic-tac-toe respectively:
+\begin{lstlisting}
+src/AnAgeContrived/
+\end{lstlisting}
+\begin{lstlisting}
+src/tictactoe/     
+\end{lstlisting}
+Navigate to the game you would like to simulate and run the command
+\begin{lstlisting}
+python main.py 
+\end{lstlisting}
+The following arguments can be passed to change the simulation configurations
+\begin{lstlisting}
+--training-num 10 
+// Will train the AI for 10 simulations
+
+--test-num 5 
+// Will test the AI for 5 simulations
+
+--seed 513464 
+// Seed value for the random functions
+
+--epoch 5
+// The number of iterations per simulation
+
+--resume-path log/tictactoe/dqn/policy.pth 
+// To resume training of a pre-trained AI
+
+--opponent-path log/tictactoe/dqn/policy.pth 
+// For the opponent players to have a pre-trained decision making process instead of a random policy
+\end{lstlisting}
+The output after a simulation will be a log file of simulations and a new policy that the AI has learned. The log file will be under:
+\begin{lstlisting}
+src/AnAgeContrived/ai_history/simulation_history_time_stamp.json
+\end{lstlisting}
+It will be named after a timestamp of when the simulation took place. \\
+The Polciy generated will be under 
+\begin{lstlisting}
+log/AnAgeContrived/dqn/policy.pth 
+\end{lstlisting}
+
+\section{Data Visualizer}\subsection{Installation}
+The data visualizer is in the following folder:
+\begin{lstlisting}
+src/visualization_v1
+\end{lstlisting}
+It is required that the user has the newest Node.JS version installed and npm (node package manager).
+\\\\
+Run the following command:
+\begin{lstlisting}
+npm install
+\end{lstlisting}
+\subsection{Run}
+After installation, run the following command to start the visualizer:
+\begin{lstlisting}
+npm start
+\end{lstlisting}
+\subsection{Configuration}
+The visualizer expects two files to be in the following folder:
+\begin{lstlisting}
+visualization_v1/public/files
+\end{lstlisting}
+The files are:
+\begin{itemize}
+    \item JSON file containing the simulation data
+    \item JSON file containing all the possible actions
+\end{itemize}
+Once the files are in the folder, the following file needs to be updated:
+\begin{lstlisting}
+visualization_v1/src/data/getFiles.js
+\end{lstlisting}
+This file contains an array of objects that has the following structure:
+\begin{lstlisting}
+{
+    game: "An Age Contrived",
+    name: "1000_simulations",
+    filename: "../files/1000_simulations.json",
+    actionFile: "../files/allActions.json",
+}
+\end{lstlisting}
+Update the game key to name of the game, name key to the name that will be displayed in the dropdown menus in the visualizer, filename key to the relative path to the JSON file containing the simulation data and actionFile  key to the relative path to the JSON file containing all the possible actions.
+The path is relative to the \textit{visualization\_v1/public} folder.
+\\\\
+In order to display different category types in the Tree Graph - Common Paths component, you must update the following file:
+\begin{lstlisting}
+visualization_v1/src/components/SimpleTreeGraph.js
+\end{lstlisting}
+In this file, \textit{getCategories} function must be updated. This function return an array of objects of the following structure based on the name of the game. Example:
+\begin{lstlisting}
+if (name === "Tic Tac Toe") {
+    return [
+      { name: "Start", itemStyle: { color: "green" } },
+      { name: "End Game", itemStyle: { color: "red" } },
+      { name: "0", itemStyle: { color: "lightgreen" } },
+      { name: "1", itemStyle: { color: "aqua" } },
+      { name: "2", itemStyle: { color: "gold" } },
+      { name: "3", itemStyle: { color: "plum" } },
+      { name: "4", itemStyle: { color: "purple" } },
+      { name: "5", itemStyle: { color: "lightblue" } },
+      { name: "6", itemStyle: { color: "orange" } },
+      { name: "7", itemStyle: { color: "lightsteelblue" } },
+      { name: "8", itemStyle: { color: "gray" } },
+      { name: "9", itemStyle: { color: "paleturquoise" } },
+    ];
+}
+\end{lstlisting}
+The name key corresponds to the name of the category and the itemstyle key contains an object containing the color key that expects an HTML compatible color string. The color names can be found \href{https://www.w3schools.com/tags/ref_colornames.asp}{here}.
+\\\\
+After configuration, simply refresh the app. 
 
 
 \end{document}
