@@ -8,6 +8,6 @@ This project is An AI Based Approach to Designing Board Games
 
 The folders and files for this project are as follows:
 
-docs - Documentation for the project
-refs - Reference material used for the project, including papers
-src - Source code
+- docs - Documentation for the project
+- refs - Reference material used for the project, including papers
+- src - Source code
