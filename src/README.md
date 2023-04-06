@@ -2,9 +2,6 @@
 
 The folders and files for this project are as follows:
 
-# Gym Library Dependencies:
-After the pip install gym:
-
-installed packages: cloudpickle-2.2.0 gym-0.26.1 gym-notices-0.0.8 importlib-metadata-4.12.0 numpy-1.23.3
-
-...
+- AnAgeContrived: The system with AnAgeContrived game engine implementation
+- tictactoe: The system with tic-tac-toe game engine implementation
+- visualization_v1: The data visualizer component of the system

@@ -1,6 +1,6 @@
-<Please keep the folder structure as given in the template repo.  We will
-discuss each artifact as we get to it in the course.  In some cases, like for
-the SRS, you should have a file of the same name.  For other cases, like the
+<Please keep the folder structure as given in the template repo. We will
+discuss each artifact as we get to it in the course. In some cases, like for
+the SRS, you should have a file of the same name. For other cases, like the
 design documentation, you are required to document your design, but it may not
 be via a module guide and module interface specification documents.>
 
@@ -20,4 +20,14 @@ information.  They are just intended to be a starting point.>
 
 The folders and files for this folder are as follows:
 
-Describe ...
+- CheckLists: Checklists for code and documentation standards
+- Design: System Design, Module Guide and Module Interface Specification
+- Development Plan
+- Hazard Analysis: Hazards related to the development of the project
+- Presentations: Slides relating to Rev0 and Rev1 presentation
+- Problem Statement and Goals: Intial problem statement and goal of the project
+- Reflection: Final reflection of the project
+- SRS: Software Requirement Specification
+- User Guide: Guide to use the system
+- VnV Plan: Plan for testing and verifying
+- VnV Report: Results of testing and verifying

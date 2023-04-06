@@ -7,3 +7,4 @@ pycache/
 *.pyc
 __pycache__
 simulation_history*
+.pytest*
