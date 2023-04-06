@@ -36,7 +36,7 @@ Add the following arguments for a different configuration
  --resume-path log/AnAgeContrived/dqn/policy.pth
  --seed 3435
  --training-num 10
---test-num 1
+ --test-num 1
 ```
 
 For more information refer to docs/UserGuide
