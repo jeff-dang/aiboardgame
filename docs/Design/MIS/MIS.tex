@@ -1,0 +1,706 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{amsmath, mathtools}
+
+\usepackage[round]{natbib}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fullpage}
+
+\hypersetup{
+bookmarks=true,     % show bookmarks bar?
+colorlinks=true,       % false: boxed links; true: colored links
+linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+citecolor=blue,      % color of links to bibliography
+filecolor=magenta,  % color of file links
+urlcolor=cyan          % color of external links
+}
+
+\usepackage{array}
+
+\externaldocument{SRS}
+
+\input{Comments}
+\input{Common}
+\begin{document}
+
+\title{Module Interface Specification for SE 4G06 \\ An AI-based Approach to Designing Board Games} 
+\author{\authname{}}
+\date{\today}
+\author{\authname}
+
+\date{\today}
+
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+April 3rd & 1.0 & Split up Rev 0 into 3 documents and implemented feedback\\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+\subsection{Abbreviations and Acronyms}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  SRS & Software Requirements Specification\\
+  AI & Artificial Intelligence \\
+  A & Assumption \\
+  LC & Likely Change\\
+  FR & Functional Requirement \\
+  NFR & Non Functional Requirement \\
+  FSM & Finite State Machine \\ 
+  TA & Teaching Assistant \\
+  \bottomrule
+\end{tabular}\\
+\newpage
+
+\tableofcontents
+\listoftables
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+The following document details the Module Interface Specifications for An AI-based Approach to Designing Board Games, a system that simulates thousands of board game simulations using AI to visualize winning strategies for game designers to help balance their game. 
+
+Complementary documents include the System Requirement Specifications and Module Guide.  The full documentation and implementation can be found \href{https://github.com/Dorps/aiboardgame/tree/main/docs/Design}{here}, under \href{https://github.com/Dorps/aiboardgame/tree/main/docs/Design/MG.pdf}{MG} and \href{https://github.com/Dorps/aiboardgame/tree/main/docs/DES.pdf}{DES}.
+
+See SRS Documentation \href{https://github.com/Dorps/aiboardgame/blob/main/docs/SRS}{here}, for full list of requirements.
+
+\section{Notation}
+
+The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+with the addition that template modules have been adapted from
+\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
+\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+multiple assignment statement and conditional rules follow the form $(c_1
+\Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
+
+The following table summarizes the primitive data types used by \progname. 
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\noindent 
+\begin{tabular}{l l p{7.5cm}} 
+\toprule 
+\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
+\midrule
+character & char & a single symbol or digit\\
+integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+policy & Policy & A matrix of size N-by-N, where N is the game state size \\
+string & String & A series of characters.  \\
+game state & GameState & A matrix of size N-by-N, where N is the game state size \\
+simulation & Simulation & A JSON Object that has another JSON object with the following keys: player, turn_num, action, action_details, meta_data. \\
+actions & Actions & A JSON Object that has a string as the key and null as the value. The string is the action name. \\
+\bottomrule
+\end{tabular} 
+\end{center}
+
+\noindent
+The specification of \progname \ uses some derived data types: sequences, strings, and
+tuples. Sequences are lists filled with elements of the same data type. Strings
+are sequences of characters. Tuples contain a list of values, potentially of
+different types. In addition, \progname \ uses functions, which
+are defined by the data types of their inputs and outputs. Local functions are
+described by giving their type signature followed by their specification.
+
+\section{Module Decomposition}
+
+The following table is taken directly from the Module Guide document for this project.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{0.1\textwidth} p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Module Type} & \textbf{Module Name} & \textbf{Module Description}\\
+\midrule
+AI & \multirow{1}{0.3\textwidth}{AI Agent Module} & Trains AI Agents on the game and generates a policy\\
+AI & \multirow{1}{0.3\textwidth}{Game Environment Module} & Receives input from AI Agents to take action on the game \\
+\midrule
+GE & \multirow{1}{0.24\textwidth}{Actions (Commands) Module} & {\textcolor{white}{\_\_\_}}Describes the possible game moves that the AI Agents are able to take \\
+GE & \multirow{1}{0.3\textwidth}{Game Loop \\Module} & Continues the game loop for the game and checks if the game-over condition has been fulfilled or not. \\
+\midrule
+
+DV & \multirow{1}{0.3\textwidth}{JSON Module} & Responsible for recording each AI Agents moves and observation space and putting them into a JSON file. \\
+DV & \multirow{1}{0.3\textwidth}{Graph Module} & Produce a graph selected by the user.  \\
+DV & \multirow{1}{0.3\textwidth}{JSON Data Parser \\ Module} & Parses JSON files with AI Agents' move history \\\\
+\bottomrule
+
+\end{tabular}
+\caption{Module Hierarchy}
+\label{TblMH}
+\end{table}
+
+\newpage
+
+\section{MIS of AI Agent Module} \label{AIModule} 
+\subsection{Module}
+AIAgent
+\subsection{Uses}
+Game Environment Module \ref{GEModule}
+\subsection{Syntax}
+\subsubsection{Exported Types}
+Policy = ?
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+run & $\mathbb{N}$ $\mathbb{N}$ $\mathbb{N}$ $\mathbb{N}$ String & Policy & PathDoesNotExist \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+GameEnvironment: GameEnvironment
+
+\subsubsection{Environment Variables}
+\noindent Device: The CPU or GPU the system will use to train the AI.
+
+\subsubsection{Assumptions}
+The constructor of GameEnvironment is called before the access routine is called.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent run(training-num, test-num, n-step, epoch, resume-path):
+\begin{itemize}
+\item output: out:= Policy
+\item exception: $exc: = \neg$ resume-path $\Rightarrow$ PathDoesNotExist
+\end{itemize}
+
+\newpage
+\section{MIS of Game Environment Module} \label{GEModule} 
+\subsection{Module}
+GameEnvironment
+
+\subsection{Uses}
+Game Loop \ref{GLModule}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Types}
+GameEnvironment = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{4cm} p{2cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+GameEnvironment &  & GameLog &  \\
+observe & $\mathbb{N}$ & Sequence of $\mathbb{N}$, GameState & AgentOutOfBounds \\
+legalMoves & $\mathbb{N}$ & Sequence of $\mathbb{N}$ & AgentOutOfBounds\\
+step & $\mathbb{N}$ & $\mathbb{N}$ & ActionOutOfBounds, AgentOutOfBounds\\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+player: Player \\
+engine: Game \\
+Rewards: Sequence of $\mathbb{R}$ \\
+CurrentAgent: $\mathbb{N}$\\
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+
+
+\subsubsection{Access Routine Semantics}
+
+\noindent GameEnvironment():
+\begin{itemize}
+\item transition:= \\Agents:=GameLoop.GetAgents() \\ Rewards:= Sequence of 0 of len(Agents)
+\item output: out:= GameLog
+\item exception: exc:= len(Agents) $\neg$ =len(Rewards) $\Rightarrow$ RewardOutOfBounds
+\end{itemize}
+
+\noindent observe(agent):
+\begin{itemize}
+\item output: out:= GameLoop.getActionMask(agent), GameLoop.getGameState(agent)
+\item exception: exc:= agent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds
+\end{itemize}
+
+\noindent legalMoves(agent):
+\begin{itemize}
+\item output: out:= GameLoop.getActionMask(agent)
+\item exception: exc:= agent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds
+\end{itemize}
+
+\noindent step(action):
+\begin{itemize}
+\item transition:= \\
+GameLoop.playTurn(action, CurrentAgent) \\
+CurrentAgent := NextAgent() \\
+Rewards[CurrentAgent] := GameLoop.getReward(CurrentAgent)
+\item output: out:= GameLoop.isGameOver()
+\item exception: exc:= \\
+CurrentAgent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds \\
+action $>$ len(GameLoop.getActionMask(agent)) $\Rightarrow$ ActionOutOfBounds \\
+\end{itemize}
+
+\subsubsection{Local Functions}
+\noindent NextAgent():
+\begin{itemize}
+\item output: out:= (CurrentAgent + 1) mod len(Agents)
+\end{itemize}
+
+\newpage
+\section{MIS of Actions (Commands) Module} \label{ActionModule} 
+\subsection{Module}
+Command
+
+\subsection{Uses}
+Game Loop \ref{GLModule}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Types}
+Command = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Command & Player, Game Engine & Action &  \\
+execute & & & \\
+check & &Boolean & \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+player: Player \\
+engine: GameLoop \\
+action: String \\
+action\_details: String\\
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+There can be more state variables in the child classes based on the complexity of the action. However, this MIS describes the parent Command module.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent Command(player, engine):
+\begin{itemize}
+\item transition :=\\
+player := player\\
+engine := engine
+\item output: out:= Action
+\item exception: N/A
+\end{itemize}
+
+\noindent execute():
+\begin{itemize}
+\item transition: := engine := engine\_new\_state\\
+The transition will be a new state to engine based on the action\\
+so only defined semi-formally here as general as possible
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent check():
+\begin{itemize}
+\item output: out:= Boolean
+\item exception: N/A
+\end{itemize}
+
+\newpage
+\section{MIS of Game Loop Module} \label{GLModule} 
+\subsection{Module}
+GameLoop
+
+\subsection{Uses}
+N/A
+
+\subsection{Syntax}
+\subsubsection{Exported Types}
+GameLoop = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+GameLoop & & &  \\
+getAgents & & Sequence of Player Objects & \\
+getActionMask & $\mathbb{N}$ & & NoCommandModuleFound, AgentOutOfBounds\\
+getGameState & $\mathbb{N}$ & & AgentOutOfBounds\\
+getReward & $\mathbb{N}$ & & AgentOutOfBounds\\
+playTurn & Command Object, $\mathbb{N}$ & & AgentOutOfBounds\\
+checkGameOver & & Boolean & \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+turn\_counter: int \\
+% map: Map  \textcolor{red}{if we define the type as Map, do we have to do MIS for Map module as well}\\
+agents: Sequence of Players \\
+state: Sequence of Sequences of int\\
+turn\_state: Enum\\
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+There will be more state variables and access routines defined to implement the game rules but they are not listed here since they are game dependent.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent GameLoop(agent\_list, initial\_state):
+\begin{itemize}
+\item transition :=\\
+turn\_counter := 0\\
+agents := agent\_list\\
+state := initial\_state
+\item output: out := GameLoop
+\item exception: N/A
+\end{itemize}
+
+\noindent getAgents():
+\begin{itemize}
+\item output: out := agents
+\item exception: N/A
+\end{itemize}
+
+\noindent getActionMask(agent):
+\begin{itemize}
+\item output: out := Sequence of Command Objects
+\item exception: \\
+exc1 := agent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds \\
+exc2 := NoCommandModuleFound
+\end{itemize}
+
+\noindent getGameState(agent):
+\begin{itemize}
+\item output: out := state
+\item exception: exc := agent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds
+\end{itemize}
+
+\noindent getReward(agent):
+\begin{itemize}
+\item output: out := agent.get\_rewards()
+\item exception: exc := agent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds
+\end{itemize}
+
+\noindent playTurn(action, agent):
+\begin{itemize}
+\item transition engine := action.execute()
+\item exception: exc := agent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds
+\end{itemize}
+
+\noindent checkGameOver():
+\begin{itemize}
+\item output out := if state.game\_complete $\Rightarrow$ True else $\Rightarrow$ False
+\item exception: exc := agent $>$ len(Agents) $\Rightarrow$ AgentOutOfBounds
+\end{itemize}
+
+\newpage
+\section{MIS of JSON Module} \label{JSONModule} 
+\subsection{Module}
+JSON
+\subsection{Uses}
+Game Environment Module \ref{GEModule}
+\subsection{Syntax}
+\subsubsection{Exported Types}
+JSON = ?
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{4cm} p{3cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+jsonNamer & String & String &  &
+jsonDirectory & String & String &   &
+jsonWriter & String, String & JSON & PathDoesNotExist  &
+jsonDump & String, String &  & FileDoesNotExist  &
+jsonActionConverter & String, Sequence of String & JSON & &
+\\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+cur\_directory : String \\
+cur\_time : String
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent jsonNamer(folder\_name):
+\begin{itemize}
+\item transition: N/A
+\item output: out:= String
+\item exception: N/A
+\end{itemize}
+
+\noindent jsonDirectory(folder\_path, json\_name):
+\begin{itemize}
+\item transition: N/A
+\item output: out:= String
+\item exception:   
+\end{itemize}
+
+\noindent jsonWriter(folder\_name, json\_name):
+\begin{itemize}
+\item transition: N/A
+\item output: out:= JSON
+\item exception: exc := if path.exists(folder\_path) $\Rightarrow$ False $\Rightarrow$ PathDoesNotExist
+\end{itemize}
+
+\noindent jsonDump(simulation\_history, json\_name):
+\begin{itemize}
+\item transition:= := JSON
+\item output: out:= N/A
+\item exception: exc := if file.exists(json\_name) $\Rightarrow$ False $\Rightarrow$ FileDoesNotExist
+\end{itemize}
+
+\noindent jsonActionConverter(folder\_name, action\_list):
+\begin{itemize}
+\item transition:= N/A
+\item output: out:= JSON
+\item exception: exc := if path.exists(folder\_name) $\Rightarrow$ False $\Rightarrow$ PathDoesNotExist
+\end{itemize}
+\newpage
+\section{MIS of Graph Module} \label{GraphModule} 
+\subsection{Module}
+Graph
+
+\subsection{Uses}
+JSONDataParser \ref{DataParserModule}
+
+\subsection{Syntax}
+N/A
+\subsubsection{Exported Types}
+N/A
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+render & & HTML &  \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+This module will render a graph using the JSONDataParser methods. It will be upto the developer to create their custom graphs.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent render():
+\begin{itemize}
+\item transition := N/A
+\item output: out:= HTML
+\item exception: N/A
+\end{itemize}
+
+\newpage
+\section{MIS of JSON Data Parser Module} \label{DataParserModule} 
+\subsection{Module}
+JsonDataParser
+
+\subsection{Uses}
+JSON Module \ref{JSONModule}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Types}
+DataParser
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{5cm} p{4cm} p{4cm} p{3cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+DataParser & Simulation[] & DataParser &  \\
+setAllData & Simulation[] & & \\
+setAllActions & Actions JSON Object & & \\
+getAllData & & Simulation[] & \\
+getAllActions & & Actions JSON Object & \\
+getAllDataExEnd & Simulation[] & Simulation[]  & \\
+getDataWithMergedActions & Simulation[] & Simulation[]  & \\
+getSimulationData & Simulation[], $\mathbb{Z}, \mathbb{Z}$ & Simulation[]  & \\
+getPlayerData & Simulation, $\mathbb{Z}$ & JSON Object  & \\
+getScores & Simulation[], $\mathbb{Z}$, $\mathbb{Z}$  & JSON Object[]  & \\
+getNumberOfPlayers & Simulation[] & String[]  & \\
+getNumberOfSimulations & Simulation[] & $\mathbb{Z}$  & \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+data: Simulation[]
+allActions: Actions JSON Object
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+This module assumes that the developer will be able to parse the JSON files properly.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent DataParser()(data):
+\begin{itemize}
+\item transition := data := data
+\item output: out:= self
+\item exception: N/A
+\end{itemize}
+
+\noindent setAllData(data):
+\begin{itemize}
+\item transition := data := data
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent setAllActions(allActions):
+\begin{itemize}
+\item transition := allActions := allActions
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent getAllData():
+\begin{itemize}
+\item transition := N/A
+\item output: data
+\item exception: N/A
+\end{itemize}
+
+\noindent getAllActions():
+\begin{itemize}
+\item transition := N/A
+\item output: allActions
+\item exception: N/A
+\end{itemize}
+
+\noindent getAllDataExEnd(inputData):
+\begin{itemize}
+\item transition := \\
+result := []\\
+$\forall s: inputData. s < |inputData|-1. sim = \{\}; (\forall i: simulationData[s]. i < |simulationData[s]|-1. simulationData[s][i].action \neq$ "End Turn" $\Rightarrow sim.add(simulationData[s][i])) \Rightarrow result.add(sim)$
+\item output: result
+\item exception: N/A
+\end{itemize}
+
+\noindent getDataWithMergedActions(inputData):
+\begin{itemize}
+\item transition := \\
+result := []\\
+$\forall s: inputData. s < |inputData|-1. sim = \{\}; (\forall i: simulationData[s]. i < |simulationData[s]|-1. simulationData[s][i].action \neq$ "meta\_data" $\Rightarrow simulationData[s][i].action = simulationData[s][i].action + simulationData[s][i].action\_detail; sim.add(simulationData[s][i])) \Rightarrow result.add(sim)$
+\item output: result
+\item exception: N/A
+\end{itemize}
+
+\noindent getSimulationData(inputData, startIndex, endIndex):
+\begin{itemize}
+\item transition := \\
+result := []\\
+$\forall s: inputData. s >= startIndex \& s < endIndex. \Rightarrow 
+result.add(inputData[s])$
+\item output: result
+\item exception: N/A
+\end{itemize}
+
+\noindent getPlayerData(inputData, player):
+\begin{itemize}
+\item transition := \\
+result := \{\}\\
+$\forall s: inputData. s < |inputData| - 1 . inputData[s].player = player \Rightarrow 
+result.add(s)$
+\item output: result
+\item exception: N/A
+\end{itemize}
+
+\noindent getScores(inputData, startSim, endSim):
+\begin{itemize}
+\item transition := \\
+result := []\\
+simulationData := getSimulationData(inputData, startSim, endSim)\\
+$\forall s: simulationData. s < |simulationData|-1. sim = \{\}; (\forall i: simulationData[s]. i < |simulationData[s]|-1. i.action = $ "meta\_data" $\Rightarrow sim.add(simulationData[s][i])) \Rightarrow result.add(sim)$
+\item output: result
+\item exception: N/A
+\end{itemize}
+
+\noindent getNumberOfPlayers(inputData):
+\begin{itemize}
+\item transition := \\
+result := []\\
+$\exists s: inputData. (\exisits i: inputData[s]. i.action = $ "meta\_data" $\Rightarrow i) \Rightarrow \forall p: i. result.add(p.split($"\_"$)[1])$
+\item output: result
+\item exception: N/A
+\end{itemize}
+
+\noindent getNumberOfSimulations(inputData):
+\begin{itemize}
+\item transition := \\
+result := []\\
+$\forall s: inputData. s < |inputData|-1.  \Rightarrow result.add(s)$
+\item output: result
+\item exception: N/A
+\end{itemize}
+
+\section{Appendix} \label{Appendix}
+
+\bibliographystyle {plainnat}
+\bibliography {References}
+
+
+\end{document}
